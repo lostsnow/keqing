@@ -1,0 +1,10 @@
+# app main config
+
+telegram:
+  token: XXX
+  poll-duration: 10s
+  verbose: false
+
+proxy: socks5://127.0.0.1:1090
+
+admins: []
