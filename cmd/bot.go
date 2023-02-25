@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/litsea/logger"
 	"github.com/lostsnow/keqing/internal/handler"
+	"github.com/lostsnow/keqing/pkg/i18n"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"gopkg.in/telebot.v3"
@@ -23,6 +24,7 @@ var botCmd = &cobra.Command{
 			return
 		}
 
+		b.Use(i18n.SetLanguage())
 		setHandler(b)
 
 		b.Start()

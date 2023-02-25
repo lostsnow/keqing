@@ -1,0 +1,12 @@
+{
+    "language": "en-US",
+    "messages": [
+        {
+            "id": "Cut to the chase",
+            "message": "Cut to the chase",
+            "translation": "Cut to the chase",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        }
+    ]
+}
