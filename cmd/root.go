@@ -2,11 +2,14 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/lostsnow/keqing/internal/config"
 	"os"
 
+	"github.com/litsea/logger"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+
+	"github.com/lostsnow/keqing/internal/config"
+	"github.com/lostsnow/keqing/internal/db"
 )
 
 var (
@@ -35,6 +38,9 @@ func init() {
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is ./configs/app.yml)")
 	rootCmd.PersistentFlags().StringVar(&profilerHost, "profiler-host", "127.0.0.1", "profiler host")
 	rootCmd.PersistentFlags().IntVar(&profilerPort, "profiler-port", 0, "profiler port")
+
+	rootCmd.AddCommand(migrateCmd)
+	rootCmd.AddCommand(botCmd)
 }
 
 func initConfig() {
@@ -45,6 +51,11 @@ func initConfig() {
 		config.InitLogger()
 	} else {
 		fmt.Println(err)
+		os.Exit(1)
+	}
+
+	if err := (&db.Client{}).Init(); err != nil {
+		logger.Error(err)
 		os.Exit(1)
 	}
 

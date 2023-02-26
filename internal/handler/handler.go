@@ -2,8 +2,10 @@ package handler
 
 import (
 	"fmt"
-	"github.com/lostsnow/keqing/pkg/i18n"
+
 	"gopkg.in/telebot.v3"
+
+	"github.com/lostsnow/keqing/pkg/i18n"
 )
 
 func Help(ctx telebot.Context) error {

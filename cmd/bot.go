@@ -2,21 +2,23 @@ package cmd
 
 import (
 	"fmt"
+	"net/http"
+	"net/url"
+	"strconv"
+
 	"github.com/litsea/logger"
-	"github.com/lostsnow/keqing/internal/handler"
-	"github.com/lostsnow/keqing/pkg/i18n"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"gopkg.in/telebot.v3"
 	"gopkg.in/telebot.v3/middleware"
-	"net/http"
-	"net/url"
-	"strconv"
+
+	"github.com/lostsnow/keqing/internal/handler"
+	"github.com/lostsnow/keqing/pkg/i18n"
 )
 
 var botCmd = &cobra.Command{
 	Use:   "bot",
-	Short: "Bot",
+	Short: "serve bot",
 	Run: func(cmd *cobra.Command, args []string) {
 		b, err := newBot()
 		if err != nil {
@@ -78,8 +80,4 @@ func setHandler(b *telebot.Bot) {
 	ag.Use(middleware.Whitelist(adminIds...))
 
 	ag.Handle("/trace", handler.Trace)
-}
-
-func init() {
-	rootCmd.AddCommand(botCmd)
 }

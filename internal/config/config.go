@@ -11,6 +11,7 @@ import (
 
 func SetDefault() {
 	viper.SetDefault("telegram.poll-duration", "10s")
+	viper.SetDefault("db.type", "mysql")
 }
 
 func ReadConfig(cfgFile, configPath string) error {

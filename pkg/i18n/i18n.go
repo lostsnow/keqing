@@ -4,10 +4,11 @@ package i18n
 
 import (
 	"fmt"
+	"strings"
+
 	"golang.org/x/text/language"
 	"golang.org/x/text/message"
 	"gopkg.in/telebot.v3"
-	"strings"
 )
 
 const (
