@@ -11,7 +11,14 @@ import (
 
 func SetDefault() {
 	viper.SetDefault("telegram.poll-duration", "10s")
+	viper.SetDefault("assets.base-url", "http://127.0.0.1:8601")
+	viper.SetDefault("assets.host", "0.0.0.0")
+	viper.SetDefault("assets.port", 8601)
 	viper.SetDefault("db.type", "mysql")
+	viper.SetDefault("db.host", "127.0.0.1")
+	viper.SetDefault("db.port", 3306)
+	viper.SetDefault("db.dbname", "keqing")
+	viper.SetDefault("cache.dir", "tmp/cache")
 }
 
 func ReadConfig(cfgFile, configPath string) error {

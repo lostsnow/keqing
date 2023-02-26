@@ -1,7 +1,5 @@
 package i18n
 
-//go:generate gotext -srclang=en-US update -out=catalog/catalog.go -lang=en-US,zh-Hans github.com/lostsnow/keqing
-
 import (
 	"fmt"
 	"strings"
@@ -9,7 +7,11 @@ import (
 	"golang.org/x/text/language"
 	"golang.org/x/text/message"
 	"gopkg.in/telebot.v3"
+
+	_ "github.com/lostsnow/keqing/pkg/i18n/catalog"
 )
+
+//go:generate gotext -srclang=en-US update -out=./catalog/catalog.go -lang=en-US,zh-Hans github.com/lostsnow/keqing
 
 const (
 	MessagePrinter = "MessagePrinter"
@@ -53,4 +55,19 @@ func T(ctx telebot.Context, format string, args ...any) string {
 		return fmt.Sprintf(format, args...)
 	}
 	return p.Sprintf(format, args...)
+}
+
+func TS(format string, args ...any) []string {
+	var ns = make([]string, 0, len(langMap))
+	v := make(map[string]struct{})
+	for _, l := range langMap {
+		p := getPrinter(l)
+		s := p.Sprintf(format, args...)
+		if _, ok := v[s]; ok {
+			continue
+		}
+		v[s] = struct{}{}
+		ns = append(ns, s)
+	}
+	return ns
 }

@@ -41,6 +41,7 @@ func init() {
 
 	rootCmd.AddCommand(migrateCmd)
 	rootCmd.AddCommand(botCmd)
+	rootCmd.AddCommand(assetsCmd)
 }
 
 func initConfig() {

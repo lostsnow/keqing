@@ -39,19 +39,161 @@ func init() {
 }
 
 var messageKeyToIndex = map[string]int{
-	"Cut to the chase": 0,
+	"Albedo":                  67,
+	"Alhaitham":               49,
+	"Aloy":                    59,
+	"Amber":                   6,
+	"Anemo":                   73,
+	"Arataki Itto":            68,
+	"Barbara":                 16,
+	"Beidou":                  36,
+	"Bennett":                 3,
+	"Candace":                 21,
+	"Chongyun":                51,
+	"Collei":                  47,
+	"Cryo":                    76,
+	"Cut to the chase":        0,
+	"Cyno":                    44,
+	"Dehya":                   13,
+	"Dendro":                  75,
+	"Diluc":                   7,
+	"Diona":                   54,
+	"Dori":                    43,
+	"Electro":                 74,
+	"Eula":                    57,
+	"Faruzan":                 31,
+	"Fischl":                  35,
+	"Ganyu":                   55,
+	"Geo":                     77,
+	"Gorou":                   69,
+	"Hu Tao":                  9,
+	"Hydro":                   72,
+	"Jean":                    26,
+	"Kaedehara Kazuha":        28,
+	"Kaeya":                   53,
+	"Kamisato Ayaka":          58,
+	"Kamisato Ayato":          19,
+	"Keqing":                  34,
+	"Klee":                    4,
+	"Kujou Sara":              39,
+	"Kuki Shinobu":            42,
+	"Layla":                   61,
+	"Lisa":                    38,
+	"Mika":                    62,
+	"Mona":                    14,
+	"Nahida":                  48,
+	"Nilou":                   22,
+	"Ningguang":               65,
+	"No such character":       1,
+	"No such character guide": 2,
+	"Noelle":                  64,
+	"Pyro":                    71,
+	"Qiqi":                    52,
+	"Raiden Shogun":           40,
+	"Razor":                   37,
+	"Rosaria":                 56,
+	"Sangonomiya Kokomi":      18,
+	"Sayu":                    29,
+	"Shenhe":                  60,
+	"Shikanoin Heizou":        30,
+	"Sucrose":                 24,
+	"Tartaglia":               17,
+	"Thoma":                   12,
+	"Tighnari":                46,
+	"Traveler Anemo":          23,
+	"Traveler Dendro":         45,
+	"Traveler Electro":        33,
+	"Traveler Geo":            63,
+	"Venti":                   25,
+	"Wanderer":                32,
+	"Xiangling":               5,
+	"Xiao":                    27,
+	"Xingqiu":                 15,
+	"Xinyan":                  8,
+	"Yae Miko":                41,
+	"Yanfei":                  10,
+	"Yaoyao":                  50,
+	"Yelan":                   20,
+	"Yoimiya":                 11,
+	"Yun Jin":                 70,
+	"Zhongli":                 66,
 }
 
-var en_USIndex = []uint32{ // 2 elements
-	0x00000000, 0x00000011,
-} // Size: 32 bytes
+var en_USIndex = []uint32{ // 79 elements
+	// Entry 0 - 1F
+	0x00000000, 0x00000011, 0x00000023, 0x0000003b,
+	0x00000043, 0x00000048, 0x00000052, 0x00000058,
+	0x0000005e, 0x00000065, 0x0000006c, 0x00000073,
+	0x0000007b, 0x00000081, 0x00000087, 0x0000008c,
+	0x00000094, 0x0000009c, 0x000000a6, 0x000000b9,
+	0x000000c8, 0x000000ce, 0x000000d6, 0x000000dc,
+	0x000000eb, 0x000000f3, 0x000000f9, 0x000000fe,
+	0x00000103, 0x00000114, 0x00000119, 0x0000012a,
+	// Entry 20 - 3F
+	0x00000132, 0x0000013b, 0x0000014c, 0x00000153,
+	0x0000015a, 0x00000161, 0x00000167, 0x0000016c,
+	0x00000177, 0x00000185, 0x0000018e, 0x0000019b,
+	0x000001a0, 0x000001a5, 0x000001b5, 0x000001be,
+	0x000001c5, 0x000001cc, 0x000001d6, 0x000001dd,
+	0x000001e6, 0x000001eb, 0x000001f1, 0x000001f7,
+	0x000001fd, 0x00000205, 0x0000020a, 0x00000219,
+	0x0000021e, 0x00000225, 0x0000022b, 0x00000230,
+	// Entry 40 - 5F
+	0x0000023d, 0x00000244, 0x0000024e, 0x00000256,
+	0x0000025d, 0x0000026a, 0x00000270, 0x00000278,
+	0x0000027d, 0x00000283, 0x00000289, 0x00000291,
+	0x00000298, 0x0000029d, 0x000002a1,
+} // Size: 340 bytes
 
-const en_USData string = "\x02Cut to the chase"
+const en_USData string = "" + // Size: 673 bytes
+	"\x02Cut to the chase\x02No such character\x02No such character guide\x02" +
+	"Bennett\x02Klee\x02Xiangling\x02Amber\x02Diluc\x02Xinyan\x02Hu Tao\x02Ya" +
+	"nfei\x02Yoimiya\x02Thoma\x02Dehya\x02Mona\x02Xingqiu\x02Barbara\x02Tarta" +
+	"glia\x02Sangonomiya Kokomi\x02Kamisato Ayato\x02Yelan\x02Candace\x02Nilo" +
+	"u\x02Traveler Anemo\x02Sucrose\x02Venti\x02Jean\x02Xiao\x02Kaedehara Kaz" +
+	"uha\x02Sayu\x02Shikanoin Heizou\x02Faruzan\x02Wanderer\x02Traveler Elect" +
+	"ro\x02Keqing\x02Fischl\x02Beidou\x02Razor\x02Lisa\x02Kujou Sara\x02Raide" +
+	"n Shogun\x02Yae Miko\x02Kuki Shinobu\x02Dori\x02Cyno\x02Traveler Dendro" +
+	"\x02Tighnari\x02Collei\x02Nahida\x02Alhaitham\x02Yaoyao\x02Chongyun\x02Q" +
+	"iqi\x02Kaeya\x02Diona\x02Ganyu\x02Rosaria\x02Eula\x02Kamisato Ayaka\x02A" +
+	"loy\x02Shenhe\x02Layla\x02Mika\x02Traveler Geo\x02Noelle\x02Ningguang" +
+	"\x02Zhongli\x02Albedo\x02Arataki Itto\x02Gorou\x02Yun Jin\x02Pyro\x02Hyd" +
+	"ro\x02Anemo\x02Electro\x02Dendro\x02Cryo\x02Geo"
 
-var zh_HansIndex = []uint32{ // 2 elements
-	0x00000000, 0x0000000d,
-} // Size: 32 bytes
+var zh_HansIndex = []uint32{ // 79 elements
+	// Entry 0 - 1F
+	0x00000000, 0x0000000d, 0x0000001a, 0x00000038,
+	0x00000042, 0x00000049, 0x00000050, 0x00000057,
+	0x00000061, 0x00000068, 0x0000006f, 0x00000076,
+	0x0000007d, 0x00000084, 0x0000008e, 0x00000095,
+	0x0000009c, 0x000000a6, 0x000000b3, 0x000000c3,
+	0x000000d0, 0x000000d7, 0x000000e1, 0x000000e8,
+	0x000000f7, 0x000000fe, 0x00000105, 0x00000109,
+	0x0000010d, 0x0000011a, 0x00000121, 0x00000131,
+	// Entry 20 - 3F
+	0x0000013b, 0x00000145, 0x00000154, 0x0000015b,
+	0x00000165, 0x0000016c, 0x00000173, 0x0000017a,
+	0x00000187, 0x00000194, 0x000001a1, 0x000001ab,
+	0x000001b2, 0x000001b9, 0x000001c8, 0x000001d2,
+	0x000001d9, 0x000001e3, 0x000001f0, 0x000001f7,
+	0x000001fe, 0x00000205, 0x0000020c, 0x00000216,
+	0x0000021d, 0x0000022a, 0x00000231, 0x0000023e,
+	0x00000248, 0x0000024f, 0x00000259, 0x00000260,
+	// Entry 40 - 5F
+	0x0000026f, 0x00000279, 0x00000280, 0x00000287,
+	0x00000291, 0x0000029e, 0x000002a5, 0x000002ac,
+	0x000002b0, 0x000002b4, 0x000002b8, 0x000002bc,
+	0x000002c0, 0x000002c4, 0x000002c8,
+} // Size: 340 bytes
 
-const zh_HansData string = "\x02斩尽牛杂"
+const zh_HansData string = "" + // Size: 712 bytes
+	"\x02斩尽牛杂\x02查无此人\x02此人很神秘, 没有情报\x02班尼特\x02可莉\x02香菱\x02安柏\x02迪卢克\x02辛焱" +
+	"\x02胡桃\x02烟绯\x02宵宫\x02托马\x02迪希雅\x02莫娜\x02行秋\x02芭芭拉\x02达达利亚\x02珊瑚宫心海\x02神" +
+	"里绫人\x02夜兰\x02坎蒂丝\x02妮露\x02旅行者(风)\x02砂糖\x02温迪\x02琴\x02魈\x02枫原万叶\x02早柚" +
+	"\x02鹿野院平藏\x02珐露珊\x02流浪者\x02旅行者(雷)\x02刻晴\x02菲谢尔\x02北斗\x02雷泽\x02丽莎\x02九条裟罗" +
+	"\x02雷电将军\x02八重神子\x02久岐忍\x02多莉\x02赛诺\x02旅行者(草)\x02提纳里\x02柯莱\x02纳西妲\x02艾尔海" +
+	"森\x02瑶瑶\x02重云\x02七七\x02凯亚\x02迪奥娜\x02甘雨\x02罗莎莉亚\x02优菈\x02神里绫华\x02埃洛伊" +
+	"\x02申鹤\x02莱依拉\x02米卡\x02旅行者(岩)\x02诺艾尔\x02凝光\x02钟离\x02阿贝多\x02荒泷一斗\x02五郎" +
+	"\x02云堇\x02火\x02水\x02风\x02雷\x02草\x02冰\x02岩"
 
-// Total table size 94 bytes (0KiB); checksum: 1433E078
+	// Total table size 2065 bytes (2KiB); checksum: 8F72B89C

@@ -7,6 +7,545 @@
             "translation": "Cut to the chase",
             "translatorComment": "Copied from source.",
             "fuzzy": true
+        },
+        {
+            "id": "No such character",
+            "message": "No such character",
+            "translation": "No such character",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "No such character guide",
+            "message": "No such character guide",
+            "translation": "No such character guide",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Bennett",
+            "message": "Bennett",
+            "translation": "Bennett",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Klee",
+            "message": "Klee",
+            "translation": "Klee",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Xiangling",
+            "message": "Xiangling",
+            "translation": "Xiangling",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Amber",
+            "message": "Amber",
+            "translation": "Amber",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Diluc",
+            "message": "Diluc",
+            "translation": "Diluc",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Xinyan",
+            "message": "Xinyan",
+            "translation": "Xinyan",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Hu Tao",
+            "message": "Hu Tao",
+            "translation": "Hu Tao",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Yanfei",
+            "message": "Yanfei",
+            "translation": "Yanfei",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Yoimiya",
+            "message": "Yoimiya",
+            "translation": "Yoimiya",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Thoma",
+            "message": "Thoma",
+            "translation": "Thoma",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Dehya",
+            "message": "Dehya",
+            "translation": "Dehya",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Mona",
+            "message": "Mona",
+            "translation": "Mona",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Xingqiu",
+            "message": "Xingqiu",
+            "translation": "Xingqiu",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Barbara",
+            "message": "Barbara",
+            "translation": "Barbara",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Tartaglia",
+            "message": "Tartaglia",
+            "translation": "Tartaglia",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Sangonomiya Kokomi",
+            "message": "Sangonomiya Kokomi",
+            "translation": "Sangonomiya Kokomi",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Kamisato Ayato",
+            "message": "Kamisato Ayato",
+            "translation": "Kamisato Ayato",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Yelan",
+            "message": "Yelan",
+            "translation": "Yelan",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Candace",
+            "message": "Candace",
+            "translation": "Candace",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Nilou",
+            "message": "Nilou",
+            "translation": "Nilou",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Traveler Anemo",
+            "message": "Traveler Anemo",
+            "translation": "Traveler Anemo",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Sucrose",
+            "message": "Sucrose",
+            "translation": "Sucrose",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Venti",
+            "message": "Venti",
+            "translation": "Venti",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Jean",
+            "message": "Jean",
+            "translation": "Jean",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Xiao",
+            "message": "Xiao",
+            "translation": "Xiao",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Kaedehara Kazuha",
+            "message": "Kaedehara Kazuha",
+            "translation": "Kaedehara Kazuha",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Sayu",
+            "message": "Sayu",
+            "translation": "Sayu",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Shikanoin Heizou",
+            "message": "Shikanoin Heizou",
+            "translation": "Shikanoin Heizou",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Faruzan",
+            "message": "Faruzan",
+            "translation": "Faruzan",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Wanderer",
+            "message": "Wanderer",
+            "translation": "Wanderer",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Traveler Electro",
+            "message": "Traveler Electro",
+            "translation": "Traveler Electro",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Keqing",
+            "message": "Keqing",
+            "translation": "Keqing",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Fischl",
+            "message": "Fischl",
+            "translation": "Fischl",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Beidou",
+            "message": "Beidou",
+            "translation": "Beidou",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Razor",
+            "message": "Razor",
+            "translation": "Razor",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Lisa",
+            "message": "Lisa",
+            "translation": "Lisa",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Kujou Sara",
+            "message": "Kujou Sara",
+            "translation": "Kujou Sara",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Raiden Shogun",
+            "message": "Raiden Shogun",
+            "translation": "Raiden Shogun",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Yae Miko",
+            "message": "Yae Miko",
+            "translation": "Yae Miko",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Kuki Shinobu",
+            "message": "Kuki Shinobu",
+            "translation": "Kuki Shinobu",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Dori",
+            "message": "Dori",
+            "translation": "Dori",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Cyno",
+            "message": "Cyno",
+            "translation": "Cyno",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Traveler Dendro",
+            "message": "Traveler Dendro",
+            "translation": "Traveler Dendro",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Tighnari",
+            "message": "Tighnari",
+            "translation": "Tighnari",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Collei",
+            "message": "Collei",
+            "translation": "Collei",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Nahida",
+            "message": "Nahida",
+            "translation": "Nahida",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Alhaitham",
+            "message": "Alhaitham",
+            "translation": "Alhaitham",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Yaoyao",
+            "message": "Yaoyao",
+            "translation": "Yaoyao",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Chongyun",
+            "message": "Chongyun",
+            "translation": "Chongyun",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Qiqi",
+            "message": "Qiqi",
+            "translation": "Qiqi",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Kaeya",
+            "message": "Kaeya",
+            "translation": "Kaeya",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Diona",
+            "message": "Diona",
+            "translation": "Diona",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Ganyu",
+            "message": "Ganyu",
+            "translation": "Ganyu",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Rosaria",
+            "message": "Rosaria",
+            "translation": "Rosaria",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Eula",
+            "message": "Eula",
+            "translation": "Eula",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Kamisato Ayaka",
+            "message": "Kamisato Ayaka",
+            "translation": "Kamisato Ayaka",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Aloy",
+            "message": "Aloy",
+            "translation": "Aloy",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Shenhe",
+            "message": "Shenhe",
+            "translation": "Shenhe",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Layla",
+            "message": "Layla",
+            "translation": "Layla",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Mika",
+            "message": "Mika",
+            "translation": "Mika",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Traveler Geo",
+            "message": "Traveler Geo",
+            "translation": "Traveler Geo",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Noelle",
+            "message": "Noelle",
+            "translation": "Noelle",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Ningguang",
+            "message": "Ningguang",
+            "translation": "Ningguang",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Zhongli",
+            "message": "Zhongli",
+            "translation": "Zhongli",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Albedo",
+            "message": "Albedo",
+            "translation": "Albedo",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Arataki Itto",
+            "message": "Arataki Itto",
+            "translation": "Arataki Itto",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Gorou",
+            "message": "Gorou",
+            "translation": "Gorou",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Yun Jin",
+            "message": "Yun Jin",
+            "translation": "Yun Jin",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Pyro",
+            "message": "Pyro",
+            "translation": "Pyro",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Hydro",
+            "message": "Hydro",
+            "translation": "Hydro",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Anemo",
+            "message": "Anemo",
+            "translation": "Anemo",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Electro",
+            "message": "Electro",
+            "translation": "Electro",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Dendro",
+            "message": "Dendro",
+            "translation": "Dendro",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Cryo",
+            "message": "Cryo",
+            "translation": "Cryo",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Geo",
+            "message": "Geo",
+            "translation": "Geo",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
         }
     ]
 }

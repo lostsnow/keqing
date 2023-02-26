@@ -13,6 +13,7 @@ import (
 	"gopkg.in/telebot.v3/middleware"
 
 	"github.com/lostsnow/keqing/internal/handler"
+	"github.com/lostsnow/keqing/internal/handler/character"
 	"github.com/lostsnow/keqing/pkg/i18n"
 )
 
@@ -66,7 +67,10 @@ func newBot() (*telebot.Bot, error) {
 }
 
 func setHandler(b *telebot.Bot) {
+	b.Use(middleware.Logger())
 	b.Handle("/help", handler.Help)
+
+	b.Handle("/char_guide", character.Guide)
 
 	ag := b.Group()
 	admins := viper.GetStringSlice("admins")

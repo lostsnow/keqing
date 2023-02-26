@@ -55,7 +55,7 @@ go run main.go migrate apply
 install gotext cmd
 
 ```shell
-go install golang.org/x/text/cmd/gotext@latest
+go install golang.org/x/text/cmd/gotext@master
 ```
 
 generate catalog
