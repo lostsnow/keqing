@@ -63,3 +63,7 @@ generate catalog
 ```shell
 go generate -v ./pkg/i18n
 ```
+
+## Thanks
+
+* Character guide: https://www.miyoushe.com/ys/collection/642956
