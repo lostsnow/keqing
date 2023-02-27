@@ -3,6 +3,7 @@
 telegram:
   token: XXX
   poll-duration: 10s
+  debug: false
   verbose: false
 
 proxy: socks5://127.0.0.1:1090

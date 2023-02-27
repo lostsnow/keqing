@@ -67,9 +67,11 @@ func newBot() (*telebot.Bot, error) {
 }
 
 func setHandler(b *telebot.Bot) {
-	b.Use(middleware.Logger())
-	b.Handle("/help", handler.Help)
+	if viper.GetBool("telegram.debug") {
+		b.Use(middleware.Logger())
+	}
 
+	b.Handle("/help", handler.Help)
 	b.Handle("/char_guide", character.Guide)
 
 	ag := b.Group()

@@ -62,7 +62,7 @@ func Guide(ctx telebot.Context) error {
 	p := &telebot.Photo{File: telebot.FromDisk(cacheFilePath)}
 	err = ctx.Send(p)
 	if err != nil {
-		return err
+		return fmt.Errorf("send guide failed: %s", err)
 	}
 
 	if p.FileID == "" {
@@ -81,14 +81,6 @@ func downloadFile(fileDir, fileName string, url string) error {
 		}
 	}
 
-	// Create the file
-	filePath := fmt.Sprintf("%s/%s", fileDir, fileName)
-	out, err := os.Create(filePath)
-	if err != nil {
-		return fmt.Errorf("create download file %s failed: %s", filePath, err)
-	}
-	defer out.Close()
-
 	// Get the data
 	resp, err := http.Get(url)
 	if err != nil {
@@ -99,9 +91,19 @@ func downloadFile(fileDir, fileName string, url string) error {
 		return ErrDownloadFileNotFound
 	}
 
+	// Create the file
+	filePath := fmt.Sprintf("%s/%s", fileDir, fileName)
+	out, err := os.Create(filePath)
+	if err != nil {
+		_ = os.Remove(filePath)
+		return fmt.Errorf("create download file %s failed: %s", filePath, err)
+	}
+	defer out.Close()
+
 	// Writer the body to file
 	_, err = io.Copy(out, resp.Body)
 	if err != nil {
+		_ = os.Remove(filePath)
 		return fmt.Errorf("write download file %s failed: %s", filePath, err)
 	}
 
