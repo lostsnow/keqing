@@ -73,6 +73,7 @@ func setHandler(b *telebot.Bot) {
 
 	b.Handle("/help", handler.Help)
 	b.Handle("/char_guide", character.Guide)
+	b.Handle("/char_material", character.Material)
 
 	ag := b.Group()
 	admins := viper.GetStringSlice("admins")
