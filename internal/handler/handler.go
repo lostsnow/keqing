@@ -22,3 +22,7 @@ func Trace(ctx telebot.Context) error {
 func Send(ctx telebot.Context, message string) error {
 	return ctx.Send(i18n.T(ctx, message))
 }
+
+func Reply(ctx telebot.Context, message string) error {
+	return ctx.Reply(i18n.T(ctx, message))
+}

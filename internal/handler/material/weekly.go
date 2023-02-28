@@ -15,5 +15,5 @@ func Weekly(ctx telebot.Context) error {
 		NoPhotoMessage: i18n.T(ctx, "What are you looking for, it does not exist"),
 	}
 
-	return h.Send(ctx)
+	return h.Handle(ctx)
 }

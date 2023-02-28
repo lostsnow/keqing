@@ -24,7 +24,7 @@ type PhotoResponseHandler struct {
 	NoPhotoMessage string
 }
 
-func (h PhotoResponseHandler) Send(ctx telebot.Context) error {
+func (h PhotoResponseHandler) Handle(ctx telebot.Context) error {
 	cacheFileDir := fmt.Sprintf("%s/%s", viper.GetString("cache.dir"), h.FileDir)
 	cacheFilePath := fmt.Sprintf("%s/%s", cacheFileDir, h.FileName)
 	fileIdPath := fmt.Sprintf("%s/%s.id", cacheFileDir, h.FileName)
@@ -32,13 +32,13 @@ func (h PhotoResponseHandler) Send(ctx telebot.Context) error {
 	if _, err := os.Stat(fileIdPath); err == nil {
 		fb, err := os.ReadFile(fileIdPath)
 		if err == nil && len(fb) > 0 {
-			return ctx.Send(&telebot.Photo{File: telebot.File{FileID: string(fb)}})
+			return ctx.Reply(&telebot.Photo{File: telebot.File{FileID: string(fb)}})
 		}
 	}
 
 	f, err := os.Open(cacheFilePath)
 	if err == nil {
-		return ctx.Send(&telebot.Photo{File: telebot.FromReader(f)})
+		return ctx.Reply(&telebot.Photo{File: telebot.FromReader(f)})
 	}
 
 	url := fmt.Sprintf("%s/%s/%s", viper.GetString("app.assets.base-url"), h.FileDir, h.FileName)
@@ -48,11 +48,11 @@ func (h PhotoResponseHandler) Send(ctx telebot.Context) error {
 		if err != ErrDownloadPhotoNotFound {
 			logger.Error(err)
 		}
-		return Send(ctx, h.NoPhotoMessage)
+		return Reply(ctx, h.NoPhotoMessage)
 	}
 
 	p := &telebot.Photo{File: telebot.FromDisk(cacheFilePath)}
-	err = ctx.Send(p)
+	err = ctx.Reply(p)
 	if err != nil {
 		return fmt.Errorf("send photo %s/%s failed: %s", h.FileDir, h.FileName, err)
 	}

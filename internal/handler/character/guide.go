@@ -29,5 +29,5 @@ func Guide(ctx telebot.Context) error {
 		NoPhotoMessage: i18n.T(ctx, "No such character guide"),
 	}
 
-	return h.Send(ctx)
+	return h.Handle(ctx)
 }
