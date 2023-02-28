@@ -48,7 +48,7 @@ func (h PhotoResponseHandler) Send(ctx telebot.Context) error {
 		if err != ErrDownloadPhotoNotFound {
 			logger.Error(err)
 		}
-		return Send(ctx, "No such character guide")
+		return Send(ctx, h.NoPhotoMessage)
 	}
 
 	p := &telebot.Photo{File: telebot.FromDisk(cacheFilePath)}

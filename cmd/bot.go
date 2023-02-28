@@ -14,6 +14,7 @@ import (
 
 	"github.com/lostsnow/keqing/internal/handler"
 	"github.com/lostsnow/keqing/internal/handler/character"
+	"github.com/lostsnow/keqing/internal/handler/material"
 	"github.com/lostsnow/keqing/pkg/i18n"
 )
 
@@ -74,6 +75,7 @@ func setHandler(b *telebot.Bot) {
 	b.Handle("/help", handler.Help)
 	b.Handle("/char_guide", character.Guide)
 	b.Handle("/char_material", character.Material)
+	b.Handle("/material_weekly", material.Weekly)
 
 	ag := b.Group()
 	admins := viper.GetStringSlice("admins")

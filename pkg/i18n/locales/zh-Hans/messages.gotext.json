@@ -17,6 +17,11 @@
             "translation": "此人很神秘, 没有情报"
         },
         {
+            "id": "What are you looking for, it does not exist",
+            "message": "What are you looking for, it does not exist",
+            "translation": "你找啥呢, 不存在的"
+        },
+        {
             "id": "Bennett",
             "message": "Bennett",
             "translation": "班尼特"
