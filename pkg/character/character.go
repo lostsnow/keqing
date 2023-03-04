@@ -64,7 +64,7 @@ var (
 	YaeMiko         = New("Yae Miko", elemental.Electro, star.FIVE, "屑狐狸")
 	KukiShinobu     = New("Kuki Shinobu", elemental.Electro, star.FOUR, "97忍", "阿忍")
 	Dori            = New("Dori", elemental.Electro, star.FOUR)
-	Cyno            = New("Cyno", elemental.Electro, star.FIVE, "大风纪官")
+	Cyno            = New("Cyno", elemental.Electro, star.FIVE, "大风纪官", "大风机关")
 
 	TravelerDendro = New("Traveler Dendro", elemental.Dendro, star.FIVE, "草主")
 	Tighnari       = New("Tighnari", elemental.Dendro, star.FIVE, "驴耳朵")
@@ -72,9 +72,11 @@ var (
 	Nahida         = New("Nahida", elemental.Dendro, star.FIVE, "小草神", "小吉祥草王")
 	Alhaitham      = New("Alhaitham", elemental.Dendro, star.FIVE, "大书记官", "海哥")
 	Yaoyao         = New("Yaoyao", elemental.Dendro, star.FOUR)
+	Kaveh          = New("Kaveh", elemental.Dendro, star.FOUR)
+	Baizhu         = New("Baizhu", elemental.Dendro, star.FIVE)
 
 	Chongyun      = New("Chongyun", elemental.Cryo, star.FOUR)
-	Qiqi          = New("Qiqi", elemental.Cryo, star.FIVE)
+	Qiqi          = New("Qiqi", elemental.Cryo, star.FIVE, "77")
 	Kaeya         = New("Kaeya", elemental.Cryo, star.FOUR, "凯子哥")
 	Diona         = New("Diona", elemental.Cryo, star.FOUR, "猫猫")
 	Ganyu         = New("Ganyu", elemental.Cryo, star.FIVE, "王小美", "椰羊")

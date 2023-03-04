@@ -366,6 +366,20 @@
             "fuzzy": true
         },
         {
+            "id": "Kaveh",
+            "message": "Kaveh",
+            "translation": "Kaveh",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Baizhu",
+            "message": "Baizhu",
+            "translation": "Baizhu",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Chongyun",
             "message": "Chongyun",
             "translation": "Chongyun",
