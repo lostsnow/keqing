@@ -10,8 +10,12 @@ import (
 
 func Weekly(ctx telebot.Context) error {
 	h := handler.PhotoResponseHandler{
-		FileDir:        "assets/material/weekly",
-		FileName:       "weekly.png",
+		Buttons: []handler.PhotoButton{
+			{
+				Dir:  "assets/material/weekly",
+				Name: "weekly.png",
+			},
+		},
 		NoPhotoMessage: i18n.T(ctx, "What are you looking for, it does not exist"),
 	}
 

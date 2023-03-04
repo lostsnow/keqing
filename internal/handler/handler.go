@@ -10,6 +10,24 @@ import (
 	_ "github.com/lostsnow/keqing/pkg/i18n/catalog"
 )
 
+type MessageType int
+
+const (
+	MessageText MessageType = iota + 1
+	MessageEmbed
+	MessagePhoto
+	MessageCachedPhoto
+	MessagePhotoId
+)
+
+type PhotoButton struct {
+	Title       string
+	Dir         string
+	Name        string
+	Message     any
+	MessageType MessageType
+}
+
 func Help(ctx telebot.Context) error {
 	return Send(ctx, "Cut to the chase")
 }

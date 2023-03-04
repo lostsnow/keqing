@@ -6,6 +6,7 @@ import (
 
 	"gopkg.in/telebot.v3"
 
+	"github.com/lostsnow/keqing/data"
 	"github.com/lostsnow/keqing/internal/handler"
 	"github.com/lostsnow/keqing/pkg/character"
 	"github.com/lostsnow/keqing/pkg/i18n"
@@ -22,11 +23,27 @@ func Material(ctx telebot.Context) error {
 	if len(chars) == 0 {
 		return handler.Send(ctx, "No such character")
 	}
+	max := len(chars)
+	if max > 6 {
+		max = 6
+	}
 
+	buttons := make([]handler.PhotoButton, 0, max)
+	for idx, char := range chars {
+		if idx == max {
+			break
+		}
+		buttons = append(buttons, handler.PhotoButton{
+			Title: i18n.T(ctx, char.Id),
+			Dir:   fmt.Sprintf("assets/character/material/%s", char.Elemental.Id),
+			Name:  fmt.Sprintf("%s.png", char.Id),
+		})
+	}
+
+	noFile, _ := data.Embed.Open("embed/404.png")
 	h := handler.PhotoResponseHandler{
-		FileDir:        fmt.Sprintf("assets/character/material/%s", chars[0].Elemental.Id),
-		FileName:       fmt.Sprintf("%s.png", chars[0].Id),
-		NoPhotoMessage: i18n.T(ctx, "No such character guide"),
+		Buttons:        buttons,
+		NoPhotoMessage: &telebot.Photo{File: telebot.File{FileReader: noFile}},
 	}
 
 	return h.Handle(ctx)

@@ -44,7 +44,6 @@ func setBotHandler(b *handler.Bot) {
 	ag.Use(middleware.Whitelist(b.AdminIds...))
 
 	ag.Handle("/trace", handler.Trace)
-	ag.Handle("/test", handler.Test)
 }
 
 func startBot(b *handler.Bot) {
