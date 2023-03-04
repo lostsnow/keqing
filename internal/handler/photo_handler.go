@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/litsea/logger"
 	"github.com/spf13/viper"
 	"gopkg.in/telebot.v3"
 
@@ -46,7 +45,7 @@ func (h PhotoResponseHandler) Handle(ctx telebot.Context) error {
 	err = downloadPhoto(cacheFileDir, h.FileName, url)
 	if err != nil {
 		if err != ErrDownloadPhotoNotFound {
-			logger.Error(err)
+			ReportError(ctx, err.Error())
 		}
 		return Reply(ctx, h.NoPhotoMessage)
 	}

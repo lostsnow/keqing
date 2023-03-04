@@ -3,6 +3,7 @@ package handler
 import (
 	"fmt"
 
+	"github.com/litsea/logger"
 	"gopkg.in/telebot.v3"
 
 	"github.com/lostsnow/keqing/pkg/i18n"
@@ -25,4 +26,14 @@ func Send(ctx telebot.Context, message string) error {
 
 func Reply(ctx telebot.Context, message string) error {
 	return ctx.Reply(i18n.T(ctx, message))
+}
+
+func ReportError(ctx telebot.Context, msg string) {
+	logger.Error(msg)
+	if handlerBot == nil {
+		return
+	}
+	for _, u := range handlerBot.AdminUsers {
+		_, _ = ctx.Bot().Send(&u, msg, &telebot.SendOptions{ParseMode: telebot.ModeMarkdown})
+	}
 }
