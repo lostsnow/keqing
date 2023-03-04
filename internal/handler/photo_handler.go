@@ -79,7 +79,7 @@ func downloadPhoto(fileDir, fileName string, url string) error {
 		return fmt.Errorf("download photo %s failed: %s", url, err)
 	}
 	defer resp.Body.Close()
-	if resp.StatusCode == http.StatusNotFound {
+	if resp.StatusCode != http.StatusOK {
 		return ErrDownloadPhotoNotFound
 	}
 
