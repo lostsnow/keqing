@@ -20,6 +20,10 @@ var (
 	ErrDownloadPhotoNotFound = errors.New("download photo not found")
 )
 
+var (
+	currentInlineKeywordMark = "✅"
+)
+
 type PhotoResponseHandler struct {
 	Buttons        []PhotoButton
 	NoPhotoMessage any
@@ -33,8 +37,12 @@ func (h PhotoResponseHandler) Handle(ctx telebot.Context) error {
 	sel := &telebot.ReplyMarkup{}
 	if len(h.Buttons) > 1 {
 		botBtns := make([]telebot.Btn, 0, len(h.Buttons))
-		for _, btn := range h.Buttons {
-			botBtn := sel.Data(btn.Title, toPhotoUniqueId(btn.Dir+"/"+btn.Name))
+		for idx, btn := range h.Buttons {
+			title := btn.Title
+			if idx == 0 {
+				title = title + currentInlineKeywordMark
+			}
+			botBtn := sel.Data(title, toPhotoUniqueId(btn.Dir+"/"+btn.Name))
 			botBtns = append(botBtns, botBtn)
 		}
 		chunks := object.ChunkBy(botBtns, 3)
@@ -51,6 +59,7 @@ func (h PhotoResponseHandler) Handle(ctx telebot.Context) error {
 				if _, ok := m.(telebot.Inputtable); !ok {
 					return nil
 				}
+				updateCurrentInlineKeyboard(sel, c.Callback().Unique)
 				_, err := c.Bot().EditMedia(c.Message(), m.(telebot.Inputtable), sel)
 				if err != nil {
 					return fmt.Errorf("edit photo %s/%s failed: %s", h.Buttons[0].Dir, h.Buttons[0].Name, err)
@@ -190,4 +199,19 @@ func fromPhotoUniqueId(path string) string {
 		"00", " ",
 	)
 	return replacer.Replace(path)
+}
+
+func updateCurrentInlineKeyboard(sel *telebot.ReplyMarkup, uniq string) {
+	if sel == nil {
+		return
+	}
+	for i, row := range sel.InlineKeyboard {
+		for j, col := range row {
+			if col.Unique != uniq && strings.Contains(col.Text, currentInlineKeywordMark) {
+				sel.InlineKeyboard[i][j].Text = strings.ReplaceAll(sel.InlineKeyboard[i][j].Text, currentInlineKeywordMark, "")
+			} else if col.Unique == uniq && !strings.Contains(col.Text, currentInlineKeywordMark) {
+				sel.InlineKeyboard[i][j].Text = col.Text + currentInlineKeywordMark
+			}
+		}
+	}
 }
