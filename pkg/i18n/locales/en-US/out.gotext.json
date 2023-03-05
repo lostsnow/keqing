@@ -149,6 +149,13 @@
             "fuzzy": true
         },
         {
+            "id": "Beginners Protector",
+            "message": "Beginners Protector",
+            "translation": "Beginners Protector",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Beidou",
             "message": "Beidou",
             "translation": "Beidou",
@@ -163,9 +170,23 @@
             "fuzzy": true
         },
         {
+            "id": "Black Tassel",
+            "message": "Black Tassel",
+            "translation": "Black Tassel",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Blackcliff Longsword",
             "message": "Blackcliff Longsword",
             "translation": "Blackcliff Longsword",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Blackcliff Pole",
+            "message": "Blackcliff Pole",
+            "translation": "Blackcliff Pole",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -180,6 +201,13 @@
             "id": "Bloodtainted Greatsword",
             "message": "Bloodtainted Greatsword",
             "translation": "Bloodtainted Greatsword",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Calamity Queller",
+            "message": "Calamity Queller",
+            "translation": "Calamity Queller",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -219,6 +247,13 @@
             "fuzzy": true
         },
         {
+            "id": "Crescent Pike",
+            "message": "Crescent Pike",
+            "translation": "Crescent Pike",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Cyno",
             "message": "Cyno",
             "translation": "Cyno",
@@ -229,6 +264,13 @@
             "id": "Dark Iron Sword",
             "message": "Dark Iron Sword",
             "translation": "Dark Iron Sword",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Deathmatch",
+            "message": "Deathmatch",
+            "translation": "Deathmatch",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -268,9 +310,30 @@
             "fuzzy": true
         },
         {
+            "id": "Dragons Bane",
+            "message": "Dragons Bane",
+            "translation": "Dragons Bane",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Dragonspine Spear",
+            "message": "Dragonspine Spear",
+            "translation": "Dragonspine Spear",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Dull Blade",
             "message": "Dull Blade",
             "translation": "Dull Blade",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Engulfing Lightning",
+            "message": "Engulfing Lightning",
+            "translation": "Engulfing Lightning",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -292,6 +355,13 @@
             "id": "Favonius Greatsword",
             "message": "Favonius Greatsword",
             "translation": "Favonius Greatsword",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Favonius Lance",
+            "message": "Favonius Lance",
+            "translation": "Favonius Lance",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -359,6 +429,13 @@
             "fuzzy": true
         },
         {
+            "id": "Halberd",
+            "message": "Halberd",
+            "translation": "Halberd",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Haran Geppaku Futsu",
             "message": "Haran Geppaku Futsu",
             "translation": "Haran Geppaku Futsu",
@@ -376,6 +453,13 @@
             "id": "Hu Tao",
             "message": "Hu Tao",
             "translation": "Hu Tao",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Iron Point",
+            "message": "Iron Point",
+            "translation": "Iron Point",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -457,6 +541,13 @@
             "fuzzy": true
         },
         {
+            "id": "Kitain Cross Spear",
+            "message": "Kitain Cross Spear",
+            "translation": "Kitain Cross Spear",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Klee",
             "message": "Klee",
             "translation": "Klee",
@@ -513,6 +604,13 @@
             "fuzzy": true
         },
         {
+            "id": "Lithic Spear",
+            "message": "Lithic Spear",
+            "translation": "Lithic Spear",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Luxurious Sea Lord",
             "message": "Luxurious Sea Lord",
             "translation": "Luxurious Sea Lord",
@@ -541,6 +639,13 @@
             "fuzzy": true
         },
         {
+            "id": "Missive Windspear",
+            "message": "Missive Windspear",
+            "translation": "Missive Windspear",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Mistsplitter Reforged",
             "message": "Mistsplitter Reforged",
             "translation": "Mistsplitter Reforged",
@@ -551,6 +656,13 @@
             "id": "Mona",
             "message": "Mona",
             "translation": "Mona",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Moonpiercer",
+            "message": "Moonpiercer",
+            "translation": "Moonpiercer",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -590,6 +702,13 @@
             "fuzzy": true
         },
         {
+            "id": "Primordial Jade Winged Spear",
+            "message": "Primordial Jade Winged Spear",
+            "translation": "Primordial Jade Winged Spear",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Prototype Archaic",
             "message": "Prototype Archaic",
             "translation": "Prototype Archaic",
@@ -600,6 +719,13 @@
             "id": "Prototype Rancour",
             "message": "Prototype Rancour",
             "translation": "Prototype Rancour",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Prototype Starglitter",
+            "message": "Prototype Starglitter",
+            "translation": "Prototype Starglitter",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -656,6 +782,13 @@
             "id": "Royal Longsword",
             "message": "Royal Longsword",
             "translation": "Royal Longsword",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Royal Spear",
+            "message": "Royal Spear",
+            "translation": "Royal Spear",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -751,6 +884,13 @@
             "fuzzy": true
         },
         {
+            "id": "Skyward Spine",
+            "message": "Skyward Spine",
+            "translation": "Skyward Spine",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Snow Tombed Starsilver",
             "message": "Snow Tombed Starsilver",
             "translation": "Snow Tombed Starsilver",
@@ -761,6 +901,20 @@
             "id": "Song of Broken Pines",
             "message": "Song of Broken Pines",
             "translation": "Song of Broken Pines",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Staff of Homa",
+            "message": "Staff of Homa",
+            "translation": "Staff of Homa",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Staff of the Scarlet Sands",
+            "message": "Staff of the Scarlet Sands",
+            "translation": "Staff of the Scarlet Sands",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -810,6 +964,13 @@
             "id": "The Black Sword",
             "message": "The Black Sword",
             "translation": "The Black Sword",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "The Catch",
+            "message": "The Catch",
+            "translation": "The Catch",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -891,6 +1052,13 @@
             "fuzzy": true
         },
         {
+            "id": "Vortex Vanquisher",
+            "message": "Vortex Vanquisher",
+            "translation": "Vortex Vanquisher",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Wanderer",
             "message": "Wanderer",
             "translation": "Wanderer",
@@ -905,9 +1073,23 @@
             "fuzzy": true
         },
         {
+            "id": "Wavebreakers Fin",
+            "message": "Wavebreakers Fin",
+            "translation": "Wavebreakers Fin",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "White Iron Greatsword",
             "message": "White Iron Greatsword",
             "translation": "White Iron Greatsword",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "White Tassel",
+            "message": "White Tassel",
+            "translation": "White Tassel",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },

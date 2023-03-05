@@ -107,6 +107,11 @@
             "translation": "苇海信标"
         },
         {
+            "id": "Beginners Protector",
+            "message": "Beginners Protector",
+            "translation": "新手长枪"
+        },
+        {
             "id": "Beidou",
             "message": "Beidou",
             "translation": "北斗"
@@ -117,9 +122,19 @@
             "translation": "班尼特"
         },
         {
+            "id": "Black Tassel",
+            "message": "Black Tassel",
+            "translation": "黑缨枪"
+        },
+        {
             "id": "Blackcliff Longsword",
             "message": "Blackcliff Longsword",
             "translation": "黑岩长剑"
+        },
+        {
+            "id": "Blackcliff Pole",
+            "message": "Blackcliff Pole",
+            "translation": "黑岩刺枪"
         },
         {
             "id": "Blackcliff Slasher",
@@ -130,6 +145,11 @@
             "id": "Bloodtainted Greatsword",
             "message": "Bloodtainted Greatsword",
             "translation": "沐浴龙血的剑"
+        },
+        {
+            "id": "Calamity Queller",
+            "message": "Calamity Queller",
+            "translation": "息灾"
         },
         {
             "id": "Candace",
@@ -157,6 +177,11 @@
             "translation": "冷刃"
         },
         {
+            "id": "Crescent Pike",
+            "message": "Crescent Pike",
+            "translation": "流月针"
+        },
+        {
             "id": "Cyno",
             "message": "Cyno",
             "translation": "赛诺"
@@ -165,6 +190,11 @@
             "id": "Dark Iron Sword",
             "message": "Dark Iron Sword",
             "translation": "暗铁剑"
+        },
+        {
+            "id": "Deathmatch",
+            "message": "Deathmatch",
+            "translation": "决斗之枪"
         },
         {
             "id": "Debate Club",
@@ -192,9 +222,24 @@
             "translation": "多莉"
         },
         {
+            "id": "Dragons Bane",
+            "message": "Dragons Bane",
+            "translation": "匣里灭辰"
+        },
+        {
+            "id": "Dragonspine Spear",
+            "message": "Dragonspine Spear",
+            "translation": "龙脊长枪"
+        },
+        {
             "id": "Dull Blade",
             "message": "Dull Blade",
             "translation": "无锋剑"
+        },
+        {
+            "id": "Engulfing Lightning",
+            "message": "Engulfing Lightning",
+            "translation": "薙草之稻光"
         },
         {
             "id": "Eula",
@@ -210,6 +255,11 @@
             "id": "Favonius Greatsword",
             "message": "Favonius Greatsword",
             "translation": "西风大剑"
+        },
+        {
+            "id": "Favonius Lance",
+            "message": "Favonius Lance",
+            "translation": "西风长枪"
         },
         {
             "id": "Favonius Sword",
@@ -257,6 +307,11 @@
             "translation": "五郎"
         },
         {
+            "id": "Halberd",
+            "message": "Halberd",
+            "translation": "钺矛"
+        },
+        {
             "id": "Haran Geppaku Futsu",
             "message": "Haran Geppaku Futsu",
             "translation": "波乱月白经津"
@@ -270,6 +325,11 @@
             "id": "Hu Tao",
             "message": "Hu Tao",
             "translation": "胡桃"
+        },
+        {
+            "id": "Iron Point",
+            "message": "Iron Point",
+            "translation": "铁尖枪"
         },
         {
             "id": "Iron Sting",
@@ -327,6 +387,11 @@
             "translation": "圣显之钥"
         },
         {
+            "id": "Kitain Cross Spear",
+            "message": "Kitain Cross Spear",
+            "translation": "喜多院十文字"
+        },
+        {
             "id": "Klee",
             "message": "Klee",
             "translation": "可莉"
@@ -367,6 +432,11 @@
             "translation": "千岩古剑"
         },
         {
+            "id": "Lithic Spear",
+            "message": "Lithic Spear",
+            "translation": "千岩长枪"
+        },
+        {
             "id": "Luxurious Sea Lord",
             "message": "Luxurious Sea Lord",
             "translation": "衔珠海皇"
@@ -387,6 +457,11 @@
             "translation": "米卡"
         },
         {
+            "id": "Missive Windspear",
+            "message": "Missive Windspear",
+            "translation": "风信之锋"
+        },
+        {
             "id": "Mistsplitter Reforged",
             "message": "Mistsplitter Reforged",
             "translation": "雾切之回光"
@@ -395,6 +470,11 @@
             "id": "Mona",
             "message": "Mona",
             "translation": "莫娜"
+        },
+        {
+            "id": "Moonpiercer",
+            "message": "Moonpiercer",
+            "translation": "贯月矢"
         },
         {
             "id": "Nahida",
@@ -422,9 +502,9 @@
             "translation": "磐岩结绿"
         },
         {
-            "id": "Primordial Jade Greatsword",
-            "message": "Primordial Jade Greatsword",
-            "translation": ""
+            "id": "Primordial Jade Winged Spear",
+            "message": "Primordial Jade Winged Spear",
+            "translation": "和璞鸢"
         },
         {
             "id": "Prototype Archaic",
@@ -435,6 +515,11 @@
             "id": "Prototype Rancour",
             "message": "Prototype Rancour",
             "translation": "试作斩岩"
+        },
+        {
+            "id": "Prototype Starglitter",
+            "message": "Prototype Starglitter",
+            "translation": "试作星镰"
         },
         {
             "id": "Qiqi",
@@ -475,6 +560,11 @@
             "id": "Royal Longsword",
             "message": "Royal Longsword",
             "translation": "宗室长剑"
+        },
+        {
+            "id": "Royal Spear",
+            "message": "Royal Spear",
+            "translation": "宗室猎枪"
         },
         {
             "id": "Sacrificial Greatsword",
@@ -542,6 +632,11 @@
             "translation": "天空之傲"
         },
         {
+            "id": "Skyward Spine",
+            "message": "Skyward Spine",
+            "translation": "天空之脊"
+        },
+        {
             "id": "Snow Tombed Starsilver",
             "message": "Snow Tombed Starsilver",
             "translation": "雪葬的星银"
@@ -550,6 +645,16 @@
             "id": "Song of Broken Pines",
             "message": "Song of Broken Pines",
             "translation": "松籁响起之时"
+        },
+        {
+            "id": "Staff of Homa",
+            "message": "Staff of Homa",
+            "translation": "护摩之杖"
+        },
+        {
+            "id": "Staff of the Scarlet Sands",
+            "message": "Staff of the Scarlet Sands",
+            "translation": "赤沙之杖"
         },
         {
             "id": "Sucrose",
@@ -585,6 +690,11 @@
             "id": "The Black Sword",
             "message": "The Black Sword",
             "translation": "黑剑"
+        },
+        {
+            "id": "The Catch",
+            "message": "The Catch",
+            "translation": "「渔获」"
         },
         {
             "id": "The Flute",
@@ -642,6 +752,11 @@
             "translation": "温迪"
         },
         {
+            "id": "Vortex Vanquisher",
+            "message": "Vortex Vanquisher",
+            "translation": "贯虹之槊"
+        },
+        {
             "id": "Wanderer",
             "message": "Wanderer",
             "translation": "流浪者"
@@ -652,9 +767,19 @@
             "translation": "训练大剑"
         },
         {
+            "id": "Wavebreakers Fin",
+            "message": "Wavebreakers Fin",
+            "translation": "断浪长鳍"
+        },
+        {
             "id": "White Iron Greatsword",
             "message": "White Iron Greatsword",
             "translation": "白铁大剑"
+        },
+        {
+            "id": "White Tassel",
+            "message": "White Tassel",
+            "translation": "白缨枪"
         },
         {
             "id": "Whiteblind",
