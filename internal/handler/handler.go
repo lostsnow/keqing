@@ -1,8 +1,6 @@
 package handler
 
 import (
-	"fmt"
-
 	"github.com/litsea/logger"
 	"gopkg.in/telebot.v3"
 
@@ -30,12 +28,6 @@ type PhotoButton struct {
 
 func Help(ctx telebot.Context) error {
 	return Send(ctx, "Cut to the chase")
-}
-
-func Trace(ctx telebot.Context) error {
-	return ctx.Send(fmt.Sprintf("*Bot*: `%d`\n*Chat*: `%d` <%s>\n*From*: `%d`\n*Message*: `%s`",
-		ctx.Bot().Me.ID, ctx.Chat().ID, ctx.Chat().Type, ctx.Sender().ID, ctx.Text()),
-		&telebot.SendOptions{ParseMode: telebot.ModeMarkdown})
 }
 
 func Send(ctx telebot.Context, message string) error {

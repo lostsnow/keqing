@@ -43,6 +43,7 @@ func setBotHandler(b *handler.Bot) {
 	ag := b.Bot.Group()
 	ag.Use(middleware.Whitelist(b.AdminIds...))
 
+	ag.Handle("/clear_assets_cache", handler.CacheAssetsClear)
 	ag.Handle("/trace", handler.Trace)
 }
 

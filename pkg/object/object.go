@@ -13,12 +13,13 @@ func Search[T any](name string, nameAliasMap map[string]string, objectMap map[st
 	uniqMap := make(map[string]struct{})
 	objs := make([]*T, 0)
 	for k, v := range nameAliasMap {
-		if strings.Contains(k, name) {
+		lowerK := strings.ToLower(k)
+		if strings.Contains(lowerK, name) {
 			if _, ok := uniqMap[v]; ok {
 				continue
 			}
 			uniqMap[v] = struct{}{}
-			if k == name {
+			if lowerK == name {
 				objs = append(objs, nil)
 				copy(objs[1:], objs)
 				objs[0] = objectMap[v]
