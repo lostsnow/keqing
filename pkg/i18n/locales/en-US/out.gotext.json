@@ -72,6 +72,13 @@
             "fuzzy": true
         },
         {
+            "id": "Akuoumaru",
+            "message": "Akuoumaru",
+            "translation": "Akuoumaru",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Albedo",
             "message": "Albedo",
             "translation": "Albedo",
@@ -135,6 +142,13 @@
             "fuzzy": true
         },
         {
+            "id": "Beacon of the Reed Sea",
+            "message": "Beacon of the Reed Sea",
+            "translation": "Beacon of the Reed Sea",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Beidou",
             "message": "Beidou",
             "translation": "Beidou",
@@ -152,6 +166,20 @@
             "id": "Blackcliff Longsword",
             "message": "Blackcliff Longsword",
             "translation": "Blackcliff Longsword",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Blackcliff Slasher",
+            "message": "Blackcliff Slasher",
+            "translation": "Blackcliff Slasher",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Bloodtainted Greatsword",
+            "message": "Bloodtainted Greatsword",
+            "translation": "Bloodtainted Greatsword",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -205,6 +233,13 @@
             "fuzzy": true
         },
         {
+            "id": "Debate Club",
+            "message": "Debate Club",
+            "translation": "Debate Club",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Dehya",
             "message": "Dehya",
             "translation": "Dehya",
@@ -254,9 +289,23 @@
             "fuzzy": true
         },
         {
+            "id": "Favonius Greatsword",
+            "message": "Favonius Greatsword",
+            "translation": "Favonius Greatsword",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Favonius Sword",
             "message": "Favonius Sword",
             "translation": "Favonius Sword",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Ferrous Shadow",
+            "message": "Ferrous Shadow",
+            "translation": "Ferrous Shadow",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -278,6 +327,13 @@
             "id": "Fischl",
             "message": "Fischl",
             "translation": "Fischl",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Forest Regalia",
+            "message": "Forest Regalia",
+            "translation": "Forest Regalia",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -373,6 +429,13 @@
             "fuzzy": true
         },
         {
+            "id": "Katsuragikiri Nagamasa",
+            "message": "Katsuragikiri Nagamasa",
+            "translation": "Katsuragikiri Nagamasa",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Kaveh",
             "message": "Kaveh",
             "translation": "Kaveh",
@@ -443,6 +506,34 @@
             "fuzzy": true
         },
         {
+            "id": "Lithic Blade",
+            "message": "Lithic Blade",
+            "translation": "Lithic Blade",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Luxurious Sea Lord",
+            "message": "Luxurious Sea Lord",
+            "translation": "Luxurious Sea Lord",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Mailed Flower",
+            "message": "Mailed Flower",
+            "translation": "Mailed Flower",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Makhaira Aquamarine",
+            "message": "Makhaira Aquamarine",
+            "translation": "Makhaira Aquamarine",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Mika",
             "message": "Mika",
             "translation": "Mika",
@@ -499,6 +590,13 @@
             "fuzzy": true
         },
         {
+            "id": "Prototype Archaic",
+            "message": "Prototype Archaic",
+            "translation": "Prototype Archaic",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Prototype Rancour",
             "message": "Prototype Rancour",
             "translation": "Prototype Rancour",
@@ -520,9 +618,23 @@
             "fuzzy": true
         },
         {
+            "id": "Rainslasher",
+            "message": "Rainslasher",
+            "translation": "Rainslasher",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Razor",
             "message": "Razor",
             "translation": "Razor",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Redhorn Stonethresher",
+            "message": "Redhorn Stonethresher",
+            "translation": "Redhorn Stonethresher",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -534,9 +646,23 @@
             "fuzzy": true
         },
         {
+            "id": "Royal Greatsword",
+            "message": "Royal Greatsword",
+            "translation": "Royal Greatsword",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Royal Longsword",
             "message": "Royal Longsword",
             "translation": "Royal Longsword",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Sacrificial Greatsword",
+            "message": "Sacrificial Greatsword",
+            "translation": "Sacrificial Greatsword",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -569,6 +695,13 @@
             "fuzzy": true
         },
         {
+            "id": "Serpent Spine",
+            "message": "Serpent Spine",
+            "translation": "Serpent Spine",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Shenhe",
             "message": "Shenhe",
             "translation": "Shenhe",
@@ -590,6 +723,13 @@
             "fuzzy": true
         },
         {
+            "id": "Skyrider Greatsword",
+            "message": "Skyrider Greatsword",
+            "translation": "Skyrider Greatsword",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Skyrider Sword",
             "message": "Skyrider Sword",
             "translation": "Skyrider Sword",
@@ -600,6 +740,27 @@
             "id": "Skyward Blade",
             "message": "Skyward Blade",
             "translation": "Skyward Blade",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Skyward Pride",
+            "message": "Skyward Pride",
+            "translation": "Skyward Pride",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Snow Tombed Starsilver",
+            "message": "Snow Tombed Starsilver",
+            "translation": "Snow Tombed Starsilver",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Song of Broken Pines",
+            "message": "Song of Broken Pines",
+            "translation": "Song of Broken Pines",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -639,6 +800,13 @@
             "fuzzy": true
         },
         {
+            "id": "The Bell",
+            "message": "The Bell",
+            "translation": "The Bell",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "The Black Sword",
             "message": "The Black Sword",
             "translation": "The Black Sword",
@@ -649,6 +817,13 @@
             "id": "The Flute",
             "message": "The Flute",
             "translation": "The Flute",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "The Unforged",
+            "message": "The Unforged",
+            "translation": "The Unforged",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -719,6 +894,34 @@
             "id": "Wanderer",
             "message": "Wanderer",
             "translation": "Wanderer",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Waster Greatsword",
+            "message": "Waster Greatsword",
+            "translation": "Waster Greatsword",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "White Iron Greatsword",
+            "message": "White Iron Greatsword",
+            "translation": "White Iron Greatsword",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Whiteblind",
+            "message": "Whiteblind",
+            "translation": "Whiteblind",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Wolfs Gravestone",
+            "message": "Wolfs Gravestone",
+            "translation": "Wolfs Gravestone",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
