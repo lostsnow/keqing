@@ -26,7 +26,8 @@ var (
 )
 
 var (
-	nameMap = make(map[string]*Elemental)
+	objectMap    = make(map[string]*Elemental)
+	nameAliasMap = make(map[string]string)
 )
 
 func New(id string) *Elemental {
@@ -36,9 +37,14 @@ func New(id string) *Elemental {
 		Names: names,
 	}
 	for _, n := range names {
-		nameMap[strings.ToLower(n)] = e
+		objectMap[strings.ToLower(n)] = e
+		nameAliasMap[strings.ToLower(n)] = id
 	}
 	return e
+}
+
+func Get(id string) *Elemental {
+	return objectMap[strings.ToLower(id)]
 }
 
 func (e *Elemental) Name(ctx telebot.Context) string {
@@ -46,5 +52,5 @@ func (e *Elemental) Name(ctx telebot.Context) string {
 }
 
 func Search(name string) []*Elemental {
-	return object.Search(name, nameMap)
+	return object.Search(name, nameAliasMap, objectMap)
 }

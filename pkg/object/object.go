@@ -8,22 +8,22 @@ type Object[T any] struct {
 	Id string
 }
 
-func Search[T any](name string, nameMap map[string]*T) []*T {
+func Search[T any](name string, nameAliasMap map[string]string, objectMap map[string]*T) []*T {
 	name = strings.ToLower(name)
-	objMap := make(map[*T]struct{})
+	uniqMap := make(map[string]struct{})
 	objs := make([]*T, 0)
-	for k, v := range nameMap {
+	for k, v := range nameAliasMap {
 		if strings.Contains(k, name) {
-			if _, ok := objMap[v]; ok {
+			if _, ok := uniqMap[v]; ok {
 				continue
 			}
-			objMap[v] = struct{}{}
+			uniqMap[v] = struct{}{}
 			if k == name {
 				objs = append(objs, nil)
 				copy(objs[1:], objs)
-				objs[0] = v
+				objs[0] = objectMap[v]
 			} else {
-				objs = append(objs, v)
+				objs = append(objs, objectMap[v])
 			}
 		}
 	}

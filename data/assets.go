@@ -7,3 +7,6 @@ var Asset embed.FS
 
 //go:embed embed
 var Embed embed.FS
+
+//go:embed model
+var Model embed.FS

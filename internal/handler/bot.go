@@ -10,6 +10,9 @@ import (
 
 	"github.com/spf13/viper"
 	"gopkg.in/telebot.v3"
+
+	"github.com/lostsnow/keqing/pkg/character"
+	_ "github.com/lostsnow/keqing/pkg/i18n/catalog"
 )
 
 var (
@@ -23,6 +26,10 @@ type Bot struct {
 }
 
 func NewBot() (*Bot, error) {
+	if err := initModel(); err != nil {
+		return nil, err
+	}
+
 	admins := viper.GetStringSlice("admins")
 	adminIds := make([]int64, 0, len(admins))
 	adminUsers := make([]telebot.User, 0, len(admins))
@@ -71,4 +78,17 @@ func NewBot() (*Bot, error) {
 	handlerBot = b
 
 	return b, nil
+}
+
+func initModel() error {
+	var err error
+	initFn := func(fn func() error) {
+		if err != nil {
+			return
+		}
+		err = fn()
+	}
+
+	initFn(character.Init)
+	return err
 }

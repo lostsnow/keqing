@@ -10,13 +10,13 @@ import (
 	"github.com/lostsnow/keqing/internal/handler/character"
 	"github.com/lostsnow/keqing/internal/handler/material"
 	"github.com/lostsnow/keqing/pkg/i18n"
+	_ "github.com/lostsnow/keqing/pkg/i18n/catalog"
 )
 
 var botCmd = &cobra.Command{
 	Use:   "bot",
 	Short: "serve bot",
 	Run: func(cmd *cobra.Command, args []string) {
-
 		b, err := handler.NewBot()
 		if err != nil {
 			logger.Error(err)

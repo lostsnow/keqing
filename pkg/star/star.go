@@ -1,9 +1,11 @@
 package star
 
 const (
-	ONE = iota + 1
+	ONE Star = iota + 1
 	TWO
 	ThREE
 	FOUR
 	FIVE
 )
+
+type Star int

@@ -10,6 +10,7 @@ import (
 
 	"github.com/lostsnow/keqing/internal/config"
 	"github.com/lostsnow/keqing/internal/db"
+	_ "github.com/lostsnow/keqing/pkg/i18n/catalog"
 )
 
 var (

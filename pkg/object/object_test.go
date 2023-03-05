@@ -1,8 +1,9 @@
 package object
 
 import (
-	"fmt"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestSearch(t *testing.T) {
@@ -11,16 +12,23 @@ func TestSearch(t *testing.T) {
 	}
 
 	abc := &TestObject{Id: "abc"}
+	cde := &TestObject{Id: "cde"}
 	def := &TestObject{Id: "def"}
 
-	name := "abc"
-	nameMap := map[string]*TestObject{
+	name := "de"
+	objectMap := map[string]*TestObject{
 		"abc": abc,
+		"cde": cde,
 		"def": def,
 	}
-
-	ms := Search(name, nameMap)
-	for _, m := range ms {
-		fmt.Println(m.Id)
+	nameAliasMap := map[string]string{
+		"abc2": "abc",
+		"cde2": "cde",
+		"def2": "def",
 	}
+
+	ms := Search(name, nameAliasMap, objectMap)
+	assert.NotContains(t, ms, abc)
+	assert.Contains(t, ms, def)
+	assert.Contains(t, ms, def)
 }
