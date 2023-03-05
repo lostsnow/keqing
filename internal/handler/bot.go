@@ -13,6 +13,7 @@ import (
 
 	"github.com/lostsnow/keqing/pkg/character"
 	_ "github.com/lostsnow/keqing/pkg/i18n/catalog"
+	"github.com/lostsnow/keqing/pkg/weapon"
 )
 
 var (
@@ -90,5 +91,6 @@ func initModel() error {
 	}
 
 	initFn(character.Init)
+	initFn(weapon.Init)
 	return err
 }

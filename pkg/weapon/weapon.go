@@ -1,4 +1,4 @@
-package character
+package weapon
 
 import (
 	"fmt"
@@ -9,48 +9,43 @@ import (
 	"gopkg.in/yaml.v3"
 
 	"github.com/lostsnow/keqing/data"
-	"github.com/lostsnow/keqing/pkg/elemental"
 	"github.com/lostsnow/keqing/pkg/i18n"
 	_ "github.com/lostsnow/keqing/pkg/i18n/catalog"
 	"github.com/lostsnow/keqing/pkg/object"
 	"github.com/lostsnow/keqing/pkg/star"
+	"github.com/lostsnow/keqing/pkg/weapon/types"
 )
 
-type Character struct {
-	Id          string               `yaml:"id"`
-	Star        star.Star            `yaml:"star"`
-	Elemental   *elemental.Elemental `yaml:"-"`
-	Names       []string             `yaml:"names"`
-	NameAliases []string             `yaml:"nameAliases"`
+type Weapon struct {
+	Id          string      `yaml:"id"`
+	Star        star.Star   `yaml:"star"`
+	Type        *types.Type `yaml:"-"`
+	Names       []string    `yaml:"names"`
+	NameAliases []string    `yaml:"nameAliases"`
 }
 
-func (c *Character) UnmarshalYAML(n *yaml.Node) error {
-	type C Character
+func (w *Weapon) UnmarshalYAML(n *yaml.Node) error {
+	type W Weapon
 	type T struct {
-		*C        `yaml:",inline"`
-		Elemental string `yaml:"elemental"`
+		*W   `yaml:",inline"`
+		Type string `yaml:"type"`
 	}
 
-	obj := &T{C: (*C)(c)}
+	obj := &T{W: (*W)(w)}
 	if err := n.Decode(obj); err != nil {
 		return err
 	}
 
-	elem := elemental.Get(obj.Elemental)
+	elem := types.Get(obj.Type)
 	if elem == nil {
-		return fmt.Errorf("invalid elemental: %s", obj.Elemental)
+		return fmt.Errorf("invalid weapon type: %s", obj.Type)
 	}
-	c.Elemental = elem
+	w.Type = elem
 	return nil
 }
 
-var (
-	objectMap    = make(map[string]*Character)
-	nameAliasMap = make(map[string]string)
-)
-
 func Init() error {
-	return fs.WalkDir(data.Model, "model/character", func(path string, d fs.DirEntry, err error) error {
+	return fs.WalkDir(data.Model, "model/weapon", func(path string, d fs.DirEntry, err error) error {
 		if err != nil {
 			return nil
 		}
@@ -61,7 +56,7 @@ func Init() error {
 		if err != nil {
 			return nil
 		}
-		var v Character
+		var v Weapon
 		err = yaml.Unmarshal(yamlFile, &v)
 		if err != nil {
 			return fmt.Errorf("unmarshal model file %s failed: %s", path, err)
@@ -77,14 +72,19 @@ func Init() error {
 	})
 }
 
-func (c *Character) Name(ctx telebot.Context) string {
-	return i18n.T(ctx, c.Id)
+var (
+	objectMap    = make(map[string]*Weapon)
+	nameAliasMap = make(map[string]string)
+)
+
+func (w *Weapon) Name(ctx telebot.Context) string {
+	return i18n.T(ctx, w.Id)
 }
 
-func ObjectMap() map[string]*Character {
+func ObjectMap() map[string]*Weapon {
 	return objectMap
 }
 
-func Search(name string) []*Character {
+func Search(name string) []*Weapon {
 	return object.Search(name, nameAliasMap, objectMap)
 }

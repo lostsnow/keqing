@@ -1,4 +1,4 @@
-package elemental
+package types
 
 import (
 	"gopkg.in/telebot.v3"
@@ -8,28 +8,26 @@ import (
 	"github.com/lostsnow/keqing/pkg/object"
 )
 
-type Elemental struct {
+type Type struct {
 	Id    string
 	Names []string
 }
 
 var (
-	Pyro    = New("Pyro")
-	Hydro   = New("Hydro")
-	Anemo   = New("Anemo")
-	Electro = New("Electro")
-	Dendro  = New("Dendro")
-	Cryo    = New("Cryo")
-	Geo     = New("Geo")
+	Sword    = New("Sword")
+	Claymore = New("Claymore")
+	Polearm  = New("Polearm")
+	Catalyst = New("Catalyst")
+	Bow      = New("Bow")
 )
 
 var (
-	objectMap = make(map[string]*Elemental)
+	objectMap = make(map[string]*Type)
 )
 
-func New(id string) *Elemental {
+func New(id string) *Type {
 	names := i18n.TS(id)
-	e := &Elemental{
+	e := &Type{
 		Id:    id,
 		Names: names,
 	}
@@ -39,14 +37,14 @@ func New(id string) *Elemental {
 	return e
 }
 
-func Get(id string) *Elemental {
+func Get(id string) *Type {
 	return objectMap[id]
 }
 
-func (e *Elemental) Name(ctx telebot.Context) string {
+func (e *Type) Name(ctx telebot.Context) string {
 	return i18n.T(ctx, e.Id)
 }
 
-func Search(name string) []*Elemental {
+func Search(name string) []*Type {
 	return object.Search(name, nil, objectMap)
 }

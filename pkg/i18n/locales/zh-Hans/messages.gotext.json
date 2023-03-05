@@ -72,6 +72,16 @@
             "translation": "安柏"
         },
         {
+            "id": "Amenoma Kageuchi",
+            "message": "Amenoma Kageuchi",
+            "translation": "天目影打刀"
+        },
+        {
+            "id": "Aquila Favonia",
+            "message": "Aquila Favonia",
+            "translation": "风鹰剑"
+        },
+        {
             "id": "Arataki Itto",
             "message": "Arataki Itto",
             "translation": "荒泷一斗"
@@ -97,6 +107,11 @@
             "translation": "班尼特"
         },
         {
+            "id": "Blackcliff Longsword",
+            "message": "Blackcliff Longsword",
+            "translation": "黑岩长剑"
+        },
+        {
             "id": "Candace",
             "message": "Candace",
             "translation": "坎蒂丝"
@@ -107,14 +122,29 @@
             "translation": "重云"
         },
         {
+            "id": "Cinnabar Spindle",
+            "message": "Cinnabar Spindle",
+            "translation": "辰砂之纺锤"
+        },
+        {
             "id": "Collei",
             "message": "Collei",
             "translation": "柯莱"
         },
         {
+            "id": "Cool Steel",
+            "message": "Cool Steel",
+            "translation": "冷刃"
+        },
+        {
             "id": "Cyno",
             "message": "Cyno",
             "translation": "赛诺"
+        },
+        {
+            "id": "Dark Iron Sword",
+            "message": "Dark Iron Sword",
+            "translation": "暗铁剑"
         },
         {
             "id": "Dehya",
@@ -137,6 +167,11 @@
             "translation": "多莉"
         },
         {
+            "id": "Dull Blade",
+            "message": "Dull Blade",
+            "translation": ""
+        },
+        {
             "id": "Eula",
             "message": "Eula",
             "translation": "优菈"
@@ -147,9 +182,29 @@
             "translation": "珐露珊"
         },
         {
+            "id": "Favonius Sword",
+            "message": "Favonius Sword",
+            "translation": "西风剑"
+        },
+        {
+            "id": "Festering Desire",
+            "message": "Festering Desire",
+            "translation": "腐殖之剑"
+        },
+        {
+            "id": "Fillet Blade",
+            "message": "Fillet Blade",
+            "translation": "吃虎鱼刀"
+        },
+        {
             "id": "Fischl",
             "message": "Fischl",
             "translation": "菲谢尔"
+        },
+        {
+            "id": "Freedom-Sworn",
+            "message": "Freedom-Sworn",
+            "translation": "苍古自由之誓"
         },
         {
             "id": "Ganyu",
@@ -162,9 +217,24 @@
             "translation": "五郎"
         },
         {
+            "id": "Haran Geppaku Futsu",
+            "message": "Haran Geppaku Futsu",
+            "translation": "波乱月白经津"
+        },
+        {
+            "id": "Harbinger of Dawn",
+            "message": "Harbinger of Dawn",
+            "translation": "黎明神剑"
+        },
+        {
             "id": "Hu Tao",
             "message": "Hu Tao",
             "translation": "胡桃"
+        },
+        {
+            "id": "Iron Sting",
+            "message": "Iron Sting",
+            "translation": "铁蜂刺"
         },
         {
             "id": "Jean",
@@ -180,6 +250,11 @@
             "id": "Kaeya",
             "message": "Kaeya",
             "translation": "凯亚"
+        },
+        {
+            "id": "Kagotsurube Isshin",
+            "message": "Kagotsurube Isshin",
+            "translation": "笼钓瓶一心"
         },
         {
             "id": "Kamisato Ayaka",
@@ -202,6 +277,11 @@
             "translation": "刻晴"
         },
         {
+            "id": "Key of Khaj Nisut",
+            "message": "Key of Khaj Nisut",
+            "translation": "圣显之钥"
+        },
+        {
             "id": "Klee",
             "message": "Klee",
             "translation": "可莉"
@@ -222,6 +302,16 @@
             "translation": "莱依拉"
         },
         {
+            "id": "Light of Foliar Incision",
+            "message": "Light of Foliar Incision",
+            "translation": "裁叶萃光"
+        },
+        {
+            "id": "Lions Roar",
+            "message": "Lions Roar",
+            "translation": "匣里龙吟"
+        },
+        {
             "id": "Lisa",
             "message": "Lisa",
             "translation": "丽莎"
@@ -230,6 +320,11 @@
             "id": "Mika",
             "message": "Mika",
             "translation": "米卡"
+        },
+        {
+            "id": "Mistsplitter Reforged",
+            "message": "Mistsplitter Reforged",
+            "translation": "雾切之回光"
         },
         {
             "id": "Mona",
@@ -257,6 +352,16 @@
             "translation": "诺艾尔"
         },
         {
+            "id": "Primordial Jade Cutter",
+            "message": "Primordial Jade Cutter",
+            "translation": "磐岩结绿"
+        },
+        {
+            "id": "Prototype Rancour",
+            "message": "Prototype Rancour",
+            "translation": "试作斩岩"
+        },
+        {
             "id": "Qiqi",
             "message": "Qiqi",
             "translation": "七七"
@@ -277,9 +382,24 @@
             "translation": "罗莎莉亚"
         },
         {
+            "id": "Royal Longsword",
+            "message": "Royal Longsword",
+            "translation": "宗室长剑"
+        },
+        {
+            "id": "Sacrificial Sword",
+            "message": "Sacrificial Sword",
+            "translation": "祭礼剑"
+        },
+        {
             "id": "Sangonomiya Kokomi",
             "message": "Sangonomiya Kokomi",
             "translation": "珊瑚宫心海"
+        },
+        {
+            "id": "Sapwood Blade",
+            "message": "Sapwood Blade",
+            "translation": "原木刀"
         },
         {
             "id": "Sayu",
@@ -297,14 +417,54 @@
             "translation": "鹿野院平藏"
         },
         {
+            "id": "Silver Sword",
+            "message": "Silver Sword",
+            "translation": "银剑"
+        },
+        {
+            "id": "Skyrider Sword",
+            "message": "Skyrider Sword",
+            "translation": "飞天御剑"
+        },
+        {
+            "id": "Skyward Blade",
+            "message": "Skyward Blade",
+            "translation": "天空之刃"
+        },
+        {
             "id": "Sucrose",
             "message": "Sucrose",
             "translation": "砂糖"
         },
         {
+            "id": "Summit Shaper",
+            "message": "Summit Shaper",
+            "translation": "斫峰之刃"
+        },
+        {
+            "id": "Sword of Descension",
+            "message": "Sword of Descension",
+            "translation": "降临之剑"
+        },
+        {
             "id": "Tartaglia",
             "message": "Tartaglia",
             "translation": "达达利亚"
+        },
+        {
+            "id": "The Alley Flash",
+            "message": "The Alley Flash",
+            "translation": "暗巷闪光"
+        },
+        {
+            "id": "The Black Sword",
+            "message": "The Black Sword",
+            "translation": "黑剑"
+        },
+        {
+            "id": "The Flute",
+            "message": "The Flute",
+            "translation": "笛剑"
         },
         {
             "id": "Thoma",
@@ -315,6 +475,11 @@
             "id": "Tighnari",
             "message": "Tighnari",
             "translation": "提纳里"
+        },
+        {
+            "id": "Toukabou Shigure",
+            "message": "Toukabou Shigure",
+            "translation": "东花坊时雨"
         },
         {
             "id": "Traveler Anemo",
@@ -335,6 +500,11 @@
             "id": "Traveler Geo",
             "message": "Traveler Geo",
             "translation": "旅行者(岩)"
+        },
+        {
+            "id": "Travelers Handy Sword",
+            "message": "Travelers Handy Sword",
+            "translation": "旅行剑"
         },
         {
             "id": "Venti",
@@ -365,6 +535,11 @@
             "id": "Xinyan",
             "message": "Xinyan",
             "translation": "辛焱"
+        },
+        {
+            "id": "Xiphos Moonlight",
+            "message": "Xiphos Moonlight",
+            "translation": "西福斯的月光"
         },
         {
             "id": "Yae Miko",
@@ -400,6 +575,31 @@
             "id": "Zhongli",
             "message": "Zhongli",
             "translation": "钟离"
+        },
+        {
+            "id": "Sword",
+            "message": "Sword",
+            "translation": "单手剑"
+        },
+        {
+            "id": "Claymore",
+            "message": "Claymore",
+            "translation": "双手剑"
+        },
+        {
+            "id": "Polearm",
+            "message": "Polearm",
+            "translation": "长柄武器"
+        },
+        {
+            "id": "Catalyst",
+            "message": "Catalyst",
+            "translation": "法器"
+        },
+        {
+            "id": "Bow",
+            "message": "Bow",
+            "translation": "弓"
         }
     ]
 }

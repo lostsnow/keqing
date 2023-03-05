@@ -9,6 +9,7 @@ import (
 	"github.com/lostsnow/keqing/internal/handler"
 	"github.com/lostsnow/keqing/internal/handler/character"
 	"github.com/lostsnow/keqing/internal/handler/material"
+	"github.com/lostsnow/keqing/internal/handler/weapon"
 	"github.com/lostsnow/keqing/pkg/i18n"
 	_ "github.com/lostsnow/keqing/pkg/i18n/catalog"
 )
@@ -38,6 +39,7 @@ func setBotHandler(b *handler.Bot) {
 	b.Bot.Handle("/help", handler.Help)
 	b.Bot.Handle("/char_guide", character.Guide)
 	b.Bot.Handle("/char_material", character.Material)
+	b.Bot.Handle("/weapon_guide", weapon.Guide)
 	b.Bot.Handle("/material_weekly", material.Weekly)
 
 	ag := b.Bot.Group()

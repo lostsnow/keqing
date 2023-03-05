@@ -8,18 +8,17 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/litsea/logger"
 	"golang.org/x/tools/go/packages"
 
 	"github.com/lostsnow/keqing/data"
 	"github.com/lostsnow/keqing/pkg/character"
+	"github.com/lostsnow/keqing/pkg/weapon"
 )
 
 func main() {
 	err := character.Init()
 	if err != nil {
-		logger.Errorf("i18n generate failed: %s", err)
-		os.Exit(1)
+		log.Fatalf("i18n generate failed: %s", err)
 	}
 
 	cfg := &packages.Config{
@@ -76,6 +75,15 @@ func getTranslations() ([]string, error) {
 	}
 
 	for _, c := range character.ObjectMap() {
+		trans = append(trans, c.Id)
+	}
+
+	err = weapon.Init()
+	if err != nil {
+		return nil, fmt.Errorf("get weapon i18n strings failed: %s", err)
+	}
+
+	for _, c := range weapon.ObjectMap() {
 		trans = append(trans, c.Id)
 	}
 
