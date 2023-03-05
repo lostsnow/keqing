@@ -12,6 +12,7 @@ import (
 	"github.com/spf13/viper"
 	"gopkg.in/telebot.v3"
 
+	"github.com/lostsnow/keqing/data"
 	_ "github.com/lostsnow/keqing/pkg/i18n/catalog"
 	"github.com/lostsnow/keqing/pkg/object"
 )
@@ -27,6 +28,18 @@ var (
 type PhotoResponseHandler struct {
 	Buttons        []PhotoButton
 	NoPhotoMessage any
+}
+
+var (
+	UnknownPhoto *telebot.Photo
+	NoPhoto      *telebot.Photo
+)
+
+func init() {
+	f, _ := data.Embed.Open("embed/400.png")
+	UnknownPhoto = &telebot.Photo{File: telebot.File{FileReader: f}}
+	f, _ = data.Embed.Open("embed/404.png")
+	NoPhoto = &telebot.Photo{File: telebot.File{FileReader: f}}
 }
 
 func (h PhotoResponseHandler) Handle(ctx telebot.Context) error {
