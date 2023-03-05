@@ -11,6 +11,7 @@ require (
 	github.com/spf13/viper v1.15.0
 	github.com/stretchr/testify v1.8.1
 	golang.org/x/text v0.7.1-0.20230207171107-30dadde3188b
+	golang.org/x/tools v0.3.1-0.20221202221704-aa9f4b2f3d57
 	gopkg.in/telebot.v3 v3.1.2
 	gopkg.in/yaml.v3 v3.0.1
 )

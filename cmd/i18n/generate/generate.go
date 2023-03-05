@@ -1,0 +1,88 @@
+package main
+
+import (
+	"fmt"
+	"html/template"
+	"log"
+	"os"
+	"sort"
+	"strings"
+
+	"github.com/litsea/logger"
+	"golang.org/x/tools/go/packages"
+
+	"github.com/lostsnow/keqing/data"
+	"github.com/lostsnow/keqing/pkg/character"
+)
+
+func main() {
+	err := character.Init()
+	if err != nil {
+		logger.Errorf("i18n generate failed: %s", err)
+		os.Exit(1)
+	}
+
+	cfg := &packages.Config{
+		Mode:  packages.NeedImports,
+		Tests: false,
+	}
+	pkgs, err := packages.Load(cfg)
+	if err != nil {
+		log.Fatalf("i18n generate load package failed: %s", err)
+	}
+	if len(pkgs) != 1 {
+		log.Fatalf("error: %d packages found", len(pkgs))
+	}
+
+	pkgId := pkgs[0].ID
+	idx := strings.LastIndex(pkgId, "/")
+	pkg := pkgId[idx+1:]
+
+	tmpl, err := template.ParseFS(data.TPL, "tpl/i18n_strings.tpl")
+	if err != nil {
+		log.Fatalf("i18n generate parse template failed: %s", err)
+	}
+
+	trans, err := getTranslations()
+	if err != nil {
+		log.Fatalf("i18n generate get translations failed: %s", err)
+	}
+
+	m := struct {
+		Package      string
+		Translations []string
+	}{
+		Package:      pkg,
+		Translations: trans,
+	}
+	out := "./i18n_strings.go"
+	f, err := os.Create(out)
+	if err != nil {
+		log.Fatalf("i18n generate create file failed: %s", err)
+	}
+	defer f.Close()
+	_ = tmpl.Execute(f, m)
+	if err != nil {
+		log.Fatalf("i18n generate execute failed: %s", err)
+	}
+	log.Printf("i18n generate successfully: %s\n", out)
+}
+
+func getTranslations() ([]string, error) {
+	trans := make([]string, 0)
+	err := character.Init()
+	if err != nil {
+		return nil, fmt.Errorf("get character i18n strings failed: %s", err)
+	}
+
+	for _, c := range character.ObjectMap() {
+		trans = append(trans, c.Id)
+	}
+
+	if len(trans) == 0 {
+		return nil, fmt.Errorf("i18n strings empty")
+	}
+
+	sort.Sort(sort.StringSlice(trans))
+	return trans, nil
+}

@@ -81,6 +81,10 @@ func (c *Character) Name(ctx telebot.Context) string {
 	return i18n.T(ctx, c.Id)
 }
 
+func ObjectMap() map[string]*Character {
+	return objectMap
+}
+
 func Search(name string) []*Character {
 	return object.Search(name, nameAliasMap, objectMap)
 }

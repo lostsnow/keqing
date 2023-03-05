@@ -11,6 +11,7 @@ import (
 	_ "github.com/lostsnow/keqing/pkg/i18n/catalog"
 )
 
+//go:generate go run -mod=mod github.com/lostsnow/keqing/cmd/i18n/generate
 //go:generate gotext -srclang=en-US update -out=./catalog/catalog.go -lang=en-US,zh-Hans github.com/lostsnow/keqing
 
 const (

@@ -10,3 +10,6 @@ var Embed embed.FS
 
 //go:embed model
 var Model embed.FS
+
+//go:embed tpl
+var TPL embed.FS

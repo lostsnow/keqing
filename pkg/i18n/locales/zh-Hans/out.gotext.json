@@ -2,374 +2,19 @@
     "language": "zh-Hans",
     "messages": [
         {
-            "id": "Cut to the chase",
-            "message": "Cut to the chase",
-            "translation": "斩尽牛杂"
-        },
-        {
             "id": "No such character",
             "message": "No such character",
             "translation": "查无此人"
         },
         {
-            "id": "No such character guide",
-            "message": "No such character guide",
-            "translation": "此人很神秘, 没有情报"
+            "id": "Cut to the chase",
+            "message": "Cut to the chase",
+            "translation": "斩尽牛杂"
         },
         {
             "id": "What are you looking for, it does not exist",
             "message": "What are you looking for, it does not exist",
             "translation": "你找啥呢, 不存在的"
-        },
-        {
-            "id": "Bennett",
-            "message": "Bennett",
-            "translation": "班尼特"
-        },
-        {
-            "id": "Klee",
-            "message": "Klee",
-            "translation": "可莉"
-        },
-        {
-            "id": "Xiangling",
-            "message": "Xiangling",
-            "translation": "香菱"
-        },
-        {
-            "id": "Amber",
-            "message": "Amber",
-            "translation": "安柏"
-        },
-        {
-            "id": "Diluc",
-            "message": "Diluc",
-            "translation": "迪卢克"
-        },
-        {
-            "id": "Xinyan",
-            "message": "Xinyan",
-            "translation": "辛焱"
-        },
-        {
-            "id": "Hu Tao",
-            "message": "Hu Tao",
-            "translation": "胡桃"
-        },
-        {
-            "id": "Yanfei",
-            "message": "Yanfei",
-            "translation": "烟绯"
-        },
-        {
-            "id": "Yoimiya",
-            "message": "Yoimiya",
-            "translation": "宵宫"
-        },
-        {
-            "id": "Thoma",
-            "message": "Thoma",
-            "translation": "托马"
-        },
-        {
-            "id": "Dehya",
-            "message": "Dehya",
-            "translation": "迪希雅"
-        },
-        {
-            "id": "Mona",
-            "message": "Mona",
-            "translation": "莫娜"
-        },
-        {
-            "id": "Xingqiu",
-            "message": "Xingqiu",
-            "translation": "行秋"
-        },
-        {
-            "id": "Barbara",
-            "message": "Barbara",
-            "translation": "芭芭拉"
-        },
-        {
-            "id": "Tartaglia",
-            "message": "Tartaglia",
-            "translation": "达达利亚"
-        },
-        {
-            "id": "Sangonomiya Kokomi",
-            "message": "Sangonomiya Kokomi",
-            "translation": "珊瑚宫心海"
-        },
-        {
-            "id": "Kamisato Ayato",
-            "message": "Kamisato Ayato",
-            "translation": "神里绫人"
-        },
-        {
-            "id": "Yelan",
-            "message": "Yelan",
-            "translation": "夜兰"
-        },
-        {
-            "id": "Candace",
-            "message": "Candace",
-            "translation": "坎蒂丝"
-        },
-        {
-            "id": "Nilou",
-            "message": "Nilou",
-            "translation": "妮露"
-        },
-        {
-            "id": "Traveler Anemo",
-            "message": "Traveler Anemo",
-            "translation": "旅行者(风)"
-        },
-        {
-            "id": "Sucrose",
-            "message": "Sucrose",
-            "translation": "砂糖"
-        },
-        {
-            "id": "Venti",
-            "message": "Venti",
-            "translation": "温迪"
-        },
-        {
-            "id": "Jean",
-            "message": "Jean",
-            "translation": "琴"
-        },
-        {
-            "id": "Xiao",
-            "message": "Xiao",
-            "translation": "魈"
-        },
-        {
-            "id": "Kaedehara Kazuha",
-            "message": "Kaedehara Kazuha",
-            "translation": "枫原万叶"
-        },
-        {
-            "id": "Sayu",
-            "message": "Sayu",
-            "translation": "早柚"
-        },
-        {
-            "id": "Shikanoin Heizou",
-            "message": "Shikanoin Heizou",
-            "translation": "鹿野院平藏"
-        },
-        {
-            "id": "Faruzan",
-            "message": "Faruzan",
-            "translation": "珐露珊"
-        },
-        {
-            "id": "Wanderer",
-            "message": "Wanderer",
-            "translation": "流浪者"
-        },
-        {
-            "id": "Traveler Electro",
-            "message": "Traveler Electro",
-            "translation": "旅行者(雷)"
-        },
-        {
-            "id": "Keqing",
-            "message": "Keqing",
-            "translation": "刻晴"
-        },
-        {
-            "id": "Fischl",
-            "message": "Fischl",
-            "translation": "菲谢尔"
-        },
-        {
-            "id": "Beidou",
-            "message": "Beidou",
-            "translation": "北斗"
-        },
-        {
-            "id": "Razor",
-            "message": "Razor",
-            "translation": "雷泽"
-        },
-        {
-            "id": "Lisa",
-            "message": "Lisa",
-            "translation": "丽莎"
-        },
-        {
-            "id": "Kujou Sara",
-            "message": "Kujou Sara",
-            "translation": "九条裟罗"
-        },
-        {
-            "id": "Raiden Shogun",
-            "message": "Raiden Shogun",
-            "translation": "雷电将军"
-        },
-        {
-            "id": "Yae Miko",
-            "message": "Yae Miko",
-            "translation": "八重神子"
-        },
-        {
-            "id": "Kuki Shinobu",
-            "message": "Kuki Shinobu",
-            "translation": "久岐忍"
-        },
-        {
-            "id": "Dori",
-            "message": "Dori",
-            "translation": "多莉"
-        },
-        {
-            "id": "Cyno",
-            "message": "Cyno",
-            "translation": "赛诺"
-        },
-        {
-            "id": "Traveler Dendro",
-            "message": "Traveler Dendro",
-            "translation": "旅行者(草)"
-        },
-        {
-            "id": "Tighnari",
-            "message": "Tighnari",
-            "translation": "提纳里"
-        },
-        {
-            "id": "Collei",
-            "message": "Collei",
-            "translation": "柯莱"
-        },
-        {
-            "id": "Nahida",
-            "message": "Nahida",
-            "translation": "纳西妲"
-        },
-        {
-            "id": "Alhaitham",
-            "message": "Alhaitham",
-            "translation": "艾尔海森"
-        },
-        {
-            "id": "Yaoyao",
-            "message": "Yaoyao",
-            "translation": "瑶瑶"
-        },
-        {
-            "id": "Kaveh",
-            "message": "Kaveh",
-            "translation": "卡维"
-        },
-        {
-            "id": "Baizhu",
-            "message": "Baizhu",
-            "translation": "白术"
-        },
-        {
-            "id": "Chongyun",
-            "message": "Chongyun",
-            "translation": "重云"
-        },
-        {
-            "id": "Qiqi",
-            "message": "Qiqi",
-            "translation": "七七"
-        },
-        {
-            "id": "Kaeya",
-            "message": "Kaeya",
-            "translation": "凯亚"
-        },
-        {
-            "id": "Diona",
-            "message": "Diona",
-            "translation": "迪奥娜"
-        },
-        {
-            "id": "Ganyu",
-            "message": "Ganyu",
-            "translation": "甘雨"
-        },
-        {
-            "id": "Rosaria",
-            "message": "Rosaria",
-            "translation": "罗莎莉亚"
-        },
-        {
-            "id": "Eula",
-            "message": "Eula",
-            "translation": "优菈"
-        },
-        {
-            "id": "Kamisato Ayaka",
-            "message": "Kamisato Ayaka",
-            "translation": "神里绫华"
-        },
-        {
-            "id": "Aloy",
-            "message": "Aloy",
-            "translation": "埃洛伊"
-        },
-        {
-            "id": "Shenhe",
-            "message": "Shenhe",
-            "translation": "申鹤"
-        },
-        {
-            "id": "Layla",
-            "message": "Layla",
-            "translation": "莱依拉"
-        },
-        {
-            "id": "Mika",
-            "message": "Mika",
-            "translation": "米卡"
-        },
-        {
-            "id": "Traveler Geo",
-            "message": "Traveler Geo",
-            "translation": "旅行者(岩)"
-        },
-        {
-            "id": "Noelle",
-            "message": "Noelle",
-            "translation": "诺艾尔"
-        },
-        {
-            "id": "Ningguang",
-            "message": "Ningguang",
-            "translation": "凝光"
-        },
-        {
-            "id": "Zhongli",
-            "message": "Zhongli",
-            "translation": "钟离"
-        },
-        {
-            "id": "Albedo",
-            "message": "Albedo",
-            "translation": "阿贝多"
-        },
-        {
-            "id": "Arataki Itto",
-            "message": "Arataki Itto",
-            "translation": "荒泷一斗"
-        },
-        {
-            "id": "Gorou",
-            "message": "Gorou",
-            "translation": "五郎"
-        },
-        {
-            "id": "Yun Jin",
-            "message": "Yun Jin",
-            "translation": "云堇"
         },
         {
             "id": "Pyro",
@@ -405,6 +50,356 @@
             "id": "Geo",
             "message": "Geo",
             "translation": "岩"
+        },
+        {
+            "id": "Albedo",
+            "message": "Albedo",
+            "translation": "阿贝多"
+        },
+        {
+            "id": "Alhaitham",
+            "message": "Alhaitham",
+            "translation": "艾尔海森"
+        },
+        {
+            "id": "Aloy",
+            "message": "Aloy",
+            "translation": "埃洛伊"
+        },
+        {
+            "id": "Amber",
+            "message": "Amber",
+            "translation": "安柏"
+        },
+        {
+            "id": "Arataki Itto",
+            "message": "Arataki Itto",
+            "translation": "荒泷一斗"
+        },
+        {
+            "id": "Baizhu",
+            "message": "Baizhu",
+            "translation": "白术"
+        },
+        {
+            "id": "Barbara",
+            "message": "Barbara",
+            "translation": "芭芭拉"
+        },
+        {
+            "id": "Beidou",
+            "message": "Beidou",
+            "translation": "北斗"
+        },
+        {
+            "id": "Bennett",
+            "message": "Bennett",
+            "translation": "班尼特"
+        },
+        {
+            "id": "Candace",
+            "message": "Candace",
+            "translation": "坎蒂丝"
+        },
+        {
+            "id": "Chongyun",
+            "message": "Chongyun",
+            "translation": "重云"
+        },
+        {
+            "id": "Collei",
+            "message": "Collei",
+            "translation": "柯莱"
+        },
+        {
+            "id": "Cyno",
+            "message": "Cyno",
+            "translation": "赛诺"
+        },
+        {
+            "id": "Dehya",
+            "message": "Dehya",
+            "translation": "迪希雅"
+        },
+        {
+            "id": "Diluc",
+            "message": "Diluc",
+            "translation": "迪卢克"
+        },
+        {
+            "id": "Diona",
+            "message": "Diona",
+            "translation": "迪奥娜"
+        },
+        {
+            "id": "Dori",
+            "message": "Dori",
+            "translation": "多莉"
+        },
+        {
+            "id": "Eula",
+            "message": "Eula",
+            "translation": "优菈"
+        },
+        {
+            "id": "Faruzan",
+            "message": "Faruzan",
+            "translation": "珐露珊"
+        },
+        {
+            "id": "Fischl",
+            "message": "Fischl",
+            "translation": "菲谢尔"
+        },
+        {
+            "id": "Ganyu",
+            "message": "Ganyu",
+            "translation": "甘雨"
+        },
+        {
+            "id": "Gorou",
+            "message": "Gorou",
+            "translation": "五郎"
+        },
+        {
+            "id": "Hu Tao",
+            "message": "Hu Tao",
+            "translation": "胡桃"
+        },
+        {
+            "id": "Jean",
+            "message": "Jean",
+            "translation": "琴"
+        },
+        {
+            "id": "Kaedehara Kazuha",
+            "message": "Kaedehara Kazuha",
+            "translation": "枫原万叶"
+        },
+        {
+            "id": "Kaeya",
+            "message": "Kaeya",
+            "translation": "凯亚"
+        },
+        {
+            "id": "Kamisato Ayaka",
+            "message": "Kamisato Ayaka",
+            "translation": "神里绫华"
+        },
+        {
+            "id": "Kamisato Ayato",
+            "message": "Kamisato Ayato",
+            "translation": "神里绫人"
+        },
+        {
+            "id": "Kaveh",
+            "message": "Kaveh",
+            "translation": "卡维"
+        },
+        {
+            "id": "Keqing",
+            "message": "Keqing",
+            "translation": "刻晴"
+        },
+        {
+            "id": "Klee",
+            "message": "Klee",
+            "translation": "可莉"
+        },
+        {
+            "id": "Kujou Sara",
+            "message": "Kujou Sara",
+            "translation": "九条裟罗"
+        },
+        {
+            "id": "Kuki Shinobu",
+            "message": "Kuki Shinobu",
+            "translation": "久岐忍"
+        },
+        {
+            "id": "Layla",
+            "message": "Layla",
+            "translation": "莱依拉"
+        },
+        {
+            "id": "Lisa",
+            "message": "Lisa",
+            "translation": "丽莎"
+        },
+        {
+            "id": "Mika",
+            "message": "Mika",
+            "translation": "米卡"
+        },
+        {
+            "id": "Mona",
+            "message": "Mona",
+            "translation": "莫娜"
+        },
+        {
+            "id": "Nahida",
+            "message": "Nahida",
+            "translation": "纳西妲"
+        },
+        {
+            "id": "Nilou",
+            "message": "Nilou",
+            "translation": "妮露"
+        },
+        {
+            "id": "Ningguang",
+            "message": "Ningguang",
+            "translation": "凝光"
+        },
+        {
+            "id": "Noelle",
+            "message": "Noelle",
+            "translation": "诺艾尔"
+        },
+        {
+            "id": "Qiqi",
+            "message": "Qiqi",
+            "translation": "七七"
+        },
+        {
+            "id": "Raiden Shogun",
+            "message": "Raiden Shogun",
+            "translation": "雷电将军"
+        },
+        {
+            "id": "Razor",
+            "message": "Razor",
+            "translation": "雷泽"
+        },
+        {
+            "id": "Rosaria",
+            "message": "Rosaria",
+            "translation": "罗莎莉亚"
+        },
+        {
+            "id": "Sangonomiya Kokomi",
+            "message": "Sangonomiya Kokomi",
+            "translation": "珊瑚宫心海"
+        },
+        {
+            "id": "Sayu",
+            "message": "Sayu",
+            "translation": "早柚"
+        },
+        {
+            "id": "Shenhe",
+            "message": "Shenhe",
+            "translation": "申鹤"
+        },
+        {
+            "id": "Shikanoin Heizou",
+            "message": "Shikanoin Heizou",
+            "translation": "鹿野院平藏"
+        },
+        {
+            "id": "Sucrose",
+            "message": "Sucrose",
+            "translation": "砂糖"
+        },
+        {
+            "id": "Tartaglia",
+            "message": "Tartaglia",
+            "translation": "达达利亚"
+        },
+        {
+            "id": "Thoma",
+            "message": "Thoma",
+            "translation": "托马"
+        },
+        {
+            "id": "Tighnari",
+            "message": "Tighnari",
+            "translation": "提纳里"
+        },
+        {
+            "id": "Traveler Anemo",
+            "message": "Traveler Anemo",
+            "translation": "旅行者(风)"
+        },
+        {
+            "id": "Traveler Dendro",
+            "message": "Traveler Dendro",
+            "translation": "旅行者(草)"
+        },
+        {
+            "id": "Traveler Electro",
+            "message": "Traveler Electro",
+            "translation": "旅行者(雷)"
+        },
+        {
+            "id": "Traveler Geo",
+            "message": "Traveler Geo",
+            "translation": "旅行者(岩)"
+        },
+        {
+            "id": "Venti",
+            "message": "Venti",
+            "translation": "温迪"
+        },
+        {
+            "id": "Wanderer",
+            "message": "Wanderer",
+            "translation": "流浪者"
+        },
+        {
+            "id": "Xiangling",
+            "message": "Xiangling",
+            "translation": "香菱"
+        },
+        {
+            "id": "Xiao",
+            "message": "Xiao",
+            "translation": "魈"
+        },
+        {
+            "id": "Xingqiu",
+            "message": "Xingqiu",
+            "translation": "行秋"
+        },
+        {
+            "id": "Xinyan",
+            "message": "Xinyan",
+            "translation": "辛焱"
+        },
+        {
+            "id": "Yae Miko",
+            "message": "Yae Miko",
+            "translation": "八重神子"
+        },
+        {
+            "id": "Yanfei",
+            "message": "Yanfei",
+            "translation": "烟绯"
+        },
+        {
+            "id": "Yaoyao",
+            "message": "Yaoyao",
+            "translation": "瑶瑶"
+        },
+        {
+            "id": "Yelan",
+            "message": "Yelan",
+            "translation": "夜兰"
+        },
+        {
+            "id": "Yoimiya",
+            "message": "Yoimiya",
+            "translation": "宵宫"
+        },
+        {
+            "id": "Yun Jin",
+            "message": "Yun Jin",
+            "translation": "云堇"
+        },
+        {
+            "id": "Zhongli",
+            "message": "Zhongli",
+            "translation": "钟离"
         }
     ]
 }
