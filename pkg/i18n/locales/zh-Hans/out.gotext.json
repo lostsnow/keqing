@@ -52,6 +52,11 @@
             "translation": "岩"
         },
         {
+            "id": "A Thousand Floating Dreams",
+            "message": "A Thousand Floating Dreams",
+            "translation": "千夜浮梦"
+        },
+        {
             "id": "Akuoumaru",
             "message": "Akuoumaru",
             "translation": "恶王丸"
@@ -80,6 +85,11 @@
             "id": "Amenoma Kageuchi",
             "message": "Amenoma Kageuchi",
             "translation": "天目影打刀"
+        },
+        {
+            "id": "Apprentices Notes",
+            "message": "Apprentices Notes",
+            "translation": "学徒笔记"
         },
         {
             "id": "Aquila Favonia",
@@ -125,6 +135,11 @@
             "id": "Black Tassel",
             "message": "Black Tassel",
             "translation": "黑缨枪"
+        },
+        {
+            "id": "Blackcliff Agate",
+            "message": "Blackcliff Agate",
+            "translation": "黑岩绯玉"
         },
         {
             "id": "Blackcliff Longsword",
@@ -217,6 +232,11 @@
             "translation": "迪奥娜"
         },
         {
+            "id": "Dodoco Tales",
+            "message": "Dodoco Tales",
+            "translation": "嘟嘟可故事集"
+        },
+        {
             "id": "Dori",
             "message": "Dori",
             "translation": "多莉"
@@ -237,6 +257,11 @@
             "translation": "无锋剑"
         },
         {
+            "id": "Emerald Orb",
+            "message": "Emerald Orb",
+            "translation": "翡玉法球"
+        },
+        {
             "id": "Engulfing Lightning",
             "message": "Engulfing Lightning",
             "translation": "薙草之稻光"
@@ -247,9 +272,24 @@
             "translation": "优菈"
         },
         {
+            "id": "Everlasting Moonglow",
+            "message": "Everlasting Moonglow",
+            "translation": "不灭月华"
+        },
+        {
+            "id": "Eye of Perception",
+            "message": "Eye of Perception",
+            "translation": "昭心"
+        },
+        {
             "id": "Faruzan",
             "message": "Faruzan",
             "translation": "珐露珊"
+        },
+        {
+            "id": "Favonius Codex",
+            "message": "Favonius Codex",
+            "translation": "西风秘典"
         },
         {
             "id": "Favonius Greatsword",
@@ -297,6 +337,16 @@
             "translation": "苍古自由之誓"
         },
         {
+            "id": "Frostbearer",
+            "message": "Frostbearer",
+            "translation": "忍冬之果"
+        },
+        {
+            "id": "Fruit of Fulfillment",
+            "message": "Fruit of Fulfillment",
+            "translation": "盈满之实"
+        },
+        {
             "id": "Ganyu",
             "message": "Ganyu",
             "translation": "甘雨"
@@ -305,6 +355,11 @@
             "id": "Gorou",
             "message": "Gorou",
             "translation": "五郎"
+        },
+        {
+            "id": "Hakushin Ring",
+            "message": "Hakushin Ring",
+            "translation": "白辰之环"
         },
         {
             "id": "Halberd",
@@ -337,6 +392,11 @@
             "translation": "铁蜂刺"
         },
         {
+            "id": "Jadefalls Splendor",
+            "message": "Jadefalls Splendor",
+            "translation": "碧落之珑"
+        },
+        {
             "id": "Jean",
             "message": "Jean",
             "translation": "琴"
@@ -355,6 +415,11 @@
             "id": "Kagotsurube Isshin",
             "message": "Kagotsurube Isshin",
             "translation": "笼钓瓶一心"
+        },
+        {
+            "id": "Kaguras Verity",
+            "message": "Kaguras Verity",
+            "translation": "神乐之真意"
         },
         {
             "id": "Kamisato Ayaka",
@@ -437,9 +502,19 @@
             "translation": "千岩长枪"
         },
         {
+            "id": "Lost Prayer to the Sacred Winds",
+            "message": "Lost Prayer to the Sacred Winds",
+            "translation": "四风原典"
+        },
+        {
             "id": "Luxurious Sea Lord",
             "message": "Luxurious Sea Lord",
             "translation": "衔珠海皇"
+        },
+        {
+            "id": "Magic Guide",
+            "message": "Magic Guide",
+            "translation": "魔导绪论"
         },
         {
             "id": "Mailed Flower",
@@ -450,6 +525,16 @@
             "id": "Makhaira Aquamarine",
             "message": "Makhaira Aquamarine",
             "translation": "玛海菈的水色"
+        },
+        {
+            "id": "Mappa Mare",
+            "message": "Mappa Mare",
+            "translation": "万国诸海图谱"
+        },
+        {
+            "id": "Memory of Dust",
+            "message": "Memory of Dust",
+            "translation": "尘世之锁"
         },
         {
             "id": "Mika",
@@ -497,6 +582,21 @@
             "translation": "诺艾尔"
         },
         {
+            "id": "Oathsworn Eye",
+            "message": "Oathsworn Eye",
+            "translation": "证誓之明瞳"
+        },
+        {
+            "id": "Otherworldly Story",
+            "message": "Otherworldly Story",
+            "translation": "异世界行记"
+        },
+        {
+            "id": "Pocket Grimoire",
+            "message": "Pocket Grimoire",
+            "translation": "口袋魔导书"
+        },
+        {
             "id": "Primordial Jade Cutter",
             "message": "Primordial Jade Cutter",
             "translation": "磐岩结绿"
@@ -505,6 +605,11 @@
             "id": "Primordial Jade Winged Spear",
             "message": "Primordial Jade Winged Spear",
             "translation": "和璞鸢"
+        },
+        {
+            "id": "Prototype Amber",
+            "message": "Prototype Amber",
+            "translation": "试作金珀"
         },
         {
             "id": "Prototype Archaic",
@@ -557,6 +662,11 @@
             "translation": "宗室大剑"
         },
         {
+            "id": "Royal Grimoire",
+            "message": "Royal Grimoire",
+            "translation": "宗室秘法录"
+        },
+        {
             "id": "Royal Longsword",
             "message": "Royal Longsword",
             "translation": "宗室长剑"
@@ -565,6 +675,11 @@
             "id": "Royal Spear",
             "message": "Royal Spear",
             "translation": "宗室猎枪"
+        },
+        {
+            "id": "Sacrificial Fragments",
+            "message": "Sacrificial Fragments",
+            "translation": "祭礼残章"
         },
         {
             "id": "Sacrificial Greatsword",
@@ -622,6 +737,11 @@
             "translation": "飞天御剑"
         },
         {
+            "id": "Skyward Atlas",
+            "message": "Skyward Atlas",
+            "translation": "天空之卷"
+        },
+        {
             "id": "Skyward Blade",
             "message": "Skyward Blade",
             "translation": "天空之刃"
@@ -640,6 +760,11 @@
             "id": "Snow Tombed Starsilver",
             "message": "Snow Tombed Starsilver",
             "translation": "雪葬的星银"
+        },
+        {
+            "id": "Solar Pearl",
+            "message": "Solar Pearl",
+            "translation": "匣里日月"
         },
         {
             "id": "Song of Broken Pines",
@@ -707,9 +832,19 @@
             "translation": "无工之剑"
         },
         {
+            "id": "The Widsith",
+            "message": "The Widsith",
+            "translation": "流浪乐章"
+        },
+        {
             "id": "Thoma",
             "message": "Thoma",
             "translation": "托马"
+        },
+        {
+            "id": "Thrilling Tales of Dragon Slayers",
+            "message": "Thrilling Tales of Dragon Slayers",
+            "translation": "讨龙英杰谭"
         },
         {
             "id": "Tighnari",
@@ -747,6 +882,16 @@
             "translation": "旅行剑"
         },
         {
+            "id": "Tulaytullahs Remembrance",
+            "message": "Tulaytullahs Remembrance",
+            "translation": "图莱杜拉的回忆"
+        },
+        {
+            "id": "Twin Nephrite",
+            "message": "Twin Nephrite",
+            "translation": "甲级宝珏"
+        },
+        {
             "id": "Venti",
             "message": "Venti",
             "translation": "温迪"
@@ -760,6 +905,11 @@
             "id": "Wanderer",
             "message": "Wanderer",
             "translation": "流浪者"
+        },
+        {
+            "id": "Wandering Evenstar",
+            "message": "Wandering Evenstar",
+            "translation": "流浪的晚星"
         },
         {
             "id": "Waster Greatsword",
@@ -785,6 +935,11 @@
             "id": "Whiteblind",
             "message": "Whiteblind",
             "translation": "白影剑"
+        },
+        {
+            "id": "Wine and Song",
+            "message": "Wine and Song",
+            "translation": "暗巷的酒与诗"
         },
         {
             "id": "Wolfs Gravestone",
