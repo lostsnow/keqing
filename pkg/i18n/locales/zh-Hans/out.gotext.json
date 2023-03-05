@@ -72,6 +72,11 @@
             "translation": "艾尔海森"
         },
         {
+            "id": "Alley Hunter",
+            "message": "Alley Hunter",
+            "translation": "暗巷猎手"
+        },
+        {
             "id": "Aloy",
             "message": "Aloy",
             "translation": "埃洛伊"
@@ -87,9 +92,19 @@
             "translation": "天目影打刀"
         },
         {
+            "id": "Amos Bow",
+            "message": "Amos Bow",
+            "translation": "阿莫斯之弓"
+        },
+        {
             "id": "Apprentices Notes",
             "message": "Apprentices Notes",
             "translation": "学徒笔记"
+        },
+        {
+            "id": "Aqua Simulacra",
+            "message": "Aqua Simulacra",
+            "translation": "若水"
         },
         {
             "id": "Aquila Favonia",
@@ -157,6 +172,11 @@
             "translation": "黑岩斩刀"
         },
         {
+            "id": "Blackcliff Warbow",
+            "message": "Blackcliff Warbow",
+            "translation": "黑岩战弓"
+        },
+        {
             "id": "Bloodtainted Greatsword",
             "message": "Bloodtainted Greatsword",
             "translation": "沐浴龙血的剑"
@@ -185,6 +205,11 @@
             "id": "Collei",
             "message": "Collei",
             "translation": "柯莱"
+        },
+        {
+            "id": "Compound Bow",
+            "message": "Compound Bow",
+            "translation": "钢轮弓"
         },
         {
             "id": "Cool Steel",
@@ -257,9 +282,19 @@
             "translation": "无锋剑"
         },
         {
+            "id": "Elegy for the End",
+            "message": "Elegy for the End",
+            "translation": "终末嗟叹之诗"
+        },
+        {
             "id": "Emerald Orb",
             "message": "Emerald Orb",
             "translation": "翡玉法球"
+        },
+        {
+            "id": "End of the Line",
+            "message": "End of the Line",
+            "translation": "竭泽"
         },
         {
             "id": "Engulfing Lightning",
@@ -280,6 +315,11 @@
             "id": "Eye of Perception",
             "message": "Eye of Perception",
             "translation": "昭心"
+        },
+        {
+            "id": "Fading Twilight",
+            "message": "Fading Twilight",
+            "translation": "落霞"
         },
         {
             "id": "Faruzan",
@@ -305,6 +345,11 @@
             "id": "Favonius Sword",
             "message": "Favonius Sword",
             "translation": "西风剑"
+        },
+        {
+            "id": "Favonius Warbow",
+            "message": "Favonius Warbow",
+            "translation": "西风猎弓"
         },
         {
             "id": "Ferrous Shadow",
@@ -367,6 +412,11 @@
             "translation": "钺矛"
         },
         {
+            "id": "Hamayumi",
+            "message": "Hamayumi",
+            "translation": "破魔之弓"
+        },
+        {
             "id": "Haran Geppaku Futsu",
             "message": "Haran Geppaku Futsu",
             "translation": "波乱月白经津"
@@ -380,6 +430,16 @@
             "id": "Hu Tao",
             "message": "Hu Tao",
             "translation": "胡桃"
+        },
+        {
+            "id": "Hunters Bow",
+            "message": "Hunters Bow",
+            "translation": "猎弓"
+        },
+        {
+            "id": "Hunters Path",
+            "message": "Hunters Path",
+            "translation": "猎人之径"
         },
         {
             "id": "Iron Point",
@@ -450,6 +510,11 @@
             "id": "Key of Khaj Nisut",
             "message": "Key of Khaj Nisut",
             "translation": "圣显之钥"
+        },
+        {
+            "id": "Kings Squire",
+            "message": "Kings Squire",
+            "translation": "王下近侍"
         },
         {
             "id": "Kitain Cross Spear",
@@ -537,6 +602,11 @@
             "translation": "尘世之锁"
         },
         {
+            "id": "Messenger",
+            "message": "Messenger",
+            "translation": "信使"
+        },
+        {
             "id": "Mika",
             "message": "Mika",
             "translation": "米卡"
@@ -552,6 +622,11 @@
             "translation": "雾切之回光"
         },
         {
+            "id": "Mitternachts Waltz",
+            "message": "Mitternachts Waltz",
+            "translation": "幽夜华尔兹"
+        },
+        {
             "id": "Mona",
             "message": "Mona",
             "translation": "莫娜"
@@ -560,6 +635,11 @@
             "id": "Moonpiercer",
             "message": "Moonpiercer",
             "translation": "贯月矢"
+        },
+        {
+            "id": "Mouuns Moon",
+            "message": "Mouuns Moon",
+            "translation": "曚云之月"
         },
         {
             "id": "Nahida",
@@ -597,6 +677,16 @@
             "translation": "口袋魔导书"
         },
         {
+            "id": "Polar Star",
+            "message": "Polar Star",
+            "translation": "冬极白星"
+        },
+        {
+            "id": "Predator",
+            "message": "Predator",
+            "translation": "掠食者"
+        },
+        {
             "id": "Primordial Jade Cutter",
             "message": "Primordial Jade Cutter",
             "translation": "磐岩结绿"
@@ -615,6 +705,11 @@
             "id": "Prototype Archaic",
             "message": "Prototype Archaic",
             "translation": "试作古华"
+        },
+        {
+            "id": "Prototype Crescent",
+            "message": "Prototype Crescent",
+            "translation": "试作澹月"
         },
         {
             "id": "Prototype Rancour",
@@ -642,9 +737,19 @@
             "translation": "雨裁"
         },
         {
+            "id": "Raven Bow",
+            "message": "Raven Bow",
+            "translation": "鸦羽弓"
+        },
+        {
             "id": "Razor",
             "message": "Razor",
             "translation": "雷泽"
+        },
+        {
+            "id": "Recurve Bow",
+            "message": "Recurve Bow",
+            "translation": "反曲弓"
         },
         {
             "id": "Redhorn Stonethresher",
@@ -655,6 +760,11 @@
             "id": "Rosaria",
             "message": "Rosaria",
             "translation": "罗莎莉亚"
+        },
+        {
+            "id": "Royal Bow",
+            "message": "Royal Bow",
+            "translation": "宗室长弓"
         },
         {
             "id": "Royal Greatsword",
@@ -675,6 +785,16 @@
             "id": "Royal Spear",
             "message": "Royal Spear",
             "translation": "宗室猎枪"
+        },
+        {
+            "id": "Rust",
+            "message": "Rust",
+            "translation": "弓藏"
+        },
+        {
+            "id": "Sacrificial Bow",
+            "message": "Sacrificial Bow",
+            "translation": "祭礼弓"
         },
         {
             "id": "Sacrificial Fragments",
@@ -707,9 +827,19 @@
             "translation": "早柚"
         },
         {
+            "id": "Seasoned Hunters Bow",
+            "message": "Seasoned Hunters Bow",
+            "translation": "历练的猎弓"
+        },
+        {
             "id": "Serpent Spine",
             "message": "Serpent Spine",
             "translation": "螭骨剑"
+        },
+        {
+            "id": "Sharpshooters Oath",
+            "message": "Sharpshooters Oath",
+            "translation": "神射手之誓"
         },
         {
             "id": "Shenhe",
@@ -747,6 +877,11 @@
             "translation": "天空之刃"
         },
         {
+            "id": "Skyward Harp",
+            "message": "Skyward Harp",
+            "translation": "天空之翼"
+        },
+        {
             "id": "Skyward Pride",
             "message": "Skyward Pride",
             "translation": "天空之傲"
@@ -755,6 +890,11 @@
             "id": "Skyward Spine",
             "message": "Skyward Spine",
             "translation": "天空之脊"
+        },
+        {
+            "id": "Slingshot",
+            "message": "Slingshot",
+            "translation": "弹弓"
         },
         {
             "id": "Snow Tombed Starsilver",
@@ -827,9 +967,19 @@
             "translation": "笛剑"
         },
         {
+            "id": "The Stringless",
+            "message": "The Stringless",
+            "translation": "绝弦"
+        },
+        {
             "id": "The Unforged",
             "message": "The Unforged",
             "translation": "无工之剑"
+        },
+        {
+            "id": "The Viridescent Hunt",
+            "message": "The Viridescent Hunt",
+            "translation": "苍翠猎弓"
         },
         {
             "id": "The Widsith",
@@ -845,6 +995,11 @@
             "id": "Thrilling Tales of Dragon Slayers",
             "message": "Thrilling Tales of Dragon Slayers",
             "translation": "讨龙英杰谭"
+        },
+        {
+            "id": "Thundering Pulse",
+            "message": "Thundering Pulse",
+            "translation": "飞雷之弦振"
         },
         {
             "id": "Tighnari",
@@ -935,6 +1090,11 @@
             "id": "Whiteblind",
             "message": "Whiteblind",
             "translation": "白影剑"
+        },
+        {
+            "id": "Windblume Ode",
+            "message": "Windblume Ode",
+            "translation": "风花之颂"
         },
         {
             "id": "Wine and Song",

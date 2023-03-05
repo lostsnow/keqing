@@ -100,6 +100,13 @@
             "fuzzy": true
         },
         {
+            "id": "Alley Hunter",
+            "message": "Alley Hunter",
+            "translation": "Alley Hunter",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Aloy",
             "message": "Aloy",
             "translation": "Aloy",
@@ -121,9 +128,23 @@
             "fuzzy": true
         },
         {
+            "id": "Amos Bow",
+            "message": "Amos Bow",
+            "translation": "Amos Bow",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Apprentices Notes",
             "message": "Apprentices Notes",
             "translation": "Apprentices Notes",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Aqua Simulacra",
+            "message": "Aqua Simulacra",
+            "translation": "Aqua Simulacra",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -219,6 +240,13 @@
             "fuzzy": true
         },
         {
+            "id": "Blackcliff Warbow",
+            "message": "Blackcliff Warbow",
+            "translation": "Blackcliff Warbow",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Bloodtainted Greatsword",
             "message": "Bloodtainted Greatsword",
             "translation": "Bloodtainted Greatsword",
@@ -257,6 +285,13 @@
             "id": "Collei",
             "message": "Collei",
             "translation": "Collei",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Compound Bow",
+            "message": "Compound Bow",
+            "translation": "Compound Bow",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -359,9 +394,23 @@
             "fuzzy": true
         },
         {
+            "id": "Elegy for the End",
+            "message": "Elegy for the End",
+            "translation": "Elegy for the End",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Emerald Orb",
             "message": "Emerald Orb",
             "translation": "Emerald Orb",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "End of the Line",
+            "message": "End of the Line",
+            "translation": "End of the Line",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -390,6 +439,13 @@
             "id": "Eye of Perception",
             "message": "Eye of Perception",
             "translation": "Eye of Perception",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Fading Twilight",
+            "message": "Fading Twilight",
+            "translation": "Fading Twilight",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -425,6 +481,13 @@
             "id": "Favonius Sword",
             "message": "Favonius Sword",
             "translation": "Favonius Sword",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Favonius Warbow",
+            "message": "Favonius Warbow",
+            "translation": "Favonius Warbow",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -513,6 +576,13 @@
             "fuzzy": true
         },
         {
+            "id": "Hamayumi",
+            "message": "Hamayumi",
+            "translation": "Hamayumi",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Haran Geppaku Futsu",
             "message": "Haran Geppaku Futsu",
             "translation": "Haran Geppaku Futsu",
@@ -530,6 +600,20 @@
             "id": "Hu Tao",
             "message": "Hu Tao",
             "translation": "Hu Tao",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Hunters Bow",
+            "message": "Hunters Bow",
+            "translation": "Hunters Bow",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Hunters Path",
+            "message": "Hunters Path",
+            "translation": "Hunters Path",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -628,6 +712,13 @@
             "id": "Key of Khaj Nisut",
             "message": "Key of Khaj Nisut",
             "translation": "Key of Khaj Nisut",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Kings Squire",
+            "message": "Kings Squire",
+            "translation": "Kings Squire",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -751,6 +842,13 @@
             "fuzzy": true
         },
         {
+            "id": "Messenger",
+            "message": "Messenger",
+            "translation": "Messenger",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Mika",
             "message": "Mika",
             "translation": "Mika",
@@ -772,6 +870,13 @@
             "fuzzy": true
         },
         {
+            "id": "Mitternachts Waltz",
+            "message": "Mitternachts Waltz",
+            "translation": "Mitternachts Waltz",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Mona",
             "message": "Mona",
             "translation": "Mona",
@@ -782,6 +887,13 @@
             "id": "Moonpiercer",
             "message": "Moonpiercer",
             "translation": "Moonpiercer",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Mouuns Moon",
+            "message": "Mouuns Moon",
+            "translation": "Mouuns Moon",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -835,6 +947,20 @@
             "fuzzy": true
         },
         {
+            "id": "Polar Star",
+            "message": "Polar Star",
+            "translation": "Polar Star",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Predator",
+            "message": "Predator",
+            "translation": "Predator",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Primordial Jade Cutter",
             "message": "Primordial Jade Cutter",
             "translation": "Primordial Jade Cutter",
@@ -859,6 +985,13 @@
             "id": "Prototype Archaic",
             "message": "Prototype Archaic",
             "translation": "Prototype Archaic",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Prototype Crescent",
+            "message": "Prototype Crescent",
+            "translation": "Prototype Crescent",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -898,9 +1031,23 @@
             "fuzzy": true
         },
         {
+            "id": "Raven Bow",
+            "message": "Raven Bow",
+            "translation": "Raven Bow",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Razor",
             "message": "Razor",
             "translation": "Razor",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Recurve Bow",
+            "message": "Recurve Bow",
+            "translation": "Recurve Bow",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -915,6 +1062,13 @@
             "id": "Rosaria",
             "message": "Rosaria",
             "translation": "Rosaria",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Royal Bow",
+            "message": "Royal Bow",
+            "translation": "Royal Bow",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -943,6 +1097,20 @@
             "id": "Royal Spear",
             "message": "Royal Spear",
             "translation": "Royal Spear",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Rust",
+            "message": "Rust",
+            "translation": "Rust",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Sacrificial Bow",
+            "message": "Sacrificial Bow",
+            "translation": "Sacrificial Bow",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -989,9 +1157,23 @@
             "fuzzy": true
         },
         {
+            "id": "Seasoned Hunters Bow",
+            "message": "Seasoned Hunters Bow",
+            "translation": "Seasoned Hunters Bow",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Serpent Spine",
             "message": "Serpent Spine",
             "translation": "Serpent Spine",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Sharpshooters Oath",
+            "message": "Sharpshooters Oath",
+            "translation": "Sharpshooters Oath",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -1045,6 +1227,13 @@
             "fuzzy": true
         },
         {
+            "id": "Skyward Harp",
+            "message": "Skyward Harp",
+            "translation": "Skyward Harp",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Skyward Pride",
             "message": "Skyward Pride",
             "translation": "Skyward Pride",
@@ -1055,6 +1244,13 @@
             "id": "Skyward Spine",
             "message": "Skyward Spine",
             "translation": "Skyward Spine",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Slingshot",
+            "message": "Slingshot",
+            "translation": "Slingshot",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -1157,9 +1353,23 @@
             "fuzzy": true
         },
         {
+            "id": "The Stringless",
+            "message": "The Stringless",
+            "translation": "The Stringless",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "The Unforged",
             "message": "The Unforged",
             "translation": "The Unforged",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "The Viridescent Hunt",
+            "message": "The Viridescent Hunt",
+            "translation": "The Viridescent Hunt",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -1181,6 +1391,13 @@
             "id": "Thrilling Tales of Dragon Slayers",
             "message": "Thrilling Tales of Dragon Slayers",
             "translation": "Thrilling Tales of Dragon Slayers",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Thundering Pulse",
+            "message": "Thundering Pulse",
+            "translation": "Thundering Pulse",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -1307,6 +1524,13 @@
             "id": "Whiteblind",
             "message": "Whiteblind",
             "translation": "Whiteblind",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Windblume Ode",
+            "message": "Windblume Ode",
+            "translation": "Windblume Ode",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
