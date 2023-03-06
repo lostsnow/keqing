@@ -67,3 +67,6 @@ go generate -v ./pkg/i18n
 ## Thanks
 
 * Character guide: https://www.miyoushe.com/ys/collection/642956
+* genshin-atlas: https://github.com/Nwflower/genshin-atlas
+* Yunzai-Bot: https://gitee.com/Le-niao/Yunzai-Bot
+* LittlePaimon: https://github.com/CMHopeSunshine/LittlePaimon
