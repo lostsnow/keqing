@@ -6,6 +6,6 @@ import (
 	_ "github.com/lostsnow/keqing/pkg/i18n/catalog"
 )
 
-func Material(ctx telebot.Context) error {
-	return Handler(ctx, "material")
+func Curve(ctx telebot.Context) error {
+	return Handler(ctx, "curve")
 }
