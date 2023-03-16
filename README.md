@@ -70,3 +70,4 @@ go generate -v ./pkg/i18n
 * genshin-atlas: https://github.com/Nwflower/genshin-atlas
 * Yunzai-Bot: https://gitee.com/Le-niao/Yunzai-Bot
 * LittlePaimon: https://github.com/CMHopeSunshine/LittlePaimon
+* Character curve: https://www.miyoushe.com/ys/collection/1880046
