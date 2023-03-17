@@ -40,6 +40,7 @@ func setBotHandler(b *handler.Bot) {
 	b.Bot.Handle("/char_guide", character.Guide)
 	b.Bot.Handle("/char_material", character.Material)
 	b.Bot.Handle("/char_curve", character.Curve)
+	b.Bot.Handle("/char_graduation", character.Graduation)
 	b.Bot.Handle("/weapon_guide", weapon.Guide)
 	b.Bot.Handle("/material_weekly", material.Weekly)
 
