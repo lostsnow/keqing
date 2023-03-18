@@ -44,7 +44,7 @@ func init() {
 
 func (h PhotoResponseHandler) Handle(ctx telebot.Context) error {
 	if len(h.Buttons) == 0 {
-		return ctx.Respond()
+		return nil
 	}
 
 	sel := &telebot.ReplyMarkup{}

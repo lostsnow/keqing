@@ -14,7 +14,7 @@ import (
 
 func Handler(ctx telebot.Context, typ string) error {
 	if len(ctx.Args()) == 0 {
-		return ctx.Respond()
+		return nil
 	}
 
 	name := strings.Join(ctx.Args(), " ")
