@@ -16,6 +16,48 @@
             "fuzzy": true
         },
         {
+            "id": "Monday",
+            "message": "Monday",
+            "translation": "Monday",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Thursday",
+            "message": "Thursday",
+            "translation": "Thursday",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Tuesday",
+            "message": "Tuesday",
+            "translation": "Tuesday",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Friday",
+            "message": "Friday",
+            "translation": "Friday",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Wednesday",
+            "message": "Wednesday",
+            "translation": "Wednesday",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Saturday",
+            "message": "Saturday",
+            "translation": "Saturday",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "What are you looking for, it does not exist",
             "message": "What are you looking for, it does not exist",
             "translation": "What are you looking for, it does not exist",

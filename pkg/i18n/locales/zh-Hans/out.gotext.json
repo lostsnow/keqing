@@ -12,6 +12,36 @@
             "translation": "斩尽牛杂"
         },
         {
+            "id": "Monday",
+            "message": "Monday",
+            "translation": "周一"
+        },
+        {
+            "id": "Thursday",
+            "message": "Thursday",
+            "translation": "周四"
+        },
+        {
+            "id": "Tuesday",
+            "message": "Tuesday",
+            "translation": "周二"
+        },
+        {
+            "id": "Friday",
+            "message": "Friday",
+            "translation": "周五"
+        },
+        {
+            "id": "Wednesday",
+            "message": "Wednesday",
+            "translation": "周三"
+        },
+        {
+            "id": "Saturday",
+            "message": "Saturday",
+            "translation": "周六"
+        },
+        {
             "id": "What are you looking for, it does not exist",
             "message": "What are you looking for, it does not exist",
             "translation": "你找啥呢, 不存在的"

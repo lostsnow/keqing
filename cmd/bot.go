@@ -43,6 +43,7 @@ func setBotHandler(b *handler.Bot) {
 	b.Bot.Handle("/char_graduation", character.Graduation)
 	b.Bot.Handle("/weapon_guide", weapon.Guide)
 	b.Bot.Handle("/material_weekly", material.Weekly)
+	b.Bot.Handle("/material_daily", material.Daily)
 
 	ag := b.Bot.Group()
 	ag.Use(middleware.Whitelist(b.AdminIds...))
