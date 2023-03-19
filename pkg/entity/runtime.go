@@ -8,6 +8,9 @@ import (
 	"github.com/lostsnow/keqing/db/schema"
 	"github.com/lostsnow/keqing/pkg/entity/chat"
 	"github.com/lostsnow/keqing/pkg/entity/chatoption"
+	"github.com/lostsnow/keqing/pkg/entity/gameaccount"
+	"github.com/lostsnow/keqing/pkg/entity/gamerole"
+	"github.com/lostsnow/keqing/pkg/entity/gameroleattribute"
 	"github.com/lostsnow/keqing/pkg/entity/user"
 )
 
@@ -75,6 +78,118 @@ func init() {
 	chatoption.DefaultUpdateAt = chatoptionDescUpdateAt.Default.(func() time.Time)
 	// chatoption.UpdateDefaultUpdateAt holds the default value on update for the update_at field.
 	chatoption.UpdateDefaultUpdateAt = chatoptionDescUpdateAt.UpdateDefault.(func() time.Time)
+	gameaccountFields := schema.GameAccount{}.Fields()
+	_ = gameaccountFields
+	// gameaccountDescAccountID is the schema descriptor for account_id field.
+	gameaccountDescAccountID := gameaccountFields[2].Descriptor()
+	// gameaccount.AccountIDValidator is a validator for the "account_id" field. It is called by the builders before save.
+	gameaccount.AccountIDValidator = gameaccountDescAccountID.Validators[0].(func(string) error)
+	// gameaccountDescGameToken is the schema descriptor for game_token field.
+	gameaccountDescGameToken := gameaccountFields[3].Descriptor()
+	// gameaccount.DefaultGameToken holds the default value on creation for the game_token field.
+	gameaccount.DefaultGameToken = gameaccountDescGameToken.Default.(string)
+	// gameaccount.GameTokenValidator is a validator for the "game_token" field. It is called by the builders before save.
+	gameaccount.GameTokenValidator = gameaccountDescGameToken.Validators[0].(func(string) error)
+	// gameaccountDescCookieToken is the schema descriptor for cookie_token field.
+	gameaccountDescCookieToken := gameaccountFields[4].Descriptor()
+	// gameaccount.DefaultCookieToken holds the default value on creation for the cookie_token field.
+	gameaccount.DefaultCookieToken = gameaccountDescCookieToken.Default.(string)
+	// gameaccount.CookieTokenValidator is a validator for the "cookie_token" field. It is called by the builders before save.
+	gameaccount.CookieTokenValidator = gameaccountDescCookieToken.Validators[0].(func(string) error)
+	// gameaccountDescStoken is the schema descriptor for stoken field.
+	gameaccountDescStoken := gameaccountFields[5].Descriptor()
+	// gameaccount.DefaultStoken holds the default value on creation for the stoken field.
+	gameaccount.DefaultStoken = gameaccountDescStoken.Default.(string)
+	// gameaccountDescMid is the schema descriptor for mid field.
+	gameaccountDescMid := gameaccountFields[6].Descriptor()
+	// gameaccount.DefaultMid holds the default value on creation for the mid field.
+	gameaccount.DefaultMid = gameaccountDescMid.Default.(string)
+	// gameaccount.MidValidator is a validator for the "mid" field. It is called by the builders before save.
+	gameaccount.MidValidator = gameaccountDescMid.Validators[0].(func(string) error)
+	// gameaccountDescCreateAt is the schema descriptor for create_at field.
+	gameaccountDescCreateAt := gameaccountFields[7].Descriptor()
+	// gameaccount.DefaultCreateAt holds the default value on creation for the create_at field.
+	gameaccount.DefaultCreateAt = gameaccountDescCreateAt.Default.(func() time.Time)
+	// gameaccountDescUpdateAt is the schema descriptor for update_at field.
+	gameaccountDescUpdateAt := gameaccountFields[8].Descriptor()
+	// gameaccount.DefaultUpdateAt holds the default value on creation for the update_at field.
+	gameaccount.DefaultUpdateAt = gameaccountDescUpdateAt.Default.(func() time.Time)
+	// gameaccount.UpdateDefaultUpdateAt holds the default value on update for the update_at field.
+	gameaccount.UpdateDefaultUpdateAt = gameaccountDescUpdateAt.UpdateDefault.(func() time.Time)
+	gameroleFields := schema.GameRole{}.Fields()
+	_ = gameroleFields
+	// gameroleDescAccountID is the schema descriptor for account_id field.
+	gameroleDescAccountID := gameroleFields[2].Descriptor()
+	// gamerole.AccountIDValidator is a validator for the "account_id" field. It is called by the builders before save.
+	gamerole.AccountIDValidator = gameroleDescAccountID.Validators[0].(func(string) error)
+	// gameroleDescRoleID is the schema descriptor for role_id field.
+	gameroleDescRoleID := gameroleFields[3].Descriptor()
+	// gamerole.RoleIDValidator is a validator for the "role_id" field. It is called by the builders before save.
+	gamerole.RoleIDValidator = gameroleDescRoleID.Validators[0].(func(string) error)
+	// gameroleDescLevel is the schema descriptor for level field.
+	gameroleDescLevel := gameroleFields[4].Descriptor()
+	// gamerole.DefaultLevel holds the default value on creation for the level field.
+	gamerole.DefaultLevel = gameroleDescLevel.Default.(int)
+	// gameroleDescRegion is the schema descriptor for region field.
+	gameroleDescRegion := gameroleFields[5].Descriptor()
+	// gamerole.DefaultRegion holds the default value on creation for the region field.
+	gamerole.DefaultRegion = gameroleDescRegion.Default.(string)
+	// gamerole.RegionValidator is a validator for the "region" field. It is called by the builders before save.
+	gamerole.RegionValidator = gameroleDescRegion.Validators[0].(func(string) error)
+	// gameroleDescRegionName is the schema descriptor for region_name field.
+	gameroleDescRegionName := gameroleFields[6].Descriptor()
+	// gamerole.DefaultRegionName holds the default value on creation for the region_name field.
+	gamerole.DefaultRegionName = gameroleDescRegionName.Default.(string)
+	// gamerole.RegionNameValidator is a validator for the "region_name" field. It is called by the builders before save.
+	gamerole.RegionNameValidator = gameroleDescRegionName.Validators[0].(func(string) error)
+	// gameroleDescNickName is the schema descriptor for nick_name field.
+	gameroleDescNickName := gameroleFields[7].Descriptor()
+	// gamerole.DefaultNickName holds the default value on creation for the nick_name field.
+	gamerole.DefaultNickName = gameroleDescNickName.Default.(string)
+	// gamerole.NickNameValidator is a validator for the "nick_name" field. It is called by the builders before save.
+	gamerole.NickNameValidator = gameroleDescNickName.Validators[0].(func(string) error)
+	// gameroleDescCreateAt is the schema descriptor for create_at field.
+	gameroleDescCreateAt := gameroleFields[8].Descriptor()
+	// gamerole.DefaultCreateAt holds the default value on creation for the create_at field.
+	gamerole.DefaultCreateAt = gameroleDescCreateAt.Default.(func() time.Time)
+	// gameroleDescUpdateAt is the schema descriptor for update_at field.
+	gameroleDescUpdateAt := gameroleFields[9].Descriptor()
+	// gamerole.DefaultUpdateAt holds the default value on creation for the update_at field.
+	gamerole.DefaultUpdateAt = gameroleDescUpdateAt.Default.(func() time.Time)
+	// gamerole.UpdateDefaultUpdateAt holds the default value on update for the update_at field.
+	gamerole.UpdateDefaultUpdateAt = gameroleDescUpdateAt.UpdateDefault.(func() time.Time)
+	gameroleattributeFields := schema.GameRoleAttribute{}.Fields()
+	_ = gameroleattributeFields
+	// gameroleattributeDescAccountID is the schema descriptor for account_id field.
+	gameroleattributeDescAccountID := gameroleattributeFields[2].Descriptor()
+	// gameroleattribute.AccountIDValidator is a validator for the "account_id" field. It is called by the builders before save.
+	gameroleattribute.AccountIDValidator = gameroleattributeDescAccountID.Validators[0].(func(string) error)
+	// gameroleattributeDescRoleID is the schema descriptor for role_id field.
+	gameroleattributeDescRoleID := gameroleattributeFields[3].Descriptor()
+	// gameroleattribute.RoleIDValidator is a validator for the "role_id" field. It is called by the builders before save.
+	gameroleattribute.RoleIDValidator = gameroleattributeDescRoleID.Validators[0].(func(string) error)
+	// gameroleattributeDescName is the schema descriptor for name field.
+	gameroleattributeDescName := gameroleattributeFields[4].Descriptor()
+	// gameroleattribute.NameValidator is a validator for the "name" field. It is called by the builders before save.
+	gameroleattribute.NameValidator = gameroleattributeDescName.Validators[0].(func(string) error)
+	// gameroleattributeDescType is the schema descriptor for type field.
+	gameroleattributeDescType := gameroleattributeFields[5].Descriptor()
+	// gameroleattribute.DefaultType holds the default value on creation for the type field.
+	gameroleattribute.DefaultType = gameroleattributeDescType.Default.(int)
+	// gameroleattributeDescValue is the schema descriptor for value field.
+	gameroleattributeDescValue := gameroleattributeFields[6].Descriptor()
+	// gameroleattribute.DefaultValue holds the default value on creation for the value field.
+	gameroleattribute.DefaultValue = gameroleattributeDescValue.Default.(string)
+	// gameroleattributeDescCreateAt is the schema descriptor for create_at field.
+	gameroleattributeDescCreateAt := gameroleattributeFields[7].Descriptor()
+	// gameroleattribute.DefaultCreateAt holds the default value on creation for the create_at field.
+	gameroleattribute.DefaultCreateAt = gameroleattributeDescCreateAt.Default.(func() time.Time)
+	// gameroleattributeDescUpdateAt is the schema descriptor for update_at field.
+	gameroleattributeDescUpdateAt := gameroleattributeFields[8].Descriptor()
+	// gameroleattribute.DefaultUpdateAt holds the default value on creation for the update_at field.
+	gameroleattribute.DefaultUpdateAt = gameroleattributeDescUpdateAt.Default.(func() time.Time)
+	// gameroleattribute.UpdateDefaultUpdateAt holds the default value on update for the update_at field.
+	gameroleattribute.UpdateDefaultUpdateAt = gameroleattributeDescUpdateAt.UpdateDefault.(func() time.Time)
 	userFields := schema.User{}.Fields()
 	_ = userFields
 	// userDescIsBot is the schema descriptor for is_bot field.

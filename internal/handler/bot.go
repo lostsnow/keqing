@@ -52,8 +52,7 @@ func NewBot() (*Bot, error) {
 		Verbose: viper.GetBool("telegram.verbose"),
 		OnError: func(err error, ctx telebot.Context) {
 			msgBytes, _ := json.MarshalIndent(ctx.Update(), "", "  ")
-			msg := fmt.Sprintf("*%s\n[ERROR] %s*\n```\n%s\n```", time.Now(), err, msgBytes)
-			ReportError(ctx, msg)
+			ReportError(ctx, "*%s\n[ERROR] %s*\n```\n%s\n```", time.Now(), err, msgBytes)
 		},
 	}
 

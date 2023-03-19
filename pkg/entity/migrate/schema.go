@@ -57,6 +57,117 @@ var (
 			},
 		},
 	}
+	// GameAccountsColumns holds the columns for the "game_accounts" table.
+	GameAccountsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt64, Increment: true},
+		{Name: "user_id", Type: field.TypeInt64},
+		{Name: "account_id", Type: field.TypeString, Size: 30},
+		{Name: "game_token", Type: field.TypeString, Size: 100, Default: ""},
+		{Name: "cookie_token", Type: field.TypeString, Size: 100, Default: ""},
+		{Name: "stoken", Type: field.TypeString, Default: ""},
+		{Name: "mid", Type: field.TypeString, Size: 50, Default: ""},
+		{Name: "create_at", Type: field.TypeTime, SchemaType: map[string]string{"mysql": "datetime"}},
+		{Name: "update_at", Type: field.TypeTime, SchemaType: map[string]string{"mysql": "datetime"}},
+	}
+	// GameAccountsTable holds the schema information for the "game_accounts" table.
+	GameAccountsTable = &schema.Table{
+		Name:       "game_accounts",
+		Columns:    GameAccountsColumns,
+		PrimaryKey: []*schema.Column{GameAccountsColumns[0]},
+		Indexes: []*schema.Index{
+			{
+				Name:    "gameaccount_user_id_account_id",
+				Unique:  true,
+				Columns: []*schema.Column{GameAccountsColumns[1], GameAccountsColumns[2]},
+			},
+			{
+				Name:    "gameaccount_account_id",
+				Unique:  false,
+				Columns: []*schema.Column{GameAccountsColumns[2]},
+			},
+		},
+	}
+	// GameRolesColumns holds the columns for the "game_roles" table.
+	GameRolesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt64, Increment: true},
+		{Name: "user_id", Type: field.TypeInt64},
+		{Name: "account_id", Type: field.TypeString, Size: 30},
+		{Name: "role_id", Type: field.TypeString, Size: 30},
+		{Name: "level", Type: field.TypeInt, Default: 0},
+		{Name: "region", Type: field.TypeString, Size: 30, Default: ""},
+		{Name: "region_name", Type: field.TypeString, Size: 30, Default: ""},
+		{Name: "nick_name", Type: field.TypeString, Size: 100, Default: ""},
+		{Name: "create_at", Type: field.TypeTime, SchemaType: map[string]string{"mysql": "datetime"}},
+		{Name: "update_at", Type: field.TypeTime, SchemaType: map[string]string{"mysql": "datetime"}},
+	}
+	// GameRolesTable holds the schema information for the "game_roles" table.
+	GameRolesTable = &schema.Table{
+		Name:       "game_roles",
+		Columns:    GameRolesColumns,
+		PrimaryKey: []*schema.Column{GameRolesColumns[0]},
+		Indexes: []*schema.Index{
+			{
+				Name:    "gamerole_user_id_account_id_role_id",
+				Unique:  true,
+				Columns: []*schema.Column{GameRolesColumns[1], GameRolesColumns[2], GameRolesColumns[3]},
+			},
+			{
+				Name:    "gamerole_account_id",
+				Unique:  false,
+				Columns: []*schema.Column{GameRolesColumns[2]},
+			},
+			{
+				Name:    "gamerole_role_id",
+				Unique:  false,
+				Columns: []*schema.Column{GameRolesColumns[3]},
+			},
+			{
+				Name:    "gamerole_region",
+				Unique:  false,
+				Columns: []*schema.Column{GameRolesColumns[5]},
+			},
+		},
+	}
+	// GameRoleAttributesColumns holds the columns for the "game_role_attributes" table.
+	GameRoleAttributesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt64, Increment: true},
+		{Name: "user_id", Type: field.TypeInt64},
+		{Name: "account_id", Type: field.TypeString, Size: 30},
+		{Name: "role_id", Type: field.TypeString, Size: 30},
+		{Name: "name", Type: field.TypeString, Size: 100},
+		{Name: "type", Type: field.TypeInt, Default: 0},
+		{Name: "value", Type: field.TypeString, Default: ""},
+		{Name: "create_at", Type: field.TypeTime, SchemaType: map[string]string{"mysql": "datetime"}},
+		{Name: "update_at", Type: field.TypeTime, SchemaType: map[string]string{"mysql": "datetime"}},
+	}
+	// GameRoleAttributesTable holds the schema information for the "game_role_attributes" table.
+	GameRoleAttributesTable = &schema.Table{
+		Name:       "game_role_attributes",
+		Columns:    GameRoleAttributesColumns,
+		PrimaryKey: []*schema.Column{GameRoleAttributesColumns[0]},
+		Indexes: []*schema.Index{
+			{
+				Name:    "gameroleattribute_user_id_account_id_role_id_name",
+				Unique:  true,
+				Columns: []*schema.Column{GameRoleAttributesColumns[1], GameRoleAttributesColumns[2], GameRoleAttributesColumns[3], GameRoleAttributesColumns[4]},
+			},
+			{
+				Name:    "gameroleattribute_account_id",
+				Unique:  false,
+				Columns: []*schema.Column{GameRoleAttributesColumns[2]},
+			},
+			{
+				Name:    "gameroleattribute_role_id",
+				Unique:  false,
+				Columns: []*schema.Column{GameRoleAttributesColumns[3]},
+			},
+			{
+				Name:    "gameroleattribute_name",
+				Unique:  false,
+				Columns: []*schema.Column{GameRoleAttributesColumns[4]},
+			},
+		},
+	}
 	// UsersColumns holds the columns for the "users" table.
 	UsersColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt64, Increment: true},
@@ -90,6 +201,9 @@ var (
 	Tables = []*schema.Table{
 		ChatsTable,
 		ChatOptionsTable,
+		GameAccountsTable,
+		GameRolesTable,
+		GameRoleAttributesTable,
 		UsersTable,
 	}
 )

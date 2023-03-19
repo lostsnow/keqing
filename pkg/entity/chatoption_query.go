@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"math"
 
+	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
@@ -21,6 +22,7 @@ type ChatOptionQuery struct {
 	order      []OrderFunc
 	inters     []Interceptor
 	predicates []predicate.ChatOption
+	modifiers  []func(*sql.Selector)
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -342,6 +344,9 @@ func (coq *ChatOptionQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*
 		nodes = append(nodes, node)
 		return node.assignValues(columns, values)
 	}
+	if len(coq.modifiers) > 0 {
+		_spec.Modifiers = coq.modifiers
+	}
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
@@ -356,6 +361,9 @@ func (coq *ChatOptionQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*
 
 func (coq *ChatOptionQuery) sqlCount(ctx context.Context) (int, error) {
 	_spec := coq.querySpec()
+	if len(coq.modifiers) > 0 {
+		_spec.Modifiers = coq.modifiers
+	}
 	_spec.Node.Columns = coq.ctx.Fields
 	if len(coq.ctx.Fields) > 0 {
 		_spec.Unique = coq.ctx.Unique != nil && *coq.ctx.Unique
@@ -418,6 +426,9 @@ func (coq *ChatOptionQuery) sqlQuery(ctx context.Context) *sql.Selector {
 	if coq.ctx.Unique != nil && *coq.ctx.Unique {
 		selector.Distinct()
 	}
+	for _, m := range coq.modifiers {
+		m(selector)
+	}
 	for _, p := range coq.predicates {
 		p(selector)
 	}
@@ -433,6 +444,38 @@ func (coq *ChatOptionQuery) sqlQuery(ctx context.Context) *sql.Selector {
 		selector.Limit(*limit)
 	}
 	return selector
+}
+
+// ForUpdate locks the selected rows against concurrent updates, and prevent them from being
+// updated, deleted or "selected ... for update" by other sessions, until the transaction is
+// either committed or rolled-back.
+func (coq *ChatOptionQuery) ForUpdate(opts ...sql.LockOption) *ChatOptionQuery {
+	if coq.driver.Dialect() == dialect.Postgres {
+		coq.Unique(false)
+	}
+	coq.modifiers = append(coq.modifiers, func(s *sql.Selector) {
+		s.ForUpdate(opts...)
+	})
+	return coq
+}
+
+// ForShare behaves similarly to ForUpdate, except that it acquires a shared mode lock
+// on any rows that are read. Other sessions can read the rows, but cannot modify them
+// until your transaction commits.
+func (coq *ChatOptionQuery) ForShare(opts ...sql.LockOption) *ChatOptionQuery {
+	if coq.driver.Dialect() == dialect.Postgres {
+		coq.Unique(false)
+	}
+	coq.modifiers = append(coq.modifiers, func(s *sql.Selector) {
+		s.ForShare(opts...)
+	})
+	return coq
+}
+
+// Modify adds a query modifier for attaching custom logic to queries.
+func (coq *ChatOptionQuery) Modify(modifiers ...func(s *sql.Selector)) *ChatOptionSelect {
+	coq.modifiers = append(coq.modifiers, modifiers...)
+	return coq.Select()
 }
 
 // ChatOptionGroupBy is the group-by builder for ChatOption entities.
@@ -523,4 +566,10 @@ func (cos *ChatOptionSelect) sqlScan(ctx context.Context, root *ChatOptionQuery,
 	}
 	defer rows.Close()
 	return sql.ScanSlice(rows, v)
+}
+
+// Modify adds a query modifier for attaching custom logic to queries.
+func (cos *ChatOptionSelect) Modify(modifiers ...func(s *sql.Selector)) *ChatOptionSelect {
+	cos.modifiers = append(cos.modifiers, modifiers...)
+	return cos
 }

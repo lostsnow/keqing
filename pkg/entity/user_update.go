@@ -18,8 +18,9 @@ import (
 // UserUpdate is the builder for updating User entities.
 type UserUpdate struct {
 	config
-	hooks    []Hook
-	mutation *UserMutation
+	hooks     []Hook
+	mutation  *UserMutation
+	modifiers []func(*sql.UpdateBuilder)
 }
 
 // Where appends a list predicates to the UserUpdate builder.
@@ -97,20 +98,6 @@ func (uu *UserUpdate) SetNillableLastName(s *string) *UserUpdate {
 	return uu
 }
 
-// SetCreateAt sets the "create_at" field.
-func (uu *UserUpdate) SetCreateAt(t time.Time) *UserUpdate {
-	uu.mutation.SetCreateAt(t)
-	return uu
-}
-
-// SetNillableCreateAt sets the "create_at" field if the given value is not nil.
-func (uu *UserUpdate) SetNillableCreateAt(t *time.Time) *UserUpdate {
-	if t != nil {
-		uu.SetCreateAt(*t)
-	}
-	return uu
-}
-
 // SetUpdateAt sets the "update_at" field.
 func (uu *UserUpdate) SetUpdateAt(t time.Time) *UserUpdate {
 	uu.mutation.SetUpdateAt(t)
@@ -158,6 +145,12 @@ func (uu *UserUpdate) defaults() {
 	}
 }
 
+// Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
+func (uu *UserUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *UserUpdate {
+	uu.modifiers = append(uu.modifiers, modifiers...)
+	return uu
+}
+
 func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	_spec := sqlgraph.NewUpdateSpec(user.Table, user.Columns, sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt64))
 	if ps := uu.mutation.predicates; len(ps) > 0 {
@@ -185,12 +178,10 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if value, ok := uu.mutation.LastName(); ok {
 		_spec.SetField(user.FieldLastName, field.TypeString, value)
 	}
-	if value, ok := uu.mutation.CreateAt(); ok {
-		_spec.SetField(user.FieldCreateAt, field.TypeTime, value)
-	}
 	if value, ok := uu.mutation.UpdateAt(); ok {
 		_spec.SetField(user.FieldUpdateAt, field.TypeTime, value)
 	}
+	_spec.AddModifiers(uu.modifiers...)
 	if n, err = sqlgraph.UpdateNodes(ctx, uu.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{user.Label}
@@ -206,9 +197,10 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 // UserUpdateOne is the builder for updating a single User entity.
 type UserUpdateOne struct {
 	config
-	fields   []string
-	hooks    []Hook
-	mutation *UserMutation
+	fields    []string
+	hooks     []Hook
+	mutation  *UserMutation
+	modifiers []func(*sql.UpdateBuilder)
 }
 
 // SetUserID sets the "user_id" field.
@@ -280,20 +272,6 @@ func (uuo *UserUpdateOne) SetNillableLastName(s *string) *UserUpdateOne {
 	return uuo
 }
 
-// SetCreateAt sets the "create_at" field.
-func (uuo *UserUpdateOne) SetCreateAt(t time.Time) *UserUpdateOne {
-	uuo.mutation.SetCreateAt(t)
-	return uuo
-}
-
-// SetNillableCreateAt sets the "create_at" field if the given value is not nil.
-func (uuo *UserUpdateOne) SetNillableCreateAt(t *time.Time) *UserUpdateOne {
-	if t != nil {
-		uuo.SetCreateAt(*t)
-	}
-	return uuo
-}
-
 // SetUpdateAt sets the "update_at" field.
 func (uuo *UserUpdateOne) SetUpdateAt(t time.Time) *UserUpdateOne {
 	uuo.mutation.SetUpdateAt(t)
@@ -354,6 +332,12 @@ func (uuo *UserUpdateOne) defaults() {
 	}
 }
 
+// Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
+func (uuo *UserUpdateOne) Modify(modifiers ...func(u *sql.UpdateBuilder)) *UserUpdateOne {
+	uuo.modifiers = append(uuo.modifiers, modifiers...)
+	return uuo
+}
+
 func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 	_spec := sqlgraph.NewUpdateSpec(user.Table, user.Columns, sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt64))
 	id, ok := uuo.mutation.ID()
@@ -398,12 +382,10 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 	if value, ok := uuo.mutation.LastName(); ok {
 		_spec.SetField(user.FieldLastName, field.TypeString, value)
 	}
-	if value, ok := uuo.mutation.CreateAt(); ok {
-		_spec.SetField(user.FieldCreateAt, field.TypeTime, value)
-	}
 	if value, ok := uuo.mutation.UpdateAt(); ok {
 		_spec.SetField(user.FieldUpdateAt, field.TypeTime, value)
 	}
+	_spec.AddModifiers(uuo.modifiers...)
 	_node = &User{config: uuo.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues

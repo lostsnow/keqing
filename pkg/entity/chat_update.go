@@ -18,8 +18,9 @@ import (
 // ChatUpdate is the builder for updating Chat entities.
 type ChatUpdate struct {
 	config
-	hooks    []Hook
-	mutation *ChatMutation
+	hooks     []Hook
+	mutation  *ChatMutation
+	modifiers []func(*sql.UpdateBuilder)
 }
 
 // Where appends a list predicates to the ChatUpdate builder.
@@ -139,20 +140,6 @@ func (cu *ChatUpdate) SetNillableDescription(s *string) *ChatUpdate {
 	return cu
 }
 
-// SetCreateAt sets the "create_at" field.
-func (cu *ChatUpdate) SetCreateAt(t time.Time) *ChatUpdate {
-	cu.mutation.SetCreateAt(t)
-	return cu
-}
-
-// SetNillableCreateAt sets the "create_at" field if the given value is not nil.
-func (cu *ChatUpdate) SetNillableCreateAt(t *time.Time) *ChatUpdate {
-	if t != nil {
-		cu.SetCreateAt(*t)
-	}
-	return cu
-}
-
 // SetUpdateAt sets the "update_at" field.
 func (cu *ChatUpdate) SetUpdateAt(t time.Time) *ChatUpdate {
 	cu.mutation.SetUpdateAt(t)
@@ -200,6 +187,12 @@ func (cu *ChatUpdate) defaults() {
 	}
 }
 
+// Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
+func (cu *ChatUpdate) Modify(modifiers ...func(u *sql.UpdateBuilder)) *ChatUpdate {
+	cu.modifiers = append(cu.modifiers, modifiers...)
+	return cu
+}
+
 func (cu *ChatUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	_spec := sqlgraph.NewUpdateSpec(chat.Table, chat.Columns, sqlgraph.NewFieldSpec(chat.FieldID, field.TypeInt64))
 	if ps := cu.mutation.predicates; len(ps) > 0 {
@@ -236,12 +229,10 @@ func (cu *ChatUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if value, ok := cu.mutation.Description(); ok {
 		_spec.SetField(chat.FieldDescription, field.TypeString, value)
 	}
-	if value, ok := cu.mutation.CreateAt(); ok {
-		_spec.SetField(chat.FieldCreateAt, field.TypeTime, value)
-	}
 	if value, ok := cu.mutation.UpdateAt(); ok {
 		_spec.SetField(chat.FieldUpdateAt, field.TypeTime, value)
 	}
+	_spec.AddModifiers(cu.modifiers...)
 	if n, err = sqlgraph.UpdateNodes(ctx, cu.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{chat.Label}
@@ -257,9 +248,10 @@ func (cu *ChatUpdate) sqlSave(ctx context.Context) (n int, err error) {
 // ChatUpdateOne is the builder for updating a single Chat entity.
 type ChatUpdateOne struct {
 	config
-	fields   []string
-	hooks    []Hook
-	mutation *ChatMutation
+	fields    []string
+	hooks     []Hook
+	mutation  *ChatMutation
+	modifiers []func(*sql.UpdateBuilder)
 }
 
 // SetChatID sets the "chat_id" field.
@@ -373,20 +365,6 @@ func (cuo *ChatUpdateOne) SetNillableDescription(s *string) *ChatUpdateOne {
 	return cuo
 }
 
-// SetCreateAt sets the "create_at" field.
-func (cuo *ChatUpdateOne) SetCreateAt(t time.Time) *ChatUpdateOne {
-	cuo.mutation.SetCreateAt(t)
-	return cuo
-}
-
-// SetNillableCreateAt sets the "create_at" field if the given value is not nil.
-func (cuo *ChatUpdateOne) SetNillableCreateAt(t *time.Time) *ChatUpdateOne {
-	if t != nil {
-		cuo.SetCreateAt(*t)
-	}
-	return cuo
-}
-
 // SetUpdateAt sets the "update_at" field.
 func (cuo *ChatUpdateOne) SetUpdateAt(t time.Time) *ChatUpdateOne {
 	cuo.mutation.SetUpdateAt(t)
@@ -447,6 +425,12 @@ func (cuo *ChatUpdateOne) defaults() {
 	}
 }
 
+// Modify adds a statement modifier for attaching custom logic to the UPDATE statement.
+func (cuo *ChatUpdateOne) Modify(modifiers ...func(u *sql.UpdateBuilder)) *ChatUpdateOne {
+	cuo.modifiers = append(cuo.modifiers, modifiers...)
+	return cuo
+}
+
 func (cuo *ChatUpdateOne) sqlSave(ctx context.Context) (_node *Chat, err error) {
 	_spec := sqlgraph.NewUpdateSpec(chat.Table, chat.Columns, sqlgraph.NewFieldSpec(chat.FieldID, field.TypeInt64))
 	id, ok := cuo.mutation.ID()
@@ -500,12 +484,10 @@ func (cuo *ChatUpdateOne) sqlSave(ctx context.Context) (_node *Chat, err error) 
 	if value, ok := cuo.mutation.Description(); ok {
 		_spec.SetField(chat.FieldDescription, field.TypeString, value)
 	}
-	if value, ok := cuo.mutation.CreateAt(); ok {
-		_spec.SetField(chat.FieldCreateAt, field.TypeTime, value)
-	}
 	if value, ok := cuo.mutation.UpdateAt(); ok {
 		_spec.SetField(chat.FieldUpdateAt, field.TypeTime, value)
 	}
+	_spec.AddModifiers(cuo.modifiers...)
 	_node = &Chat{config: cuo.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues

@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"time"
 
+	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
 	"github.com/lostsnow/keqing/pkg/entity/chatoption"
@@ -18,6 +19,7 @@ type ChatOptionCreate struct {
 	config
 	mutation *ChatOptionMutation
 	hooks    []Hook
+	conflict []sql.ConflictOption
 }
 
 // SetChatID sets the "chat_id" field.
@@ -179,6 +181,7 @@ func (coc *ChatOptionCreate) createSpec() (*ChatOption, *sqlgraph.CreateSpec) {
 		_node = &ChatOption{config: coc.config}
 		_spec = sqlgraph.NewCreateSpec(chatoption.Table, sqlgraph.NewFieldSpec(chatoption.FieldID, field.TypeInt64))
 	)
+	_spec.OnConflict = coc.conflict
 	if id, ok := coc.mutation.ID(); ok {
 		_node.ID = id
 		_spec.ID.Value = id
@@ -206,10 +209,261 @@ func (coc *ChatOptionCreate) createSpec() (*ChatOption, *sqlgraph.CreateSpec) {
 	return _node, _spec
 }
 
+// OnConflict allows configuring the `ON CONFLICT` / `ON DUPLICATE KEY` clause
+// of the `INSERT` statement. For example:
+//
+//	client.ChatOption.Create().
+//		SetChatID(v).
+//		OnConflict(
+//			// Update the row with the new values
+//			// the was proposed for insertion.
+//			sql.ResolveWithNewValues(),
+//		).
+//		// Override some of the fields with custom
+//		// update values.
+//		Update(func(u *ent.ChatOptionUpsert) {
+//			SetChatID(v+v).
+//		}).
+//		Exec(ctx)
+func (coc *ChatOptionCreate) OnConflict(opts ...sql.ConflictOption) *ChatOptionUpsertOne {
+	coc.conflict = opts
+	return &ChatOptionUpsertOne{
+		create: coc,
+	}
+}
+
+// OnConflictColumns calls `OnConflict` and configures the columns
+// as conflict target. Using this option is equivalent to using:
+//
+//	client.ChatOption.Create().
+//		OnConflict(sql.ConflictColumns(columns...)).
+//		Exec(ctx)
+func (coc *ChatOptionCreate) OnConflictColumns(columns ...string) *ChatOptionUpsertOne {
+	coc.conflict = append(coc.conflict, sql.ConflictColumns(columns...))
+	return &ChatOptionUpsertOne{
+		create: coc,
+	}
+}
+
+type (
+	// ChatOptionUpsertOne is the builder for "upsert"-ing
+	//  one ChatOption node.
+	ChatOptionUpsertOne struct {
+		create *ChatOptionCreate
+	}
+
+	// ChatOptionUpsert is the "OnConflict" setter.
+	ChatOptionUpsert struct {
+		*sql.UpdateSet
+	}
+)
+
+// SetChatID sets the "chat_id" field.
+func (u *ChatOptionUpsert) SetChatID(v int64) *ChatOptionUpsert {
+	u.Set(chatoption.FieldChatID, v)
+	return u
+}
+
+// UpdateChatID sets the "chat_id" field to the value that was provided on create.
+func (u *ChatOptionUpsert) UpdateChatID() *ChatOptionUpsert {
+	u.SetExcluded(chatoption.FieldChatID)
+	return u
+}
+
+// AddChatID adds v to the "chat_id" field.
+func (u *ChatOptionUpsert) AddChatID(v int64) *ChatOptionUpsert {
+	u.Add(chatoption.FieldChatID, v)
+	return u
+}
+
+// SetKey sets the "key" field.
+func (u *ChatOptionUpsert) SetKey(v string) *ChatOptionUpsert {
+	u.Set(chatoption.FieldKey, v)
+	return u
+}
+
+// UpdateKey sets the "key" field to the value that was provided on create.
+func (u *ChatOptionUpsert) UpdateKey() *ChatOptionUpsert {
+	u.SetExcluded(chatoption.FieldKey)
+	return u
+}
+
+// SetValue sets the "value" field.
+func (u *ChatOptionUpsert) SetValue(v string) *ChatOptionUpsert {
+	u.Set(chatoption.FieldValue, v)
+	return u
+}
+
+// UpdateValue sets the "value" field to the value that was provided on create.
+func (u *ChatOptionUpsert) UpdateValue() *ChatOptionUpsert {
+	u.SetExcluded(chatoption.FieldValue)
+	return u
+}
+
+// SetUpdateAt sets the "update_at" field.
+func (u *ChatOptionUpsert) SetUpdateAt(v time.Time) *ChatOptionUpsert {
+	u.Set(chatoption.FieldUpdateAt, v)
+	return u
+}
+
+// UpdateUpdateAt sets the "update_at" field to the value that was provided on create.
+func (u *ChatOptionUpsert) UpdateUpdateAt() *ChatOptionUpsert {
+	u.SetExcluded(chatoption.FieldUpdateAt)
+	return u
+}
+
+// UpdateNewValues updates the mutable fields using the new values that were set on create except the ID field.
+// Using this option is equivalent to using:
+//
+//	client.ChatOption.Create().
+//		OnConflict(
+//			sql.ResolveWithNewValues(),
+//			sql.ResolveWith(func(u *sql.UpdateSet) {
+//				u.SetIgnore(chatoption.FieldID)
+//			}),
+//		).
+//		Exec(ctx)
+func (u *ChatOptionUpsertOne) UpdateNewValues() *ChatOptionUpsertOne {
+	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
+	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
+		if _, exists := u.create.mutation.ID(); exists {
+			s.SetIgnore(chatoption.FieldID)
+		}
+		if _, exists := u.create.mutation.CreateAt(); exists {
+			s.SetIgnore(chatoption.FieldCreateAt)
+		}
+	}))
+	return u
+}
+
+// Ignore sets each column to itself in case of conflict.
+// Using this option is equivalent to using:
+//
+//	client.ChatOption.Create().
+//	    OnConflict(sql.ResolveWithIgnore()).
+//	    Exec(ctx)
+func (u *ChatOptionUpsertOne) Ignore() *ChatOptionUpsertOne {
+	u.create.conflict = append(u.create.conflict, sql.ResolveWithIgnore())
+	return u
+}
+
+// DoNothing configures the conflict_action to `DO NOTHING`.
+// Supported only by SQLite and PostgreSQL.
+func (u *ChatOptionUpsertOne) DoNothing() *ChatOptionUpsertOne {
+	u.create.conflict = append(u.create.conflict, sql.DoNothing())
+	return u
+}
+
+// Update allows overriding fields `UPDATE` values. See the ChatOptionCreate.OnConflict
+// documentation for more info.
+func (u *ChatOptionUpsertOne) Update(set func(*ChatOptionUpsert)) *ChatOptionUpsertOne {
+	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(update *sql.UpdateSet) {
+		set(&ChatOptionUpsert{UpdateSet: update})
+	}))
+	return u
+}
+
+// SetChatID sets the "chat_id" field.
+func (u *ChatOptionUpsertOne) SetChatID(v int64) *ChatOptionUpsertOne {
+	return u.Update(func(s *ChatOptionUpsert) {
+		s.SetChatID(v)
+	})
+}
+
+// AddChatID adds v to the "chat_id" field.
+func (u *ChatOptionUpsertOne) AddChatID(v int64) *ChatOptionUpsertOne {
+	return u.Update(func(s *ChatOptionUpsert) {
+		s.AddChatID(v)
+	})
+}
+
+// UpdateChatID sets the "chat_id" field to the value that was provided on create.
+func (u *ChatOptionUpsertOne) UpdateChatID() *ChatOptionUpsertOne {
+	return u.Update(func(s *ChatOptionUpsert) {
+		s.UpdateChatID()
+	})
+}
+
+// SetKey sets the "key" field.
+func (u *ChatOptionUpsertOne) SetKey(v string) *ChatOptionUpsertOne {
+	return u.Update(func(s *ChatOptionUpsert) {
+		s.SetKey(v)
+	})
+}
+
+// UpdateKey sets the "key" field to the value that was provided on create.
+func (u *ChatOptionUpsertOne) UpdateKey() *ChatOptionUpsertOne {
+	return u.Update(func(s *ChatOptionUpsert) {
+		s.UpdateKey()
+	})
+}
+
+// SetValue sets the "value" field.
+func (u *ChatOptionUpsertOne) SetValue(v string) *ChatOptionUpsertOne {
+	return u.Update(func(s *ChatOptionUpsert) {
+		s.SetValue(v)
+	})
+}
+
+// UpdateValue sets the "value" field to the value that was provided on create.
+func (u *ChatOptionUpsertOne) UpdateValue() *ChatOptionUpsertOne {
+	return u.Update(func(s *ChatOptionUpsert) {
+		s.UpdateValue()
+	})
+}
+
+// SetUpdateAt sets the "update_at" field.
+func (u *ChatOptionUpsertOne) SetUpdateAt(v time.Time) *ChatOptionUpsertOne {
+	return u.Update(func(s *ChatOptionUpsert) {
+		s.SetUpdateAt(v)
+	})
+}
+
+// UpdateUpdateAt sets the "update_at" field to the value that was provided on create.
+func (u *ChatOptionUpsertOne) UpdateUpdateAt() *ChatOptionUpsertOne {
+	return u.Update(func(s *ChatOptionUpsert) {
+		s.UpdateUpdateAt()
+	})
+}
+
+// Exec executes the query.
+func (u *ChatOptionUpsertOne) Exec(ctx context.Context) error {
+	if len(u.create.conflict) == 0 {
+		return errors.New("entity: missing options for ChatOptionCreate.OnConflict")
+	}
+	return u.create.Exec(ctx)
+}
+
+// ExecX is like Exec, but panics if an error occurs.
+func (u *ChatOptionUpsertOne) ExecX(ctx context.Context) {
+	if err := u.create.Exec(ctx); err != nil {
+		panic(err)
+	}
+}
+
+// Exec executes the UPSERT query and returns the inserted/updated ID.
+func (u *ChatOptionUpsertOne) ID(ctx context.Context) (id int64, err error) {
+	node, err := u.create.Save(ctx)
+	if err != nil {
+		return id, err
+	}
+	return node.ID, nil
+}
+
+// IDX is like ID, but panics if an error occurs.
+func (u *ChatOptionUpsertOne) IDX(ctx context.Context) int64 {
+	id, err := u.ID(ctx)
+	if err != nil {
+		panic(err)
+	}
+	return id
+}
+
 // ChatOptionCreateBulk is the builder for creating many ChatOption entities in bulk.
 type ChatOptionCreateBulk struct {
 	config
 	builders []*ChatOptionCreate
+	conflict []sql.ConflictOption
 }
 
 // Save creates the ChatOption entities in the database.
@@ -236,6 +490,7 @@ func (cocb *ChatOptionCreateBulk) Save(ctx context.Context) ([]*ChatOption, erro
 					_, err = mutators[i+1].Mutate(root, cocb.builders[i+1].mutation)
 				} else {
 					spec := &sqlgraph.BatchCreateSpec{Nodes: specs}
+					spec.OnConflict = cocb.conflict
 					// Invoke the actual operation on the latest mutation in the chain.
 					if err = sqlgraph.BatchCreate(ctx, cocb.driver, spec); err != nil {
 						if sqlgraph.IsConstraintError(err) {
@@ -286,6 +541,183 @@ func (cocb *ChatOptionCreateBulk) Exec(ctx context.Context) error {
 // ExecX is like Exec, but panics if an error occurs.
 func (cocb *ChatOptionCreateBulk) ExecX(ctx context.Context) {
 	if err := cocb.Exec(ctx); err != nil {
+		panic(err)
+	}
+}
+
+// OnConflict allows configuring the `ON CONFLICT` / `ON DUPLICATE KEY` clause
+// of the `INSERT` statement. For example:
+//
+//	client.ChatOption.CreateBulk(builders...).
+//		OnConflict(
+//			// Update the row with the new values
+//			// the was proposed for insertion.
+//			sql.ResolveWithNewValues(),
+//		).
+//		// Override some of the fields with custom
+//		// update values.
+//		Update(func(u *ent.ChatOptionUpsert) {
+//			SetChatID(v+v).
+//		}).
+//		Exec(ctx)
+func (cocb *ChatOptionCreateBulk) OnConflict(opts ...sql.ConflictOption) *ChatOptionUpsertBulk {
+	cocb.conflict = opts
+	return &ChatOptionUpsertBulk{
+		create: cocb,
+	}
+}
+
+// OnConflictColumns calls `OnConflict` and configures the columns
+// as conflict target. Using this option is equivalent to using:
+//
+//	client.ChatOption.Create().
+//		OnConflict(sql.ConflictColumns(columns...)).
+//		Exec(ctx)
+func (cocb *ChatOptionCreateBulk) OnConflictColumns(columns ...string) *ChatOptionUpsertBulk {
+	cocb.conflict = append(cocb.conflict, sql.ConflictColumns(columns...))
+	return &ChatOptionUpsertBulk{
+		create: cocb,
+	}
+}
+
+// ChatOptionUpsertBulk is the builder for "upsert"-ing
+// a bulk of ChatOption nodes.
+type ChatOptionUpsertBulk struct {
+	create *ChatOptionCreateBulk
+}
+
+// UpdateNewValues updates the mutable fields using the new values that
+// were set on create. Using this option is equivalent to using:
+//
+//	client.ChatOption.Create().
+//		OnConflict(
+//			sql.ResolveWithNewValues(),
+//			sql.ResolveWith(func(u *sql.UpdateSet) {
+//				u.SetIgnore(chatoption.FieldID)
+//			}),
+//		).
+//		Exec(ctx)
+func (u *ChatOptionUpsertBulk) UpdateNewValues() *ChatOptionUpsertBulk {
+	u.create.conflict = append(u.create.conflict, sql.ResolveWithNewValues())
+	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(s *sql.UpdateSet) {
+		for _, b := range u.create.builders {
+			if _, exists := b.mutation.ID(); exists {
+				s.SetIgnore(chatoption.FieldID)
+			}
+			if _, exists := b.mutation.CreateAt(); exists {
+				s.SetIgnore(chatoption.FieldCreateAt)
+			}
+		}
+	}))
+	return u
+}
+
+// Ignore sets each column to itself in case of conflict.
+// Using this option is equivalent to using:
+//
+//	client.ChatOption.Create().
+//		OnConflict(sql.ResolveWithIgnore()).
+//		Exec(ctx)
+func (u *ChatOptionUpsertBulk) Ignore() *ChatOptionUpsertBulk {
+	u.create.conflict = append(u.create.conflict, sql.ResolveWithIgnore())
+	return u
+}
+
+// DoNothing configures the conflict_action to `DO NOTHING`.
+// Supported only by SQLite and PostgreSQL.
+func (u *ChatOptionUpsertBulk) DoNothing() *ChatOptionUpsertBulk {
+	u.create.conflict = append(u.create.conflict, sql.DoNothing())
+	return u
+}
+
+// Update allows overriding fields `UPDATE` values. See the ChatOptionCreateBulk.OnConflict
+// documentation for more info.
+func (u *ChatOptionUpsertBulk) Update(set func(*ChatOptionUpsert)) *ChatOptionUpsertBulk {
+	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(update *sql.UpdateSet) {
+		set(&ChatOptionUpsert{UpdateSet: update})
+	}))
+	return u
+}
+
+// SetChatID sets the "chat_id" field.
+func (u *ChatOptionUpsertBulk) SetChatID(v int64) *ChatOptionUpsertBulk {
+	return u.Update(func(s *ChatOptionUpsert) {
+		s.SetChatID(v)
+	})
+}
+
+// AddChatID adds v to the "chat_id" field.
+func (u *ChatOptionUpsertBulk) AddChatID(v int64) *ChatOptionUpsertBulk {
+	return u.Update(func(s *ChatOptionUpsert) {
+		s.AddChatID(v)
+	})
+}
+
+// UpdateChatID sets the "chat_id" field to the value that was provided on create.
+func (u *ChatOptionUpsertBulk) UpdateChatID() *ChatOptionUpsertBulk {
+	return u.Update(func(s *ChatOptionUpsert) {
+		s.UpdateChatID()
+	})
+}
+
+// SetKey sets the "key" field.
+func (u *ChatOptionUpsertBulk) SetKey(v string) *ChatOptionUpsertBulk {
+	return u.Update(func(s *ChatOptionUpsert) {
+		s.SetKey(v)
+	})
+}
+
+// UpdateKey sets the "key" field to the value that was provided on create.
+func (u *ChatOptionUpsertBulk) UpdateKey() *ChatOptionUpsertBulk {
+	return u.Update(func(s *ChatOptionUpsert) {
+		s.UpdateKey()
+	})
+}
+
+// SetValue sets the "value" field.
+func (u *ChatOptionUpsertBulk) SetValue(v string) *ChatOptionUpsertBulk {
+	return u.Update(func(s *ChatOptionUpsert) {
+		s.SetValue(v)
+	})
+}
+
+// UpdateValue sets the "value" field to the value that was provided on create.
+func (u *ChatOptionUpsertBulk) UpdateValue() *ChatOptionUpsertBulk {
+	return u.Update(func(s *ChatOptionUpsert) {
+		s.UpdateValue()
+	})
+}
+
+// SetUpdateAt sets the "update_at" field.
+func (u *ChatOptionUpsertBulk) SetUpdateAt(v time.Time) *ChatOptionUpsertBulk {
+	return u.Update(func(s *ChatOptionUpsert) {
+		s.SetUpdateAt(v)
+	})
+}
+
+// UpdateUpdateAt sets the "update_at" field to the value that was provided on create.
+func (u *ChatOptionUpsertBulk) UpdateUpdateAt() *ChatOptionUpsertBulk {
+	return u.Update(func(s *ChatOptionUpsert) {
+		s.UpdateUpdateAt()
+	})
+}
+
+// Exec executes the query.
+func (u *ChatOptionUpsertBulk) Exec(ctx context.Context) error {
+	for i, b := range u.create.builders {
+		if len(b.conflict) != 0 {
+			return fmt.Errorf("entity: OnConflict was set for builder %d. Set it on the ChatOptionCreateBulk instead", i)
+		}
+	}
+	if len(u.create.conflict) == 0 {
+		return errors.New("entity: missing options for ChatOptionCreateBulk.OnConflict")
+	}
+	return u.create.Exec(ctx)
+}
+
+// ExecX is like Exec, but panics if an error occurs.
+func (u *ChatOptionUpsertBulk) ExecX(ctx context.Context) {
+	if err := u.create.Exec(ctx); err != nil {
 		panic(err)
 	}
 }

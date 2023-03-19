@@ -1,6 +1,8 @@
 package handler
 
 import (
+	"fmt"
+
 	"github.com/litsea/logger"
 	"gopkg.in/telebot.v3"
 
@@ -38,7 +40,8 @@ func Reply(ctx telebot.Context, message string) error {
 	return ctx.Reply(i18n.T(ctx, message))
 }
 
-func ReportError(ctx telebot.Context, msg string) {
+func ReportError(ctx telebot.Context, format string, a ...any) {
+	msg := fmt.Sprintf(format, a...)
 	logger.Error(msg)
 	if handlerBot == nil {
 		return

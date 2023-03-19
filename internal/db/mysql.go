@@ -2,7 +2,9 @@ package db
 
 import (
 	"fmt"
+	"time"
 
+	"entgo.io/ent/dialect/sql"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/spf13/viper"
 
@@ -18,24 +20,17 @@ type Client struct {
 }
 
 func (m *Client) Init() error {
-	client, err := entity.Open(viper.GetString("db.type"), GetDSN())
+	drv, err := sql.Open(viper.GetString("db.type"), GetDSN())
 	if err != nil {
 		return fmt.Errorf("open database failed: %w", err)
 	}
-	defer client.Close()
-	//ctx := context.Background()
-	// run the auto migration tool
-	//err = client.Schema.Create(
-	//	ctx,
-	//	migrate.WithForeignKeys(false),
-	//	migrate.WithDropIndex(true),
-	//	migrate.WithDropColumn(true),
-	//)
-	//if err != nil {
-	//	return fmt.Errorf("failed creating schema resources: %w", err)
-	//}
 
-	m.Client = client
+	db := drv.DB()
+	db.SetMaxIdleConns(10)
+	db.SetMaxOpenConns(100)
+	db.SetConnMaxLifetime(time.Hour)
+
+	m.Client = entity.NewClient(entity.Driver(drv))
 	DB = m
 	return nil
 }

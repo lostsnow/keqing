@@ -12,6 +12,36 @@
             "translation": "斩尽牛杂"
         },
         {
+            "id": "Please send me a private chat message",
+            "message": "Please send me a private chat message",
+            "translation": "请发送私聊信息"
+        },
+        {
+            "id": "QR code login is being checked",
+            "message": "QR code login is being checked",
+            "translation": "二维码登录正在检查中"
+        },
+        {
+            "id": "Upsert user failed",
+            "message": "Upsert user failed",
+            "translation": "保存用户失败"
+        },
+        {
+            "id": "Fetch QR code failed",
+            "message": "Fetch QR code failed",
+            "translation": "获取二维码失败"
+        },
+        {
+            "id": "Generate QR code failed",
+            "message": "Generate QR code failed",
+            "translation": "生成二维码失败"
+        },
+        {
+            "id": "Please scan the QR code with the miyoushe App",
+            "message": "Please scan the QR code with the miyoushe App",
+            "translation": "请用米游社 APP 扫描二维码"
+        },
+        {
             "id": "Monday",
             "message": "Monday",
             "translation": "周一"
@@ -45,6 +75,61 @@
             "id": "What are you looking for, it does not exist",
             "message": "What are you looking for, it does not exist",
             "translation": "你找啥呢, 不存在的"
+        },
+        {
+            "id": "Login failed or QR code expired, please try again",
+            "message": "Login failed or QR code expired, please try again",
+            "translation": "登录失败或二维码过期，请重试"
+        },
+        {
+            "id": "Game token parse failed, please try again",
+            "message": "Game token parse failed, please try again",
+            "translation": "游戏令牌解析失败，请重试"
+        },
+        {
+            "id": "Cookie token fetch failed, please try again",
+            "message": "Cookie token fetch failed, please try again",
+            "translation": "获取 Cookie 令牌失败，请重试"
+        },
+        {
+            "id": "stoken fetch failed, please try again",
+            "message": "stoken fetch failed, please try again",
+            "translation": "SToken 获取失败，请重试"
+        },
+        {
+            "id": "Upsert game account failed",
+            "message": "Upsert game account failed",
+            "translation": "保存游戏账户失败"
+        },
+        {
+            "id": "fetch game record failed, please try again",
+            "message": "fetch game record failed, please try again",
+            "translation": "获取游戏记录失败，请重试"
+        },
+        {
+            "id": "The account is not yet bound to any game, please make sure the account of scanning code is correct",
+            "message": "The account is not yet bound to any game, please make sure the account of scanning code is correct",
+            "translation": "该账号尚未绑定任何游戏，请确认扫码的账号无误"
+        },
+        {
+            "id": "The account has not been bound to Genshin Impact, please confirm that the account is correct",
+            "message": "The account has not been bound to Genshin Impact, please confirm that the account is correct",
+            "translation": "该账号尚未绑定原神，请确认扫码的账号无误"
+        },
+        {
+            "id": "Upsert game roles failed",
+            "message": "Upsert game roles failed",
+            "translation": "更新游戏角色失败"
+        },
+        {
+            "id": "Upsert game roles attribute failed",
+            "message": "Upsert game roles attribute failed",
+            "translation": "更新游戏角色属性失败"
+        },
+        {
+            "id": "Authentication successfully",
+            "message": "Authentication successfully",
+            "translation": "认证成功"
         },
         {
             "id": "Pyro",

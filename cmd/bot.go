@@ -8,6 +8,7 @@ import (
 
 	"github.com/lostsnow/keqing/internal/handler"
 	"github.com/lostsnow/keqing/internal/handler/character"
+	"github.com/lostsnow/keqing/internal/handler/lab"
 	"github.com/lostsnow/keqing/internal/handler/material"
 	"github.com/lostsnow/keqing/internal/handler/weapon"
 	"github.com/lostsnow/keqing/pkg/i18n"
@@ -23,6 +24,8 @@ var botCmd = &cobra.Command{
 			logger.Error(err)
 			return
 		}
+
+		lab.RunQrcodeCheckWorker()
 
 		setBotHandler(b)
 		startBot(b)
@@ -44,6 +47,8 @@ func setBotHandler(b *handler.Bot) {
 	b.Bot.Handle("/weapon_guide", weapon.Guide)
 	b.Bot.Handle("/material_weekly", material.Weekly)
 	b.Bot.Handle("/material_daily", material.Daily)
+
+	b.Bot.Handle("/auth_qrcode", lab.AuthQrcode)
 
 	ag := b.Bot.Group()
 	ag.Use(middleware.Whitelist(b.AdminIds...))

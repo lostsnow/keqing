@@ -24,7 +24,7 @@ func (User) Fields() []ent.Field {
 		// required
 		field.String("first_name").Default(""),
 		field.String("last_name").Default(""),
-		field.Time("create_at").Default(time.Now).SchemaType(map[string]string{
+		field.Time("create_at").Default(time.Now).Immutable().SchemaType(map[string]string{
 			dialect.MySQL: "datetime",
 		}),
 		field.Time("update_at").Default(time.Now).UpdateDefault(time.Now).SchemaType(map[string]string{

@@ -33,6 +33,42 @@ func (f ChatOptionFunc) Mutate(ctx context.Context, m entity.Mutation) (entity.V
 	return nil, fmt.Errorf("unexpected mutation type %T. expect *entity.ChatOptionMutation", m)
 }
 
+// The GameAccountFunc type is an adapter to allow the use of ordinary
+// function as GameAccount mutator.
+type GameAccountFunc func(context.Context, *entity.GameAccountMutation) (entity.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f GameAccountFunc) Mutate(ctx context.Context, m entity.Mutation) (entity.Value, error) {
+	if mv, ok := m.(*entity.GameAccountMutation); ok {
+		return f(ctx, mv)
+	}
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *entity.GameAccountMutation", m)
+}
+
+// The GameRoleFunc type is an adapter to allow the use of ordinary
+// function as GameRole mutator.
+type GameRoleFunc func(context.Context, *entity.GameRoleMutation) (entity.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f GameRoleFunc) Mutate(ctx context.Context, m entity.Mutation) (entity.Value, error) {
+	if mv, ok := m.(*entity.GameRoleMutation); ok {
+		return f(ctx, mv)
+	}
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *entity.GameRoleMutation", m)
+}
+
+// The GameRoleAttributeFunc type is an adapter to allow the use of ordinary
+// function as GameRoleAttribute mutator.
+type GameRoleAttributeFunc func(context.Context, *entity.GameRoleAttributeMutation) (entity.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f GameRoleAttributeFunc) Mutate(ctx context.Context, m entity.Mutation) (entity.Value, error) {
+	if mv, ok := m.(*entity.GameRoleAttributeMutation); ok {
+		return f(ctx, mv)
+	}
+	return nil, fmt.Errorf("unexpected mutation type %T. expect *entity.GameRoleAttributeMutation", m)
+}
+
 // The UserFunc type is an adapter to allow the use of ordinary
 // function as User mutator.
 type UserFunc func(context.Context, *entity.UserMutation) (entity.Value, error)

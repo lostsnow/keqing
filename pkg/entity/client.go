@@ -12,6 +12,9 @@ import (
 
 	"github.com/lostsnow/keqing/pkg/entity/chat"
 	"github.com/lostsnow/keqing/pkg/entity/chatoption"
+	"github.com/lostsnow/keqing/pkg/entity/gameaccount"
+	"github.com/lostsnow/keqing/pkg/entity/gamerole"
+	"github.com/lostsnow/keqing/pkg/entity/gameroleattribute"
 	"github.com/lostsnow/keqing/pkg/entity/user"
 
 	"entgo.io/ent/dialect"
@@ -27,6 +30,12 @@ type Client struct {
 	Chat *ChatClient
 	// ChatOption is the client for interacting with the ChatOption builders.
 	ChatOption *ChatOptionClient
+	// GameAccount is the client for interacting with the GameAccount builders.
+	GameAccount *GameAccountClient
+	// GameRole is the client for interacting with the GameRole builders.
+	GameRole *GameRoleClient
+	// GameRoleAttribute is the client for interacting with the GameRoleAttribute builders.
+	GameRoleAttribute *GameRoleAttributeClient
 	// User is the client for interacting with the User builders.
 	User *UserClient
 }
@@ -44,6 +53,9 @@ func (c *Client) init() {
 	c.Schema = migrate.NewSchema(c.driver)
 	c.Chat = NewChatClient(c.config)
 	c.ChatOption = NewChatOptionClient(c.config)
+	c.GameAccount = NewGameAccountClient(c.config)
+	c.GameRole = NewGameRoleClient(c.config)
+	c.GameRoleAttribute = NewGameRoleAttributeClient(c.config)
 	c.User = NewUserClient(c.config)
 }
 
@@ -76,11 +88,14 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 	cfg := c.config
 	cfg.driver = tx
 	return &Tx{
-		ctx:        ctx,
-		config:     cfg,
-		Chat:       NewChatClient(cfg),
-		ChatOption: NewChatOptionClient(cfg),
-		User:       NewUserClient(cfg),
+		ctx:               ctx,
+		config:            cfg,
+		Chat:              NewChatClient(cfg),
+		ChatOption:        NewChatOptionClient(cfg),
+		GameAccount:       NewGameAccountClient(cfg),
+		GameRole:          NewGameRoleClient(cfg),
+		GameRoleAttribute: NewGameRoleAttributeClient(cfg),
+		User:              NewUserClient(cfg),
 	}, nil
 }
 
@@ -98,11 +113,14 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 	cfg := c.config
 	cfg.driver = &txDriver{tx: tx, drv: c.driver}
 	return &Tx{
-		ctx:        ctx,
-		config:     cfg,
-		Chat:       NewChatClient(cfg),
-		ChatOption: NewChatOptionClient(cfg),
-		User:       NewUserClient(cfg),
+		ctx:               ctx,
+		config:            cfg,
+		Chat:              NewChatClient(cfg),
+		ChatOption:        NewChatOptionClient(cfg),
+		GameAccount:       NewGameAccountClient(cfg),
+		GameRole:          NewGameRoleClient(cfg),
+		GameRoleAttribute: NewGameRoleAttributeClient(cfg),
+		User:              NewUserClient(cfg),
 	}, nil
 }
 
@@ -133,6 +151,9 @@ func (c *Client) Close() error {
 func (c *Client) Use(hooks ...Hook) {
 	c.Chat.Use(hooks...)
 	c.ChatOption.Use(hooks...)
+	c.GameAccount.Use(hooks...)
+	c.GameRole.Use(hooks...)
+	c.GameRoleAttribute.Use(hooks...)
 	c.User.Use(hooks...)
 }
 
@@ -141,6 +162,9 @@ func (c *Client) Use(hooks ...Hook) {
 func (c *Client) Intercept(interceptors ...Interceptor) {
 	c.Chat.Intercept(interceptors...)
 	c.ChatOption.Intercept(interceptors...)
+	c.GameAccount.Intercept(interceptors...)
+	c.GameRole.Intercept(interceptors...)
+	c.GameRoleAttribute.Intercept(interceptors...)
 	c.User.Intercept(interceptors...)
 }
 
@@ -151,6 +175,12 @@ func (c *Client) Mutate(ctx context.Context, m Mutation) (Value, error) {
 		return c.Chat.mutate(ctx, m)
 	case *ChatOptionMutation:
 		return c.ChatOption.mutate(ctx, m)
+	case *GameAccountMutation:
+		return c.GameAccount.mutate(ctx, m)
+	case *GameRoleMutation:
+		return c.GameRole.mutate(ctx, m)
+	case *GameRoleAttributeMutation:
+		return c.GameRoleAttribute.mutate(ctx, m)
 	case *UserMutation:
 		return c.User.mutate(ctx, m)
 	default:
@@ -391,6 +421,360 @@ func (c *ChatOptionClient) mutate(ctx context.Context, m *ChatOptionMutation) (V
 		return (&ChatOptionDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
 	default:
 		return nil, fmt.Errorf("entity: unknown ChatOption mutation op: %q", m.Op())
+	}
+}
+
+// GameAccountClient is a client for the GameAccount schema.
+type GameAccountClient struct {
+	config
+}
+
+// NewGameAccountClient returns a client for the GameAccount from the given config.
+func NewGameAccountClient(c config) *GameAccountClient {
+	return &GameAccountClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `gameaccount.Hooks(f(g(h())))`.
+func (c *GameAccountClient) Use(hooks ...Hook) {
+	c.hooks.GameAccount = append(c.hooks.GameAccount, hooks...)
+}
+
+// Intercept adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `gameaccount.Intercept(f(g(h())))`.
+func (c *GameAccountClient) Intercept(interceptors ...Interceptor) {
+	c.inters.GameAccount = append(c.inters.GameAccount, interceptors...)
+}
+
+// Create returns a builder for creating a GameAccount entity.
+func (c *GameAccountClient) Create() *GameAccountCreate {
+	mutation := newGameAccountMutation(c.config, OpCreate)
+	return &GameAccountCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of GameAccount entities.
+func (c *GameAccountClient) CreateBulk(builders ...*GameAccountCreate) *GameAccountCreateBulk {
+	return &GameAccountCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for GameAccount.
+func (c *GameAccountClient) Update() *GameAccountUpdate {
+	mutation := newGameAccountMutation(c.config, OpUpdate)
+	return &GameAccountUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *GameAccountClient) UpdateOne(ga *GameAccount) *GameAccountUpdateOne {
+	mutation := newGameAccountMutation(c.config, OpUpdateOne, withGameAccount(ga))
+	return &GameAccountUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *GameAccountClient) UpdateOneID(id int64) *GameAccountUpdateOne {
+	mutation := newGameAccountMutation(c.config, OpUpdateOne, withGameAccountID(id))
+	return &GameAccountUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for GameAccount.
+func (c *GameAccountClient) Delete() *GameAccountDelete {
+	mutation := newGameAccountMutation(c.config, OpDelete)
+	return &GameAccountDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *GameAccountClient) DeleteOne(ga *GameAccount) *GameAccountDeleteOne {
+	return c.DeleteOneID(ga.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *GameAccountClient) DeleteOneID(id int64) *GameAccountDeleteOne {
+	builder := c.Delete().Where(gameaccount.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &GameAccountDeleteOne{builder}
+}
+
+// Query returns a query builder for GameAccount.
+func (c *GameAccountClient) Query() *GameAccountQuery {
+	return &GameAccountQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypeGameAccount},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a GameAccount entity by its id.
+func (c *GameAccountClient) Get(ctx context.Context, id int64) (*GameAccount, error) {
+	return c.Query().Where(gameaccount.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *GameAccountClient) GetX(ctx context.Context, id int64) *GameAccount {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *GameAccountClient) Hooks() []Hook {
+	return c.hooks.GameAccount
+}
+
+// Interceptors returns the client interceptors.
+func (c *GameAccountClient) Interceptors() []Interceptor {
+	return c.inters.GameAccount
+}
+
+func (c *GameAccountClient) mutate(ctx context.Context, m *GameAccountMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&GameAccountCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&GameAccountUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&GameAccountUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&GameAccountDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("entity: unknown GameAccount mutation op: %q", m.Op())
+	}
+}
+
+// GameRoleClient is a client for the GameRole schema.
+type GameRoleClient struct {
+	config
+}
+
+// NewGameRoleClient returns a client for the GameRole from the given config.
+func NewGameRoleClient(c config) *GameRoleClient {
+	return &GameRoleClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `gamerole.Hooks(f(g(h())))`.
+func (c *GameRoleClient) Use(hooks ...Hook) {
+	c.hooks.GameRole = append(c.hooks.GameRole, hooks...)
+}
+
+// Intercept adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `gamerole.Intercept(f(g(h())))`.
+func (c *GameRoleClient) Intercept(interceptors ...Interceptor) {
+	c.inters.GameRole = append(c.inters.GameRole, interceptors...)
+}
+
+// Create returns a builder for creating a GameRole entity.
+func (c *GameRoleClient) Create() *GameRoleCreate {
+	mutation := newGameRoleMutation(c.config, OpCreate)
+	return &GameRoleCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of GameRole entities.
+func (c *GameRoleClient) CreateBulk(builders ...*GameRoleCreate) *GameRoleCreateBulk {
+	return &GameRoleCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for GameRole.
+func (c *GameRoleClient) Update() *GameRoleUpdate {
+	mutation := newGameRoleMutation(c.config, OpUpdate)
+	return &GameRoleUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *GameRoleClient) UpdateOne(gr *GameRole) *GameRoleUpdateOne {
+	mutation := newGameRoleMutation(c.config, OpUpdateOne, withGameRole(gr))
+	return &GameRoleUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *GameRoleClient) UpdateOneID(id int64) *GameRoleUpdateOne {
+	mutation := newGameRoleMutation(c.config, OpUpdateOne, withGameRoleID(id))
+	return &GameRoleUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for GameRole.
+func (c *GameRoleClient) Delete() *GameRoleDelete {
+	mutation := newGameRoleMutation(c.config, OpDelete)
+	return &GameRoleDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *GameRoleClient) DeleteOne(gr *GameRole) *GameRoleDeleteOne {
+	return c.DeleteOneID(gr.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *GameRoleClient) DeleteOneID(id int64) *GameRoleDeleteOne {
+	builder := c.Delete().Where(gamerole.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &GameRoleDeleteOne{builder}
+}
+
+// Query returns a query builder for GameRole.
+func (c *GameRoleClient) Query() *GameRoleQuery {
+	return &GameRoleQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypeGameRole},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a GameRole entity by its id.
+func (c *GameRoleClient) Get(ctx context.Context, id int64) (*GameRole, error) {
+	return c.Query().Where(gamerole.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *GameRoleClient) GetX(ctx context.Context, id int64) *GameRole {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *GameRoleClient) Hooks() []Hook {
+	return c.hooks.GameRole
+}
+
+// Interceptors returns the client interceptors.
+func (c *GameRoleClient) Interceptors() []Interceptor {
+	return c.inters.GameRole
+}
+
+func (c *GameRoleClient) mutate(ctx context.Context, m *GameRoleMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&GameRoleCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&GameRoleUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&GameRoleUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&GameRoleDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("entity: unknown GameRole mutation op: %q", m.Op())
+	}
+}
+
+// GameRoleAttributeClient is a client for the GameRoleAttribute schema.
+type GameRoleAttributeClient struct {
+	config
+}
+
+// NewGameRoleAttributeClient returns a client for the GameRoleAttribute from the given config.
+func NewGameRoleAttributeClient(c config) *GameRoleAttributeClient {
+	return &GameRoleAttributeClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `gameroleattribute.Hooks(f(g(h())))`.
+func (c *GameRoleAttributeClient) Use(hooks ...Hook) {
+	c.hooks.GameRoleAttribute = append(c.hooks.GameRoleAttribute, hooks...)
+}
+
+// Intercept adds a list of query interceptors to the interceptors stack.
+// A call to `Intercept(f, g, h)` equals to `gameroleattribute.Intercept(f(g(h())))`.
+func (c *GameRoleAttributeClient) Intercept(interceptors ...Interceptor) {
+	c.inters.GameRoleAttribute = append(c.inters.GameRoleAttribute, interceptors...)
+}
+
+// Create returns a builder for creating a GameRoleAttribute entity.
+func (c *GameRoleAttributeClient) Create() *GameRoleAttributeCreate {
+	mutation := newGameRoleAttributeMutation(c.config, OpCreate)
+	return &GameRoleAttributeCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// CreateBulk returns a builder for creating a bulk of GameRoleAttribute entities.
+func (c *GameRoleAttributeClient) CreateBulk(builders ...*GameRoleAttributeCreate) *GameRoleAttributeCreateBulk {
+	return &GameRoleAttributeCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for GameRoleAttribute.
+func (c *GameRoleAttributeClient) Update() *GameRoleAttributeUpdate {
+	mutation := newGameRoleAttributeMutation(c.config, OpUpdate)
+	return &GameRoleAttributeUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *GameRoleAttributeClient) UpdateOne(gra *GameRoleAttribute) *GameRoleAttributeUpdateOne {
+	mutation := newGameRoleAttributeMutation(c.config, OpUpdateOne, withGameRoleAttribute(gra))
+	return &GameRoleAttributeUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *GameRoleAttributeClient) UpdateOneID(id int64) *GameRoleAttributeUpdateOne {
+	mutation := newGameRoleAttributeMutation(c.config, OpUpdateOne, withGameRoleAttributeID(id))
+	return &GameRoleAttributeUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for GameRoleAttribute.
+func (c *GameRoleAttributeClient) Delete() *GameRoleAttributeDelete {
+	mutation := newGameRoleAttributeMutation(c.config, OpDelete)
+	return &GameRoleAttributeDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a builder for deleting the given entity.
+func (c *GameRoleAttributeClient) DeleteOne(gra *GameRoleAttribute) *GameRoleAttributeDeleteOne {
+	return c.DeleteOneID(gra.ID)
+}
+
+// DeleteOneID returns a builder for deleting the given entity by its id.
+func (c *GameRoleAttributeClient) DeleteOneID(id int64) *GameRoleAttributeDeleteOne {
+	builder := c.Delete().Where(gameroleattribute.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &GameRoleAttributeDeleteOne{builder}
+}
+
+// Query returns a query builder for GameRoleAttribute.
+func (c *GameRoleAttributeClient) Query() *GameRoleAttributeQuery {
+	return &GameRoleAttributeQuery{
+		config: c.config,
+		ctx:    &QueryContext{Type: TypeGameRoleAttribute},
+		inters: c.Interceptors(),
+	}
+}
+
+// Get returns a GameRoleAttribute entity by its id.
+func (c *GameRoleAttributeClient) Get(ctx context.Context, id int64) (*GameRoleAttribute, error) {
+	return c.Query().Where(gameroleattribute.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *GameRoleAttributeClient) GetX(ctx context.Context, id int64) *GameRoleAttribute {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *GameRoleAttributeClient) Hooks() []Hook {
+	return c.hooks.GameRoleAttribute
+}
+
+// Interceptors returns the client interceptors.
+func (c *GameRoleAttributeClient) Interceptors() []Interceptor {
+	return c.inters.GameRoleAttribute
+}
+
+func (c *GameRoleAttributeClient) mutate(ctx context.Context, m *GameRoleAttributeMutation) (Value, error) {
+	switch m.Op() {
+	case OpCreate:
+		return (&GameRoleAttributeCreate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdate:
+		return (&GameRoleAttributeUpdate{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpUpdateOne:
+		return (&GameRoleAttributeUpdateOne{config: c.config, hooks: c.Hooks(), mutation: m}).Save(ctx)
+	case OpDelete, OpDeleteOne:
+		return (&GameRoleAttributeDelete{config: c.config, hooks: c.Hooks(), mutation: m}).Exec(ctx)
+	default:
+		return nil, fmt.Errorf("entity: unknown GameRoleAttribute mutation op: %q", m.Op())
 	}
 }
 

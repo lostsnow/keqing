@@ -12,5 +12,14 @@ type Chat func(*sql.Selector)
 // ChatOption is the predicate function for chatoption builders.
 type ChatOption func(*sql.Selector)
 
+// GameAccount is the predicate function for gameaccount builders.
+type GameAccount func(*sql.Selector)
+
+// GameRole is the predicate function for gamerole builders.
+type GameRole func(*sql.Selector)
+
+// GameRoleAttribute is the predicate function for gameroleattribute builders.
+type GameRoleAttribute func(*sql.Selector)
+
 // User is the predicate function for user builders.
 type User func(*sql.Selector)

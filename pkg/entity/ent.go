@@ -13,6 +13,9 @@ import (
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"github.com/lostsnow/keqing/pkg/entity/chat"
 	"github.com/lostsnow/keqing/pkg/entity/chatoption"
+	"github.com/lostsnow/keqing/pkg/entity/gameaccount"
+	"github.com/lostsnow/keqing/pkg/entity/gamerole"
+	"github.com/lostsnow/keqing/pkg/entity/gameroleattribute"
 	"github.com/lostsnow/keqing/pkg/entity/user"
 )
 
@@ -41,9 +44,12 @@ type OrderFunc func(*sql.Selector)
 // columnChecker returns a function indicates if the column exists in the given column.
 func columnChecker(table string) func(string) error {
 	checks := map[string]func(string) bool{
-		chat.Table:       chat.ValidColumn,
-		chatoption.Table: chatoption.ValidColumn,
-		user.Table:       user.ValidColumn,
+		chat.Table:              chat.ValidColumn,
+		chatoption.Table:        chatoption.ValidColumn,
+		gameaccount.Table:       gameaccount.ValidColumn,
+		gamerole.Table:          gamerole.ValidColumn,
+		gameroleattribute.Table: gameroleattribute.ValidColumn,
+		user.Table:              user.ValidColumn,
 	}
 	check, ok := checks[table]
 	if !ok {

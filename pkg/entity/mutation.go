@@ -11,6 +11,9 @@ import (
 
 	"github.com/lostsnow/keqing/pkg/entity/chat"
 	"github.com/lostsnow/keqing/pkg/entity/chatoption"
+	"github.com/lostsnow/keqing/pkg/entity/gameaccount"
+	"github.com/lostsnow/keqing/pkg/entity/gamerole"
+	"github.com/lostsnow/keqing/pkg/entity/gameroleattribute"
 	"github.com/lostsnow/keqing/pkg/entity/predicate"
 	"github.com/lostsnow/keqing/pkg/entity/user"
 
@@ -27,9 +30,12 @@ const (
 	OpUpdateOne = ent.OpUpdateOne
 
 	// Node types.
-	TypeChat       = "Chat"
-	TypeChatOption = "ChatOption"
-	TypeUser       = "User"
+	TypeChat              = "Chat"
+	TypeChatOption        = "ChatOption"
+	TypeGameAccount       = "GameAccount"
+	TypeGameRole          = "GameRole"
+	TypeGameRoleAttribute = "GameRoleAttribute"
+	TypeUser              = "User"
 )
 
 // ChatMutation represents an operation that mutates the Chat nodes in the graph.
@@ -1468,6 +1474,2364 @@ func (m *ChatOptionMutation) ClearEdge(name string) error {
 // It returns an error if the edge is not defined in the schema.
 func (m *ChatOptionMutation) ResetEdge(name string) error {
 	return fmt.Errorf("unknown ChatOption edge %s", name)
+}
+
+// GameAccountMutation represents an operation that mutates the GameAccount nodes in the graph.
+type GameAccountMutation struct {
+	config
+	op            Op
+	typ           string
+	id            *int64
+	user_id       *int64
+	adduser_id    *int64
+	account_id    *string
+	game_token    *string
+	cookie_token  *string
+	stoken        *string
+	mid           *string
+	create_at     *time.Time
+	update_at     *time.Time
+	clearedFields map[string]struct{}
+	done          bool
+	oldValue      func(context.Context) (*GameAccount, error)
+	predicates    []predicate.GameAccount
+}
+
+var _ ent.Mutation = (*GameAccountMutation)(nil)
+
+// gameaccountOption allows management of the mutation configuration using functional options.
+type gameaccountOption func(*GameAccountMutation)
+
+// newGameAccountMutation creates new mutation for the GameAccount entity.
+func newGameAccountMutation(c config, op Op, opts ...gameaccountOption) *GameAccountMutation {
+	m := &GameAccountMutation{
+		config:        c,
+		op:            op,
+		typ:           TypeGameAccount,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withGameAccountID sets the ID field of the mutation.
+func withGameAccountID(id int64) gameaccountOption {
+	return func(m *GameAccountMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *GameAccount
+		)
+		m.oldValue = func(ctx context.Context) (*GameAccount, error) {
+			once.Do(func() {
+				if m.done {
+					err = errors.New("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().GameAccount.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withGameAccount sets the old GameAccount of the mutation.
+func withGameAccount(node *GameAccount) gameaccountOption {
+	return func(m *GameAccountMutation) {
+		m.oldValue = func(context.Context) (*GameAccount, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m GameAccountMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m GameAccountMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, errors.New("entity: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// SetID sets the value of the id field. Note that this
+// operation is only accepted on creation of GameAccount entities.
+func (m *GameAccountMutation) SetID(id int64) {
+	m.id = &id
+}
+
+// ID returns the ID value in the mutation. Note that the ID is only available
+// if it was provided to the builder or after it was returned from the database.
+func (m *GameAccountMutation) ID() (id int64, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// IDs queries the database and returns the entity ids that match the mutation's predicate.
+// That means, if the mutation is applied within a transaction with an isolation level such
+// as sql.LevelSerializable, the returned ids match the ids of the rows that will be updated
+// or updated by the mutation.
+func (m *GameAccountMutation) IDs(ctx context.Context) ([]int64, error) {
+	switch {
+	case m.op.Is(OpUpdateOne | OpDeleteOne):
+		id, exists := m.ID()
+		if exists {
+			return []int64{id}, nil
+		}
+		fallthrough
+	case m.op.Is(OpUpdate | OpDelete):
+		return m.Client().GameAccount.Query().Where(m.predicates...).IDs(ctx)
+	default:
+		return nil, fmt.Errorf("IDs is not allowed on %s operations", m.op)
+	}
+}
+
+// SetUserID sets the "user_id" field.
+func (m *GameAccountMutation) SetUserID(i int64) {
+	m.user_id = &i
+	m.adduser_id = nil
+}
+
+// UserID returns the value of the "user_id" field in the mutation.
+func (m *GameAccountMutation) UserID() (r int64, exists bool) {
+	v := m.user_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUserID returns the old "user_id" field's value of the GameAccount entity.
+// If the GameAccount object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GameAccountMutation) OldUserID(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUserID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUserID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUserID: %w", err)
+	}
+	return oldValue.UserID, nil
+}
+
+// AddUserID adds i to the "user_id" field.
+func (m *GameAccountMutation) AddUserID(i int64) {
+	if m.adduser_id != nil {
+		*m.adduser_id += i
+	} else {
+		m.adduser_id = &i
+	}
+}
+
+// AddedUserID returns the value that was added to the "user_id" field in this mutation.
+func (m *GameAccountMutation) AddedUserID() (r int64, exists bool) {
+	v := m.adduser_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUserID resets all changes to the "user_id" field.
+func (m *GameAccountMutation) ResetUserID() {
+	m.user_id = nil
+	m.adduser_id = nil
+}
+
+// SetAccountID sets the "account_id" field.
+func (m *GameAccountMutation) SetAccountID(s string) {
+	m.account_id = &s
+}
+
+// AccountID returns the value of the "account_id" field in the mutation.
+func (m *GameAccountMutation) AccountID() (r string, exists bool) {
+	v := m.account_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldAccountID returns the old "account_id" field's value of the GameAccount entity.
+// If the GameAccount object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GameAccountMutation) OldAccountID(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldAccountID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldAccountID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldAccountID: %w", err)
+	}
+	return oldValue.AccountID, nil
+}
+
+// ResetAccountID resets all changes to the "account_id" field.
+func (m *GameAccountMutation) ResetAccountID() {
+	m.account_id = nil
+}
+
+// SetGameToken sets the "game_token" field.
+func (m *GameAccountMutation) SetGameToken(s string) {
+	m.game_token = &s
+}
+
+// GameToken returns the value of the "game_token" field in the mutation.
+func (m *GameAccountMutation) GameToken() (r string, exists bool) {
+	v := m.game_token
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldGameToken returns the old "game_token" field's value of the GameAccount entity.
+// If the GameAccount object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GameAccountMutation) OldGameToken(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldGameToken is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldGameToken requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldGameToken: %w", err)
+	}
+	return oldValue.GameToken, nil
+}
+
+// ResetGameToken resets all changes to the "game_token" field.
+func (m *GameAccountMutation) ResetGameToken() {
+	m.game_token = nil
+}
+
+// SetCookieToken sets the "cookie_token" field.
+func (m *GameAccountMutation) SetCookieToken(s string) {
+	m.cookie_token = &s
+}
+
+// CookieToken returns the value of the "cookie_token" field in the mutation.
+func (m *GameAccountMutation) CookieToken() (r string, exists bool) {
+	v := m.cookie_token
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCookieToken returns the old "cookie_token" field's value of the GameAccount entity.
+// If the GameAccount object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GameAccountMutation) OldCookieToken(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCookieToken is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCookieToken requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCookieToken: %w", err)
+	}
+	return oldValue.CookieToken, nil
+}
+
+// ResetCookieToken resets all changes to the "cookie_token" field.
+func (m *GameAccountMutation) ResetCookieToken() {
+	m.cookie_token = nil
+}
+
+// SetStoken sets the "stoken" field.
+func (m *GameAccountMutation) SetStoken(s string) {
+	m.stoken = &s
+}
+
+// Stoken returns the value of the "stoken" field in the mutation.
+func (m *GameAccountMutation) Stoken() (r string, exists bool) {
+	v := m.stoken
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldStoken returns the old "stoken" field's value of the GameAccount entity.
+// If the GameAccount object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GameAccountMutation) OldStoken(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldStoken is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldStoken requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldStoken: %w", err)
+	}
+	return oldValue.Stoken, nil
+}
+
+// ResetStoken resets all changes to the "stoken" field.
+func (m *GameAccountMutation) ResetStoken() {
+	m.stoken = nil
+}
+
+// SetMid sets the "mid" field.
+func (m *GameAccountMutation) SetMid(s string) {
+	m.mid = &s
+}
+
+// Mid returns the value of the "mid" field in the mutation.
+func (m *GameAccountMutation) Mid() (r string, exists bool) {
+	v := m.mid
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldMid returns the old "mid" field's value of the GameAccount entity.
+// If the GameAccount object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GameAccountMutation) OldMid(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldMid is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldMid requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldMid: %w", err)
+	}
+	return oldValue.Mid, nil
+}
+
+// ResetMid resets all changes to the "mid" field.
+func (m *GameAccountMutation) ResetMid() {
+	m.mid = nil
+}
+
+// SetCreateAt sets the "create_at" field.
+func (m *GameAccountMutation) SetCreateAt(t time.Time) {
+	m.create_at = &t
+}
+
+// CreateAt returns the value of the "create_at" field in the mutation.
+func (m *GameAccountMutation) CreateAt() (r time.Time, exists bool) {
+	v := m.create_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreateAt returns the old "create_at" field's value of the GameAccount entity.
+// If the GameAccount object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GameAccountMutation) OldCreateAt(ctx context.Context) (v time.Time, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreateAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreateAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreateAt: %w", err)
+	}
+	return oldValue.CreateAt, nil
+}
+
+// ResetCreateAt resets all changes to the "create_at" field.
+func (m *GameAccountMutation) ResetCreateAt() {
+	m.create_at = nil
+}
+
+// SetUpdateAt sets the "update_at" field.
+func (m *GameAccountMutation) SetUpdateAt(t time.Time) {
+	m.update_at = &t
+}
+
+// UpdateAt returns the value of the "update_at" field in the mutation.
+func (m *GameAccountMutation) UpdateAt() (r time.Time, exists bool) {
+	v := m.update_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdateAt returns the old "update_at" field's value of the GameAccount entity.
+// If the GameAccount object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GameAccountMutation) OldUpdateAt(ctx context.Context) (v time.Time, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdateAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdateAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdateAt: %w", err)
+	}
+	return oldValue.UpdateAt, nil
+}
+
+// ResetUpdateAt resets all changes to the "update_at" field.
+func (m *GameAccountMutation) ResetUpdateAt() {
+	m.update_at = nil
+}
+
+// Where appends a list predicates to the GameAccountMutation builder.
+func (m *GameAccountMutation) Where(ps ...predicate.GameAccount) {
+	m.predicates = append(m.predicates, ps...)
+}
+
+// WhereP appends storage-level predicates to the GameAccountMutation builder. Using this method,
+// users can use type-assertion to append predicates that do not depend on any generated package.
+func (m *GameAccountMutation) WhereP(ps ...func(*sql.Selector)) {
+	p := make([]predicate.GameAccount, len(ps))
+	for i := range ps {
+		p[i] = ps[i]
+	}
+	m.Where(p...)
+}
+
+// Op returns the operation name.
+func (m *GameAccountMutation) Op() Op {
+	return m.op
+}
+
+// SetOp allows setting the mutation operation.
+func (m *GameAccountMutation) SetOp(op Op) {
+	m.op = op
+}
+
+// Type returns the node type of this mutation (GameAccount).
+func (m *GameAccountMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during this mutation. Note that in
+// order to get all numeric fields that were incremented/decremented, call
+// AddedFields().
+func (m *GameAccountMutation) Fields() []string {
+	fields := make([]string, 0, 8)
+	if m.user_id != nil {
+		fields = append(fields, gameaccount.FieldUserID)
+	}
+	if m.account_id != nil {
+		fields = append(fields, gameaccount.FieldAccountID)
+	}
+	if m.game_token != nil {
+		fields = append(fields, gameaccount.FieldGameToken)
+	}
+	if m.cookie_token != nil {
+		fields = append(fields, gameaccount.FieldCookieToken)
+	}
+	if m.stoken != nil {
+		fields = append(fields, gameaccount.FieldStoken)
+	}
+	if m.mid != nil {
+		fields = append(fields, gameaccount.FieldMid)
+	}
+	if m.create_at != nil {
+		fields = append(fields, gameaccount.FieldCreateAt)
+	}
+	if m.update_at != nil {
+		fields = append(fields, gameaccount.FieldUpdateAt)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name. The second boolean
+// return value indicates that this field was not set, or was not defined in the
+// schema.
+func (m *GameAccountMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case gameaccount.FieldUserID:
+		return m.UserID()
+	case gameaccount.FieldAccountID:
+		return m.AccountID()
+	case gameaccount.FieldGameToken:
+		return m.GameToken()
+	case gameaccount.FieldCookieToken:
+		return m.CookieToken()
+	case gameaccount.FieldStoken:
+		return m.Stoken()
+	case gameaccount.FieldMid:
+		return m.Mid()
+	case gameaccount.FieldCreateAt:
+		return m.CreateAt()
+	case gameaccount.FieldUpdateAt:
+		return m.UpdateAt()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database. An error is
+// returned if the mutation operation is not UpdateOne, or the query to the
+// database failed.
+func (m *GameAccountMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case gameaccount.FieldUserID:
+		return m.OldUserID(ctx)
+	case gameaccount.FieldAccountID:
+		return m.OldAccountID(ctx)
+	case gameaccount.FieldGameToken:
+		return m.OldGameToken(ctx)
+	case gameaccount.FieldCookieToken:
+		return m.OldCookieToken(ctx)
+	case gameaccount.FieldStoken:
+		return m.OldStoken(ctx)
+	case gameaccount.FieldMid:
+		return m.OldMid(ctx)
+	case gameaccount.FieldCreateAt:
+		return m.OldCreateAt(ctx)
+	case gameaccount.FieldUpdateAt:
+		return m.OldUpdateAt(ctx)
+	}
+	return nil, fmt.Errorf("unknown GameAccount field %s", name)
+}
+
+// SetField sets the value of a field with the given name. It returns an error if
+// the field is not defined in the schema, or if the type mismatched the field
+// type.
+func (m *GameAccountMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case gameaccount.FieldUserID:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUserID(v)
+		return nil
+	case gameaccount.FieldAccountID:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetAccountID(v)
+		return nil
+	case gameaccount.FieldGameToken:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetGameToken(v)
+		return nil
+	case gameaccount.FieldCookieToken:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCookieToken(v)
+		return nil
+	case gameaccount.FieldStoken:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetStoken(v)
+		return nil
+	case gameaccount.FieldMid:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetMid(v)
+		return nil
+	case gameaccount.FieldCreateAt:
+		v, ok := value.(time.Time)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreateAt(v)
+		return nil
+	case gameaccount.FieldUpdateAt:
+		v, ok := value.(time.Time)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdateAt(v)
+		return nil
+	}
+	return fmt.Errorf("unknown GameAccount field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented/decremented during
+// this mutation.
+func (m *GameAccountMutation) AddedFields() []string {
+	var fields []string
+	if m.adduser_id != nil {
+		fields = append(fields, gameaccount.FieldUserID)
+	}
+	return fields
+}
+
+// AddedField returns the numeric value that was incremented/decremented on a field
+// with the given name. The second boolean return value indicates that this field
+// was not set, or was not defined in the schema.
+func (m *GameAccountMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case gameaccount.FieldUserID:
+		return m.AddedUserID()
+	}
+	return nil, false
+}
+
+// AddField adds the value to the field with the given name. It returns an error if
+// the field is not defined in the schema, or if the type mismatched the field
+// type.
+func (m *GameAccountMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	case gameaccount.FieldUserID:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUserID(v)
+		return nil
+	}
+	return fmt.Errorf("unknown GameAccount numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared during this
+// mutation.
+func (m *GameAccountMutation) ClearedFields() []string {
+	return nil
+}
+
+// FieldCleared returns a boolean indicating if a field with the given name was
+// cleared in this mutation.
+func (m *GameAccountMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value of the field with the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *GameAccountMutation) ClearField(name string) error {
+	return fmt.Errorf("unknown GameAccount nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation for the field with the given name.
+// It returns an error if the field is not defined in the schema.
+func (m *GameAccountMutation) ResetField(name string) error {
+	switch name {
+	case gameaccount.FieldUserID:
+		m.ResetUserID()
+		return nil
+	case gameaccount.FieldAccountID:
+		m.ResetAccountID()
+		return nil
+	case gameaccount.FieldGameToken:
+		m.ResetGameToken()
+		return nil
+	case gameaccount.FieldCookieToken:
+		m.ResetCookieToken()
+		return nil
+	case gameaccount.FieldStoken:
+		m.ResetStoken()
+		return nil
+	case gameaccount.FieldMid:
+		m.ResetMid()
+		return nil
+	case gameaccount.FieldCreateAt:
+		m.ResetCreateAt()
+		return nil
+	case gameaccount.FieldUpdateAt:
+		m.ResetUpdateAt()
+		return nil
+	}
+	return fmt.Errorf("unknown GameAccount field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this mutation.
+func (m *GameAccountMutation) AddedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// name in this mutation.
+func (m *GameAccountMutation) AddedIDs(name string) []ent.Value {
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this mutation.
+func (m *GameAccountMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// the given name in this mutation.
+func (m *GameAccountMutation) RemovedIDs(name string) []ent.Value {
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this mutation.
+func (m *GameAccountMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// EdgeCleared returns a boolean which indicates if the edge with the given name
+// was cleared in this mutation.
+func (m *GameAccountMutation) EdgeCleared(name string) bool {
+	return false
+}
+
+// ClearEdge clears the value of the edge with the given name. It returns an error
+// if that edge is not defined in the schema.
+func (m *GameAccountMutation) ClearEdge(name string) error {
+	return fmt.Errorf("unknown GameAccount unique edge %s", name)
+}
+
+// ResetEdge resets all changes to the edge with the given name in this mutation.
+// It returns an error if the edge is not defined in the schema.
+func (m *GameAccountMutation) ResetEdge(name string) error {
+	return fmt.Errorf("unknown GameAccount edge %s", name)
+}
+
+// GameRoleMutation represents an operation that mutates the GameRole nodes in the graph.
+type GameRoleMutation struct {
+	config
+	op            Op
+	typ           string
+	id            *int64
+	user_id       *int64
+	adduser_id    *int64
+	account_id    *string
+	role_id       *string
+	level         *int
+	addlevel      *int
+	region        *string
+	region_name   *string
+	nick_name     *string
+	create_at     *time.Time
+	update_at     *time.Time
+	clearedFields map[string]struct{}
+	done          bool
+	oldValue      func(context.Context) (*GameRole, error)
+	predicates    []predicate.GameRole
+}
+
+var _ ent.Mutation = (*GameRoleMutation)(nil)
+
+// gameroleOption allows management of the mutation configuration using functional options.
+type gameroleOption func(*GameRoleMutation)
+
+// newGameRoleMutation creates new mutation for the GameRole entity.
+func newGameRoleMutation(c config, op Op, opts ...gameroleOption) *GameRoleMutation {
+	m := &GameRoleMutation{
+		config:        c,
+		op:            op,
+		typ:           TypeGameRole,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withGameRoleID sets the ID field of the mutation.
+func withGameRoleID(id int64) gameroleOption {
+	return func(m *GameRoleMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *GameRole
+		)
+		m.oldValue = func(ctx context.Context) (*GameRole, error) {
+			once.Do(func() {
+				if m.done {
+					err = errors.New("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().GameRole.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withGameRole sets the old GameRole of the mutation.
+func withGameRole(node *GameRole) gameroleOption {
+	return func(m *GameRoleMutation) {
+		m.oldValue = func(context.Context) (*GameRole, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m GameRoleMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m GameRoleMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, errors.New("entity: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// SetID sets the value of the id field. Note that this
+// operation is only accepted on creation of GameRole entities.
+func (m *GameRoleMutation) SetID(id int64) {
+	m.id = &id
+}
+
+// ID returns the ID value in the mutation. Note that the ID is only available
+// if it was provided to the builder or after it was returned from the database.
+func (m *GameRoleMutation) ID() (id int64, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// IDs queries the database and returns the entity ids that match the mutation's predicate.
+// That means, if the mutation is applied within a transaction with an isolation level such
+// as sql.LevelSerializable, the returned ids match the ids of the rows that will be updated
+// or updated by the mutation.
+func (m *GameRoleMutation) IDs(ctx context.Context) ([]int64, error) {
+	switch {
+	case m.op.Is(OpUpdateOne | OpDeleteOne):
+		id, exists := m.ID()
+		if exists {
+			return []int64{id}, nil
+		}
+		fallthrough
+	case m.op.Is(OpUpdate | OpDelete):
+		return m.Client().GameRole.Query().Where(m.predicates...).IDs(ctx)
+	default:
+		return nil, fmt.Errorf("IDs is not allowed on %s operations", m.op)
+	}
+}
+
+// SetUserID sets the "user_id" field.
+func (m *GameRoleMutation) SetUserID(i int64) {
+	m.user_id = &i
+	m.adduser_id = nil
+}
+
+// UserID returns the value of the "user_id" field in the mutation.
+func (m *GameRoleMutation) UserID() (r int64, exists bool) {
+	v := m.user_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUserID returns the old "user_id" field's value of the GameRole entity.
+// If the GameRole object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GameRoleMutation) OldUserID(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUserID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUserID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUserID: %w", err)
+	}
+	return oldValue.UserID, nil
+}
+
+// AddUserID adds i to the "user_id" field.
+func (m *GameRoleMutation) AddUserID(i int64) {
+	if m.adduser_id != nil {
+		*m.adduser_id += i
+	} else {
+		m.adduser_id = &i
+	}
+}
+
+// AddedUserID returns the value that was added to the "user_id" field in this mutation.
+func (m *GameRoleMutation) AddedUserID() (r int64, exists bool) {
+	v := m.adduser_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUserID resets all changes to the "user_id" field.
+func (m *GameRoleMutation) ResetUserID() {
+	m.user_id = nil
+	m.adduser_id = nil
+}
+
+// SetAccountID sets the "account_id" field.
+func (m *GameRoleMutation) SetAccountID(s string) {
+	m.account_id = &s
+}
+
+// AccountID returns the value of the "account_id" field in the mutation.
+func (m *GameRoleMutation) AccountID() (r string, exists bool) {
+	v := m.account_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldAccountID returns the old "account_id" field's value of the GameRole entity.
+// If the GameRole object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GameRoleMutation) OldAccountID(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldAccountID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldAccountID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldAccountID: %w", err)
+	}
+	return oldValue.AccountID, nil
+}
+
+// ResetAccountID resets all changes to the "account_id" field.
+func (m *GameRoleMutation) ResetAccountID() {
+	m.account_id = nil
+}
+
+// SetRoleID sets the "role_id" field.
+func (m *GameRoleMutation) SetRoleID(s string) {
+	m.role_id = &s
+}
+
+// RoleID returns the value of the "role_id" field in the mutation.
+func (m *GameRoleMutation) RoleID() (r string, exists bool) {
+	v := m.role_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldRoleID returns the old "role_id" field's value of the GameRole entity.
+// If the GameRole object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GameRoleMutation) OldRoleID(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldRoleID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldRoleID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldRoleID: %w", err)
+	}
+	return oldValue.RoleID, nil
+}
+
+// ResetRoleID resets all changes to the "role_id" field.
+func (m *GameRoleMutation) ResetRoleID() {
+	m.role_id = nil
+}
+
+// SetLevel sets the "level" field.
+func (m *GameRoleMutation) SetLevel(i int) {
+	m.level = &i
+	m.addlevel = nil
+}
+
+// Level returns the value of the "level" field in the mutation.
+func (m *GameRoleMutation) Level() (r int, exists bool) {
+	v := m.level
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldLevel returns the old "level" field's value of the GameRole entity.
+// If the GameRole object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GameRoleMutation) OldLevel(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldLevel is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldLevel requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldLevel: %w", err)
+	}
+	return oldValue.Level, nil
+}
+
+// AddLevel adds i to the "level" field.
+func (m *GameRoleMutation) AddLevel(i int) {
+	if m.addlevel != nil {
+		*m.addlevel += i
+	} else {
+		m.addlevel = &i
+	}
+}
+
+// AddedLevel returns the value that was added to the "level" field in this mutation.
+func (m *GameRoleMutation) AddedLevel() (r int, exists bool) {
+	v := m.addlevel
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetLevel resets all changes to the "level" field.
+func (m *GameRoleMutation) ResetLevel() {
+	m.level = nil
+	m.addlevel = nil
+}
+
+// SetRegion sets the "region" field.
+func (m *GameRoleMutation) SetRegion(s string) {
+	m.region = &s
+}
+
+// Region returns the value of the "region" field in the mutation.
+func (m *GameRoleMutation) Region() (r string, exists bool) {
+	v := m.region
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldRegion returns the old "region" field's value of the GameRole entity.
+// If the GameRole object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GameRoleMutation) OldRegion(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldRegion is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldRegion requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldRegion: %w", err)
+	}
+	return oldValue.Region, nil
+}
+
+// ResetRegion resets all changes to the "region" field.
+func (m *GameRoleMutation) ResetRegion() {
+	m.region = nil
+}
+
+// SetRegionName sets the "region_name" field.
+func (m *GameRoleMutation) SetRegionName(s string) {
+	m.region_name = &s
+}
+
+// RegionName returns the value of the "region_name" field in the mutation.
+func (m *GameRoleMutation) RegionName() (r string, exists bool) {
+	v := m.region_name
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldRegionName returns the old "region_name" field's value of the GameRole entity.
+// If the GameRole object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GameRoleMutation) OldRegionName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldRegionName is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldRegionName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldRegionName: %w", err)
+	}
+	return oldValue.RegionName, nil
+}
+
+// ResetRegionName resets all changes to the "region_name" field.
+func (m *GameRoleMutation) ResetRegionName() {
+	m.region_name = nil
+}
+
+// SetNickName sets the "nick_name" field.
+func (m *GameRoleMutation) SetNickName(s string) {
+	m.nick_name = &s
+}
+
+// NickName returns the value of the "nick_name" field in the mutation.
+func (m *GameRoleMutation) NickName() (r string, exists bool) {
+	v := m.nick_name
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldNickName returns the old "nick_name" field's value of the GameRole entity.
+// If the GameRole object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GameRoleMutation) OldNickName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldNickName is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldNickName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldNickName: %w", err)
+	}
+	return oldValue.NickName, nil
+}
+
+// ResetNickName resets all changes to the "nick_name" field.
+func (m *GameRoleMutation) ResetNickName() {
+	m.nick_name = nil
+}
+
+// SetCreateAt sets the "create_at" field.
+func (m *GameRoleMutation) SetCreateAt(t time.Time) {
+	m.create_at = &t
+}
+
+// CreateAt returns the value of the "create_at" field in the mutation.
+func (m *GameRoleMutation) CreateAt() (r time.Time, exists bool) {
+	v := m.create_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreateAt returns the old "create_at" field's value of the GameRole entity.
+// If the GameRole object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GameRoleMutation) OldCreateAt(ctx context.Context) (v time.Time, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreateAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreateAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreateAt: %w", err)
+	}
+	return oldValue.CreateAt, nil
+}
+
+// ResetCreateAt resets all changes to the "create_at" field.
+func (m *GameRoleMutation) ResetCreateAt() {
+	m.create_at = nil
+}
+
+// SetUpdateAt sets the "update_at" field.
+func (m *GameRoleMutation) SetUpdateAt(t time.Time) {
+	m.update_at = &t
+}
+
+// UpdateAt returns the value of the "update_at" field in the mutation.
+func (m *GameRoleMutation) UpdateAt() (r time.Time, exists bool) {
+	v := m.update_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdateAt returns the old "update_at" field's value of the GameRole entity.
+// If the GameRole object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GameRoleMutation) OldUpdateAt(ctx context.Context) (v time.Time, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdateAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdateAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdateAt: %w", err)
+	}
+	return oldValue.UpdateAt, nil
+}
+
+// ResetUpdateAt resets all changes to the "update_at" field.
+func (m *GameRoleMutation) ResetUpdateAt() {
+	m.update_at = nil
+}
+
+// Where appends a list predicates to the GameRoleMutation builder.
+func (m *GameRoleMutation) Where(ps ...predicate.GameRole) {
+	m.predicates = append(m.predicates, ps...)
+}
+
+// WhereP appends storage-level predicates to the GameRoleMutation builder. Using this method,
+// users can use type-assertion to append predicates that do not depend on any generated package.
+func (m *GameRoleMutation) WhereP(ps ...func(*sql.Selector)) {
+	p := make([]predicate.GameRole, len(ps))
+	for i := range ps {
+		p[i] = ps[i]
+	}
+	m.Where(p...)
+}
+
+// Op returns the operation name.
+func (m *GameRoleMutation) Op() Op {
+	return m.op
+}
+
+// SetOp allows setting the mutation operation.
+func (m *GameRoleMutation) SetOp(op Op) {
+	m.op = op
+}
+
+// Type returns the node type of this mutation (GameRole).
+func (m *GameRoleMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during this mutation. Note that in
+// order to get all numeric fields that were incremented/decremented, call
+// AddedFields().
+func (m *GameRoleMutation) Fields() []string {
+	fields := make([]string, 0, 9)
+	if m.user_id != nil {
+		fields = append(fields, gamerole.FieldUserID)
+	}
+	if m.account_id != nil {
+		fields = append(fields, gamerole.FieldAccountID)
+	}
+	if m.role_id != nil {
+		fields = append(fields, gamerole.FieldRoleID)
+	}
+	if m.level != nil {
+		fields = append(fields, gamerole.FieldLevel)
+	}
+	if m.region != nil {
+		fields = append(fields, gamerole.FieldRegion)
+	}
+	if m.region_name != nil {
+		fields = append(fields, gamerole.FieldRegionName)
+	}
+	if m.nick_name != nil {
+		fields = append(fields, gamerole.FieldNickName)
+	}
+	if m.create_at != nil {
+		fields = append(fields, gamerole.FieldCreateAt)
+	}
+	if m.update_at != nil {
+		fields = append(fields, gamerole.FieldUpdateAt)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name. The second boolean
+// return value indicates that this field was not set, or was not defined in the
+// schema.
+func (m *GameRoleMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case gamerole.FieldUserID:
+		return m.UserID()
+	case gamerole.FieldAccountID:
+		return m.AccountID()
+	case gamerole.FieldRoleID:
+		return m.RoleID()
+	case gamerole.FieldLevel:
+		return m.Level()
+	case gamerole.FieldRegion:
+		return m.Region()
+	case gamerole.FieldRegionName:
+		return m.RegionName()
+	case gamerole.FieldNickName:
+		return m.NickName()
+	case gamerole.FieldCreateAt:
+		return m.CreateAt()
+	case gamerole.FieldUpdateAt:
+		return m.UpdateAt()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database. An error is
+// returned if the mutation operation is not UpdateOne, or the query to the
+// database failed.
+func (m *GameRoleMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case gamerole.FieldUserID:
+		return m.OldUserID(ctx)
+	case gamerole.FieldAccountID:
+		return m.OldAccountID(ctx)
+	case gamerole.FieldRoleID:
+		return m.OldRoleID(ctx)
+	case gamerole.FieldLevel:
+		return m.OldLevel(ctx)
+	case gamerole.FieldRegion:
+		return m.OldRegion(ctx)
+	case gamerole.FieldRegionName:
+		return m.OldRegionName(ctx)
+	case gamerole.FieldNickName:
+		return m.OldNickName(ctx)
+	case gamerole.FieldCreateAt:
+		return m.OldCreateAt(ctx)
+	case gamerole.FieldUpdateAt:
+		return m.OldUpdateAt(ctx)
+	}
+	return nil, fmt.Errorf("unknown GameRole field %s", name)
+}
+
+// SetField sets the value of a field with the given name. It returns an error if
+// the field is not defined in the schema, or if the type mismatched the field
+// type.
+func (m *GameRoleMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case gamerole.FieldUserID:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUserID(v)
+		return nil
+	case gamerole.FieldAccountID:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetAccountID(v)
+		return nil
+	case gamerole.FieldRoleID:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetRoleID(v)
+		return nil
+	case gamerole.FieldLevel:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetLevel(v)
+		return nil
+	case gamerole.FieldRegion:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetRegion(v)
+		return nil
+	case gamerole.FieldRegionName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetRegionName(v)
+		return nil
+	case gamerole.FieldNickName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetNickName(v)
+		return nil
+	case gamerole.FieldCreateAt:
+		v, ok := value.(time.Time)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreateAt(v)
+		return nil
+	case gamerole.FieldUpdateAt:
+		v, ok := value.(time.Time)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdateAt(v)
+		return nil
+	}
+	return fmt.Errorf("unknown GameRole field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented/decremented during
+// this mutation.
+func (m *GameRoleMutation) AddedFields() []string {
+	var fields []string
+	if m.adduser_id != nil {
+		fields = append(fields, gamerole.FieldUserID)
+	}
+	if m.addlevel != nil {
+		fields = append(fields, gamerole.FieldLevel)
+	}
+	return fields
+}
+
+// AddedField returns the numeric value that was incremented/decremented on a field
+// with the given name. The second boolean return value indicates that this field
+// was not set, or was not defined in the schema.
+func (m *GameRoleMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case gamerole.FieldUserID:
+		return m.AddedUserID()
+	case gamerole.FieldLevel:
+		return m.AddedLevel()
+	}
+	return nil, false
+}
+
+// AddField adds the value to the field with the given name. It returns an error if
+// the field is not defined in the schema, or if the type mismatched the field
+// type.
+func (m *GameRoleMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	case gamerole.FieldUserID:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUserID(v)
+		return nil
+	case gamerole.FieldLevel:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddLevel(v)
+		return nil
+	}
+	return fmt.Errorf("unknown GameRole numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared during this
+// mutation.
+func (m *GameRoleMutation) ClearedFields() []string {
+	return nil
+}
+
+// FieldCleared returns a boolean indicating if a field with the given name was
+// cleared in this mutation.
+func (m *GameRoleMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value of the field with the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *GameRoleMutation) ClearField(name string) error {
+	return fmt.Errorf("unknown GameRole nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation for the field with the given name.
+// It returns an error if the field is not defined in the schema.
+func (m *GameRoleMutation) ResetField(name string) error {
+	switch name {
+	case gamerole.FieldUserID:
+		m.ResetUserID()
+		return nil
+	case gamerole.FieldAccountID:
+		m.ResetAccountID()
+		return nil
+	case gamerole.FieldRoleID:
+		m.ResetRoleID()
+		return nil
+	case gamerole.FieldLevel:
+		m.ResetLevel()
+		return nil
+	case gamerole.FieldRegion:
+		m.ResetRegion()
+		return nil
+	case gamerole.FieldRegionName:
+		m.ResetRegionName()
+		return nil
+	case gamerole.FieldNickName:
+		m.ResetNickName()
+		return nil
+	case gamerole.FieldCreateAt:
+		m.ResetCreateAt()
+		return nil
+	case gamerole.FieldUpdateAt:
+		m.ResetUpdateAt()
+		return nil
+	}
+	return fmt.Errorf("unknown GameRole field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this mutation.
+func (m *GameRoleMutation) AddedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// name in this mutation.
+func (m *GameRoleMutation) AddedIDs(name string) []ent.Value {
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this mutation.
+func (m *GameRoleMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// the given name in this mutation.
+func (m *GameRoleMutation) RemovedIDs(name string) []ent.Value {
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this mutation.
+func (m *GameRoleMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// EdgeCleared returns a boolean which indicates if the edge with the given name
+// was cleared in this mutation.
+func (m *GameRoleMutation) EdgeCleared(name string) bool {
+	return false
+}
+
+// ClearEdge clears the value of the edge with the given name. It returns an error
+// if that edge is not defined in the schema.
+func (m *GameRoleMutation) ClearEdge(name string) error {
+	return fmt.Errorf("unknown GameRole unique edge %s", name)
+}
+
+// ResetEdge resets all changes to the edge with the given name in this mutation.
+// It returns an error if the edge is not defined in the schema.
+func (m *GameRoleMutation) ResetEdge(name string) error {
+	return fmt.Errorf("unknown GameRole edge %s", name)
+}
+
+// GameRoleAttributeMutation represents an operation that mutates the GameRoleAttribute nodes in the graph.
+type GameRoleAttributeMutation struct {
+	config
+	op            Op
+	typ           string
+	id            *int64
+	user_id       *int64
+	adduser_id    *int64
+	account_id    *string
+	role_id       *string
+	name          *string
+	_type         *int
+	add_type      *int
+	value         *string
+	create_at     *time.Time
+	update_at     *time.Time
+	clearedFields map[string]struct{}
+	done          bool
+	oldValue      func(context.Context) (*GameRoleAttribute, error)
+	predicates    []predicate.GameRoleAttribute
+}
+
+var _ ent.Mutation = (*GameRoleAttributeMutation)(nil)
+
+// gameroleattributeOption allows management of the mutation configuration using functional options.
+type gameroleattributeOption func(*GameRoleAttributeMutation)
+
+// newGameRoleAttributeMutation creates new mutation for the GameRoleAttribute entity.
+func newGameRoleAttributeMutation(c config, op Op, opts ...gameroleattributeOption) *GameRoleAttributeMutation {
+	m := &GameRoleAttributeMutation{
+		config:        c,
+		op:            op,
+		typ:           TypeGameRoleAttribute,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withGameRoleAttributeID sets the ID field of the mutation.
+func withGameRoleAttributeID(id int64) gameroleattributeOption {
+	return func(m *GameRoleAttributeMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *GameRoleAttribute
+		)
+		m.oldValue = func(ctx context.Context) (*GameRoleAttribute, error) {
+			once.Do(func() {
+				if m.done {
+					err = errors.New("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().GameRoleAttribute.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withGameRoleAttribute sets the old GameRoleAttribute of the mutation.
+func withGameRoleAttribute(node *GameRoleAttribute) gameroleattributeOption {
+	return func(m *GameRoleAttributeMutation) {
+		m.oldValue = func(context.Context) (*GameRoleAttribute, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m GameRoleAttributeMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m GameRoleAttributeMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, errors.New("entity: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// SetID sets the value of the id field. Note that this
+// operation is only accepted on creation of GameRoleAttribute entities.
+func (m *GameRoleAttributeMutation) SetID(id int64) {
+	m.id = &id
+}
+
+// ID returns the ID value in the mutation. Note that the ID is only available
+// if it was provided to the builder or after it was returned from the database.
+func (m *GameRoleAttributeMutation) ID() (id int64, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// IDs queries the database and returns the entity ids that match the mutation's predicate.
+// That means, if the mutation is applied within a transaction with an isolation level such
+// as sql.LevelSerializable, the returned ids match the ids of the rows that will be updated
+// or updated by the mutation.
+func (m *GameRoleAttributeMutation) IDs(ctx context.Context) ([]int64, error) {
+	switch {
+	case m.op.Is(OpUpdateOne | OpDeleteOne):
+		id, exists := m.ID()
+		if exists {
+			return []int64{id}, nil
+		}
+		fallthrough
+	case m.op.Is(OpUpdate | OpDelete):
+		return m.Client().GameRoleAttribute.Query().Where(m.predicates...).IDs(ctx)
+	default:
+		return nil, fmt.Errorf("IDs is not allowed on %s operations", m.op)
+	}
+}
+
+// SetUserID sets the "user_id" field.
+func (m *GameRoleAttributeMutation) SetUserID(i int64) {
+	m.user_id = &i
+	m.adduser_id = nil
+}
+
+// UserID returns the value of the "user_id" field in the mutation.
+func (m *GameRoleAttributeMutation) UserID() (r int64, exists bool) {
+	v := m.user_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUserID returns the old "user_id" field's value of the GameRoleAttribute entity.
+// If the GameRoleAttribute object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GameRoleAttributeMutation) OldUserID(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUserID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUserID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUserID: %w", err)
+	}
+	return oldValue.UserID, nil
+}
+
+// AddUserID adds i to the "user_id" field.
+func (m *GameRoleAttributeMutation) AddUserID(i int64) {
+	if m.adduser_id != nil {
+		*m.adduser_id += i
+	} else {
+		m.adduser_id = &i
+	}
+}
+
+// AddedUserID returns the value that was added to the "user_id" field in this mutation.
+func (m *GameRoleAttributeMutation) AddedUserID() (r int64, exists bool) {
+	v := m.adduser_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUserID resets all changes to the "user_id" field.
+func (m *GameRoleAttributeMutation) ResetUserID() {
+	m.user_id = nil
+	m.adduser_id = nil
+}
+
+// SetAccountID sets the "account_id" field.
+func (m *GameRoleAttributeMutation) SetAccountID(s string) {
+	m.account_id = &s
+}
+
+// AccountID returns the value of the "account_id" field in the mutation.
+func (m *GameRoleAttributeMutation) AccountID() (r string, exists bool) {
+	v := m.account_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldAccountID returns the old "account_id" field's value of the GameRoleAttribute entity.
+// If the GameRoleAttribute object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GameRoleAttributeMutation) OldAccountID(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldAccountID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldAccountID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldAccountID: %w", err)
+	}
+	return oldValue.AccountID, nil
+}
+
+// ResetAccountID resets all changes to the "account_id" field.
+func (m *GameRoleAttributeMutation) ResetAccountID() {
+	m.account_id = nil
+}
+
+// SetRoleID sets the "role_id" field.
+func (m *GameRoleAttributeMutation) SetRoleID(s string) {
+	m.role_id = &s
+}
+
+// RoleID returns the value of the "role_id" field in the mutation.
+func (m *GameRoleAttributeMutation) RoleID() (r string, exists bool) {
+	v := m.role_id
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldRoleID returns the old "role_id" field's value of the GameRoleAttribute entity.
+// If the GameRoleAttribute object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GameRoleAttributeMutation) OldRoleID(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldRoleID is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldRoleID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldRoleID: %w", err)
+	}
+	return oldValue.RoleID, nil
+}
+
+// ResetRoleID resets all changes to the "role_id" field.
+func (m *GameRoleAttributeMutation) ResetRoleID() {
+	m.role_id = nil
+}
+
+// SetName sets the "name" field.
+func (m *GameRoleAttributeMutation) SetName(s string) {
+	m.name = &s
+}
+
+// Name returns the value of the "name" field in the mutation.
+func (m *GameRoleAttributeMutation) Name() (r string, exists bool) {
+	v := m.name
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldName returns the old "name" field's value of the GameRoleAttribute entity.
+// If the GameRoleAttribute object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GameRoleAttributeMutation) OldName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldName is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldName: %w", err)
+	}
+	return oldValue.Name, nil
+}
+
+// ResetName resets all changes to the "name" field.
+func (m *GameRoleAttributeMutation) ResetName() {
+	m.name = nil
+}
+
+// SetType sets the "type" field.
+func (m *GameRoleAttributeMutation) SetType(i int) {
+	m._type = &i
+	m.add_type = nil
+}
+
+// GetType returns the value of the "type" field in the mutation.
+func (m *GameRoleAttributeMutation) GetType() (r int, exists bool) {
+	v := m._type
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldType returns the old "type" field's value of the GameRoleAttribute entity.
+// If the GameRoleAttribute object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GameRoleAttributeMutation) OldType(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldType is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldType requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldType: %w", err)
+	}
+	return oldValue.Type, nil
+}
+
+// AddType adds i to the "type" field.
+func (m *GameRoleAttributeMutation) AddType(i int) {
+	if m.add_type != nil {
+		*m.add_type += i
+	} else {
+		m.add_type = &i
+	}
+}
+
+// AddedType returns the value that was added to the "type" field in this mutation.
+func (m *GameRoleAttributeMutation) AddedType() (r int, exists bool) {
+	v := m.add_type
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetType resets all changes to the "type" field.
+func (m *GameRoleAttributeMutation) ResetType() {
+	m._type = nil
+	m.add_type = nil
+}
+
+// SetValue sets the "value" field.
+func (m *GameRoleAttributeMutation) SetValue(s string) {
+	m.value = &s
+}
+
+// Value returns the value of the "value" field in the mutation.
+func (m *GameRoleAttributeMutation) Value() (r string, exists bool) {
+	v := m.value
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldValue returns the old "value" field's value of the GameRoleAttribute entity.
+// If the GameRoleAttribute object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GameRoleAttributeMutation) OldValue(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldValue is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldValue requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldValue: %w", err)
+	}
+	return oldValue.Value, nil
+}
+
+// ResetValue resets all changes to the "value" field.
+func (m *GameRoleAttributeMutation) ResetValue() {
+	m.value = nil
+}
+
+// SetCreateAt sets the "create_at" field.
+func (m *GameRoleAttributeMutation) SetCreateAt(t time.Time) {
+	m.create_at = &t
+}
+
+// CreateAt returns the value of the "create_at" field in the mutation.
+func (m *GameRoleAttributeMutation) CreateAt() (r time.Time, exists bool) {
+	v := m.create_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreateAt returns the old "create_at" field's value of the GameRoleAttribute entity.
+// If the GameRoleAttribute object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GameRoleAttributeMutation) OldCreateAt(ctx context.Context) (v time.Time, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreateAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreateAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreateAt: %w", err)
+	}
+	return oldValue.CreateAt, nil
+}
+
+// ResetCreateAt resets all changes to the "create_at" field.
+func (m *GameRoleAttributeMutation) ResetCreateAt() {
+	m.create_at = nil
+}
+
+// SetUpdateAt sets the "update_at" field.
+func (m *GameRoleAttributeMutation) SetUpdateAt(t time.Time) {
+	m.update_at = &t
+}
+
+// UpdateAt returns the value of the "update_at" field in the mutation.
+func (m *GameRoleAttributeMutation) UpdateAt() (r time.Time, exists bool) {
+	v := m.update_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdateAt returns the old "update_at" field's value of the GameRoleAttribute entity.
+// If the GameRoleAttribute object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GameRoleAttributeMutation) OldUpdateAt(ctx context.Context) (v time.Time, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdateAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdateAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdateAt: %w", err)
+	}
+	return oldValue.UpdateAt, nil
+}
+
+// ResetUpdateAt resets all changes to the "update_at" field.
+func (m *GameRoleAttributeMutation) ResetUpdateAt() {
+	m.update_at = nil
+}
+
+// Where appends a list predicates to the GameRoleAttributeMutation builder.
+func (m *GameRoleAttributeMutation) Where(ps ...predicate.GameRoleAttribute) {
+	m.predicates = append(m.predicates, ps...)
+}
+
+// WhereP appends storage-level predicates to the GameRoleAttributeMutation builder. Using this method,
+// users can use type-assertion to append predicates that do not depend on any generated package.
+func (m *GameRoleAttributeMutation) WhereP(ps ...func(*sql.Selector)) {
+	p := make([]predicate.GameRoleAttribute, len(ps))
+	for i := range ps {
+		p[i] = ps[i]
+	}
+	m.Where(p...)
+}
+
+// Op returns the operation name.
+func (m *GameRoleAttributeMutation) Op() Op {
+	return m.op
+}
+
+// SetOp allows setting the mutation operation.
+func (m *GameRoleAttributeMutation) SetOp(op Op) {
+	m.op = op
+}
+
+// Type returns the node type of this mutation (GameRoleAttribute).
+func (m *GameRoleAttributeMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during this mutation. Note that in
+// order to get all numeric fields that were incremented/decremented, call
+// AddedFields().
+func (m *GameRoleAttributeMutation) Fields() []string {
+	fields := make([]string, 0, 8)
+	if m.user_id != nil {
+		fields = append(fields, gameroleattribute.FieldUserID)
+	}
+	if m.account_id != nil {
+		fields = append(fields, gameroleattribute.FieldAccountID)
+	}
+	if m.role_id != nil {
+		fields = append(fields, gameroleattribute.FieldRoleID)
+	}
+	if m.name != nil {
+		fields = append(fields, gameroleattribute.FieldName)
+	}
+	if m._type != nil {
+		fields = append(fields, gameroleattribute.FieldType)
+	}
+	if m.value != nil {
+		fields = append(fields, gameroleattribute.FieldValue)
+	}
+	if m.create_at != nil {
+		fields = append(fields, gameroleattribute.FieldCreateAt)
+	}
+	if m.update_at != nil {
+		fields = append(fields, gameroleattribute.FieldUpdateAt)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name. The second boolean
+// return value indicates that this field was not set, or was not defined in the
+// schema.
+func (m *GameRoleAttributeMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case gameroleattribute.FieldUserID:
+		return m.UserID()
+	case gameroleattribute.FieldAccountID:
+		return m.AccountID()
+	case gameroleattribute.FieldRoleID:
+		return m.RoleID()
+	case gameroleattribute.FieldName:
+		return m.Name()
+	case gameroleattribute.FieldType:
+		return m.GetType()
+	case gameroleattribute.FieldValue:
+		return m.Value()
+	case gameroleattribute.FieldCreateAt:
+		return m.CreateAt()
+	case gameroleattribute.FieldUpdateAt:
+		return m.UpdateAt()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database. An error is
+// returned if the mutation operation is not UpdateOne, or the query to the
+// database failed.
+func (m *GameRoleAttributeMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case gameroleattribute.FieldUserID:
+		return m.OldUserID(ctx)
+	case gameroleattribute.FieldAccountID:
+		return m.OldAccountID(ctx)
+	case gameroleattribute.FieldRoleID:
+		return m.OldRoleID(ctx)
+	case gameroleattribute.FieldName:
+		return m.OldName(ctx)
+	case gameroleattribute.FieldType:
+		return m.OldType(ctx)
+	case gameroleattribute.FieldValue:
+		return m.OldValue(ctx)
+	case gameroleattribute.FieldCreateAt:
+		return m.OldCreateAt(ctx)
+	case gameroleattribute.FieldUpdateAt:
+		return m.OldUpdateAt(ctx)
+	}
+	return nil, fmt.Errorf("unknown GameRoleAttribute field %s", name)
+}
+
+// SetField sets the value of a field with the given name. It returns an error if
+// the field is not defined in the schema, or if the type mismatched the field
+// type.
+func (m *GameRoleAttributeMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case gameroleattribute.FieldUserID:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUserID(v)
+		return nil
+	case gameroleattribute.FieldAccountID:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetAccountID(v)
+		return nil
+	case gameroleattribute.FieldRoleID:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetRoleID(v)
+		return nil
+	case gameroleattribute.FieldName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetName(v)
+		return nil
+	case gameroleattribute.FieldType:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetType(v)
+		return nil
+	case gameroleattribute.FieldValue:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetValue(v)
+		return nil
+	case gameroleattribute.FieldCreateAt:
+		v, ok := value.(time.Time)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreateAt(v)
+		return nil
+	case gameroleattribute.FieldUpdateAt:
+		v, ok := value.(time.Time)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdateAt(v)
+		return nil
+	}
+	return fmt.Errorf("unknown GameRoleAttribute field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented/decremented during
+// this mutation.
+func (m *GameRoleAttributeMutation) AddedFields() []string {
+	var fields []string
+	if m.adduser_id != nil {
+		fields = append(fields, gameroleattribute.FieldUserID)
+	}
+	if m.add_type != nil {
+		fields = append(fields, gameroleattribute.FieldType)
+	}
+	return fields
+}
+
+// AddedField returns the numeric value that was incremented/decremented on a field
+// with the given name. The second boolean return value indicates that this field
+// was not set, or was not defined in the schema.
+func (m *GameRoleAttributeMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case gameroleattribute.FieldUserID:
+		return m.AddedUserID()
+	case gameroleattribute.FieldType:
+		return m.AddedType()
+	}
+	return nil, false
+}
+
+// AddField adds the value to the field with the given name. It returns an error if
+// the field is not defined in the schema, or if the type mismatched the field
+// type.
+func (m *GameRoleAttributeMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	case gameroleattribute.FieldUserID:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUserID(v)
+		return nil
+	case gameroleattribute.FieldType:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddType(v)
+		return nil
+	}
+	return fmt.Errorf("unknown GameRoleAttribute numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared during this
+// mutation.
+func (m *GameRoleAttributeMutation) ClearedFields() []string {
+	return nil
+}
+
+// FieldCleared returns a boolean indicating if a field with the given name was
+// cleared in this mutation.
+func (m *GameRoleAttributeMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value of the field with the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *GameRoleAttributeMutation) ClearField(name string) error {
+	return fmt.Errorf("unknown GameRoleAttribute nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation for the field with the given name.
+// It returns an error if the field is not defined in the schema.
+func (m *GameRoleAttributeMutation) ResetField(name string) error {
+	switch name {
+	case gameroleattribute.FieldUserID:
+		m.ResetUserID()
+		return nil
+	case gameroleattribute.FieldAccountID:
+		m.ResetAccountID()
+		return nil
+	case gameroleattribute.FieldRoleID:
+		m.ResetRoleID()
+		return nil
+	case gameroleattribute.FieldName:
+		m.ResetName()
+		return nil
+	case gameroleattribute.FieldType:
+		m.ResetType()
+		return nil
+	case gameroleattribute.FieldValue:
+		m.ResetValue()
+		return nil
+	case gameroleattribute.FieldCreateAt:
+		m.ResetCreateAt()
+		return nil
+	case gameroleattribute.FieldUpdateAt:
+		m.ResetUpdateAt()
+		return nil
+	}
+	return fmt.Errorf("unknown GameRoleAttribute field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this mutation.
+func (m *GameRoleAttributeMutation) AddedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// AddedIDs returns all IDs (to other nodes) that were added for the given edge
+// name in this mutation.
+func (m *GameRoleAttributeMutation) AddedIDs(name string) []ent.Value {
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this mutation.
+func (m *GameRoleAttributeMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// RemovedIDs returns all IDs (to other nodes) that were removed for the edge with
+// the given name in this mutation.
+func (m *GameRoleAttributeMutation) RemovedIDs(name string) []ent.Value {
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this mutation.
+func (m *GameRoleAttributeMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// EdgeCleared returns a boolean which indicates if the edge with the given name
+// was cleared in this mutation.
+func (m *GameRoleAttributeMutation) EdgeCleared(name string) bool {
+	return false
+}
+
+// ClearEdge clears the value of the edge with the given name. It returns an error
+// if that edge is not defined in the schema.
+func (m *GameRoleAttributeMutation) ClearEdge(name string) error {
+	return fmt.Errorf("unknown GameRoleAttribute unique edge %s", name)
+}
+
+// ResetEdge resets all changes to the edge with the given name in this mutation.
+// It returns an error if the edge is not defined in the schema.
+func (m *GameRoleAttributeMutation) ResetEdge(name string) error {
+	return fmt.Errorf("unknown GameRoleAttribute edge %s", name)
 }
 
 // UserMutation represents an operation that mutates the User nodes in the graph.

@@ -4,6 +4,8 @@ package entity
 
 import (
 	"context"
+	stdsql "database/sql"
+	"fmt"
 	"sync"
 
 	"entgo.io/ent/dialect"
@@ -16,6 +18,12 @@ type Tx struct {
 	Chat *ChatClient
 	// ChatOption is the client for interacting with the ChatOption builders.
 	ChatOption *ChatOptionClient
+	// GameAccount is the client for interacting with the GameAccount builders.
+	GameAccount *GameAccountClient
+	// GameRole is the client for interacting with the GameRole builders.
+	GameRole *GameRoleClient
+	// GameRoleAttribute is the client for interacting with the GameRoleAttribute builders.
+	GameRoleAttribute *GameRoleAttributeClient
 	// User is the client for interacting with the User builders.
 	User *UserClient
 
@@ -151,6 +159,9 @@ func (tx *Tx) Client() *Client {
 func (tx *Tx) init() {
 	tx.Chat = NewChatClient(tx.config)
 	tx.ChatOption = NewChatOptionClient(tx.config)
+	tx.GameAccount = NewGameAccountClient(tx.config)
+	tx.GameRole = NewGameRoleClient(tx.config)
+	tx.GameRoleAttribute = NewGameRoleAttributeClient(tx.config)
 	tx.User = NewUserClient(tx.config)
 }
 
@@ -214,3 +225,27 @@ func (tx *txDriver) Query(ctx context.Context, query string, args, v any) error 
 }
 
 var _ dialect.Driver = (*txDriver)(nil)
+
+// ExecContext allows calling the underlying ExecContext method of the transaction if it is supported by it.
+// See, database/sql#Tx.ExecContext for more information.
+func (tx *txDriver) ExecContext(ctx context.Context, query string, args ...any) (stdsql.Result, error) {
+	ex, ok := tx.tx.(interface {
+		ExecContext(context.Context, string, ...any) (stdsql.Result, error)
+	})
+	if !ok {
+		return nil, fmt.Errorf("Tx.ExecContext is not supported")
+	}
+	return ex.ExecContext(ctx, query, args...)
+}
+
+// QueryContext allows calling the underlying QueryContext method of the transaction if it is supported by it.
+// See, database/sql#Tx.QueryContext for more information.
+func (tx *txDriver) QueryContext(ctx context.Context, query string, args ...any) (*stdsql.Rows, error) {
+	q, ok := tx.tx.(interface {
+		QueryContext(context.Context, string, ...any) (*stdsql.Rows, error)
+	})
+	if !ok {
+		return nil, fmt.Errorf("Tx.QueryContext is not supported")
+	}
+	return q.QueryContext(ctx, query, args...)
+}

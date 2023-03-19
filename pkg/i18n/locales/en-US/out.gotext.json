@@ -16,6 +16,48 @@
             "fuzzy": true
         },
         {
+            "id": "Please send me a private chat message",
+            "message": "Please send me a private chat message",
+            "translation": "Please send me a private chat message",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "QR code login is being checked",
+            "message": "QR code login is being checked",
+            "translation": "QR code login is being checked",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Upsert user failed",
+            "message": "Upsert user failed",
+            "translation": "Upsert user failed",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Fetch QR code failed",
+            "message": "Fetch QR code failed",
+            "translation": "Fetch QR code failed",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Generate QR code failed",
+            "message": "Generate QR code failed",
+            "translation": "Generate QR code failed",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Please scan the QR code with the miyoushe App",
+            "message": "Please scan the QR code with the miyoushe App",
+            "translation": "Please scan the QR code with the miyoushe App",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Monday",
             "message": "Monday",
             "translation": "Monday",
@@ -61,6 +103,83 @@
             "id": "What are you looking for, it does not exist",
             "message": "What are you looking for, it does not exist",
             "translation": "What are you looking for, it does not exist",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Login failed or QR code expired, please try again",
+            "message": "Login failed or QR code expired, please try again",
+            "translation": "Login failed or QR code expired, please try again",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Game token parse failed, please try again",
+            "message": "Game token parse failed, please try again",
+            "translation": "Game token parse failed, please try again",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Cookie token fetch failed, please try again",
+            "message": "Cookie token fetch failed, please try again",
+            "translation": "Cookie token fetch failed, please try again",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "stoken fetch failed, please try again",
+            "message": "stoken fetch failed, please try again",
+            "translation": "stoken fetch failed, please try again",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Upsert game account failed",
+            "message": "Upsert game account failed",
+            "translation": "Upsert game account failed",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "fetch game record failed, please try again",
+            "message": "fetch game record failed, please try again",
+            "translation": "fetch game record failed, please try again",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "The account is not yet bound to any game, please make sure the account of scanning code is correct",
+            "message": "The account is not yet bound to any game, please make sure the account of scanning code is correct",
+            "translation": "The account is not yet bound to any game, please make sure the account of scanning code is correct",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "The account has not been bound to Genshin Impact, please confirm that the account is correct",
+            "message": "The account has not been bound to Genshin Impact, please confirm that the account is correct",
+            "translation": "The account has not been bound to Genshin Impact, please confirm that the account is correct",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Upsert game roles failed",
+            "message": "Upsert game roles failed",
+            "translation": "Upsert game roles failed",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Upsert game roles attribute failed",
+            "message": "Upsert game roles attribute failed",
+            "translation": "Upsert game roles attribute failed",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Authentication successfully",
+            "message": "Authentication successfully",
+            "translation": "Authentication successfully",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },

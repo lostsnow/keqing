@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"math"
 
+	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
@@ -21,6 +22,7 @@ type ChatQuery struct {
 	order      []OrderFunc
 	inters     []Interceptor
 	predicates []predicate.Chat
+	modifiers  []func(*sql.Selector)
 	// intermediate query (i.e. traversal path).
 	sql  *sql.Selector
 	path func(context.Context) (*sql.Selector, error)
@@ -342,6 +344,9 @@ func (cq *ChatQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Chat, e
 		nodes = append(nodes, node)
 		return node.assignValues(columns, values)
 	}
+	if len(cq.modifiers) > 0 {
+		_spec.Modifiers = cq.modifiers
+	}
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
@@ -356,6 +361,9 @@ func (cq *ChatQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Chat, e
 
 func (cq *ChatQuery) sqlCount(ctx context.Context) (int, error) {
 	_spec := cq.querySpec()
+	if len(cq.modifiers) > 0 {
+		_spec.Modifiers = cq.modifiers
+	}
 	_spec.Node.Columns = cq.ctx.Fields
 	if len(cq.ctx.Fields) > 0 {
 		_spec.Unique = cq.ctx.Unique != nil && *cq.ctx.Unique
@@ -418,6 +426,9 @@ func (cq *ChatQuery) sqlQuery(ctx context.Context) *sql.Selector {
 	if cq.ctx.Unique != nil && *cq.ctx.Unique {
 		selector.Distinct()
 	}
+	for _, m := range cq.modifiers {
+		m(selector)
+	}
 	for _, p := range cq.predicates {
 		p(selector)
 	}
@@ -433,6 +444,38 @@ func (cq *ChatQuery) sqlQuery(ctx context.Context) *sql.Selector {
 		selector.Limit(*limit)
 	}
 	return selector
+}
+
+// ForUpdate locks the selected rows against concurrent updates, and prevent them from being
+// updated, deleted or "selected ... for update" by other sessions, until the transaction is
+// either committed or rolled-back.
+func (cq *ChatQuery) ForUpdate(opts ...sql.LockOption) *ChatQuery {
+	if cq.driver.Dialect() == dialect.Postgres {
+		cq.Unique(false)
+	}
+	cq.modifiers = append(cq.modifiers, func(s *sql.Selector) {
+		s.ForUpdate(opts...)
+	})
+	return cq
+}
+
+// ForShare behaves similarly to ForUpdate, except that it acquires a shared mode lock
+// on any rows that are read. Other sessions can read the rows, but cannot modify them
+// until your transaction commits.
+func (cq *ChatQuery) ForShare(opts ...sql.LockOption) *ChatQuery {
+	if cq.driver.Dialect() == dialect.Postgres {
+		cq.Unique(false)
+	}
+	cq.modifiers = append(cq.modifiers, func(s *sql.Selector) {
+		s.ForShare(opts...)
+	})
+	return cq
+}
+
+// Modify adds a query modifier for attaching custom logic to queries.
+func (cq *ChatQuery) Modify(modifiers ...func(s *sql.Selector)) *ChatSelect {
+	cq.modifiers = append(cq.modifiers, modifiers...)
+	return cq.Select()
 }
 
 // ChatGroupBy is the group-by builder for Chat entities.
@@ -523,4 +566,10 @@ func (cs *ChatSelect) sqlScan(ctx context.Context, root *ChatQuery, v any) error
 	}
 	defer rows.Close()
 	return sql.ScanSlice(rows, v)
+}
+
+// Modify adds a query modifier for attaching custom logic to queries.
+func (cs *ChatSelect) Modify(modifiers ...func(s *sql.Selector)) *ChatSelect {
+	cs.modifiers = append(cs.modifiers, modifiers...)
+	return cs
 }
