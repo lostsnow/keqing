@@ -13,6 +13,8 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/spf13/viper"
+
 	"github.com/lostsnow/keqing/internal/lab/api/salt"
 	"github.com/lostsnow/keqing/pkg/util"
 )
@@ -25,6 +27,10 @@ const (
 	LabUA       = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) miHoYoBBS/" + XRpcVersion
 	LabMobileUA = "Mozilla/5.0 (Linux; Android 12) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/106.0.5249.126 Mobile Safari/537.36 miHoYoBBS/" + XRpcVersion
 	OkHttpUA    = "okhttp/4.8.0"
+)
+
+var (
+	httpClient *http.Client
 )
 
 type RequestInterface interface {
@@ -70,7 +76,11 @@ func SendRequest(r RequestInterface, payload any, v ResponseInterface) error {
 		return fmt.Errorf("invalid payload for %s", r.GetUrl())
 	}
 
-	client := &http.Client{}
+	client, err := initHttpClient()
+	if err != nil {
+		return err
+	}
+
 	var req *http.Request
 	if http.MethodPost == r.GetMethod() {
 		req, err = http.NewRequest(r.GetMethod(), r.GetUrl(), bytes.NewBuffer(pl))
@@ -125,6 +135,26 @@ func SendRequest(r RequestInterface, payload any, v ResponseInterface) error {
 	}
 
 	return nil
+}
+
+func initHttpClient() (*http.Client, error) {
+	if httpClient != nil {
+		return httpClient, nil
+	}
+	client := &http.Client{}
+	proxy := viper.GetString("proxy.mihoyo")
+	if proxy != "" {
+		p, err := url.Parse(proxy)
+		if err != nil {
+			return nil, fmt.Errorf("invalid mihoyo proxy url: %s", proxy)
+		}
+
+		client.Transport = &http.Transport{
+			Proxy: http.ProxyURL(p),
+		}
+	}
+	httpClient = client
+	return httpClient, nil
 }
 
 func GenerateDS(s string, payload any, query string) string {

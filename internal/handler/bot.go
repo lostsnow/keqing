@@ -56,11 +56,11 @@ func NewBot() (*Bot, error) {
 		},
 	}
 
-	proxy := viper.GetString("proxy")
+	proxy := viper.GetString("proxy.telegram")
 	if proxy != "" {
 		p, err := url.Parse(proxy)
 		if err != nil {
-			return nil, fmt.Errorf("invalid p url: %s", proxy)
+			return nil, fmt.Errorf("invalid telegram proxy url: %s", proxy)
 		}
 
 		pref.Client = &http.Client{
