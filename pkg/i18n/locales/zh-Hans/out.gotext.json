@@ -12,6 +12,31 @@
             "translation": "斩尽牛杂"
         },
         {
+            "id": "Not yet implemented, send command {Authqrcode} instead",
+            "message": "Not yet implemented, send command {Authqrcode} instead",
+            "translation": "尚未实现，发送命令 {Authqrcode} 代替",
+            "placeholders": [
+                {
+                    "id": "Authqrcode",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "\"/auth_qrcode\""
+                }
+            ]
+        },
+        {
+            "id": "Query game role failed",
+            "message": "Query game role failed",
+            "translation": "查询游戏角色失败"
+        },
+        {
+            "id": "No game role found, please send command /game_refresh_role to refresh",
+            "message": "No game role found, please send command /game_refresh_role to refresh",
+            "translation": "没有找到游戏角色，请发送命令 /game_refresh_role 来刷新"
+        },
+        {
             "id": "Please send me a private chat message",
             "message": "Please send me a private chat message",
             "translation": "请发送私聊信息"

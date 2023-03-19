@@ -21,10 +21,6 @@ var (
 	ErrDownloadPhotoNotFound = errors.New("download photo not found")
 )
 
-var (
-	currentInlineKeywordMark = "✅"
-)
-
 type PhotoResponseHandler struct {
 	Buttons        []PhotoButton
 	NoPhotoMessage any
@@ -53,7 +49,7 @@ func (h PhotoResponseHandler) Handle(ctx telebot.Context) error {
 		for idx, btn := range h.Buttons {
 			title := btn.Title
 			if idx == 0 {
-				title = title + currentInlineKeywordMark
+				title = title + CurrentInlineKeywordMark
 			}
 			botBtn := sel.Data(title, toPhotoUniqueId(btn.Dir+"/"+btn.Name))
 			botBtns = append(botBtns, botBtn)
@@ -72,7 +68,7 @@ func (h PhotoResponseHandler) Handle(ctx telebot.Context) error {
 				if _, ok := m.(telebot.Inputtable); !ok {
 					return c.Respond()
 				}
-				err := updateCurrentInlineKeyboard(sel, c.Callback().Unique)
+				err := UpdateCurrentInlineKeyboard(sel, c.Callback().Unique)
 				if err != nil {
 					return c.Respond()
 				}
@@ -216,24 +212,4 @@ func fromPhotoUniqueId(path string) string {
 		"00", " ",
 	)
 	return replacer.Replace(path)
-}
-
-func updateCurrentInlineKeyboard(sel *telebot.ReplyMarkup, uniq string) error {
-	if sel == nil {
-		return errors.New("no keyboard")
-	}
-	for i, row := range sel.InlineKeyboard {
-		for j, col := range row {
-			if col.Unique != uniq && strings.HasSuffix(col.Text, currentInlineKeywordMark) {
-				sel.InlineKeyboard[i][j].Text = strings.ReplaceAll(sel.InlineKeyboard[i][j].Text, currentInlineKeywordMark, "")
-			} else if col.Unique == uniq {
-				if !strings.HasSuffix(col.Text, currentInlineKeywordMark) {
-					sel.InlineKeyboard[i][j].Text = col.Text + currentInlineKeywordMark
-				} else {
-					return errors.New("keyboard has already active")
-				}
-			}
-		}
-	}
-	return nil
 }

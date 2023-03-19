@@ -8,6 +8,7 @@ import (
 
 	"github.com/lostsnow/keqing/internal/handler"
 	"github.com/lostsnow/keqing/internal/handler/character"
+	"github.com/lostsnow/keqing/internal/handler/game"
 	"github.com/lostsnow/keqing/internal/handler/lab"
 	"github.com/lostsnow/keqing/internal/handler/material"
 	"github.com/lostsnow/keqing/internal/handler/weapon"
@@ -49,6 +50,8 @@ func setBotHandler(b *handler.Bot) {
 	b.Bot.Handle("/material_daily", material.Daily)
 
 	b.Bot.Handle("/auth_qrcode", lab.AuthQrcode)
+	b.Bot.Handle("/game_role", game.Role)
+	b.Bot.Handle("/game_refresh_role", game.RefreshRole)
 
 	ag := b.Bot.Group()
 	ag.Use(middleware.Whitelist(b.AdminIds...))

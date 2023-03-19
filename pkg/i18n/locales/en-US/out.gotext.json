@@ -16,6 +16,37 @@
             "fuzzy": true
         },
         {
+            "id": "Not yet implemented, send command {Authqrcode} instead",
+            "message": "Not yet implemented, send command {Authqrcode} instead",
+            "translation": "Not yet implemented, send command {Authqrcode} instead",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Authqrcode",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "\"/auth_qrcode\""
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Query game role failed",
+            "message": "Query game role failed",
+            "translation": "Query game role failed",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "No game role found, please send command /game_refresh_role to refresh",
+            "message": "No game role found, please send command /game_refresh_role to refresh",
+            "translation": "No game role found, please send command /game_refresh_role to refresh",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Please send me a private chat message",
             "message": "Please send me a private chat message",
             "translation": "Please send me a private chat message",

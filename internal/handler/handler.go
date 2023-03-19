@@ -1,7 +1,9 @@
 package handler
 
 import (
+	"errors"
 	"fmt"
+	"strings"
 
 	"github.com/litsea/logger"
 	"gopkg.in/telebot.v3"
@@ -18,6 +20,10 @@ const (
 	MessagePhoto
 	MessageCachedPhoto
 	MessagePhotoId
+)
+
+var (
+	CurrentInlineKeywordMark = "✅"
 )
 
 type PhotoButton struct {
@@ -49,4 +55,24 @@ func ReportError(ctx telebot.Context, format string, a ...any) {
 	for _, u := range handlerBot.AdminUsers {
 		_, _ = ctx.Bot().Send(&u, msg, &telebot.SendOptions{ParseMode: telebot.ModeMarkdown})
 	}
+}
+
+func UpdateCurrentInlineKeyboard(sel *telebot.ReplyMarkup, uniq string) error {
+	if sel == nil {
+		return errors.New("no keyboard")
+	}
+	for i, row := range sel.InlineKeyboard {
+		for j, col := range row {
+			if col.Unique != uniq && strings.HasSuffix(col.Text, CurrentInlineKeywordMark) {
+				sel.InlineKeyboard[i][j].Text = strings.ReplaceAll(sel.InlineKeyboard[i][j].Text, CurrentInlineKeywordMark, "")
+			} else if col.Unique == uniq {
+				if !strings.HasSuffix(col.Text, CurrentInlineKeywordMark) {
+					sel.InlineKeyboard[i][j].Text = col.Text + CurrentInlineKeywordMark
+				} else {
+					return errors.New("keyboard has already active")
+				}
+			}
+		}
+	}
+	return nil
 }
