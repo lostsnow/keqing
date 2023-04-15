@@ -67,6 +67,11 @@
             "translation": "请用米游社 APP 扫描二维码"
         },
         {
+            "id": "What are you looking for, it does not exist",
+            "message": "What are you looking for, it does not exist",
+            "translation": "你找啥呢, 不存在的"
+        },
+        {
             "id": "Monday",
             "message": "Monday",
             "translation": "周一"
@@ -95,11 +100,6 @@
             "id": "Saturday",
             "message": "Saturday",
             "translation": "周六"
-        },
-        {
-            "id": "What are you looking for, it does not exist",
-            "message": "What are you looking for, it does not exist",
-            "translation": "你找啥呢, 不存在的"
         },
         {
             "id": "Login failed or QR code expired, please try again",
@@ -655,6 +655,11 @@
             "id": "Kings Squire",
             "message": "Kings Squire",
             "translation": "王下近侍"
+        },
+        {
+            "id": "Kirara",
+            "message": "Kirara",
+            "translation": "绮良良"
         },
         {
             "id": "Kitain Cross Spear",

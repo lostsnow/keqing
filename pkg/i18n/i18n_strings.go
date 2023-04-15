@@ -106,6 +106,7 @@ var (
 	_ = p.Sprintf("Keqing")
 	_ = p.Sprintf("Key of Khaj Nisut")
 	_ = p.Sprintf("Kings Squire")
+	_ = p.Sprintf("Kirara")
 	_ = p.Sprintf("Kitain Cross Spear")
 	_ = p.Sprintf("Klee")
 	_ = p.Sprintf("Kujou Sara")

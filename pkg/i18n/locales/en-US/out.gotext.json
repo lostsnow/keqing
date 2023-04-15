@@ -89,6 +89,13 @@
             "fuzzy": true
         },
         {
+            "id": "What are you looking for, it does not exist",
+            "message": "What are you looking for, it does not exist",
+            "translation": "What are you looking for, it does not exist",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Monday",
             "message": "Monday",
             "translation": "Monday",
@@ -127,13 +134,6 @@
             "id": "Saturday",
             "message": "Saturday",
             "translation": "Saturday",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        },
-        {
-            "id": "What are you looking for, it does not exist",
-            "message": "What are you looking for, it does not exist",
-            "translation": "What are you looking for, it does not exist",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -911,6 +911,13 @@
             "id": "Kings Squire",
             "message": "Kings Squire",
             "translation": "Kings Squire",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Kirara",
+            "message": "Kirara",
+            "translation": "Kirara",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
