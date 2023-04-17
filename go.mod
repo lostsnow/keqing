@@ -14,7 +14,7 @@ require (
 	github.com/stretchr/testify v1.8.2
 	golang.org/x/text v0.9.0
 	golang.org/x/tools v0.8.0
-	gopkg.in/telebot.v3 v3.1.2
+	gopkg.in/telebot.v3 v3.1.3
 	gopkg.in/yaml.v3 v3.0.1
 )
 
