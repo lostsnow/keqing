@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	ariga.io/atlas v0.10.1
-	entgo.io/ent v0.12.1
+	entgo.io/ent v0.12.2
 	github.com/go-sql-driver/mysql v1.7.0
 	github.com/google/uuid v1.3.0
 	github.com/litsea/logger v1.0.1
