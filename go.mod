@@ -11,7 +11,7 @@ require (
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
 	github.com/spf13/cobra v1.7.0
 	github.com/spf13/viper v1.16.0
-	github.com/stretchr/testify v1.8.3
+	github.com/stretchr/testify v1.8.4
 	golang.org/x/text v0.9.0
 	golang.org/x/tools v0.8.1-0.20230428195545-5283a0178901
 	gopkg.in/telebot.v3 v3.1.3
