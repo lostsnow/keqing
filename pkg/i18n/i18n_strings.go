@@ -91,6 +91,7 @@ var (
 	_ = p.Sprintf("Hu Tao")
 	_ = p.Sprintf("Hunters Bow")
 	_ = p.Sprintf("Hunters Path")
+	_ = p.Sprintf("Ibis Piercer")
 	_ = p.Sprintf("Iron Point")
 	_ = p.Sprintf("Iron Sting")
 	_ = p.Sprintf("Jadefalls Splendor")

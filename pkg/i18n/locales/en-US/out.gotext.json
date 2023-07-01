@@ -810,6 +810,13 @@
             "fuzzy": true
         },
         {
+            "id": "Ibis Piercer",
+            "message": "Ibis Piercer",
+            "translation": "Ibis Piercer",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Iron Point",
             "message": "Iron Point",
             "translation": "Iron Point",
