@@ -15,9 +15,7 @@ admins: []
 
 app:
   assets:
-    base-url: http://127.0.0.1:8601
-    host: 127.0.0.1
-    port: 8601
+    base-url: https://test.s3.ap-northeast-1.amazonaws.com
 
 db:
   type: mysql
