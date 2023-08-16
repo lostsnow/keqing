@@ -726,6 +726,13 @@
             "fuzzy": true
         },
         {
+            "id": "Freminet",
+            "message": "Freminet",
+            "translation": "Freminet",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Frostbearer",
             "message": "Frostbearer",
             "translation": "Frostbearer",
@@ -1009,6 +1016,20 @@
             "id": "Luxurious Sea Lord",
             "message": "Luxurious Sea Lord",
             "translation": "Luxurious Sea Lord",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Lynette",
+            "message": "Lynette",
+            "translation": "Lynette",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Lyney",
+            "message": "Lyney",
+            "translation": "Lyney",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -1646,6 +1667,13 @@
             "id": "Traveler Geo",
             "message": "Traveler Geo",
             "translation": "Traveler Geo",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Traveler Hydro",
+            "message": "Traveler Hydro",
+            "translation": "Traveler Hydro",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },

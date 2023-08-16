@@ -522,6 +522,11 @@
             "translation": "苍古自由之誓"
         },
         {
+            "id": "Freminet",
+            "message": "Freminet",
+            "translation": "菲米尼"
+        },
+        {
             "id": "Frostbearer",
             "message": "Frostbearer",
             "translation": "忍冬之果"
@@ -725,6 +730,16 @@
             "id": "Luxurious Sea Lord",
             "message": "Luxurious Sea Lord",
             "translation": "衔珠海皇"
+        },
+        {
+            "id": "Lynette",
+            "message": "Lynette",
+            "translation": "琳妮特"
+        },
+        {
+            "id": "Lyney",
+            "message": "Lyney",
+            "translation": "林尼"
         },
         {
             "id": "Magic Guide",
@@ -1180,6 +1195,11 @@
             "id": "Traveler Geo",
             "message": "Traveler Geo",
             "translation": "旅行者(岩)"
+        },
+        {
+            "id": "Traveler Hydro",
+            "message": "Traveler Hydro",
+            "translation": "旅行者(水)"
         },
         {
             "id": "Travelers Handy Sword",
