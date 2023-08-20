@@ -262,6 +262,11 @@
             "translation": "白术"
         },
         {
+            "id": "Ballad Of The Fjords",
+            "message": "Ballad Of The Fjords",
+            "translation": "峡湾长歌"
+        },
+        {
             "id": "Barbara",
             "message": "Barbara",
             "translation": "芭芭拉"
@@ -507,9 +512,24 @@
             "translation": "吃虎鱼刀"
         },
         {
+            "id": "Finale Of The Deep",
+            "message": "Finale Of The Deep",
+            "translation": "海渊终曲"
+        },
+        {
             "id": "Fischl",
             "message": "Fischl",
             "translation": "菲谢尔"
+        },
+        {
+            "id": "Fleuve Cendre Ferryman",
+            "message": "Fleuve Cendre Ferryman",
+            "translation": "灰河渡手"
+        },
+        {
+            "id": "Flowing Purity",
+            "message": "Flowing Purity",
+            "translation": "纯水流华"
         },
         {
             "id": "Forest Regalia",
@@ -922,6 +942,11 @@
             "translation": "赤角石溃杵"
         },
         {
+            "id": "Rightful Reward",
+            "message": "Rightful Reward",
+            "translation": "公义的酬报"
+        },
+        {
             "id": "Rosaria",
             "message": "Rosaria",
             "translation": "罗莎莉亚"
@@ -972,6 +997,11 @@
             "translation": "祭礼大剑"
         },
         {
+            "id": "Sacrificial Jade",
+            "message": "Sacrificial Jade",
+            "translation": "遗祀玉珑"
+        },
+        {
             "id": "Sacrificial Sword",
             "message": "Sacrificial Sword",
             "translation": "祭礼剑"
@@ -990,6 +1020,11 @@
             "id": "Sayu",
             "message": "Sayu",
             "translation": "早柚"
+        },
+        {
+            "id": "Scion Of The Blazing Sun",
+            "message": "Scion Of The Blazing Sun",
+            "translation": "烈阳之嗣"
         },
         {
             "id": "Seasoned Hunters Bow",
@@ -1072,6 +1107,11 @@
             "translation": "匣里日月"
         },
         {
+            "id": "Song Of Stillness",
+            "message": "Song Of Stillness",
+            "translation": "静谧之曲"
+        },
+        {
             "id": "Song of Broken Pines",
             "message": "Song of Broken Pines",
             "translation": "松籁响起之时"
@@ -1102,6 +1142,11 @@
             "translation": "降临之剑"
         },
         {
+            "id": "Talking Stick",
+            "message": "Talking Stick",
+            "translation": "聊聊棒"
+        },
+        {
             "id": "Tartaglia",
             "message": "Tartaglia",
             "translation": "达达利亚"
@@ -1125,6 +1170,11 @@
             "id": "The Catch",
             "message": "The Catch",
             "translation": "「渔获」"
+        },
+        {
+            "id": "The First Great Magic",
+            "message": "The First Great Magic",
+            "translation": "最初的大魔术"
         },
         {
             "id": "The Flute",
@@ -1165,6 +1215,11 @@
             "id": "Thundering Pulse",
             "message": "Thundering Pulse",
             "translation": "飞雷之弦振"
+        },
+        {
+            "id": "Tidal Shadow",
+            "message": "Tidal Shadow",
+            "translation": "浪影阔剑"
         },
         {
             "id": "Tighnari",
@@ -1270,6 +1325,11 @@
             "id": "Wine and Song",
             "message": "Wine and Song",
             "translation": "暗巷的酒与诗"
+        },
+        {
+            "id": "Wolf Fang",
+            "message": "Wolf Fang",
+            "translation": "狼牙"
         },
         {
             "id": "Wolfs Gravestone",

@@ -362,6 +362,13 @@
             "fuzzy": true
         },
         {
+            "id": "Ballad Of The Fjords",
+            "message": "Ballad Of The Fjords",
+            "translation": "Ballad Of The Fjords",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Barbara",
             "message": "Barbara",
             "translation": "Barbara",
@@ -705,9 +712,30 @@
             "fuzzy": true
         },
         {
+            "id": "Finale Of The Deep",
+            "message": "Finale Of The Deep",
+            "translation": "Finale Of The Deep",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Fischl",
             "message": "Fischl",
             "translation": "Fischl",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Fleuve Cendre Ferryman",
+            "message": "Fleuve Cendre Ferryman",
+            "translation": "Fleuve Cendre Ferryman",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Flowing Purity",
+            "message": "Flowing Purity",
+            "translation": "Flowing Purity",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -1286,6 +1314,13 @@
             "fuzzy": true
         },
         {
+            "id": "Rightful Reward",
+            "message": "Rightful Reward",
+            "translation": "Rightful Reward",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Rosaria",
             "message": "Rosaria",
             "translation": "Rosaria",
@@ -1356,6 +1391,13 @@
             "fuzzy": true
         },
         {
+            "id": "Sacrificial Jade",
+            "message": "Sacrificial Jade",
+            "translation": "Sacrificial Jade",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Sacrificial Sword",
             "message": "Sacrificial Sword",
             "translation": "Sacrificial Sword",
@@ -1380,6 +1422,13 @@
             "id": "Sayu",
             "message": "Sayu",
             "translation": "Sayu",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Scion Of The Blazing Sun",
+            "message": "Scion Of The Blazing Sun",
+            "translation": "Scion Of The Blazing Sun",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -1496,6 +1545,13 @@
             "fuzzy": true
         },
         {
+            "id": "Song Of Stillness",
+            "message": "Song Of Stillness",
+            "translation": "Song Of Stillness",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Song of Broken Pines",
             "message": "Song of Broken Pines",
             "translation": "Song of Broken Pines",
@@ -1538,6 +1594,13 @@
             "fuzzy": true
         },
         {
+            "id": "Talking Stick",
+            "message": "Talking Stick",
+            "translation": "Talking Stick",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Tartaglia",
             "message": "Tartaglia",
             "translation": "Tartaglia",
@@ -1569,6 +1632,13 @@
             "id": "The Catch",
             "message": "The Catch",
             "translation": "The Catch",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "The First Great Magic",
+            "message": "The First Great Magic",
+            "translation": "The First Great Magic",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -1625,6 +1695,13 @@
             "id": "Thundering Pulse",
             "message": "Thundering Pulse",
             "translation": "Thundering Pulse",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Tidal Shadow",
+            "message": "Tidal Shadow",
+            "translation": "Tidal Shadow",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -1772,6 +1849,13 @@
             "id": "Wine and Song",
             "message": "Wine and Song",
             "translation": "Wine and Song",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Wolf Fang",
+            "message": "Wolf Fang",
+            "translation": "Wolf Fang",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
