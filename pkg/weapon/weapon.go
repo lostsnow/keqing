@@ -17,7 +17,7 @@ import (
 )
 
 type Weapon struct {
-	Id          string      `yaml:"id"`
+	ID          string      `yaml:"id"`
 	Star        star.Star   `yaml:"star"`
 	Type        *types.Type `yaml:"-"`
 	Names       []string    `yaml:"names"`
@@ -41,33 +41,35 @@ func (w *Weapon) UnmarshalYAML(n *yaml.Node) error {
 		return fmt.Errorf("invalid weapon type: %s", obj.Type)
 	}
 	w.Type = elem
+
 	return nil
 }
 
 func Init() error {
 	return fs.WalkDir(data.Model, "model/weapon", func(path string, d fs.DirEntry, err error) error {
 		if err != nil {
-			return nil
+			return nil //nolint:nilerr
 		}
 		if d.IsDir() || !strings.HasSuffix(path, ".yml") {
 			return nil
 		}
 		yamlFile, err := data.Model.ReadFile(path)
 		if err != nil {
-			return nil
+			return nil //nolint:nilerr
 		}
 		var v Weapon
 		err = yaml.Unmarshal(yamlFile, &v)
 		if err != nil {
-			return fmt.Errorf("unmarshal model file %s failed: %s", path, err)
+			return fmt.Errorf("unmarshal model file %s failed: %w", path, err)
 		}
 
-		objectMap[v.Id] = &v
-		nameAliases := i18n.TS(v.Id)
+		objectMap[v.ID] = &v
+		nameAliases := i18n.TS(v.ID)
 		nameAliases = append(nameAliases, v.NameAliases...)
 		for _, nameAlias := range nameAliases {
-			nameAliasMap[nameAlias] = v.Id
+			nameAliasMap[nameAlias] = v.ID
 		}
+
 		return nil
 	})
 }
@@ -78,7 +80,7 @@ var (
 )
 
 func (w *Weapon) Name(ctx telebot.Context) string {
-	return i18n.T(ctx, w.Id)
+	return i18n.T(ctx, w.ID)
 }
 
 func ObjectMap() map[string]*Weapon {

@@ -9,7 +9,7 @@ import (
 
 type GameRecordRequest struct {
 	Request
-	AccountId   string `json:"account_id"`
+	AccountID   string `json:"account_id"`
 	CookieToken string `json:"cookie_token"`
 }
 
@@ -25,12 +25,12 @@ type GameRecordResponseData struct {
 func NewGameRecordReq(id, cookieToken string) *GameRecordRequest {
 	return &GameRecordRequest{
 		Request: Request{
-			Url:    endpoint.ApiTakumiRecord + "/game_record/card/wapi/getGameRecordCard",
+			URL:    endpoint.APITakumiRecord + "/game_record/card/wapi/getGameRecordCard",
 			Method: http.MethodGet,
 			Headers: GenerateLabHeaders(
 				fmt.Sprintf("account_id=%s;cookie_token=%s", id, cookieToken), "uid="+id),
 		},
-		AccountId:   id,
+		AccountID:   id,
 		CookieToken: cookieToken,
 	}
 }
@@ -38,7 +38,7 @@ func NewGameRecordReq(id, cookieToken string) *GameRecordRequest {
 func (r *GameRecordRequest) Do() (*GameRecordResponseData, error) {
 	var v GameRecordResponse
 	payload := map[string]string{
-		"uid": r.AccountId,
+		"uid": r.AccountID,
 	}
 	err := SendRequest(r, payload, &v)
 	if err != nil {

@@ -23,6 +23,7 @@ var botCmd = &cobra.Command{
 		b, err := handler.NewBot()
 		if err != nil {
 			logger.Error(err)
+
 			return
 		}
 

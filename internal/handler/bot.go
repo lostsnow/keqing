@@ -72,7 +72,7 @@ func NewBot() (*Bot, error) {
 
 	bot, err := telebot.NewBot(pref)
 	if err != nil {
-		return nil, fmt.Errorf("initialize bot failed: %s", err)
+		return nil, fmt.Errorf("initialize bot failed: %w", err)
 	}
 	b.Bot = bot
 	handlerBot = b
@@ -91,5 +91,6 @@ func initModel() error {
 
 	initFn(character.Init)
 	initFn(weapon.Init)
+
 	return err
 }

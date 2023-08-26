@@ -1,19 +1,21 @@
-package object
+package object_test
 
 import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+
+	"github.com/lostsnow/keqing/pkg/object"
 )
 
 func TestSearch(t *testing.T) {
 	type TestObject struct {
-		Id string
+		ID string
 	}
 
-	abc := &TestObject{Id: "abc"}
-	cde := &TestObject{Id: "cde"}
-	def := &TestObject{Id: "def"}
+	abc := &TestObject{ID: "abc"}
+	cde := &TestObject{ID: "cde"}
+	def := &TestObject{ID: "def"}
 
 	name := "de"
 	objectMap := map[string]*TestObject{
@@ -27,7 +29,7 @@ func TestSearch(t *testing.T) {
 		"def2": "def",
 	}
 
-	ms := Search(name, nameAliasMap, objectMap)
+	ms := object.Search(name, nameAliasMap, objectMap)
 	assert.NotContains(t, ms, abc)
 	assert.Contains(t, ms, def)
 	assert.Contains(t, ms, def)

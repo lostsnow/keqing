@@ -29,14 +29,14 @@ func AuthQrcode(ctx telebot.Context) error {
 		return ctx.Reply(i18n.T(ctx, "Please send me a private chat message"))
 	}
 
-	userId := ctx.Sender().ID
-	if qrcodeCheckPool.IsRunning(userId) {
+	userID := ctx.Sender().ID
+	if qrcodeCheckPool.IsRunning(userID) {
 		return ctx.Reply(i18n.T(ctx, "QR code login is being checked"))
 	}
 
 	err := db.DB.Client.User.
 		Create().
-		SetUserID(userId).
+		SetUserID(userID).
 		SetIsBot(ctx.Sender().IsBot).
 		SetUserName(ctx.Sender().Username).
 		SetFirstName(ctx.Sender().FirstName).
@@ -46,23 +46,26 @@ func AuthQrcode(ctx telebot.Context) error {
 		Exec(context.Background())
 	if err != nil {
 		_ = ctx.Reply(i18n.T(ctx, "Upsert user failed"))
-		return fmt.Errorf("upsert user %d failed: %s", userId, err)
+
+		return fmt.Errorf("upsert user %d failed: %w", userID, err)
 	}
 
 	req := api.NewQrcodeFetch()
 	resp, err := req.Do()
 	if err != nil {
 		_ = ctx.Reply(i18n.T(ctx, "Fetch QR code failed"))
+
 		return err
 	}
 
-	qr, err := req.ToImage(resp.Url)
+	qr, err := req.ToImage(resp.URL)
 	if err != nil {
 		_ = ctx.Reply(i18n.T(ctx, "Generate QR code failed"))
+
 		return err
 	}
 
-	qrcodeCheckPool.Add(ctx, userId, api.NewQrcodeQuery(resp.AppId, resp.Device, resp.Ticket))
+	qrcodeCheckPool.Add(ctx, userID, api.NewQrcodeQuery(resp.AppID, resp.Device, resp.Ticket))
 
 	return ctx.Reply(&telebot.Photo{
 		File:    telebot.FromReader(bytes.NewReader(qr)),

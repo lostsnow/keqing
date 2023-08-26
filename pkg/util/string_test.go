@@ -1,7 +1,9 @@
-package util
+package util_test
 
 import (
 	"testing"
+
+	"github.com/lostsnow/keqing/pkg/util"
 )
 
 func TestRandomString(t *testing.T) {
@@ -17,7 +19,7 @@ func TestRandomString(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := RandomString(tt.args.n); tt.args.n != tt.want {
+			if got := util.RandomString(tt.args.n); tt.args.n != tt.want {
 				t.Errorf("RandomString() = %v, length want %v", got, tt.want)
 			}
 		})

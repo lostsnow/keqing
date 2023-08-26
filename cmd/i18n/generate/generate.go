@@ -33,9 +33,9 @@ func main() {
 		log.Fatalf("error: %d packages found", len(pkgs))
 	}
 
-	pkgId := pkgs[0].ID
-	idx := strings.LastIndex(pkgId, "/")
-	pkg := pkgId[idx+1:]
+	pkgID := pkgs[0].ID
+	idx := strings.LastIndex(pkgID, "/")
+	pkg := pkgID[idx+1:]
 
 	tmpl, err := template.ParseFS(data.TPL, "tpl/i18n_strings.tpl")
 	if err != nil {
@@ -62,35 +62,37 @@ func main() {
 	defer f.Close()
 	_ = tmpl.Execute(f, m)
 	if err != nil {
-		log.Fatalf("i18n generate execute failed: %s", err)
+		log.Printf("i18n generate execute failed: %s", err)
+	} else {
+		log.Printf("i18n generate successfully: %s\n", out)
 	}
-	log.Printf("i18n generate successfully: %s\n", out)
 }
 
 func getTranslations() ([]string, error) {
 	trans := make([]string, 0)
 	err := character.Init()
 	if err != nil {
-		return nil, fmt.Errorf("get character i18n strings failed: %s", err)
+		return nil, fmt.Errorf("get character i18n strings failed: %w", err)
 	}
 
 	for _, c := range character.ObjectMap() {
-		trans = append(trans, c.Id)
+		trans = append(trans, c.ID)
 	}
 
 	err = weapon.Init()
 	if err != nil {
-		return nil, fmt.Errorf("get weapon i18n strings failed: %s", err)
+		return nil, fmt.Errorf("get weapon i18n strings failed: %w", err)
 	}
 
 	for _, c := range weapon.ObjectMap() {
-		trans = append(trans, c.Id)
+		trans = append(trans, c.ID)
 	}
 
 	if len(trans) == 0 {
 		return nil, fmt.Errorf("i18n strings empty")
 	}
 
-	sort.Sort(sort.StringSlice(trans))
+	sort.Strings(trans)
+
 	return trans, nil
 }

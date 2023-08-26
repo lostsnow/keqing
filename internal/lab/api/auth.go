@@ -1,12 +1,12 @@
 package api
 
 type GameToken struct {
-	Uid   string `json:"uid"`
+	UID   string `json:"uid"`
 	Token string `json:"token"`
 }
 
 type CookieToken struct {
-	Uid         string `json:"uid"`
+	UID         string `json:"uid"`
 	CookieToken string `json:"cookie_token"`
 }
 
@@ -17,6 +17,6 @@ type SToken struct {
 
 type UserInfo struct {
 	AccountName string `json:"account_name"`
-	Mid         string `json:"mid"`
-	Aid         string `json:"aid"`
+	MID         string `json:"mid"`
+	AID         string `json:"aid"`
 }

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/litsea/logger"
 	"github.com/spf13/viper"
@@ -50,9 +51,14 @@ func InitProfiler(host string, port int) {
 
 	go func() {
 		logger.Infof("pprof listening on %s:%d", host, port)
-		err := http.ListenAndServe(fmt.Sprintf("%s:%d", host, port), nil)
+		srv := &http.Server{
+			Addr:              fmt.Sprintf("%s:%d", host, port),
+			ReadHeaderTimeout: 30 * time.Second,
+		}
+		err := srv.ListenAndServe()
 		if err != nil {
 			logger.Error("pprof listen failed: ", err.Error())
+
 			return
 		}
 	}()

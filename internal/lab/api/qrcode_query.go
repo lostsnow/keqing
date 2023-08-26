@@ -27,7 +27,7 @@ var (
 )
 
 type QrcodeQueryPayload struct {
-	AppId  int    `json:"app_id"`
+	AppID  int    `json:"app_id"`
 	Device string `json:"device"`
 	Ticket string `json:"ticket"`
 }
@@ -53,14 +53,14 @@ type QrcodeQueryResponseDataPayload struct {
 	Ext   string `json:"ext"`
 }
 
-func NewQrcodeQuery(appId int, device string, ticket string) *QrcodeQueryRequest {
+func NewQrcodeQuery(appID int, device string, ticket string) *QrcodeQueryRequest {
 	return &QrcodeQueryRequest{
 		Request: Request{
-			Url:    endpoint.Hk4eSdk + "/hk4e_cn/combo/panda/qrcode/query",
+			URL:    endpoint.Hk4eSdk + "/hk4e_cn/combo/panda/qrcode/query",
 			Method: http.MethodPost,
 		},
 		QrcodeQueryPayload: QrcodeQueryPayload{
-			AppId:  appId,
+			AppID:  appID,
 			Device: device,
 			Ticket: ticket,
 		},
@@ -69,7 +69,7 @@ func NewQrcodeQuery(appId int, device string, ticket string) *QrcodeQueryRequest
 
 func (r *QrcodeQueryRequest) Do() (*QrcodeQueryResponseData, error) {
 	payload := QrcodeQueryPayload{
-		AppId:  r.AppId,
+		AppID:  r.AppID,
 		Device: r.Device,
 		Ticket: r.Ticket,
 	}
@@ -90,14 +90,15 @@ func (r *QrcodeQueryRequest) ParseGameToken(raw string) (*GameToken, error) {
 	var v GameToken
 	err := json.Unmarshal([]byte(raw), &v)
 	if err != nil {
-		return nil, fmt.Errorf("parse auth token %s failed: %s", raw, err)
+		return nil, fmt.Errorf("parse auth token %s failed: %w", raw, err)
 	}
+
 	return &v, nil
 }
 
 type QrcodeCheckTask struct {
 	Context     telebot.Context
-	UserId      int64
+	UserID      int64
 	QrcodeQuery *QrcodeQueryRequest
 }
 
@@ -115,120 +116,128 @@ func NewQrcodeCheckPool() *QrcodeCheckPool {
 	}
 }
 
-func (p *QrcodeCheckPool) Add(ctx telebot.Context, userId int64, r *QrcodeQueryRequest) {
-	if _, ok := p.running[userId]; ok {
+func (p *QrcodeCheckPool) Add(ctx telebot.Context, userID int64, r *QrcodeQueryRequest) {
+	if _, ok := p.running[userID]; ok {
 		return
 	}
 
-	p.running[userId] = time.Now()
+	p.running[userID] = time.Now()
 	p.Tasks <- QrcodeCheckTask{
 		Context:     ctx,
-		UserId:      userId,
+		UserID:      userID,
 		QrcodeQuery: r,
 	}
 }
 
-func (p *QrcodeCheckPool) IsRunning(userId int64) bool {
-	if v, ok := p.running[userId]; ok {
+func (p *QrcodeCheckPool) IsRunning(userID int64) bool {
+	if v, ok := p.running[userID]; ok {
 		if v.Add(time.Minute * 3).Before(time.Now()) {
-			delete(p.running, userId)
+			delete(p.running, userID)
+
 			return false
 		}
+
 		return true
 	}
+
 	return false
 }
 
 func (p *QrcodeCheckPool) Worker() {
-	for {
-		select {
-		case task := <-p.Tasks:
-			resp, err := task.QrcodeQuery.Do()
-			if err != nil {
-				if err == ErrQrcodeLoginNotConfirmed && p.IsRunning(task.UserId) {
-					time.Sleep(time.Second * 2)
-					go func() {
-						p.Tasks <- task
-					}()
-				} else {
-					delete(p.running, task.UserId)
-					_ = task.Context.Send(i18n.T(task.Context, "Login failed or QR code expired, please try again"))
-				}
+	for task := range p.Tasks {
+		resp, err := task.QrcodeQuery.Do()
+		if err != nil {
+			if errors.Is(err, ErrQrcodeLoginNotConfirmed) && p.IsRunning(task.UserID) {
+				time.Sleep(time.Second * 2)
+				go func(t QrcodeCheckTask) {
+					p.Tasks <- t
+				}(task)
 			} else {
-				task.ProcessingToken(resp.Payload.Raw)
-				delete(p.running, task.UserId)
+				delete(p.running, task.UserID)
+				_ = task.Context.Send(i18n.T(task.Context, "Login failed or QR code expired, please try again"))
 			}
+		} else {
+			task.ProcessingToken(resp.Payload.Raw)
+			delete(p.running, task.UserID)
 		}
 	}
 }
 
+//nolint:cyclop
 func (t *QrcodeCheckTask) ProcessingToken(raw string) {
-	senderId := t.Context.Sender().ID
+	senderID := t.Context.Sender().ID
 	gameToken, err := t.QrcodeQuery.ParseGameToken(raw)
 	if err != nil {
-		handler.ReportError(t.Context, "Game token parse for %d failed: %s", senderId, err)
+		handler.ReportError(t.Context, "Game token parse for %d failed: %s", senderID, err)
 		_ = t.Context.Send(i18n.T(t.Context, "Game token parse failed, please try again"))
+
 		return
 	}
 
-	cookieReq := NewCookieTokenReq(gameToken.Uid, gameToken.Token)
+	cookieReq := NewCookieTokenReq(gameToken.UID, gameToken.Token)
 	cookieToken, err := cookieReq.Do()
 	if err != nil {
-		handler.ReportError(t.Context, "Cookie token fetch for %d failed: %s", senderId, err)
+		handler.ReportError(t.Context, "Cookie token fetch for %d failed: %s", senderID, err)
 		_ = t.Context.Send(i18n.T(t.Context, "Cookie token fetch failed, please try again"))
+
 		return
 	}
 
-	uid, _ := strconv.ParseInt(gameToken.Uid, 10, 64)
+	uid, _ := strconv.ParseInt(gameToken.UID, 10, 64)
 	sTokenReq := NewSTokenReq(uid, gameToken.Token)
 	sToken, err := sTokenReq.Do()
 	if err != nil {
-		handler.ReportError(t.Context, "stoken fetch for %d failed: %s", senderId, err)
+		handler.ReportError(t.Context, "stoken fetch for %d failed: %s", senderID, err)
 		_ = t.Context.Send(i18n.T(t.Context, "stoken fetch failed, please try again"))
+
 		return
 	}
 
 	err = db.DB.Client.GameAccount.
 		Create().
-		SetUserID(senderId).
-		SetAccountID(gameToken.Uid).
+		SetUserID(senderID).
+		SetAccountID(gameToken.UID).
 		SetGameToken(gameToken.Token).
 		SetCookieToken(cookieToken.CookieToken).
 		SetStoken(sToken.Token.Token).
-		SetMid(sToken.UserInfo.Mid).
+		SetMid(sToken.UserInfo.MID).
 		OnConflictColumns(gameaccount.FieldUserID, gameaccount.FieldAccountID).
 		UpdateNewValues().
 		Exec(context.Background())
 	if err != nil {
-		handler.ReportError(t.Context, "Upsert %d game account %s failed: %s", senderId, gameToken.Uid, err)
+		handler.ReportError(t.Context, "Upsert %d game account %s failed: %s", senderID, gameToken.UID, err)
 		_ = t.Context.Send(i18n.T(t.Context, "Upsert game account failed"))
+
 		return
 	}
 
-	gameRecordReq := NewGameRecordReq(sToken.UserInfo.Aid, cookieToken.CookieToken)
+	gameRecordReq := NewGameRecordReq(sToken.UserInfo.AID, cookieToken.CookieToken)
 	gameRecord, err := gameRecordReq.Do()
 	if err != nil {
-		handler.ReportError(t.Context, "fetch %d game record for %s failed: %s", senderId, gameToken.Uid, err)
+		handler.ReportError(t.Context, "fetch %d game record for %s failed: %s", senderID, gameToken.UID, err)
 		_ = t.Context.Send(i18n.T(t.Context, "fetch game record failed, please try again"))
+
 		return
 	}
 
 	if len(gameRecord.GameRecords) == 0 {
-		_ = t.Context.Send(i18n.T(t.Context, "The account is not yet bound to any game, please make sure the account of scanning code is correct"))
+		_ = t.Context.Send(i18n.T(t.Context,
+			"The account is not yet bound to any game, please make sure the account of scanning code is correct"))
+
 		return
 	}
 
 	bulk := make([]*entity.GameRoleCreate, 0)
 	bulkAttr := make([]*entity.GameRoleAttributeCreate, 0)
 	for _, role := range gameRecord.GameRecords {
-		if role.GameId != 2 {
+		if role.GameID != 2 {
 			continue
 		}
 		bulk = append(bulk, db.DB.Client.GameRole.
 			Create().
-			SetUserID(senderId).
-			SetAccountID(gameToken.Uid).
-			SetRoleID(role.GameRoleId).
+			SetUserID(senderID).
+			SetAccountID(gameToken.UID).
+			SetRoleID(role.GameRoleID).
 			SetLevel(role.Level).
 			SetRegion(role.Region).
 			SetRegionName(role.RegionName).
@@ -241,9 +250,9 @@ func (t *QrcodeCheckTask) ProcessingToken(raw string) {
 		for _, attr := range role.Data {
 			bulkAttr = append(bulkAttr, db.DB.Client.GameRoleAttribute.
 				Create().
-				SetUserID(senderId).
-				SetAccountID(gameToken.Uid).
-				SetRoleID(role.GameRoleId).
+				SetUserID(senderID).
+				SetAccountID(gameToken.UID).
+				SetRoleID(role.GameRoleID).
 				SetName(attr.Name).
 				SetType(attr.Type).
 				SetValue(attr.Value))
@@ -251,7 +260,9 @@ func (t *QrcodeCheckTask) ProcessingToken(raw string) {
 	}
 
 	if len(bulk) == 0 {
-		_ = t.Context.Send(i18n.T(t.Context, "The account has not been bound to Genshin Impact, please confirm that the account is correct"))
+		_ = t.Context.Send(i18n.T(t.Context,
+			"The account has not been bound to Genshin Impact, please confirm that the account is correct"))
+
 		return
 	}
 
@@ -261,8 +272,9 @@ func (t *QrcodeCheckTask) ProcessingToken(raw string) {
 		UpdateNewValues().
 		Exec(context.Background())
 	if err != nil {
-		handler.ReportError(t.Context, "Upsert %d game roles %s failed: %s", senderId, gameToken.Uid, err)
+		handler.ReportError(t.Context, "Upsert %d game roles %s failed: %s", senderID, gameToken.UID, err)
 		_ = t.Context.Send(i18n.T(t.Context, "Upsert game roles failed"))
+
 		return
 	}
 
@@ -274,8 +286,9 @@ func (t *QrcodeCheckTask) ProcessingToken(raw string) {
 			UpdateNewValues().
 			Exec(context.Background())
 		if err != nil {
-			handler.ReportError(t.Context, "Upsert %d game roles attribute %s failed: %s", senderId, gameToken.Uid, err)
+			handler.ReportError(t.Context, "Upsert %d game roles attribute %s failed: %s", senderID, gameToken.UID, err)
 			_ = t.Context.Send(i18n.T(t.Context, "Upsert game roles attribute failed"))
+
 			return
 		}
 	}

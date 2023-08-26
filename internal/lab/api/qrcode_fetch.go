@@ -12,7 +12,7 @@ import (
 )
 
 type QrcodeFetchPayload struct {
-	AppId  int    `json:"app_id"`
+	AppID  int    `json:"app_id"`
 	Device string `json:"device"`
 }
 
@@ -26,8 +26,8 @@ type QrcodeFetchResponse struct {
 }
 
 type QrcodeFetchResponseData struct {
-	Url    string `json:"url"`
-	AppId  int    `json:"app_id"`
+	URL    string `json:"url"`
+	AppID  int    `json:"app_id"`
 	Device string `json:"device"`
 	Ticket string `json:"ticket"`
 }
@@ -35,7 +35,7 @@ type QrcodeFetchResponseData struct {
 func NewQrcodeFetch() *QrcodeFetchRequest {
 	return &QrcodeFetchRequest{
 		Request{
-			Url:    endpoint.Hk4eSdk + "/hk4e_cn/combo/panda/qrcode/fetch",
+			URL:    endpoint.Hk4eSdk + "/hk4e_cn/combo/panda/qrcode/fetch",
 			Method: http.MethodPost,
 		},
 	}
@@ -43,7 +43,7 @@ func NewQrcodeFetch() *QrcodeFetchRequest {
 
 func (r *QrcodeFetchRequest) Do() (*QrcodeFetchResponseData, error) {
 	payload := QrcodeFetchPayload{
-		AppId:  4,
+		AppID:  4,
 		Device: util.RandomString(64),
 	}
 	var v QrcodeFetchResponse
@@ -52,11 +52,11 @@ func (r *QrcodeFetchRequest) Do() (*QrcodeFetchResponseData, error) {
 		return nil, err
 	}
 
-	u, err := url.Parse(v.Data.Url)
+	u, err := url.Parse(v.Data.URL)
 	if err != nil {
-		return nil, fmt.Errorf("get QR code login ticket failed: %s", err)
+		return nil, fmt.Errorf("get QR code login ticket failed: %w", err)
 	}
-	v.Data.AppId = payload.AppId
+	v.Data.AppID = payload.AppID
 	v.Data.Device = payload.Device
 	v.Data.Ticket = u.Query().Get("ticket")
 
@@ -67,7 +67,8 @@ func (r *QrcodeFetchRequest) ToImage(url string) ([]byte, error) {
 	var qr []byte
 	qr, err := qrcode.Encode(url, qrcode.Medium, 256)
 	if err != nil {
-		return nil, fmt.Errorf("generate login QR code failed: %s", err)
+		return nil, fmt.Errorf("generate login QR code failed: %w", err)
 	}
+
 	return qr, nil
 }

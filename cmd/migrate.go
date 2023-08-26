@@ -11,7 +11,7 @@ var migrateCmd = &cobra.Command{
 	Use:   "migrate",
 	Short: "migrations",
 	Run: func(cmd *cobra.Command, args []string) {
-		cmd.Help()
+		_ = cmd.Help()
 	},
 }
 

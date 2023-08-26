@@ -53,5 +53,5 @@ var GenerateCmd = &cobra.Command{
 
 func init() {
 	GenerateCmd.Flags().StringVar(&migrationName, "name", "", "migration name")
-	GenerateCmd.MarkFlagRequired("name")
+	_ = GenerateCmd.MarkFlagRequired("name")
 }

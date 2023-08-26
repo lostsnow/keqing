@@ -29,6 +29,7 @@ func findLanguage(lang string) language.Tag {
 	if _, ok := langMap[strings.ToLower(lang)]; ok {
 		return langMap[lang]
 	}
+
 	return language.AmericanEnglish
 }
 
@@ -37,6 +38,7 @@ func getPrinter(lang language.Tag) *message.Printer {
 		return p
 	}
 	printers[lang] = message.NewPrinter(lang)
+
 	return printers[lang]
 }
 
@@ -45,6 +47,7 @@ func SetLanguage() telebot.MiddlewareFunc {
 		return func(ctx telebot.Context) error {
 			// @TODO: change by chat settings
 			ctx.Set(MessagePrinter, getPrinter(findLanguage(ctx.Sender().LanguageCode)))
+
 			return next(ctx)
 		}
 	}
@@ -55,6 +58,7 @@ func T(ctx telebot.Context, format string, args ...any) string {
 	if !ok {
 		return fmt.Sprintf(format, args...)
 	}
+
 	return p.Sprintf(format, args...)
 }
 
@@ -70,5 +74,6 @@ func TS(format string, args ...any) []string {
 		v[s] = struct{}{}
 		ns = append(ns, s)
 	}
+
 	return ns
 }

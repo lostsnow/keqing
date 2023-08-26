@@ -5,7 +5,7 @@ import (
 )
 
 type Object[T any] struct {
-	Id string
+	ID string
 }
 
 func Search[T any](name string, nameAliasMap map[string]string, objectMap map[string]*T) []*T {
@@ -16,7 +16,7 @@ func Search[T any](name string, nameAliasMap map[string]string, objectMap map[st
 		nameAliasMap = make(map[string]string, len(objectMap))
 	}
 	if len(nameAliasMap) == 0 {
-		for id, _ := range objectMap {
+		for id := range objectMap {
 			nameAliasMap[id] = id
 		}
 	}
@@ -30,19 +30,21 @@ func Search[T any](name string, nameAliasMap map[string]string, objectMap map[st
 			uniqMap[v] = struct{}{}
 			if lowerK == name {
 				objs = append(objs, nil)
-				copy(objs[1:], objs)
-				objs[0] = objectMap[v]
+				copy(objs[1:], objs)   //nolint:gosec
+				objs[0] = objectMap[v] //nolint:gosec
 			} else {
 				objs = append(objs, objectMap[v])
 			}
 		}
 	}
+
 	return objs
 }
 
-func ChunkBy[T any](items []T, chunkSize int) (chunks [][]T) {
+func ChunkBy[T any](items []T, chunkSize int) (chunks [][]T) { //nolint:nonamedreturns
 	for chunkSize < len(items) {
 		items, chunks = items[chunkSize:], append(chunks, items[0:chunkSize:chunkSize])
 	}
+
 	return append(chunks, items)
 }

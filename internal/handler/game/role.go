@@ -20,15 +20,17 @@ import (
 type RoleCMD struct {
 }
 
+//nolint:cyclop
 func Role(ctx telebot.Context) error {
-	userId := ctx.Sender().ID
+	userID := ctx.Sender().ID
 	vs, err := db.DB.Client.GameRole.
 		Query().
-		Where(gamerole.UserID(userId)).
+		Where(gamerole.UserID(userID)).
 		All(context.Background())
 	if err != nil {
 		_ = ctx.Reply(i18n.T(ctx, "Query game role failed"))
-		return fmt.Errorf("query %d game role failed: %s", userId, err)
+
+		return fmt.Errorf("query %d game role failed: %w", userID, err)
 	}
 
 	if len(vs) == 0 {
@@ -42,9 +44,9 @@ func Role(ctx telebot.Context) error {
 		for idx, btn := range vs {
 			title := btn.NickName
 			if idx == 0 {
-				title = title + handler.CurrentInlineKeywordMark
+				title += handler.CurrentInlineKeywordMark
 			}
-			botBtn := sel.Data(title, fmt.Sprintf("%d-%s-%s", userId, btn.AccountID, btn.RoleID))
+			botBtn := sel.Data(title, fmt.Sprintf("%d-%s-%s", userID, btn.AccountID, btn.RoleID))
 			botBtns = append(botBtns, botBtn)
 		}
 		chunks := object.ChunkBy(botBtns, 3)
@@ -54,24 +56,25 @@ func Role(ctx telebot.Context) error {
 		}
 		sel.Inline(rows...)
 
-		for _, bb := range botBtns {
-			ctx.Bot().Handle(&bb, func(c telebot.Context) error {
+		for idx := range botBtns {
+			ctx.Bot().Handle(&botBtns[idx], func(c telebot.Context) error {
 				parts := strings.Split(c.Callback().Unique, "-")
 				if len(parts) != 3 {
 					return c.Respond()
 				}
 
-				cbUserId, _ := strconv.ParseInt(parts[0], 10, 64)
-				cbAccountId := parts[1]
-				cbRoleId := parts[2]
+				cbUserID, _ := strconv.ParseInt(parts[0], 10, 64)
+				cbAccountID := parts[1]
+				cbRoleID := parts[2]
 
 				cbV, err := db.DB.Client.GameRole.
 					Query().
-					Where(gamerole.UserID(cbUserId), gamerole.AccountID(cbAccountId), gamerole.RoleID(cbRoleId)).
+					Where(gamerole.UserID(cbUserID), gamerole.AccountID(cbAccountID), gamerole.RoleID(cbRoleID)).
 					First(context.Background())
 				if err != nil {
 					_ = c.Edit(i18n.T(c, "Query game role failed"))
-					return fmt.Errorf("query %d game role failed: %s", userId, err)
+
+					return fmt.Errorf("query %d game role failed: %w", userID, err)
 				}
 
 				m := cmd.generateMessage(c, cbV)
@@ -79,16 +82,19 @@ func Role(ctx telebot.Context) error {
 				if err != nil {
 					return c.Respond()
 				}
+
 				return c.Edit(m, &telebot.SendOptions{ParseMode: telebot.ModeMarkdown, ReplyMarkup: sel})
 			})
 		}
 	}
 
 	m := cmd.generateMessage(ctx, vs[0])
+
 	return ctx.Reply(m, &telebot.SendOptions{ParseMode: telebot.ModeMarkdown, ReplyMarkup: sel})
 }
 
 func (RoleCMD) generateMessage(ctx telebot.Context, role *entity.GameRole) any {
+	_ = ctx
 	format := `*%s*
 
 ID: %s
@@ -102,12 +108,13 @@ Level: %d
 			gameroleattribute.RoleID(role.RoleID)).
 		All(context.Background())
 	if err != nil {
-		return fmt.Errorf("query %d game role %s attribute failed: %s", role.UserID, role.RoleID, err)
+		return fmt.Errorf("query %d game role %s attribute failed: %w", role.UserID, role.RoleID, err)
 	} else if len(vs) > 0 {
 		msg += "\n"
 		for _, v := range vs {
 			msg += fmt.Sprintf("%s: %s\n", v.Name, v.Value)
 		}
 	}
+
 	return msg
 }

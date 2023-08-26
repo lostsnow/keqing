@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"strings"
@@ -30,18 +31,20 @@ func CacheAssetsClear(ctx telebot.Context) error {
 			return Send(ctx, "No such character")
 		}
 
-		cacheFilePath := getCacheFilePath(fmt.Sprintf("assets/%s/%s/%s.png", dir, chars[0].Elemental.Id, chars[0].Id))
+		cacheFilePath := getCacheFilePath(fmt.Sprintf("assets/%s/%s/%s.png", dir, chars[0].Elemental.ID, chars[0].ID))
 		err := os.Remove(cacheFilePath)
-		e, ok := err.(*os.PathError)
-		if ok && e.Err != syscall.ENOENT {
+		var e *os.PathError
+		ok := errors.As(err, &e)
+		if ok && !errors.Is(e.Err, syscall.ENOENT) {
 			return ctx.Reply(fmt.Sprintf("clear %s cache failed: %s", cacheFilePath, err))
 		}
-		cacheFileIdPath := fmt.Sprintf("%s.id", cacheFilePath)
-		err = os.Remove(cacheFileIdPath)
-		e, ok = err.(*os.PathError)
-		if ok && e.Err != syscall.ENOENT {
-			return ctx.Reply(fmt.Sprintf("clear %s cache failed: %s", cacheFileIdPath, err))
+		cacheFileIDPath := fmt.Sprintf("%s.id", cacheFilePath)
+		err = os.Remove(cacheFileIDPath)
+		ok = errors.As(err, &e)
+		if ok && !errors.Is(e.Err, syscall.ENOENT) {
+			return ctx.Reply(fmt.Sprintf("clear %s cache failed: %s", cacheFileIDPath, err))
 		}
+
 		return ctx.Send(fmt.Sprintf("cache clear successfully: %s(.id)", cacheFilePath))
 	}
 

@@ -12,7 +12,7 @@ import (
 )
 
 type STokenPayload struct {
-	AccountId int64  `json:"account_id"`
+	AccountID int64  `json:"account_id"`
 	GameToken string `json:"game_token"`
 }
 
@@ -33,12 +33,13 @@ type STokenResponseData struct {
 
 func NewSTokenReq(id int64, token string) *STokenRequest {
 	payload := STokenPayload{
-		AccountId: id,
+		AccountID: id,
 		GameToken: token,
 	}
+
 	return &STokenRequest{
 		Request: Request{
-			Url:    endpoint.PassportApi + "/account/ma-cn-session/app/getTokenByGameToken",
+			URL:    endpoint.PassportAPI + "/account/ma-cn-session/app/getTokenByGameToken",
 			Method: http.MethodPost,
 			Headers: map[string]string{
 				"x-rpc-app_version":  XRpcVersion,
@@ -54,7 +55,7 @@ func NewSTokenReq(id int64, token string) *STokenRequest {
 				"x-rpc-device_model": "Windows 10 64-bit",
 				"x-rpc-app_id":       "bll8iq97cem8",
 				"x-rpc-client_type":  "4",
-				"User-Agent":         OkHttpUA,
+				"User-Agent":         OkHTTPUA,
 			},
 		},
 		STokenPayload: payload,
@@ -64,7 +65,7 @@ func NewSTokenReq(id int64, token string) *STokenRequest {
 func (r *STokenRequest) Do() (*STokenResponseData, error) {
 	var v STokenResponse
 	payload := STokenPayload{
-		AccountId: r.AccountId,
+		AccountID: r.AccountID,
 		GameToken: r.GameToken,
 	}
 	err := SendRequest(r, payload, &v)

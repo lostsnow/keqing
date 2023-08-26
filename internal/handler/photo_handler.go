@@ -1,10 +1,12 @@
 package handler
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
 	"os"
 	"path/filepath"
 	"strings"
@@ -32,6 +34,7 @@ var (
 	NoPhoto      *telebot.Photo
 )
 
+//nolint:gochecknoinits
 func init() {
 	f, _ := data.Embed.Open("embed/400.png")
 	UnknownPhoto = &telebot.Photo{File: telebot.File{FileReader: f}}
@@ -39,6 +42,7 @@ func init() {
 	NoPhoto = &telebot.Photo{File: telebot.File{FileReader: f}}
 }
 
+//nolint:cyclop
 func (h PhotoResponseHandler) Handle(ctx telebot.Context) error {
 	if len(h.Buttons) == 0 {
 		return nil
@@ -50,9 +54,9 @@ func (h PhotoResponseHandler) Handle(ctx telebot.Context) error {
 		for idx, btn := range h.Buttons {
 			title := btn.Title
 			if idx == 0 {
-				title = title + CurrentInlineKeywordMark
+				title += CurrentInlineKeywordMark
 			}
-			botBtn := sel.Data(title, toPhotoUniqueId(btn.Dir+"/"+btn.Name))
+			botBtn := sel.Data(title, toPhotoUniqueID(btn.Dir+"/"+btn.Name))
 			botBtns = append(botBtns, botBtn)
 		}
 		chunks := object.ChunkBy(botBtns, 3)
@@ -64,7 +68,7 @@ func (h PhotoResponseHandler) Handle(ctx telebot.Context) error {
 
 		for idx := range botBtns {
 			ctx.Bot().Handle(&botBtns[idx], func(c telebot.Context) error {
-				rFilePath := fromPhotoUniqueId(c.Callback().Unique)
+				rFilePath := fromPhotoUniqueID(c.Callback().Unique)
 				mt, m := h.Get(c, rFilePath)
 				if _, ok := m.(telebot.Inputtable); !ok {
 					return c.Respond()
@@ -76,11 +80,12 @@ func (h PhotoResponseHandler) Handle(ctx telebot.Context) error {
 
 				_, err = c.Bot().EditMedia(c.Message(), m.(telebot.Inputtable), sel)
 				if err != nil {
-					return fmt.Errorf("edit photo %s/%s failed: %s", h.Buttons[0].Dir, h.Buttons[0].Name, err)
+					return fmt.Errorf("edit photo %s/%s failed: %w", h.Buttons[0].Dir, h.Buttons[0].Name, err)
 				}
 
-				cacheFileIdPath := getCacheFileIdPath(rFilePath)
-				cachePhotoId(m, mt, cacheFileIdPath)
+				cacheFileIDPath := getCacheFileIDPath(rFilePath)
+				cachePhotoID(m, mt, cacheFileIDPath)
+
 				return nil
 			})
 		}
@@ -89,11 +94,12 @@ func (h PhotoResponseHandler) Handle(ctx telebot.Context) error {
 	mt, m := h.GetByButton(ctx, h.Buttons[0])
 	err := ctx.Reply(m, sel)
 	if err != nil {
-		return fmt.Errorf("send photo %s/%s failed: %s", h.Buttons[0].Dir, h.Buttons[0].Name, err)
+		return fmt.Errorf("send photo %s/%s failed: %w", h.Buttons[0].Dir, h.Buttons[0].Name, err)
 	}
 
-	cacheFileIdPath := getCacheFileIdPath(fmt.Sprintf("%s/%s", h.Buttons[0].Dir, h.Buttons[0].Name))
-	cachePhotoId(m, mt, cacheFileIdPath)
+	cacheFileIDPath := getCacheFileIDPath(fmt.Sprintf("%s/%s", h.Buttons[0].Dir, h.Buttons[0].Name))
+	cachePhotoID(m, mt, cacheFileIDPath)
+
 	return nil
 }
 
@@ -103,17 +109,17 @@ func (h PhotoResponseHandler) GetByButton(ctx telebot.Context, fb PhotoButton) (
 
 func (h PhotoResponseHandler) Get(ctx telebot.Context, relFilePath string) (MessageType, any) {
 	cacheFilePath := getCacheFilePath(relFilePath)
-	cacheFileIdPath := getCacheFileIdPath(relFilePath)
+	cacheFileIDPath := getCacheFileIDPath(relFilePath)
 
-	fi, err := os.Stat(cacheFileIdPath)
+	fi, err := os.Stat(cacheFileIDPath)
 	cacheExpired := false
 	if fi.ModTime().Before(time.Now().AddDate(0, -1, 0)) {
 		cacheExpired = true
 	}
 	if err == nil && !cacheExpired {
-		fb, err := os.ReadFile(cacheFileIdPath)
+		fb, err := os.ReadFile(cacheFileIDPath)
 		if err == nil && len(fb) > 0 {
-			return MessagePhotoId, &telebot.Photo{File: telebot.File{FileID: string(fb)}}
+			return MessagePhotoID, &telebot.Photo{File: telebot.File{FileID: string(fb)}}
 		}
 	}
 
@@ -122,31 +128,42 @@ func (h PhotoResponseHandler) Get(ctx telebot.Context, relFilePath string) (Mess
 		return MessageCachedPhoto, &telebot.Photo{File: telebot.FromReader(f)}
 	}
 
-	url := getFileUrl(relFilePath)
-	err = downloadPhoto(cacheFilePath, url)
+	fileURL := getFileURL(relFilePath)
+	err = downloadPhoto(cacheFilePath, fileURL)
 	if err != nil {
 		if !errors.Is(err, ErrDownloadPhotoNotFound) {
 			ReportError(ctx, err.Error())
 		}
+
 		return MessageEmbed, h.NoPhotoMessage
 	}
 
 	p := &telebot.Photo{File: telebot.FromDisk(cacheFilePath)}
+
 	return MessagePhoto, p
 }
 
-func downloadPhoto(filePath string, url string) error {
+func downloadPhoto(filePath string, rawURL string) error {
 	fileDir := filepath.Dir(filePath)
 	if _, err := os.Stat(fileDir); os.IsNotExist(err) {
 		if err := os.MkdirAll(fileDir, os.ModeDir); err != nil {
-			return fmt.Errorf("create download photo dir failed: %s", err)
+			return fmt.Errorf("create download photo dir failed: %w", err)
 		}
 	}
 
-	// Get the data
-	resp, err := http.Get(url)
+	u, err := url.Parse(rawURL)
 	if err != nil {
-		return fmt.Errorf("download photo %s failed: %s", url, err)
+		return fmt.Errorf("download photo url %s invalid: %w", rawURL, err)
+	}
+
+	// Get the data
+	req, err := http.NewRequestWithContext(context.Background(), http.MethodGet, u.String(), nil)
+	if err != nil {
+		return fmt.Errorf("download photo %s failed: %w", rawURL, err)
+	}
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return fmt.Errorf("download photo %s failed: %w", rawURL, err)
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
@@ -157,7 +174,8 @@ func downloadPhoto(filePath string, url string) error {
 	out, err := os.Create(filePath)
 	if err != nil {
 		_ = os.Remove(filePath)
-		return fmt.Errorf("create download photo %s failed: %s", filePath, err)
+
+		return fmt.Errorf("create download photo %s failed: %w", filePath, err)
 	}
 	defer out.Close()
 
@@ -165,7 +183,8 @@ func downloadPhoto(filePath string, url string) error {
 	_, err = io.Copy(out, resp.Body)
 	if err != nil {
 		_ = os.Remove(filePath)
-		return fmt.Errorf("write download photo %s failed: %s", filePath, err)
+
+		return fmt.Errorf("write download photo %s failed: %w", filePath, err)
 	}
 
 	return nil
@@ -175,16 +194,17 @@ func getCacheFilePath(relFilePath string) string {
 	return fmt.Sprintf("%s/%s", viper.GetString("cache.dir"), relFilePath)
 }
 
-func getCacheFileIdPath(relFilePath string) string {
+func getCacheFileIDPath(relFilePath string) string {
 	cacheFilePath := getCacheFilePath(relFilePath)
+
 	return fmt.Sprintf("%s.id", cacheFilePath)
 }
 
-func getFileUrl(relFilePath string) string {
+func getFileURL(relFilePath string) string {
 	return fmt.Sprintf("%s/%s", viper.GetString("app.assets.base-url"), relFilePath)
 }
 
-func cachePhotoId(msg any, mt MessageType, fileIdPath string) {
+func cachePhotoID(msg any, mt MessageType, fileIDPath string) {
 	if _, ok := msg.(*telebot.Photo); !ok {
 		return
 	}
@@ -192,30 +212,35 @@ func cachePhotoId(msg any, mt MessageType, fileIdPath string) {
 		return
 	}
 
-	fileId := msg.(*telebot.Photo).FileID
-	if fileId == "" {
+	tPhoto, ok := msg.(*telebot.Photo)
+	if !ok {
 		return
 	}
-	if _, err := os.Stat(fileIdPath); os.IsNotExist(err) {
-		_ = os.WriteFile(fileIdPath, []byte(fileId), 0644)
+	fileID := tPhoto.FileID
+	if fileID == "" {
+		return
 	}
-	return
+	if _, err := os.Stat(fileIDPath); os.IsNotExist(err) {
+		_ = os.WriteFile(fileIDPath, []byte(fileID), 0600)
+	}
 }
 
-func toPhotoUniqueId(path string) string {
+func toPhotoUniqueID(path string) string {
 	replacer := strings.NewReplacer(
 		"/", "--",
 		".", "__",
 		" ", "00",
 	)
+
 	return replacer.Replace(path)
 }
 
-func fromPhotoUniqueId(path string) string {
+func fromPhotoUniqueID(path string) string {
 	replacer := strings.NewReplacer(
 		"--", "/",
 		"__", ".",
 		"00", " ",
 	)
+
 	return replacer.Replace(path)
 }

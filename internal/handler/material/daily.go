@@ -24,11 +24,12 @@ func Daily(ctx telebot.Context) error {
 	buttons := make([]handler.PhotoButton, 0)
 	for _, wd := range wds {
 		var title string
-		if wd == 1 {
+		switch {
+		case wd == 1:
 			title = fmt.Sprintf("%s/%s", i18n.T(ctx, "Monday"), i18n.T(ctx, "Thursday"))
-		} else if wd == 2 {
+		case wd == 2:
 			title = fmt.Sprintf("%s/%s", i18n.T(ctx, "Tuesday"), i18n.T(ctx, "Friday"))
-		} else {
+		default:
 			title = fmt.Sprintf("%s/%s", i18n.T(ctx, "Wednesday"), i18n.T(ctx, "Saturday"))
 		}
 
@@ -47,6 +48,7 @@ func Daily(ctx telebot.Context) error {
 	return h.Handle(ctx)
 }
 
+//nolint:cyclop
 func parseWeekDay(s string) []int {
 	s = strings.ToLower(strings.TrimSpace(s))
 
@@ -102,15 +104,16 @@ func parseWeekDay(s string) []int {
 
 	var zone = time.FixedZone("CST", 8*3600)
 	var t time.Time
-	if s == "明天" || s == "明日" || s == "tomorrow" {
+	switch {
+	case s == "明天" || s == "明日" || s == "tomorrow":
 		t = time.Now().In(zone).AddDate(0, 0, 1)
-	} else if s == "昨天" || s == "昨日" || s == "yesterday" {
+	case s == "昨天" || s == "昨日" || s == "yesterday":
 		t = time.Now().In(zone).AddDate(0, 0, -1)
-	} else if s == "后天" || s == "后日" || s == "after tomorrow" {
+	case s == "后天" || s == "后日" || s == "after tomorrow":
 		t = time.Now().In(zone).AddDate(0, 0, 2)
-	} else if s == "前天" || s == "前日" || s == "before yesterday" {
+	case s == "前天" || s == "前日" || s == "before yesterday":
 		t = time.Now().In(zone).AddDate(0, 0, -2)
-	} else {
+	default:
 		t = time.Now().In(zone)
 	}
 	wd := t.Weekday()

@@ -9,7 +9,7 @@ import (
 )
 
 type Elemental struct {
-	Id    string
+	ID    string
 	Names []string
 }
 
@@ -30,12 +30,13 @@ var (
 func New(id string) *Elemental {
 	names := i18n.TS(id)
 	e := &Elemental{
-		Id:    id,
+		ID:    id,
 		Names: names,
 	}
 	for _, n := range names {
 		objectMap[n] = e
 	}
+
 	return e
 }
 
@@ -44,7 +45,7 @@ func Get(id string) *Elemental {
 }
 
 func (e *Elemental) Name(ctx telebot.Context) string {
-	return i18n.T(ctx, e.Id)
+	return i18n.T(ctx, e.ID)
 }
 
 func Search(name string) []*Elemental {

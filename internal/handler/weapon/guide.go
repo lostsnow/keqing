@@ -32,9 +32,9 @@ func Guide(ctx telebot.Context) error {
 			break
 		}
 		buttons = append(buttons, handler.PhotoButton{
-			Title: i18n.T(ctx, weapon.Id),
-			Dir:   fmt.Sprintf("assets/weapon/guide/%s", weapon.Type.Id),
-			Name:  fmt.Sprintf("%s.png", weapon.Id),
+			Title: i18n.T(ctx, weapon.ID),
+			Dir:   fmt.Sprintf("assets/weapon/guide/%s", weapon.Type.ID),
+			Name:  fmt.Sprintf("%s.png", weapon.ID),
 		})
 	}
 

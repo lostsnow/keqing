@@ -2,84 +2,34 @@ run:
   timeout: 5m
 
 linters:
-  disable-all: true
-  enable:
-    - bodyclose
-    - deadcode
-    - dogsled
-    - durationcheck
-    - errcheck
-    - exhaustive
-    - exportloopref
-    - gofmt
-    - goimports
-    - goprintffuncname
-    - gosec
-    - gosimple
-    - govet
-    - importas
-    - ineffassign
-    - makezero
-    - misspell
-    - nakedret
-    - nilerr
-    - noctx
-    - prealloc
-    - predeclared
-    - rowserrcheck
-    - sqlclosecheck
-    - staticcheck
-    - structcheck
-    - tparallel
-    - typecheck
-    - unconvert
-    - unparam
-    - unused
-    - varcheck
-    - wastedassign
-    - whitespace
-
-    # fixme
-    # - cyclop
-    # - dupl
-    # - errorlint
-    # - exhaustivestruct
-    # - forbidigo
-    # - forcetypeassert
-    # - gochecknoglobals
-    # - gochecknoinits
-    # - gocognit
-    # - goconst
-    # - gocritic
-    # - gocyclo
-    # - godot
-    # - ifshort
-    # - lll
-    # - nlreturn
-    # - paralleltest
-    # - revive
-    # - scopelint
-    # - stylecheck
-    # - thelper
-    # - wrapcheck
-
-    # unused
-    # - depguard
-    # - gofumpt
-    # - goheader
-    # - gomodguard
-
-    # don't enable:
-    # - asciicheck
-    # - funlen
-    # - gci
-    # - godox
-    # - goerr113
-    # - gomnd
-    # - gomoddirectives
-    # - interfacer
-    # - maligned
-    # - nestif
-    # - nolintlint
-    # - testpackage
-    # - wsl
+  enable-all: true
+  disable:
+    - exhaustruct
+    - exhaustivestruct
+    - deadcode # deprecated
+    - depguard
+    - errchkjson
+    - forbidigo
+    - funlen
+    - gci
+    - gochecknoglobals
+    - gochecknoinits
+    - goerr113
+    - gofumpt
+    - golint # deprecated
+    - gomnd
+    - gosmopolitan
+    - ifshort # deprecated
+    - interfacer # deprecated
+    - maligned # deprecated
+    - musttag
+    - nosnakecase # deprecated
+    - paralleltest
+    - revive
+    - scopelint # deprecated
+    - structcheck # deprecated
+    - tagliatelle
+    - varcheck # deprecated
+    - varnamelen
+    - wrapcheck
+    - wsl

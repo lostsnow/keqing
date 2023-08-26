@@ -15,11 +15,10 @@ var ApplyCmd = &cobra.Command{
 	Use:   "apply",
 	Short: "apply migrations",
 	Run: func(cmd *cobra.Command, args []string) {
-		dsn := db.GetMigrateDSN()
 		cmdPath := checkAtlas()
 		c := exec.Command(cmdPath, "migrate", "apply",
 			"--dir", fmt.Sprintf("file://%s", migrationsDir),
-			"--url", fmt.Sprintf("%s", dsn),
+			"--url", db.GetMigrateDSN(),
 		)
 
 		out, err := c.CombinedOutput()

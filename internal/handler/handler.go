@@ -19,7 +19,7 @@ const (
 	MessageEmbed
 	MessagePhoto
 	MessageCachedPhoto
-	MessagePhotoId
+	MessagePhotoID
 )
 
 var (
@@ -74,5 +74,6 @@ func UpdateCurrentInlineKeyboard(sel *telebot.ReplyMarkup, uniq string) error {
 			}
 		}
 	}
+
 	return nil
 }

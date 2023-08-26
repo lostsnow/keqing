@@ -4,15 +4,15 @@ type Region string
 
 const (
 	Unknown    Region = ""
-	CN1               = "cn_gf01"
-	CNChannel1        = "cn_qd01"
-	USA               = "os_usa"
-	EURO              = "os_euro"
-	ASIA              = "os_asia"
-	TW                = "os_cht"
+	CN1        Region = "cn_gf01"
+	CNChannel1 Region = "cn_qd01"
+	USA        Region = "os_usa"
+	EURO       Region = "os_euro"
+	ASIA       Region = "os_asia"
+	TW         Region = "os_cht"
 )
 
-func GetById(id string) Region {
+func GetByID(id string) Region {
 	first := id[:1]
 	switch first {
 	case "1", "2", "3", "4":

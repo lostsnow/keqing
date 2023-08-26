@@ -33,9 +33,9 @@ func Handler(ctx telebot.Context, typ string) error {
 			break
 		}
 		buttons = append(buttons, handler.PhotoButton{
-			Title: i18n.T(ctx, char.Id),
-			Dir:   fmt.Sprintf("assets/character/%s/%s", typ, char.Elemental.Id),
-			Name:  fmt.Sprintf("%s.png", char.Id),
+			Title: i18n.T(ctx, char.ID),
+			Dir:   fmt.Sprintf("assets/character/%s/%s", typ, char.Elemental.ID),
+			Name:  fmt.Sprintf("%s.png", char.ID),
 		})
 	}
 

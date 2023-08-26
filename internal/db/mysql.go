@@ -32,6 +32,7 @@ func (m *Client) Init() error {
 
 	m.Client = entity.NewClient(entity.Driver(drv))
 	DB = m
+
 	return nil
 }
 
