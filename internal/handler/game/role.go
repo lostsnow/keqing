@@ -17,8 +17,7 @@ import (
 	"github.com/lostsnow/keqing/pkg/object"
 )
 
-type RoleCMD struct {
-}
+type RoleCMD struct{}
 
 //nolint:cyclop
 func Role(ctx telebot.Context) error {

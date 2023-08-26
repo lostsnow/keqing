@@ -16,9 +16,7 @@ import (
 	"github.com/lostsnow/keqing/pkg/weapon"
 )
 
-var (
-	handlerBot *Bot
-)
+var handlerBot *Bot
 
 type Bot struct {
 	Bot        *telebot.Bot

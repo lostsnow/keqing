@@ -15,7 +15,6 @@ linters:
     - gochecknoglobals
     - gochecknoinits
     - goerr113
-    - gofumpt
     - golint # deprecated
     - gomnd
     - gosmopolitan

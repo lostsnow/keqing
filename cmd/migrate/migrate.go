@@ -7,9 +7,7 @@ import (
 	"github.com/litsea/logger"
 )
 
-var (
-	migrationsDir = "db/migrations"
-)
+var migrationsDir = "db/migrations"
 
 func checkAtlas() string {
 	cmdPath, err := exec.LookPath("atlas")

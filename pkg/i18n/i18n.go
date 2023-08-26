@@ -63,7 +63,7 @@ func T(ctx telebot.Context, format string, args ...any) string {
 }
 
 func TS(format string, args ...any) []string {
-	var ns = make([]string, 0, len(langMap))
+	ns := make([]string, 0, len(langMap))
 	v := make(map[string]struct{})
 	for _, l := range langMap {
 		p := getPrinter(l)

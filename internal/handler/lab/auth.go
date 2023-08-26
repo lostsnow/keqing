@@ -14,9 +14,7 @@ import (
 	"github.com/lostsnow/keqing/pkg/i18n"
 )
 
-var (
-	qrcodeCheckPool *api.QrcodeCheckPool
-)
+var qrcodeCheckPool *api.QrcodeCheckPool
 
 func RunQrcodeCheckWorker() {
 	logger.Info("running QR code check worker")

@@ -10,9 +10,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var (
-	lintLatest int
-)
+var lintLatest int
 
 var LintCmd = &cobra.Command{
 	Use:   "lint",

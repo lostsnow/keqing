@@ -23,9 +23,7 @@ var (
 	Geo     = New("Geo")
 )
 
-var (
-	objectMap = make(map[string]*Elemental)
-)
+var objectMap = make(map[string]*Elemental)
 
 func New(id string) *Elemental {
 	names := i18n.TS(id)

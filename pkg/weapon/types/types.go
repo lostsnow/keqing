@@ -21,9 +21,7 @@ var (
 	Bow      = New("Bow")
 )
 
-var (
-	objectMap = make(map[string]*Type)
-)
+var objectMap = make(map[string]*Type)
 
 func New(id string) *Type {
 	names := i18n.TS(id)

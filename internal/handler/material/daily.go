@@ -102,7 +102,7 @@ func parseWeekDay(s string) []int {
 		return dailyAlias[v]
 	}
 
-	var zone = time.FixedZone("CST", 8*3600)
+	zone := time.FixedZone("CST", 8*3600)
 	var t time.Time
 	switch {
 	case s == "明天" || s == "明日" || s == "tomorrow":

@@ -11,9 +11,7 @@ import (
 	"github.com/lostsnow/keqing/pkg/entity"
 )
 
-var (
-	DB *Client
-)
+var DB *Client
 
 type Client struct {
 	Client *entity.Client

@@ -20,9 +20,7 @@ import (
 	"github.com/lostsnow/keqing/pkg/object"
 )
 
-var (
-	ErrDownloadPhotoNotFound = errors.New("download photo not found")
-)
+var ErrDownloadPhotoNotFound = errors.New("download photo not found")
 
 type PhotoResponseHandler struct {
 	Buttons        []PhotoButton
@@ -221,7 +219,7 @@ func cachePhotoID(msg any, mt MessageType, fileIDPath string) {
 		return
 	}
 	if _, err := os.Stat(fileIDPath); os.IsNotExist(err) {
-		_ = os.WriteFile(fileIDPath, []byte(fileID), 0600)
+		_ = os.WriteFile(fileIDPath, []byte(fileID), 0o600)
 	}
 }
 

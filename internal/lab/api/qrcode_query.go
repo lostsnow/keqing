@@ -22,9 +22,7 @@ import (
 	"github.com/lostsnow/keqing/pkg/i18n"
 )
 
-var (
-	ErrQrcodeLoginNotConfirmed = errors.New("QR code login not confirmed")
-)
+var ErrQrcodeLoginNotConfirmed = errors.New("QR code login not confirmed")
 
 type QrcodeQueryPayload struct {
 	AppID  int    `json:"app_id"`

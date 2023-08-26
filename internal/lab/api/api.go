@@ -28,9 +28,7 @@ const (
 	OkHTTPUA    = "okhttp/4.8.0"
 )
 
-var (
-	httpClient *http.Client
-)
+var httpClient *http.Client
 
 type RequestInterface interface {
 	GetURL() string

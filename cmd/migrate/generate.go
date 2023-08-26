@@ -15,9 +15,7 @@ import (
 	"github.com/lostsnow/keqing/pkg/entity/migrate"
 )
 
-var (
-	migrationName string
-)
+var migrationName string
 
 var GenerateCmd = &cobra.Command{
 	Use:   "generate",

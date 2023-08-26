@@ -22,9 +22,7 @@ const (
 	MessagePhotoID
 )
 
-var (
-	CurrentInlineKeywordMark = "✅"
-)
+var CurrentInlineKeywordMark = "✅"
 
 type PhotoButton struct {
 	Title       string
