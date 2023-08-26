@@ -8,6 +8,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/spf13/viper"
 	"gopkg.in/telebot.v3"
@@ -61,8 +62,8 @@ func (h PhotoResponseHandler) Handle(ctx telebot.Context) error {
 		}
 		sel.Inline(rows...)
 
-		for _, bb := range botBtns {
-			ctx.Bot().Handle(&bb, func(c telebot.Context) error {
+		for idx := range botBtns {
+			ctx.Bot().Handle(&botBtns[idx], func(c telebot.Context) error {
 				rFilePath := fromPhotoUniqueId(c.Callback().Unique)
 				mt, m := h.Get(c, rFilePath)
 				if _, ok := m.(telebot.Inputtable); !ok {
@@ -104,7 +105,12 @@ func (h PhotoResponseHandler) Get(ctx telebot.Context, relFilePath string) (Mess
 	cacheFilePath := getCacheFilePath(relFilePath)
 	cacheFileIdPath := getCacheFileIdPath(relFilePath)
 
-	if _, err := os.Stat(cacheFileIdPath); err == nil {
+	fi, err := os.Stat(cacheFileIdPath)
+	cacheExpired := false
+	if fi.ModTime().Before(time.Now().AddDate(0, -1, 0)) {
+		cacheExpired = true
+	}
+	if err == nil && !cacheExpired {
 		fb, err := os.ReadFile(cacheFileIdPath)
 		if err == nil && len(fb) > 0 {
 			return MessagePhotoId, &telebot.Photo{File: telebot.File{FileID: string(fb)}}
@@ -112,14 +118,14 @@ func (h PhotoResponseHandler) Get(ctx telebot.Context, relFilePath string) (Mess
 	}
 
 	f, err := os.Open(cacheFilePath)
-	if err == nil {
+	if err == nil && !cacheExpired {
 		return MessageCachedPhoto, &telebot.Photo{File: telebot.FromReader(f)}
 	}
 
 	url := getFileUrl(relFilePath)
 	err = downloadPhoto(cacheFilePath, url)
 	if err != nil {
-		if err != ErrDownloadPhotoNotFound {
+		if !errors.Is(err, ErrDownloadPhotoNotFound) {
 			ReportError(ctx, err.Error())
 		}
 		return MessageEmbed, h.NoPhotoMessage

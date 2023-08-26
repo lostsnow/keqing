@@ -52,8 +52,8 @@ func ReportError(ctx telebot.Context, format string, a ...any) {
 	if handlerBot == nil {
 		return
 	}
-	for _, u := range handlerBot.AdminUsers {
-		_, _ = ctx.Bot().Send(&u, msg, &telebot.SendOptions{ParseMode: telebot.ModeMarkdown})
+	for idx := range handlerBot.AdminUsers {
+		_, _ = ctx.Bot().Send(&handlerBot.AdminUsers[idx], msg, &telebot.SendOptions{ParseMode: telebot.ModeMarkdown})
 	}
 }
 
