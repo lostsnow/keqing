@@ -14,6 +14,11 @@ import (
 
 type MessageType int
 
+var (
+	ErrNoKeyboard               = errors.New("no keyboard")
+	ErrKeyboardHasAlreadyActive = errors.New("keyboard has already active")
+)
+
 const (
 	MessageText MessageType = iota + 1
 	MessageEmbed
@@ -59,7 +64,7 @@ func ReportError(ctx telebot.Context, format string, a ...any) {
 
 func UpdateCurrentInlineKeyboard(sel *telebot.ReplyMarkup, uniq string) error {
 	if sel == nil {
-		return errors.New("no keyboard")
+		return ErrNoKeyboard
 	}
 
 	for i, row := range sel.InlineKeyboard {
@@ -70,7 +75,7 @@ func UpdateCurrentInlineKeyboard(sel *telebot.ReplyMarkup, uniq string) error {
 				if !strings.HasSuffix(col.Text, CurrentInlineKeywordMark) {
 					sel.InlineKeyboard[i][j].Text = col.Text + CurrentInlineKeywordMark
 				} else {
-					return errors.New("keyboard has already active")
+					return ErrKeyboardHasAlreadyActive
 				}
 			}
 		}

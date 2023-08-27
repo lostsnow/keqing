@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"html/template"
 	"log"
@@ -14,6 +15,8 @@ import (
 	"github.com/lostsnow/keqing/pkg/character"
 	"github.com/lostsnow/keqing/pkg/weapon"
 )
+
+var ErrI18nStringsEmpty = errors.New("i18n strings empty")
 
 func main() {
 	err := character.Init()
@@ -95,7 +98,7 @@ func getTranslations() ([]string, error) {
 	}
 
 	if len(trans) == 0 {
-		return nil, fmt.Errorf("i18n strings empty")
+		return nil, ErrI18nStringsEmpty
 	}
 
 	sort.Strings(trans)

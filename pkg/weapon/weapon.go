@@ -1,6 +1,7 @@
 package weapon
 
 import (
+	"errors"
 	"fmt"
 	"io/fs"
 	"strings"
@@ -15,6 +16,8 @@ import (
 	"github.com/lostsnow/keqing/pkg/star"
 	"github.com/lostsnow/keqing/pkg/weapon/types"
 )
+
+var ErrInvalidWeaponType = errors.New("invalid weapon type")
 
 type Weapon struct {
 	ID          string      `yaml:"id"`
@@ -39,7 +42,7 @@ func (w *Weapon) UnmarshalYAML(n *yaml.Node) error {
 
 	elem := types.Get(obj.Type)
 	if elem == nil {
-		return fmt.Errorf("invalid weapon type: %s", obj.Type)
+		return fmt.Errorf("%w: %s", ErrInvalidWeaponType, obj.Type)
 	}
 
 	w.Type = elem

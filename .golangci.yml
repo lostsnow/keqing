@@ -14,7 +14,6 @@ linters:
     - gci
     - gochecknoglobals
     - gochecknoinits
-    - goerr113
     - golint # deprecated
     - gomnd
     - gosmopolitan

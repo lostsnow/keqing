@@ -2,6 +2,7 @@ package handler
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 	"net/url"
@@ -17,6 +18,8 @@ import (
 )
 
 var handlerBot *Bot
+
+var ErrInvalidTelegramProxyURL = errors.New("invalid telegram proxy url")
 
 type Bot struct {
 	Bot        *telebot.Bot
@@ -60,7 +63,7 @@ func NewBot() (*Bot, error) {
 	if proxy != "" {
 		p, err := url.Parse(proxy)
 		if err != nil {
-			return nil, fmt.Errorf("invalid telegram proxy url: %s", proxy)
+			return nil, fmt.Errorf("%w: %s", ErrInvalidTelegramProxyURL, proxy)
 		}
 
 		pref.Client = &http.Client{
