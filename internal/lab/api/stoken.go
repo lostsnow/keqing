@@ -64,10 +64,12 @@ func NewSTokenReq(id int64, token string) *STokenRequest {
 
 func (r *STokenRequest) Do() (*STokenResponseData, error) {
 	var v STokenResponse
+
 	payload := STokenPayload{
 		AccountID: r.AccountID,
 		GameToken: r.GameToken,
 	}
+
 	err := SendRequest(r, payload, &v)
 	if err != nil {
 		return nil, err

@@ -30,10 +30,12 @@ func NewCookieTokenReq(id, token string) *CookieTokenRequest {
 
 func (r *CookieTokenRequest) Do() (*CookieToken, error) {
 	var v CookieTokenResponse
+
 	payload := map[string]string{
 		"account_id": r.AccountID,
 		"game_token": r.GameToken,
 	}
+
 	err := SendRequest(r, payload, &v)
 	if err != nil {
 		return nil, err

@@ -37,9 +37,11 @@ func NewGameRecordReq(id, cookieToken string) *GameRecordRequest {
 
 func (r *GameRecordRequest) Do() (*GameRecordResponseData, error) {
 	var v GameRecordResponse
+
 	payload := map[string]string{
 		"uid": r.AccountID,
 	}
+
 	err := SendRequest(r, payload, &v)
 	if err != nil {
 		return nil, err

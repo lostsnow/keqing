@@ -37,6 +37,7 @@ func getPrinter(lang language.Tag) *message.Printer {
 	if p, ok := printers[lang]; ok {
 		return p
 	}
+
 	printers[lang] = message.NewPrinter(lang)
 
 	return printers[lang]
@@ -65,13 +66,17 @@ func T(ctx telebot.Context, format string, args ...any) string {
 func TS(format string, args ...any) []string {
 	ns := make([]string, 0, len(langMap))
 	v := make(map[string]struct{})
+
 	for _, l := range langMap {
 		p := getPrinter(l)
 		s := p.Sprintf(format, args...)
+
 		if _, ok := v[s]; ok {
 			continue
 		}
+
 		v[s] = struct{}{}
+
 		ns = append(ns, s)
 	}
 

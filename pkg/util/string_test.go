@@ -10,6 +10,7 @@ func TestRandomString(t *testing.T) {
 	type args struct {
 		n int
 	}
+
 	tests := []struct {
 		name string
 		args args
@@ -17,6 +18,7 @@ func TestRandomString(t *testing.T) {
 	}{
 		{"random-length", struct{ n int }{n: 10}, 10},
 	}
+
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := util.RandomString(tt.args.n); tt.args.n != tt.want {

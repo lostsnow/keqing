@@ -26,6 +26,7 @@ type Character struct {
 
 func (c *Character) UnmarshalYAML(n *yaml.Node) error {
 	type C Character
+
 	type T struct {
 		*C        `yaml:",inline"`
 		Elemental string `yaml:"elemental"`
@@ -37,9 +38,11 @@ func (c *Character) UnmarshalYAML(n *yaml.Node) error {
 	}
 
 	elem := elemental.Get(obj.Elemental)
+
 	if elem == nil {
 		return fmt.Errorf("invalid elemental: %s", obj.Elemental)
 	}
+
 	c.Elemental = elem
 
 	return nil

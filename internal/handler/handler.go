@@ -47,9 +47,11 @@ func Reply(ctx telebot.Context, message string) error {
 func ReportError(ctx telebot.Context, format string, a ...any) {
 	msg := fmt.Sprintf(format, a...)
 	logger.Error(msg)
+
 	if handlerBot == nil {
 		return
 	}
+
 	for idx := range handlerBot.AdminUsers {
 		_, _ = ctx.Bot().Send(&handlerBot.AdminUsers[idx], msg, &telebot.SendOptions{ParseMode: telebot.ModeMarkdown})
 	}
@@ -59,6 +61,7 @@ func UpdateCurrentInlineKeyboard(sel *telebot.ReplyMarkup, uniq string) error {
 	if sel == nil {
 		return errors.New("no keyboard")
 	}
+
 	for i, row := range sel.InlineKeyboard {
 		for j, col := range row {
 			if col.Unique != uniq && strings.HasSuffix(col.Text, CurrentInlineKeywordMark) {

@@ -29,6 +29,7 @@ func New(id string) *Type {
 		ID:    id,
 		Names: names,
 	}
+
 	for _, n := range names {
 		objectMap[n] = e
 	}

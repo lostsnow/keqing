@@ -32,6 +32,7 @@ func NewBot() (*Bot, error) {
 	admins := viper.GetStringSlice("admins")
 	adminIds := make([]int64, 0, len(admins))
 	adminUsers := make([]telebot.User, 0, len(admins))
+
 	for _, admin := range admins {
 		id, err := strconv.ParseInt(admin, 10, 64)
 		if err == nil {
@@ -39,6 +40,7 @@ func NewBot() (*Bot, error) {
 			adminUsers = append(adminUsers, telebot.User{ID: id})
 		}
 	}
+
 	b := &Bot{
 		AdminIds:   adminIds,
 		AdminUsers: adminUsers,
@@ -72,6 +74,7 @@ func NewBot() (*Bot, error) {
 	if err != nil {
 		return nil, fmt.Errorf("initialize bot failed: %w", err)
 	}
+
 	b.Bot = bot
 	handlerBot = b
 
@@ -80,10 +83,12 @@ func NewBot() (*Bot, error) {
 
 func initModel() error {
 	var err error
+
 	initFn := func(fn func() error) {
 		if err != nil {
 			return
 		}
+
 		err = fn()
 	}
 

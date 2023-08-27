@@ -22,6 +22,7 @@ type RoleCMD struct{}
 //nolint:cyclop
 func Role(ctx telebot.Context) error {
 	userID := ctx.Sender().ID
+
 	vs, err := db.DB.Client.GameRole.
 		Query().
 		Where(gamerole.UserID(userID)).
@@ -38,21 +39,28 @@ func Role(ctx telebot.Context) error {
 
 	cmd := RoleCMD{}
 	sel := &telebot.ReplyMarkup{}
+
 	if len(vs) > 1 {
 		botBtns := make([]telebot.Btn, 0, len(vs))
+
 		for idx, btn := range vs {
 			title := btn.NickName
+
 			if idx == 0 {
 				title += handler.CurrentInlineKeywordMark
 			}
+
 			botBtn := sel.Data(title, fmt.Sprintf("%d-%s-%s", userID, btn.AccountID, btn.RoleID))
 			botBtns = append(botBtns, botBtn)
 		}
+
 		chunks := object.ChunkBy(botBtns, 3)
 		rows := make([]telebot.Row, 0, len(chunks))
+
 		for _, chunk := range chunks {
 			rows = append(rows, chunk)
 		}
+
 		sel.Inline(rows...)
 
 		for idx := range botBtns {
@@ -106,6 +114,7 @@ Level: %d
 		Where(gameroleattribute.UserID(role.UserID), gameroleattribute.AccountID(role.AccountID),
 			gameroleattribute.RoleID(role.RoleID)).
 		All(context.Background())
+
 	if err != nil {
 		return fmt.Errorf("query %d game role %s attribute failed: %w", role.UserID, role.RoleID, err)
 	} else if len(vs) > 0 {

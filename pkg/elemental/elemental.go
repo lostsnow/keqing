@@ -31,6 +31,7 @@ func New(id string) *Elemental {
 		ID:    id,
 		Names: names,
 	}
+
 	for _, n := range names {
 		objectMap[n] = e
 	}

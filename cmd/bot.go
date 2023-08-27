@@ -36,9 +36,11 @@ var botCmd = &cobra.Command{
 
 func setBotHandler(b *handler.Bot) {
 	b.Bot.Use(i18n.SetLanguage())
+
 	if viper.GetBool("telegram.debug") {
 		b.Bot.Use(middleware.Logger())
 	}
+
 	b.Bot.Use(middleware.Recover())
 
 	b.Bot.Handle("/help", handler.Help)

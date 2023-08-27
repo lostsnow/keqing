@@ -26,6 +26,7 @@ type Weapon struct {
 
 func (w *Weapon) UnmarshalYAML(n *yaml.Node) error {
 	type W Weapon
+
 	type T struct {
 		*W   `yaml:",inline"`
 		Type string `yaml:"type"`
@@ -40,6 +41,7 @@ func (w *Weapon) UnmarshalYAML(n *yaml.Node) error {
 	if elem == nil {
 		return fmt.Errorf("invalid weapon type: %s", obj.Type)
 	}
+
 	w.Type = elem
 
 	return nil

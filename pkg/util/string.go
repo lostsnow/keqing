@@ -25,10 +25,12 @@ func RandomString(n int) string {
 		if remain == 0 {
 			cache, remain = randSource.Int63(), letterIdxMax
 		}
+
 		if idx := int(cache & letterIdxMask); idx < len(letterBytes) {
 			sb.WriteByte(letterBytes[idx])
 			i--
 		}
+
 		cache >>= letterIdxBits
 		remain--
 	}

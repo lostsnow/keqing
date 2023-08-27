@@ -46,7 +46,9 @@ func (r *QrcodeFetchRequest) Do() (*QrcodeFetchResponseData, error) {
 		AppID:  4,
 		Device: util.RandomString(64),
 	}
+
 	var v QrcodeFetchResponse
+
 	err := SendRequest(r, payload, &v)
 	if err != nil {
 		return nil, err
@@ -56,6 +58,7 @@ func (r *QrcodeFetchRequest) Do() (*QrcodeFetchResponseData, error) {
 	if err != nil {
 		return nil, fmt.Errorf("get QR code login ticket failed: %w", err)
 	}
+
 	v.Data.AppID = payload.AppID
 	v.Data.Device = payload.Device
 	v.Data.Ticket = u.Query().Get("ticket")
@@ -65,6 +68,7 @@ func (r *QrcodeFetchRequest) Do() (*QrcodeFetchResponseData, error) {
 
 func (r *QrcodeFetchRequest) ToImage(url string) ([]byte, error) {
 	var qr []byte
+
 	qr, err := qrcode.Encode(url, qrcode.Medium, 256)
 	if err != nil {
 		return nil, fmt.Errorf("generate login QR code failed: %w", err)

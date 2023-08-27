@@ -12,9 +12,11 @@ func Search[T any](name string, nameAliasMap map[string]string, objectMap map[st
 	name = strings.ToLower(name)
 	uniqMap := make(map[string]struct{})
 	objs := make([]*T, 0)
+
 	if nameAliasMap == nil {
 		nameAliasMap = make(map[string]string, len(objectMap))
 	}
+
 	if len(nameAliasMap) == 0 {
 		for id := range objectMap {
 			nameAliasMap[id] = id
@@ -27,7 +29,9 @@ func Search[T any](name string, nameAliasMap map[string]string, objectMap map[st
 			if _, ok := uniqMap[v]; ok {
 				continue
 			}
+
 			uniqMap[v] = struct{}{}
+
 			if lowerK == name {
 				objs = append(objs, nil)
 				copy(objs[1:], objs)   //nolint:gosec

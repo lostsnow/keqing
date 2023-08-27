@@ -18,7 +18,9 @@ var qrcodeCheckPool *api.QrcodeCheckPool
 
 func RunQrcodeCheckWorker() {
 	logger.Info("running QR code check worker")
+
 	qrcodeCheckPool = api.NewQrcodeCheckPool()
+
 	go qrcodeCheckPool.Worker()
 }
 
@@ -49,6 +51,7 @@ func AuthQrcode(ctx telebot.Context) error {
 	}
 
 	req := api.NewQrcodeFetch()
+
 	resp, err := req.Do()
 	if err != nil {
 		_ = ctx.Reply(i18n.T(ctx, "Fetch QR code failed"))

@@ -19,19 +19,23 @@ func Handler(ctx telebot.Context, typ string) error {
 
 	name := strings.Join(ctx.Args(), " ")
 	chars := character.Search(name)
-	if len(chars) == 0 {
+
+	max := len(chars)
+	if max == 0 {
 		return ctx.Reply(handler.UnknownPhoto)
 	}
-	max := len(chars)
+
 	if max > 9 {
 		max = 9
 	}
 
 	buttons := make([]handler.PhotoButton, 0, max)
+
 	for idx, char := range chars {
 		if idx == max {
 			break
 		}
+
 		buttons = append(buttons, handler.PhotoButton{
 			Title: i18n.T(ctx, char.ID),
 			Dir:   fmt.Sprintf("assets/character/%s/%s", typ, char.Elemental.ID),

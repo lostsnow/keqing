@@ -22,8 +22,10 @@ func Daily(ctx telebot.Context) error {
 
 	wds := parseWeekDay(arg)
 	buttons := make([]handler.PhotoButton, 0)
+
 	for _, wd := range wds {
 		var title string
+
 		switch {
 		case wd == 1:
 			title = fmt.Sprintf("%s/%s", i18n.T(ctx, "Monday"), i18n.T(ctx, "Thursday"))
@@ -103,7 +105,9 @@ func parseWeekDay(s string) []int {
 	}
 
 	zone := time.FixedZone("CST", 8*3600)
+
 	var t time.Time
+
 	switch {
 	case s == "明天" || s == "明日" || s == "tomorrow":
 		t = time.Now().In(zone).AddDate(0, 0, 1)
@@ -116,6 +120,7 @@ func parseWeekDay(s string) []int {
 	default:
 		t = time.Now().In(zone)
 	}
+
 	wd := t.Weekday()
 
 	return dailyAlias[wd]

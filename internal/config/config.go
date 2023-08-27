@@ -55,6 +55,7 @@ func InitProfiler(host string, port int) {
 			Addr:              fmt.Sprintf("%s:%d", host, port),
 			ReadHeaderTimeout: 30 * time.Second,
 		}
+
 		err := srv.ListenAndServe()
 		if err != nil {
 			logger.Error("pprof listen failed: ", err.Error())

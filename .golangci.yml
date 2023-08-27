@@ -5,7 +5,7 @@ linters:
   enable-all: true
   disable:
     - exhaustruct
-    - exhaustivestruct
+    - exhaustivestruct # deprecated
     - deadcode # deprecated
     - depguard
     - errchkjson
@@ -31,4 +31,3 @@ linters:
     - varcheck # deprecated
     - varnamelen
     - wrapcheck
-    - wsl

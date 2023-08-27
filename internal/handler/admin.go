@@ -25,6 +25,7 @@ func CacheAssetsClear(ctx telebot.Context) error {
 
 	dir := ctx.Args()[0]
 	name := strings.Join(ctx.Args()[1:], " ")
+
 	if strings.HasPrefix(dir, "character/") {
 		chars := character.Search(name)
 		if len(chars) != 1 {
@@ -33,14 +34,18 @@ func CacheAssetsClear(ctx telebot.Context) error {
 
 		cacheFilePath := getCacheFilePath(fmt.Sprintf("assets/%s/%s/%s.png", dir, chars[0].Elemental.ID, chars[0].ID))
 		err := os.Remove(cacheFilePath)
+
 		var e *os.PathError
+
 		ok := errors.As(err, &e)
 		if ok && !errors.Is(e.Err, syscall.ENOENT) {
 			return ctx.Reply(fmt.Sprintf("clear %s cache failed: %s", cacheFilePath, err))
 		}
+
 		cacheFileIDPath := fmt.Sprintf("%s.id", cacheFilePath)
 		err = os.Remove(cacheFileIDPath)
 		ok = errors.As(err, &e)
+
 		if ok && !errors.Is(e.Err, syscall.ENOENT) {
 			return ctx.Reply(fmt.Sprintf("clear %s cache failed: %s", cacheFileIDPath, err))
 		}

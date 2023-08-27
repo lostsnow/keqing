@@ -47,21 +47,27 @@ func (h PhotoResponseHandler) Handle(ctx telebot.Context) error {
 	}
 
 	sel := &telebot.ReplyMarkup{}
+
 	if len(h.Buttons) > 1 {
 		botBtns := make([]telebot.Btn, 0, len(h.Buttons))
+
 		for idx, btn := range h.Buttons {
 			title := btn.Title
 			if idx == 0 {
 				title += CurrentInlineKeywordMark
 			}
+
 			botBtn := sel.Data(title, toPhotoUniqueID(btn.Dir+"/"+btn.Name))
 			botBtns = append(botBtns, botBtn)
 		}
+
 		chunks := object.ChunkBy(botBtns, 3)
 		rows := make([]telebot.Row, 0, len(chunks))
+
 		for _, chunk := range chunks {
 			rows = append(rows, chunk)
 		}
+
 		sel.Inline(rows...)
 
 		for idx := range botBtns {
@@ -71,6 +77,7 @@ func (h PhotoResponseHandler) Handle(ctx telebot.Context) error {
 				if _, ok := m.(telebot.Inputtable); !ok {
 					return c.Respond()
 				}
+
 				err := UpdateCurrentInlineKeyboard(sel, c.Callback().Unique)
 				if err != nil {
 					return c.Respond()
@@ -90,6 +97,7 @@ func (h PhotoResponseHandler) Handle(ctx telebot.Context) error {
 	}
 
 	mt, m := h.GetByButton(ctx, h.Buttons[0])
+
 	err := ctx.Reply(m, sel)
 	if err != nil {
 		return fmt.Errorf("send photo %s/%s failed: %w", h.Buttons[0].Dir, h.Buttons[0].Name, err)
@@ -108,12 +116,13 @@ func (h PhotoResponseHandler) GetByButton(ctx telebot.Context, fb PhotoButton) (
 func (h PhotoResponseHandler) Get(ctx telebot.Context, relFilePath string) (MessageType, any) {
 	cacheFilePath := getCacheFilePath(relFilePath)
 	cacheFileIDPath := getCacheFileIDPath(relFilePath)
+	cacheExpired := false
 
 	fi, err := os.Stat(cacheFileIDPath)
-	cacheExpired := false
 	if fi.ModTime().Before(time.Now().AddDate(0, -1, 0)) {
 		cacheExpired = true
 	}
+
 	if err == nil && !cacheExpired {
 		fb, err := os.ReadFile(cacheFileIDPath)
 		if err == nil && len(fb) > 0 {
@@ -127,6 +136,7 @@ func (h PhotoResponseHandler) Get(ctx telebot.Context, relFilePath string) (Mess
 	}
 
 	fileURL := getFileURL(relFilePath)
+
 	err = downloadPhoto(cacheFilePath, fileURL)
 	if err != nil {
 		if !errors.Is(err, ErrDownloadPhotoNotFound) {
@@ -159,11 +169,14 @@ func downloadPhoto(filePath string, rawURL string) error {
 	if err != nil {
 		return fmt.Errorf("download photo %s failed: %w", rawURL, err)
 	}
+
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
 		return fmt.Errorf("download photo %s failed: %w", rawURL, err)
 	}
+
 	defer resp.Body.Close()
+
 	if resp.StatusCode != http.StatusOK {
 		return ErrDownloadPhotoNotFound
 	}
@@ -206,6 +219,7 @@ func cachePhotoID(msg any, mt MessageType, fileIDPath string) {
 	if _, ok := msg.(*telebot.Photo); !ok {
 		return
 	}
+
 	if mt != MessagePhoto {
 		return
 	}
@@ -214,10 +228,12 @@ func cachePhotoID(msg any, mt MessageType, fileIDPath string) {
 	if !ok {
 		return
 	}
+
 	fileID := tPhoto.FileID
 	if fileID == "" {
 		return
 	}
+
 	if _, err := os.Stat(fileIDPath); os.IsNotExist(err) {
 		_ = os.WriteFile(fileIDPath, []byte(fileID), 0o600)
 	}

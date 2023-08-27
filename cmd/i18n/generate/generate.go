@@ -25,10 +25,12 @@ func main() {
 		Mode:  packages.NeedImports,
 		Tests: false,
 	}
+
 	pkgs, err := packages.Load(cfg)
 	if err != nil {
 		log.Fatalf("i18n generate load package failed: %s", err)
 	}
+
 	if len(pkgs) != 1 {
 		log.Fatalf("error: %d packages found", len(pkgs))
 	}
@@ -54,13 +56,16 @@ func main() {
 		Package:      pkg,
 		Translations: trans,
 	}
+
 	out := "./i18n_strings.go"
+
 	f, err := os.Create(out)
 	if err != nil {
 		log.Fatalf("i18n generate create file failed: %s", err)
 	}
 	defer f.Close()
-	_ = tmpl.Execute(f, m)
+
+	err = tmpl.Execute(f, m)
 	if err != nil {
 		log.Printf("i18n generate execute failed: %s", err)
 	} else {
@@ -70,6 +75,7 @@ func main() {
 
 func getTranslations() ([]string, error) {
 	trans := make([]string, 0)
+
 	err := character.Init()
 	if err != nil {
 		return nil, fmt.Errorf("get character i18n strings failed: %w", err)

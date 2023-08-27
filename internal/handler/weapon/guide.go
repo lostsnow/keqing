@@ -18,19 +18,23 @@ func Guide(ctx telebot.Context) error {
 
 	name := strings.Join(ctx.Args(), " ")
 	weapons := weapon.Search(name)
+
 	max := len(weapons)
 	if max == 0 {
 		return ctx.Reply(handler.UnknownPhoto)
 	}
+
 	if max > 9 {
 		max = 9
 	}
 
 	buttons := make([]handler.PhotoButton, 0, max)
+
 	for idx, w := range weapons {
 		if idx == max {
 			break
 		}
+
 		buttons = append(buttons, handler.PhotoButton{
 			Title: i18n.T(ctx, w.ID),
 			Dir:   fmt.Sprintf("assets/weapon/guide/%s", w.Type.ID),

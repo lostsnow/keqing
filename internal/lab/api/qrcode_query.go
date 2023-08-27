@@ -71,7 +71,9 @@ func (r *QrcodeQueryRequest) Do() (*QrcodeQueryResponseData, error) {
 		Device: r.Device,
 		Ticket: r.Ticket,
 	}
+
 	var v QrcodeQueryResponse
+
 	err := SendRequest(r, payload, &v)
 	if err != nil {
 		return nil, err
@@ -86,6 +88,7 @@ func (r *QrcodeQueryRequest) Do() (*QrcodeQueryResponseData, error) {
 
 func (r *QrcodeQueryRequest) ParseGameToken(raw string) (*GameToken, error) {
 	var v GameToken
+
 	err := json.Unmarshal([]byte(raw), &v)
 	if err != nil {
 		return nil, fmt.Errorf("parse auth token %s failed: %w", raw, err)
@@ -147,6 +150,7 @@ func (p *QrcodeCheckPool) Worker() {
 		if err != nil {
 			if errors.Is(err, ErrQrcodeLoginNotConfirmed) && p.IsRunning(task.UserID) {
 				time.Sleep(time.Second * 2)
+
 				go func(t QrcodeCheckTask) {
 					p.Tasks <- t
 				}(task)
@@ -164,6 +168,7 @@ func (p *QrcodeCheckPool) Worker() {
 //nolint:cyclop
 func (t *QrcodeCheckTask) ProcessingToken(raw string) {
 	senderID := t.Context.Sender().ID
+
 	gameToken, err := t.QrcodeQuery.ParseGameToken(raw)
 	if err != nil {
 		handler.ReportError(t.Context, "Game token parse for %d failed: %s", senderID, err)
@@ -173,6 +178,7 @@ func (t *QrcodeCheckTask) ProcessingToken(raw string) {
 	}
 
 	cookieReq := NewCookieTokenReq(gameToken.UID, gameToken.Token)
+
 	cookieToken, err := cookieReq.Do()
 	if err != nil {
 		handler.ReportError(t.Context, "Cookie token fetch for %d failed: %s", senderID, err)
@@ -183,6 +189,7 @@ func (t *QrcodeCheckTask) ProcessingToken(raw string) {
 
 	uid, _ := strconv.ParseInt(gameToken.UID, 10, 64)
 	sTokenReq := NewSTokenReq(uid, gameToken.Token)
+
 	sToken, err := sTokenReq.Do()
 	if err != nil {
 		handler.ReportError(t.Context, "stoken fetch for %d failed: %s", senderID, err)
@@ -210,6 +217,7 @@ func (t *QrcodeCheckTask) ProcessingToken(raw string) {
 	}
 
 	gameRecordReq := NewGameRecordReq(sToken.UserInfo.AID, cookieToken.CookieToken)
+
 	gameRecord, err := gameRecordReq.Do()
 	if err != nil {
 		handler.ReportError(t.Context, "fetch %d game record for %s failed: %s", senderID, gameToken.UID, err)
@@ -227,10 +235,12 @@ func (t *QrcodeCheckTask) ProcessingToken(raw string) {
 
 	bulk := make([]*entity.GameRoleCreate, 0)
 	bulkAttr := make([]*entity.GameRoleAttributeCreate, 0)
+
 	for _, role := range gameRecord.GameRecords {
 		if role.GameID != 2 {
 			continue
 		}
+
 		bulk = append(bulk, db.DB.Client.GameRole.
 			Create().
 			SetUserID(senderID).

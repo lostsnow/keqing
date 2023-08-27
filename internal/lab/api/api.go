@@ -96,6 +96,7 @@ func SendRequest(r RequestInterface, payload any, v ResponseInterface) error {
 		}
 		req, err = http.NewRequest(r.GetMethod(), u.String(), nil)
 	}
+
 	if err != nil {
 		return fmt.Errorf("new request %s failed: %w", r.GetURL(), err)
 	}
@@ -103,6 +104,7 @@ func SendRequest(r RequestInterface, payload any, v ResponseInterface) error {
 	headers := r.GetHeaders()
 	if len(headers) == 0 {
 		req.Header.Add("User-Agent", "okhttp/4.8.0")
+
 		if http.MethodPost == r.GetMethod() {
 			req.Header.Add("Content-Type", "application/json")
 		}
@@ -139,8 +141,11 @@ func initHTTPClient() (*http.Client, error) {
 	if httpClient != nil {
 		return httpClient, nil
 	}
+
 	client := &http.Client{}
+
 	proxy := viper.GetString("proxy.mihoyo")
+
 	if proxy != "" {
 		p, err := url.Parse(proxy)
 		if err != nil {
@@ -151,6 +156,7 @@ func initHTTPClient() (*http.Client, error) {
 			Proxy: http.ProxyURL(p),
 		}
 	}
+
 	httpClient = client
 
 	return httpClient, nil
