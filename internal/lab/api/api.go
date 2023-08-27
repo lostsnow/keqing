@@ -5,6 +5,7 @@ import (
 	"crypto/md5" //nolint:gosec
 	"encoding/hex"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -29,6 +30,11 @@ const (
 )
 
 var httpClient *http.Client
+
+var (
+	ErrInvalidPayload     = errors.New("invalid payload")
+	ErrRequestBodyInvalid = errors.New("request body invalid")
+)
 
 type RequestInterface interface {
 	GetURL() string
@@ -71,7 +77,7 @@ func (r *Response) GetRetCode() int {
 func SendRequest(r RequestInterface, payload any, v ResponseInterface) error {
 	pl, err := json.Marshal(payload)
 	if err != nil {
-		return fmt.Errorf("invalid payload for %s", r.GetURL())
+		return fmt.Errorf("%w for %s", ErrInvalidPayload, r.GetURL())
 	}
 
 	client, err := initHTTPClient()
@@ -131,7 +137,7 @@ func SendRequest(r RequestInterface, payload any, v ResponseInterface) error {
 	}
 
 	if v.GetRetCode() != 0 {
-		return fmt.Errorf("request %s body %s invalid", r.GetURL(), body)
+		return fmt.Errorf("%w, URL: %s, BODY: %s", ErrRequestBodyInvalid, r.GetURL(), body)
 	}
 
 	return nil

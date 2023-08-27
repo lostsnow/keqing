@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"errors"
 	"fmt"
 	"os"
 
@@ -19,11 +20,13 @@ var (
 	profilerPort int
 )
 
+var ErrInvalidCommand = errors.New("invalid command")
+
 var rootCmd = &cobra.Command{
 	Use:   "keqing",
 	Short: "Keqing bot",
 	RunE: func(*cobra.Command, []string) error {
-		return fmt.Errorf("invalid command")
+		return ErrInvalidCommand
 	},
 }
 

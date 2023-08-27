@@ -1,6 +1,7 @@
 package character
 
 import (
+	"errors"
 	"fmt"
 	"io/fs"
 	"strings"
@@ -15,6 +16,8 @@ import (
 	"github.com/lostsnow/keqing/pkg/object"
 	"github.com/lostsnow/keqing/pkg/star"
 )
+
+var ErrInvalidElemental = errors.New("invalid elemental")
 
 type Character struct {
 	ID          string               `yaml:"id"`
@@ -40,7 +43,7 @@ func (c *Character) UnmarshalYAML(n *yaml.Node) error {
 	elem := elemental.Get(obj.Elemental)
 
 	if elem == nil {
-		return fmt.Errorf("invalid elemental: %s", obj.Elemental)
+		return fmt.Errorf("%w: %s", ErrInvalidElemental, obj.Elemental)
 	}
 
 	c.Elemental = elem
