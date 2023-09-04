@@ -3,7 +3,7 @@ module github.com/lostsnow/keqing
 go 1.20
 
 require (
-	ariga.io/atlas v0.13.1
+	ariga.io/atlas v0.14.0
 	entgo.io/ent v0.12.3
 	github.com/go-sql-driver/mysql v1.7.1
 	github.com/google/uuid v1.3.0
