@@ -113,13 +113,14 @@ func (h PhotoResponseHandler) GetByButton(ctx telebot.Context, fb PhotoButton) (
 	return h.Get(ctx, fmt.Sprintf("%s/%s", fb.Dir, fb.Name))
 }
 
+//nolint:cyclop
 func (h PhotoResponseHandler) Get(ctx telebot.Context, relFilePath string) (MessageType, any) {
 	cacheFilePath := getCacheFilePath(relFilePath)
 	cacheFileIDPath := getCacheFileIDPath(relFilePath)
 	cacheExpired := false
 
 	fi, err := os.Stat(cacheFileIDPath)
-	if fi.ModTime().Before(time.Now().AddDate(0, -1, 0)) {
+	if err == nil && fi.ModTime().Before(time.Now().AddDate(0, -1, 0)) {
 		cacheExpired = true
 	}
 
