@@ -467,6 +467,13 @@
             "fuzzy": true
         },
         {
+            "id": "Charlotte",
+            "message": "Charlotte",
+            "translation": "Charlotte",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Chongyun",
             "message": "Chongyun",
             "translation": "Chongyun",
@@ -771,6 +778,13 @@
             "id": "Fruit of Fulfillment",
             "message": "Fruit of Fulfillment",
             "translation": "Fruit of Fulfillment",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Furina",
+            "message": "Furina",
+            "translation": "Furina",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -1156,6 +1170,13 @@
             "id": "Nahida",
             "message": "Nahida",
             "translation": "Nahida",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Neuvillette",
+            "message": "Neuvillette",
+            "translation": "Neuvillette",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -1863,6 +1884,13 @@
             "id": "Wolfs Gravestone",
             "message": "Wolfs Gravestone",
             "translation": "Wolfs Gravestone",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Wriothesley",
+            "message": "Wriothesley",
+            "translation": "Wriothesley",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },

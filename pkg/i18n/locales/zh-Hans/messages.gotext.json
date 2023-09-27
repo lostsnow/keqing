@@ -337,6 +337,11 @@
             "translation": "坎蒂丝"
         },
         {
+            "id": "Charlotte",
+            "message": "Charlotte",
+            "translation": "夏洛蒂"
+        },
+        {
             "id": "Chongyun",
             "message": "Chongyun",
             "translation": "重云"
@@ -555,6 +560,11 @@
             "id": "Fruit of Fulfillment",
             "message": "Fruit of Fulfillment",
             "translation": "盈满之实"
+        },
+        {
+            "id": "Furina",
+            "message": "Furina",
+            "translation": "芙宁娜"
         },
         {
             "id": "Ganyu",
@@ -830,6 +840,11 @@
             "id": "Nahida",
             "message": "Nahida",
             "translation": "纳西妲"
+        },
+        {
+            "id": "Neuvillette",
+            "message": "Neuvillette",
+            "translation": "那维莱特"
         },
         {
             "id": "Nilou",
@@ -1335,6 +1350,11 @@
             "id": "Wolfs Gravestone",
             "message": "Wolfs Gravestone",
             "translation": "狼的末路"
+        },
+        {
+            "id": "Wriothesley",
+            "message": "Wriothesley",
+            "translation": "莱欧斯利"
         },
         {
             "id": "Xiangling",
