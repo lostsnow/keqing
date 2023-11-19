@@ -362,6 +362,13 @@
             "fuzzy": true
         },
         {
+            "id": "Ballad Of The Boundless Blue",
+            "message": "Ballad Of The Boundless Blue",
+            "translation": "Ballad Of The Boundless Blue",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Ballad Of The Fjords",
             "message": "Ballad Of The Fjords",
             "translation": "Ballad Of The Fjords",
@@ -463,6 +470,13 @@
             "id": "Candace",
             "message": "Candace",
             "translation": "Candace",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Cashflow Supervision",
+            "message": "Cashflow Supervision",
+            "translation": "Cashflow Supervision",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -1230,6 +1244,13 @@
             "fuzzy": true
         },
         {
+            "id": "Portable Power Saw",
+            "message": "Portable Power Saw",
+            "translation": "Portable Power Saw",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Predator",
             "message": "Predator",
             "translation": "Predator",
@@ -1247,6 +1268,13 @@
             "id": "Primordial Jade Winged Spear",
             "message": "Primordial Jade Winged Spear",
             "translation": "Primordial Jade Winged Spear",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Prospectors Drill",
+            "message": "Prospectors Drill",
+            "translation": "Prospectors Drill",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -1303,6 +1331,13 @@
             "id": "Rainslasher",
             "message": "Rainslasher",
             "translation": "Rainslasher",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Range Gauge",
+            "message": "Range Gauge",
+            "translation": "Range Gauge",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -1580,6 +1615,13 @@
             "fuzzy": true
         },
         {
+            "id": "Splendor Of Tranquil Waters",
+            "message": "Splendor Of Tranquil Waters",
+            "translation": "Splendor Of Tranquil Waters",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Staff of Homa",
             "message": "Staff of Homa",
             "translation": "Staff of Homa",
@@ -1604,6 +1646,13 @@
             "id": "Summit Shaper",
             "message": "Summit Shaper",
             "translation": "Summit Shaper",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Sword Of Narzissenkreuz",
+            "message": "Sword Of Narzissenkreuz",
+            "translation": "Sword Of Narzissenkreuz",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -1653,6 +1702,13 @@
             "id": "The Catch",
             "message": "The Catch",
             "translation": "The Catch",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "The Dockhands Assistant",
+            "message": "The Dockhands Assistant",
+            "translation": "The Dockhands Assistant",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -1730,6 +1786,13 @@
             "id": "Tighnari",
             "message": "Tighnari",
             "translation": "Tighnari",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Tome Of The Eternal Flow",
+            "message": "Tome Of The Eternal Flow",
+            "translation": "Tome Of The Eternal Flow",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },

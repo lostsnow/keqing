@@ -262,6 +262,11 @@
             "translation": "白术"
         },
         {
+            "id": "Ballad Of The Boundless Blue",
+            "message": "Ballad Of The Boundless Blue",
+            "translation": "无垠蔚蓝之歌"
+        },
+        {
             "id": "Ballad Of The Fjords",
             "message": "Ballad Of The Fjords",
             "translation": "峡湾长歌"
@@ -335,6 +340,11 @@
             "id": "Candace",
             "message": "Candace",
             "translation": "坎蒂丝"
+        },
+        {
+            "id": "Cashflow Supervision",
+            "message": "Cashflow Supervision",
+            "translation": "金流监督"
         },
         {
             "id": "Charlotte",
@@ -882,6 +892,11 @@
             "translation": "冬极白星"
         },
         {
+            "id": "Portable Power Saw",
+            "message": "Portable Power Saw",
+            "translation": "便携动力锯"
+        },
+        {
             "id": "Predator",
             "message": "Predator",
             "translation": "掠食者"
@@ -895,6 +910,11 @@
             "id": "Primordial Jade Winged Spear",
             "message": "Primordial Jade Winged Spear",
             "translation": "和璞鸢"
+        },
+        {
+            "id": "Prospectors Drill",
+            "message": "Prospectors Drill",
+            "translation": "勘探钻机"
         },
         {
             "id": "Prototype Amber",
@@ -935,6 +955,11 @@
             "id": "Rainslasher",
             "message": "Rainslasher",
             "translation": "雨裁"
+        },
+        {
+            "id": "Range Gauge",
+            "message": "Range Gauge",
+            "translation": "测距规"
         },
         {
             "id": "Raven Bow",
@@ -1132,6 +1157,11 @@
             "translation": "松籁响起之时"
         },
         {
+            "id": "Splendor Of Tranquil Waters",
+            "message": "Splendor Of Tranquil Waters",
+            "translation": "静水流涌之辉"
+        },
+        {
             "id": "Staff of Homa",
             "message": "Staff of Homa",
             "translation": "护摩之杖"
@@ -1150,6 +1180,11 @@
             "id": "Summit Shaper",
             "message": "Summit Shaper",
             "translation": "斫峰之刃"
+        },
+        {
+            "id": "Sword Of Narzissenkreuz",
+            "message": "Sword Of Narzissenkreuz",
+            "translation": "水仙十字之剑"
         },
         {
             "id": "Sword of Descension",
@@ -1185,6 +1220,11 @@
             "id": "The Catch",
             "message": "The Catch",
             "translation": "「渔获」"
+        },
+        {
+            "id": "The Dockhands Assistant",
+            "message": "The Dockhands Assistant",
+            "translation": "船坞长剑"
         },
         {
             "id": "The First Great Magic",
@@ -1240,6 +1280,11 @@
             "id": "Tighnari",
             "message": "Tighnari",
             "translation": "提纳里"
+        },
+        {
+            "id": "Tome Of The Eternal Flow",
+            "message": "Tome Of The Eternal Flow",
+            "translation": "万世流涌大典"
         },
         {
             "id": "Toukabou Shigure",
