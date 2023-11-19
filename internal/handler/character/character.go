@@ -20,19 +20,19 @@ func Handler(ctx telebot.Context, typ string) error {
 	name := strings.Join(ctx.Args(), " ")
 	chars := character.Search(name)
 
-	max := len(chars)
-	if max == 0 {
+	maxLen := len(chars)
+	if maxLen == 0 {
 		return ctx.Reply(handler.UnknownPhoto)
 	}
 
-	if max > 9 {
-		max = 9
+	if maxLen > 9 {
+		maxLen = 9
 	}
 
-	buttons := make([]handler.PhotoButton, 0, max)
+	buttons := make([]handler.PhotoButton, 0, maxLen)
 
 	for idx, char := range chars {
-		if idx == max {
+		if idx == maxLen {
 			break
 		}
 
