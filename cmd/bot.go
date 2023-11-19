@@ -52,6 +52,8 @@ func setBotHandler(b *handler.Bot) {
 	b.Bot.Handle("/material_weekly", material.Weekly)
 	b.Bot.Handle("/material_daily", material.Daily)
 	b.Bot.Handle("/material_boss", material.Boss)
+	b.Bot.Handle("/material_char", material.Character)
+	b.Bot.Handle("/material_weapon", material.Weapon)
 
 	b.Bot.Handle("/auth_qrcode", lab.AuthQrcode)
 	b.Bot.Handle("/game_role", game.Role)
