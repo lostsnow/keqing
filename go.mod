@@ -14,13 +14,12 @@ require (
 	github.com/stretchr/testify v1.8.4
 	golang.org/x/text v0.14.0
 	golang.org/x/tools v0.15.0
-	gopkg.in/telebot.v3 v3.1.4
+	gopkg.in/telebot.v3 v3.2.1
 	gopkg.in/yaml.v3 v3.0.1
 )
 
 require (
 	github.com/agext/levenshtein v1.2.3 // indirect
-	github.com/apparentlymart/go-textseg/v13 v13.0.0 // indirect
 	github.com/apparentlymart/go-textseg/v15 v15.0.0 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
@@ -42,7 +41,6 @@ require (
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/subosito/gotenv v1.6.0 // indirect
 	github.com/zclconf/go-cty v1.14.1 // indirect
-	go.uber.org/atomic v1.11.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.26.0 // indirect
 	golang.org/x/exp v0.0.0-20231110203233-9a3e6036ecaa // indirect
