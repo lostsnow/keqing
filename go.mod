@@ -6,7 +6,7 @@ require (
 	ariga.io/atlas v0.15.0
 	entgo.io/ent v0.12.5
 	github.com/go-sql-driver/mysql v1.7.1
-	github.com/google/uuid v1.4.0
+	github.com/google/uuid v1.5.0
 	github.com/litsea/logger v1.0.1
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
 	github.com/spf13/cobra v1.8.0
@@ -20,7 +20,6 @@ require (
 
 require (
 	github.com/agext/levenshtein v1.2.3 // indirect
-	github.com/apparentlymart/go-textseg/v13 v13.0.0 // indirect
 	github.com/apparentlymart/go-textseg/v15 v15.0.0 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
@@ -42,7 +41,6 @@ require (
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/subosito/gotenv v1.6.0 // indirect
 	github.com/zclconf/go-cty v1.14.1 // indirect
-	go.uber.org/atomic v1.11.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.26.0 // indirect
 	golang.org/x/exp v0.0.0-20231110203233-9a3e6036ecaa // indirect
