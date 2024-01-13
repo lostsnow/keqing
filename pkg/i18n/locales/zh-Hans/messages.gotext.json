@@ -382,6 +382,11 @@
             "translation": "冷刃"
         },
         {
+            "id": "Cranes Echoing Call",
+            "message": "Cranes Echoing Call",
+            "translation": "鹤鸣余音"
+        },
+        {
             "id": "Crescent Pike",
             "message": "Crescent Pike",
             "translation": "流月针"
@@ -580,6 +585,11 @@
             "id": "Furina",
             "message": "Furina",
             "translation": "芙宁娜"
+        },
+        {
+            "id": "Gaming",
+            "message": "Gaming",
+            "translation": "嘉明"
         },
         {
             "id": "Ganyu",
@@ -1425,6 +1435,11 @@
             "id": "Xiangling",
             "message": "Xiangling",
             "translation": "香菱"
+        },
+        {
+            "id": "Xianyun",
+            "message": "Xianyun",
+            "translation": "闲云"
         },
         {
             "id": "Xiao",

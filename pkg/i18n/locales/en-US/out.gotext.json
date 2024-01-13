@@ -530,6 +530,13 @@
             "fuzzy": true
         },
         {
+            "id": "Cranes Echoing Call",
+            "message": "Cranes Echoing Call",
+            "translation": "Cranes Echoing Call",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Crescent Pike",
             "message": "Crescent Pike",
             "translation": "Crescent Pike",
@@ -806,6 +813,13 @@
             "id": "Furina",
             "message": "Furina",
             "translation": "Furina",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Gaming",
+            "message": "Gaming",
+            "translation": "Gaming",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -1989,6 +2003,13 @@
             "id": "Xiangling",
             "message": "Xiangling",
             "translation": "Xiangling",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Xianyun",
+            "message": "Xianyun",
+            "translation": "Xianyun",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
