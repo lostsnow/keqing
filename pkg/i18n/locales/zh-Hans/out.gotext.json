@@ -352,6 +352,11 @@
             "translation": "夏洛蒂"
         },
         {
+            "id": "Chevreuse",
+            "message": "Chevreuse",
+            "translation": "夏沃蕾"
+        },
+        {
             "id": "Chongyun",
             "message": "Chongyun",
             "translation": "重云"
@@ -852,6 +857,11 @@
             "translation": "纳西妲"
         },
         {
+            "id": "Navia",
+            "message": "Navia",
+            "translation": "娜维娅"
+        },
+        {
             "id": "Neuvillette",
             "message": "Neuvillette",
             "translation": "那维莱特"
@@ -1332,9 +1342,19 @@
             "translation": "甲级宝珏"
         },
         {
+            "id": "Ultimate Overlords Mega Magic Sword",
+            "message": "Ultimate Overlords Mega Magic Sword",
+            "translation": "究极霸王超级魔剑"
+        },
+        {
             "id": "Venti",
             "message": "Venti",
             "translation": "温迪"
+        },
+        {
+            "id": "Verdict",
+            "message": "Verdict",
+            "translation": "裁断"
         },
         {
             "id": "Vortex Vanquisher",

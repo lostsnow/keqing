@@ -488,6 +488,13 @@
             "fuzzy": true
         },
         {
+            "id": "Chevreuse",
+            "message": "Chevreuse",
+            "translation": "Chevreuse",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Chongyun",
             "message": "Chongyun",
             "translation": "Chongyun",
@@ -1188,6 +1195,13 @@
             "fuzzy": true
         },
         {
+            "id": "Navia",
+            "message": "Navia",
+            "translation": "Navia",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Neuvillette",
             "message": "Neuvillette",
             "translation": "Neuvillette",
@@ -1860,9 +1874,23 @@
             "fuzzy": true
         },
         {
+            "id": "Ultimate Overlords Mega Magic Sword",
+            "message": "Ultimate Overlords Mega Magic Sword",
+            "translation": "Ultimate Overlords Mega Magic Sword",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Venti",
             "message": "Venti",
             "translation": "Venti",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Verdict",
+            "message": "Verdict",
+            "translation": "Verdict",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
