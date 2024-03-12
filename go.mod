@@ -6,7 +6,7 @@ require (
 	ariga.io/atlas v0.15.0
 	entgo.io/ent v0.12.5
 	github.com/go-sql-driver/mysql v1.8.0
-	github.com/google/uuid v1.5.0
+	github.com/google/uuid v1.6.0
 	github.com/litsea/logger v1.0.1
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
 	github.com/spf13/cobra v1.8.0
