@@ -197,6 +197,11 @@
             "translation": "千夜浮梦"
         },
         {
+            "id": "Absolution",
+            "message": "Absolution",
+            "translation": "赦罪"
+        },
+        {
             "id": "Akuoumaru",
             "message": "Akuoumaru",
             "translation": "恶王丸"
@@ -375,6 +380,16 @@
             "id": "Cinnabar Spindle",
             "message": "Cinnabar Spindle",
             "translation": "辰砂之纺锤"
+        },
+        {
+            "id": "Clorinde",
+            "message": "Clorinde",
+            "translation": "克洛琳德"
+        },
+        {
+            "id": "Cloudforged",
+            "message": "Cloudforged",
+            "translation": "筑云"
         },
         {
             "id": "Collei",
@@ -1117,6 +1132,11 @@
             "translation": "螭骨剑"
         },
         {
+            "id": "Sethos",
+            "message": "Sethos",
+            "translation": "赛索斯"
+        },
+        {
             "id": "Sharpshooters Oath",
             "message": "Sharpshooters Oath",
             "translation": "神射手之誓"
@@ -1132,9 +1152,19 @@
             "translation": "鹿野院平藏"
         },
         {
+            "id": "Sigewinne",
+            "message": "Sigewinne",
+            "translation": "希格雯"
+        },
+        {
             "id": "Silver Sword",
             "message": "Silver Sword",
             "translation": "银剑"
+        },
+        {
+            "id": "Silvershower Heartstrings",
+            "message": "Silvershower Heartstrings",
+            "translation": "白雨心弦"
         },
         {
             "id": "Skyrider Greatsword",

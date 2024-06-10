@@ -271,6 +271,13 @@
             "fuzzy": true
         },
         {
+            "id": "Absolution",
+            "message": "Absolution",
+            "translation": "Absolution",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Akuoumaru",
             "message": "Akuoumaru",
             "translation": "Akuoumaru",
@@ -519,6 +526,20 @@
             "id": "Cinnabar Spindle",
             "message": "Cinnabar Spindle",
             "translation": "Cinnabar Spindle",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Clorinde",
+            "message": "Clorinde",
+            "translation": "Clorinde",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Cloudforged",
+            "message": "Cloudforged",
+            "translation": "Cloudforged",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
@@ -1559,6 +1580,13 @@
             "fuzzy": true
         },
         {
+            "id": "Sethos",
+            "message": "Sethos",
+            "translation": "Sethos",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Sharpshooters Oath",
             "message": "Sharpshooters Oath",
             "translation": "Sharpshooters Oath",
@@ -1580,9 +1608,23 @@
             "fuzzy": true
         },
         {
+            "id": "Sigewinne",
+            "message": "Sigewinne",
+            "translation": "Sigewinne",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Silver Sword",
             "message": "Silver Sword",
             "translation": "Silver Sword",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Silvershower Heartstrings",
+            "message": "Silvershower Heartstrings",
+            "translation": "Silvershower Heartstrings",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },
