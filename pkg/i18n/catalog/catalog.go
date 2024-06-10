@@ -53,300 +53,302 @@ var messageKeyToIndex = map[string]int{
 	"Aqua Simulacra":               46,
 	"Aquila Favonia":               47,
 	"Arataki Itto":                 48,
+	"Arlecchino":                   49,
 	"Authentication successfully":  28,
-	"Baizhu":                       49,
-	"Ballad Of The Boundless Blue": 50,
-	"Ballad Of The Fjords":         51,
-	"Barbara":                      52,
-	"Beacon of the Reed Sea":       53,
-	"Beginners Protector":          54,
-	"Beidou":                       55,
-	"Bennett":                      56,
-	"Black Tassel":                 57,
-	"Blackcliff Agate":             58,
-	"Blackcliff Longsword":         59,
-	"Blackcliff Pole":              60,
-	"Blackcliff Slasher":           61,
-	"Blackcliff Warbow":            62,
-	"Bloodtainted Greatsword":      63,
-	"Bow":                          304,
-	"Calamity Queller":             64,
-	"Candace":                      65,
-	"Cashflow Supervision":         66,
-	"Catalyst":                     303,
-	"Charlotte":                    67,
-	"Chevreuse":                    68,
-	"Chiori":                       69,
-	"Chongyun":                     70,
-	"Cinnabar Spindle":             71,
-	"Claymore":                     301,
-	"Collei":                       72,
-	"Compound Bow":                 73,
+	"Baizhu":                       50,
+	"Ballad Of The Boundless Blue": 51,
+	"Ballad Of The Fjords":         52,
+	"Barbara":                      53,
+	"Beacon of the Reed Sea":       54,
+	"Beginners Protector":          55,
+	"Beidou":                       56,
+	"Bennett":                      57,
+	"Black Tassel":                 58,
+	"Blackcliff Agate":             59,
+	"Blackcliff Longsword":         60,
+	"Blackcliff Pole":              61,
+	"Blackcliff Slasher":           62,
+	"Blackcliff Warbow":            63,
+	"Bloodtainted Greatsword":      64,
+	"Bow":                          306,
+	"Calamity Queller":             65,
+	"Candace":                      66,
+	"Cashflow Supervision":         67,
+	"Catalyst":                     305,
+	"Charlotte":                    68,
+	"Chevreuse":                    69,
+	"Chiori":                       70,
+	"Chongyun":                     71,
+	"Cinnabar Spindle":             72,
+	"Claymore":                     303,
+	"Collei":                       73,
+	"Compound Bow":                 74,
 	"Cookie token fetch failed, please try again": 20,
-	"Cool Steel":                    74,
-	"Cranes Echoing Call":           75,
-	"Crescent Pike":                 76,
+	"Cool Steel":                    75,
+	"Cranes Echoing Call":           76,
+	"Crescent Pike":                 77,
+	"Crimson Moons Semblance":       78,
 	"Cryo":                          34,
 	"Cut to the chase":              1,
-	"Cyno":                          77,
-	"Dark Iron Sword":               78,
-	"Deathmatch":                    79,
-	"Debate Club":                   80,
-	"Dehya":                         81,
+	"Cyno":                          79,
+	"Dark Iron Sword":               80,
+	"Deathmatch":                    81,
+	"Debate Club":                   82,
+	"Dehya":                         83,
 	"Dendro":                        33,
-	"Dialogues Of The Desert Sages": 82,
-	"Diluc":                         83,
-	"Diona":                         84,
-	"Dodoco Tales":                  85,
-	"Dori":                          86,
-	"Dragons Bane":                  87,
-	"Dragonspine Spear":             88,
-	"Dull Blade":                    89,
+	"Dialogues Of The Desert Sages": 84,
+	"Diluc":                         85,
+	"Diona":                         86,
+	"Dodoco Tales":                  87,
+	"Dori":                          88,
+	"Dragons Bane":                  89,
+	"Dragonspine Spear":             90,
+	"Dull Blade":                    91,
 	"Electro":                       32,
-	"Elegy for the End":             90,
-	"Emerald Orb":                   91,
-	"End of the Line":               92,
-	"Engulfing Lightning":           93,
-	"Eula":                          94,
-	"Everlasting Moonglow":          95,
-	"Eye of Perception":             96,
-	"Fading Twilight":               97,
-	"Faruzan":                       98,
-	"Favonius Codex":                99,
-	"Favonius Greatsword":           100,
-	"Favonius Lance":                101,
-	"Favonius Sword":                102,
-	"Favonius Warbow":               103,
-	"Ferrous Shadow":                104,
-	"Festering Desire":              105,
+	"Elegy for the End":             92,
+	"Emerald Orb":                   93,
+	"End of the Line":               94,
+	"Engulfing Lightning":           95,
+	"Eula":                          96,
+	"Everlasting Moonglow":          97,
+	"Eye of Perception":             98,
+	"Fading Twilight":               99,
+	"Faruzan":                       100,
+	"Favonius Codex":                101,
+	"Favonius Greatsword":           102,
+	"Favonius Lance":                103,
+	"Favonius Sword":                104,
+	"Favonius Warbow":               105,
+	"Ferrous Shadow":                106,
+	"Festering Desire":              107,
 	"Fetch QR code failed":          8,
-	"Fillet Blade":                  106,
-	"Finale Of The Deep":            107,
-	"Fischl":                        108,
-	"Fleuve Cendre Ferryman":        109,
-	"Flowing Purity":                110,
-	"Forest Regalia":                111,
-	"Freedom-Sworn":                 112,
-	"Freminet":                      113,
+	"Fillet Blade":                  108,
+	"Finale Of The Deep":            109,
+	"Fischl":                        110,
+	"Fleuve Cendre Ferryman":        111,
+	"Flowing Purity":                112,
+	"Forest Regalia":                113,
+	"Freedom-Sworn":                 114,
+	"Freminet":                      115,
 	"Friday":                        15,
-	"Frostbearer":                   114,
-	"Fruit of Fulfillment":          115,
-	"Furina":                        116,
+	"Frostbearer":                   116,
+	"Fruit of Fulfillment":          117,
+	"Furina":                        118,
 	"Game token parse failed, please try again": 19,
-	"Gaming":                   117,
-	"Ganyu":                    118,
+	"Gaming":                   119,
+	"Ganyu":                    120,
 	"Generate QR code failed":  9,
 	"Geo":                      35,
-	"Gorou":                    119,
-	"Hakushin Ring":            120,
-	"Halberd":                  121,
-	"Hamayumi":                 122,
-	"Haran Geppaku Futsu":      123,
-	"Harbinger of Dawn":        124,
-	"Hu Tao":                   125,
-	"Hunters Bow":              126,
-	"Hunters Path":             127,
+	"Gorou":                    121,
+	"Hakushin Ring":            122,
+	"Halberd":                  123,
+	"Hamayumi":                 124,
+	"Haran Geppaku Futsu":      125,
+	"Harbinger of Dawn":        126,
+	"Hu Tao":                   127,
+	"Hunters Bow":              128,
+	"Hunters Path":             129,
 	"Hydro":                    30,
-	"Ibis Piercer":             128,
-	"Iron Point":               129,
-	"Iron Sting":               130,
-	"Jadefalls Splendor":       131,
-	"Jean":                     132,
-	"Kaedehara Kazuha":         133,
-	"Kaeya":                    134,
-	"Kagotsurube Isshin":       135,
-	"Kaguras Verity":           136,
-	"Kamisato Ayaka":           137,
-	"Kamisato Ayato":           138,
-	"Katsuragikiri Nagamasa":   139,
-	"Kaveh":                    140,
-	"Keqing":                   141,
-	"Key of Khaj Nisut":        142,
-	"Kings Squire":             143,
-	"Kirara":                   144,
-	"Kitain Cross Spear":       145,
-	"Klee":                     146,
-	"Kujou Sara":               147,
-	"Kuki Shinobu":             148,
-	"Layla":                    149,
-	"Light of Foliar Incision": 150,
-	"Lions Roar":               151,
-	"Lisa":                     152,
-	"Lithic Blade":             153,
-	"Lithic Spear":             154,
+	"Ibis Piercer":             130,
+	"Iron Point":               131,
+	"Iron Sting":               132,
+	"Jadefalls Splendor":       133,
+	"Jean":                     134,
+	"Kaedehara Kazuha":         135,
+	"Kaeya":                    136,
+	"Kagotsurube Isshin":       137,
+	"Kaguras Verity":           138,
+	"Kamisato Ayaka":           139,
+	"Kamisato Ayato":           140,
+	"Katsuragikiri Nagamasa":   141,
+	"Kaveh":                    142,
+	"Keqing":                   143,
+	"Key of Khaj Nisut":        144,
+	"Kings Squire":             145,
+	"Kirara":                   146,
+	"Kitain Cross Spear":       147,
+	"Klee":                     148,
+	"Kujou Sara":               149,
+	"Kuki Shinobu":             150,
+	"Layla":                    151,
+	"Light of Foliar Incision": 152,
+	"Lions Roar":               153,
+	"Lisa":                     154,
+	"Lithic Blade":             155,
+	"Lithic Spear":             156,
 	"Login failed or QR code expired, please try again": 18,
-	"Lost Prayer to the Sacred Winds":                   155,
-	"Luxurious Sea Lord":                                156,
-	"Lynette":                                           157,
-	"Lyney":                                             158,
-	"Magic Guide":                                       159,
-	"Mailed Flower":                                     160,
-	"Makhaira Aquamarine":                               161,
-	"Mappa Mare":                                        162,
-	"Memory of Dust":                                    163,
-	"Messenger":                                         164,
-	"Mika":                                              165,
-	"Missive Windspear":                                 166,
-	"Mistsplitter Reforged":                             167,
-	"Mitternachts Waltz":                                168,
-	"Mona":                                              169,
+	"Lost Prayer to the Sacred Winds":                   157,
+	"Luxurious Sea Lord":                                158,
+	"Lynette":                                           159,
+	"Lyney":                                             160,
+	"Magic Guide":                                       161,
+	"Mailed Flower":                                     162,
+	"Makhaira Aquamarine":                               163,
+	"Mappa Mare":                                        164,
+	"Memory of Dust":                                    165,
+	"Messenger":                                         166,
+	"Mika":                                              167,
+	"Missive Windspear":                                 168,
+	"Mistsplitter Reforged":                             169,
+	"Mitternachts Waltz":                                170,
+	"Mona":                                              171,
 	"Monday":                                            12,
-	"Moonpiercer":                                       170,
-	"Mouuns Moon":                                       171,
-	"Nahida":                                            172,
-	"Navia":                                             173,
-	"Neuvillette":                                       174,
-	"Nilou":                                             175,
-	"Ningguang":                                         176,
+	"Moonpiercer":                                       172,
+	"Mouuns Moon":                                       173,
+	"Nahida":                                            174,
+	"Navia":                                             175,
+	"Neuvillette":                                       176,
+	"Nilou":                                             177,
+	"Ningguang":                                         178,
 	"No game role found, please send command /game_refresh_role to refresh": 4,
 	"No such character": 0,
-	"Noelle":            177,
+	"Noelle":            179,
 	"Not yet implemented, send command %s instead": 2,
-	"Oathsworn Eye":      178,
-	"Otherworldly Story": 179,
+	"Oathsworn Eye":      180,
+	"Otherworldly Story": 181,
 	"Please scan the QR code with the miyoushe App": 10,
 	"Please send me a private chat message":         5,
-	"Pocket Grimoire":                               180,
-	"Polar Star":                                    181,
-	"Polearm":                                       302,
-	"Portable Power Saw":                            182,
-	"Predator":                                      183,
-	"Primordial Jade Cutter":                        184,
-	"Primordial Jade Winged Spear":                  185,
-	"Prospectors Drill":                             186,
-	"Prototype Amber":                               187,
-	"Prototype Archaic":                             188,
-	"Prototype Crescent":                            189,
-	"Prototype Rancour":                             190,
-	"Prototype Starglitter":                         191,
+	"Pocket Grimoire":                               182,
+	"Polar Star":                                    183,
+	"Polearm":                                       304,
+	"Portable Power Saw":                            184,
+	"Predator":                                      185,
+	"Primordial Jade Cutter":                        186,
+	"Primordial Jade Winged Spear":                  187,
+	"Prospectors Drill":                             188,
+	"Prototype Amber":                               189,
+	"Prototype Archaic":                             190,
+	"Prototype Crescent":                            191,
+	"Prototype Rancour":                             192,
+	"Prototype Starglitter":                         193,
 	"Pyro":                                          29,
 	"QR code login is being checked":                6,
-	"Qiqi":                                          192,
+	"Qiqi":                                          194,
 	"Query game role failed":                        3,
-	"Raiden Shogun":                                 193,
-	"Rainslasher":                                   194,
-	"Range Gauge":                                   195,
-	"Raven Bow":                                     196,
-	"Razor":                                         197,
-	"Recurve Bow":                                   198,
-	"Redhorn Stonethresher":                         199,
-	"Rightful Reward":                               200,
-	"Rosaria":                                       201,
-	"Royal Bow":                                     202,
-	"Royal Greatsword":                              203,
-	"Royal Grimoire":                                204,
-	"Royal Longsword":                               205,
-	"Royal Spear":                                   206,
-	"Rust":                                          207,
-	"Sacrificial Bow":                               208,
-	"Sacrificial Fragments":                         209,
-	"Sacrificial Greatsword":                        210,
-	"Sacrificial Jade":                              211,
-	"Sacrificial Sword":                             212,
-	"Sangonomiya Kokomi":                            213,
-	"Sapwood Blade":                                 214,
+	"Raiden Shogun":                                 195,
+	"Rainslasher":                                   196,
+	"Range Gauge":                                   197,
+	"Raven Bow":                                     198,
+	"Razor":                                         199,
+	"Recurve Bow":                                   200,
+	"Redhorn Stonethresher":                         201,
+	"Rightful Reward":                               202,
+	"Rosaria":                                       203,
+	"Royal Bow":                                     204,
+	"Royal Greatsword":                              205,
+	"Royal Grimoire":                                206,
+	"Royal Longsword":                               207,
+	"Royal Spear":                                   208,
+	"Rust":                                          209,
+	"Sacrificial Bow":                               210,
+	"Sacrificial Fragments":                         211,
+	"Sacrificial Greatsword":                        212,
+	"Sacrificial Jade":                              213,
+	"Sacrificial Sword":                             214,
+	"Sangonomiya Kokomi":                            215,
+	"Sapwood Blade":                                 216,
 	"Saturday":                                      17,
-	"Sayu":                                          215,
-	"Scion Of The Blazing Sun":                      216,
-	"Seasoned Hunters Bow":                          217,
-	"Serpent Spine":                                 218,
-	"Sharpshooters Oath":                            219,
-	"Shenhe":                                        220,
-	"Shikanoin Heizou":                              221,
-	"Silver Sword":                                  222,
-	"Skyrider Greatsword":                           223,
-	"Skyrider Sword":                                224,
-	"Skyward Atlas":                                 225,
-	"Skyward Blade":                                 226,
-	"Skyward Harp":                                  227,
-	"Skyward Pride":                                 228,
-	"Skyward Spine":                                 229,
-	"Slingshot":                                     230,
-	"Snow Tombed Starsilver":                        231,
-	"Solar Pearl":                                   232,
-	"Song Of Stillness":                             233,
-	"Song of Broken Pines":                          234,
-	"Splendor Of Tranquil Waters":                   235,
-	"Staff of Homa":                                 236,
-	"Staff of the Scarlet Sands":                    237,
-	"Sucrose":                                       238,
-	"Summit Shaper":                                 239,
-	"Sword":                                         300,
-	"Sword Of Narzissenkreuz":                       240,
-	"Sword of Descension":                           241,
-	"Talking Stick":                                 242,
-	"Tartaglia":                                     243,
-	"The Alley Flash":                               244,
-	"The Bell":                                      245,
-	"The Black Sword":                               246,
-	"The Catch":                                     247,
-	"The Dockhands Assistant":                       248,
-	"The First Great Magic":                         249,
-	"The Flute":                                     250,
-	"The Stringless":                                251,
-	"The Unforged":                                  252,
-	"The Viridescent Hunt":                          253,
-	"The Widsith":                                   254,
+	"Sayu":                                          217,
+	"Scion Of The Blazing Sun":                      218,
+	"Seasoned Hunters Bow":                          219,
+	"Serpent Spine":                                 220,
+	"Sharpshooters Oath":                            221,
+	"Shenhe":                                        222,
+	"Shikanoin Heizou":                              223,
+	"Silver Sword":                                  224,
+	"Skyrider Greatsword":                           225,
+	"Skyrider Sword":                                226,
+	"Skyward Atlas":                                 227,
+	"Skyward Blade":                                 228,
+	"Skyward Harp":                                  229,
+	"Skyward Pride":                                 230,
+	"Skyward Spine":                                 231,
+	"Slingshot":                                     232,
+	"Snow Tombed Starsilver":                        233,
+	"Solar Pearl":                                   234,
+	"Song Of Stillness":                             235,
+	"Song of Broken Pines":                          236,
+	"Splendor Of Tranquil Waters":                   237,
+	"Staff of Homa":                                 238,
+	"Staff of the Scarlet Sands":                    239,
+	"Sucrose":                                       240,
+	"Summit Shaper":                                 241,
+	"Sword":                                         302,
+	"Sword Of Narzissenkreuz":                       242,
+	"Sword of Descension":                           243,
+	"Talking Stick":                                 244,
+	"Tartaglia":                                     245,
+	"The Alley Flash":                               246,
+	"The Bell":                                      247,
+	"The Black Sword":                               248,
+	"The Catch":                                     249,
+	"The Dockhands Assistant":                       250,
+	"The First Great Magic":                         251,
+	"The Flute":                                     252,
+	"The Stringless":                                253,
+	"The Unforged":                                  254,
+	"The Viridescent Hunt":                          255,
+	"The Widsith":                                   256,
 	"The account has not been bound to Genshin Impact, please confirm that the account is correct":       25,
 	"The account is not yet bound to any game, please make sure the account of scanning code is correct": 24,
-	"Thoma":                               255,
-	"Thrilling Tales of Dragon Slayers":   256,
-	"Thundering Pulse":                    257,
+	"Thoma":                               257,
+	"Thrilling Tales of Dragon Slayers":   258,
+	"Thundering Pulse":                    259,
 	"Thursday":                            13,
-	"Tidal Shadow":                        258,
-	"Tighnari":                            259,
-	"Tome Of The Eternal Flow":            260,
-	"Toukabou Shigure":                    261,
-	"Traveler Anemo":                      262,
-	"Traveler Dendro":                     263,
-	"Traveler Electro":                    264,
-	"Traveler Geo":                        265,
-	"Traveler Hydro":                      266,
-	"Travelers Handy Sword":               267,
+	"Tidal Shadow":                        260,
+	"Tighnari":                            261,
+	"Tome Of The Eternal Flow":            262,
+	"Toukabou Shigure":                    263,
+	"Traveler Anemo":                      264,
+	"Traveler Dendro":                     265,
+	"Traveler Electro":                    266,
+	"Traveler Geo":                        267,
+	"Traveler Hydro":                      268,
+	"Travelers Handy Sword":               269,
 	"Tuesday":                             14,
-	"Tulaytullahs Remembrance":            268,
-	"Twin Nephrite":                       269,
-	"Ultimate Overlords Mega Magic Sword": 270,
+	"Tulaytullahs Remembrance":            270,
+	"Twin Nephrite":                       271,
+	"Ultimate Overlords Mega Magic Sword": 272,
 	"Upsert game account failed":          22,
 	"Upsert game roles attribute failed":  27,
 	"Upsert game roles failed":            26,
 	"Upsert user failed":                  7,
-	"Uraku Misugiri":                      271,
-	"Venti":                               272,
-	"Verdict":                             273,
-	"Vortex Vanquisher":                   274,
-	"Wanderer":                            275,
-	"Wandering Evenstar":                  276,
-	"Waster Greatsword":                   277,
-	"Wavebreakers Fin":                    278,
+	"Uraku Misugiri":                      273,
+	"Venti":                               274,
+	"Verdict":                             275,
+	"Vortex Vanquisher":                   276,
+	"Wanderer":                            277,
+	"Wandering Evenstar":                  278,
+	"Waster Greatsword":                   279,
+	"Wavebreakers Fin":                    280,
 	"Wednesday":                           16,
 	"What are you looking for, it does not exist": 11,
-	"White Iron Greatsword":                       279,
-	"White Tassel":                                280,
-	"Whiteblind":                                  281,
-	"Windblume Ode":                               282,
-	"Wine and Song":                               283,
-	"Wolf Fang":                                   284,
-	"Wolfs Gravestone":                            285,
-	"Wriothesley":                                 286,
-	"Xiangling":                                   287,
-	"Xianyun":                                     288,
-	"Xiao":                                        289,
-	"Xingqiu":                                     290,
-	"Xinyan":                                      291,
-	"Xiphos Moonlight":                            292,
-	"Yae Miko":                                    293,
-	"Yanfei":                                      294,
-	"Yaoyao":                                      295,
-	"Yelan":                                       296,
-	"Yoimiya":                                     297,
-	"Yun Jin":                                     298,
-	"Zhongli":                                     299,
+	"White Iron Greatsword":                       281,
+	"White Tassel":                                282,
+	"Whiteblind":                                  283,
+	"Windblume Ode":                               284,
+	"Wine and Song":                               285,
+	"Wolf Fang":                                   286,
+	"Wolfs Gravestone":                            287,
+	"Wriothesley":                                 288,
+	"Xiangling":                                   289,
+	"Xianyun":                                     290,
+	"Xiao":                                        291,
+	"Xingqiu":                                     292,
+	"Xinyan":                                      293,
+	"Xiphos Moonlight":                            294,
+	"Yae Miko":                                    295,
+	"Yanfei":                                      296,
+	"Yaoyao":                                      297,
+	"Yelan":                                       298,
+	"Yoimiya":                                     299,
+	"Yun Jin":                                     300,
+	"Zhongli":                                     301,
 	"fetch game record failed, please try again": 23,
 	"stoken fetch failed, please try again":      21,
 }
 
-var en_USIndex = []uint32{ // 306 elements
+var en_USIndex = []uint32{ // 308 elements
 	// Entry 0 - 1F
 	0x00000000, 0x00000012, 0x00000023, 0x00000053,
 	0x0000006a, 0x000000b0, 0x000000d6, 0x000000f5,
@@ -361,82 +363,82 @@ var en_USIndex = []uint32{ // 306 elements
 	0x000003f6, 0x00000411, 0x0000041b, 0x00000422,
 	0x0000042c, 0x00000439, 0x0000043e, 0x00000444,
 	0x00000455, 0x0000045e, 0x00000470, 0x0000047f,
-	0x0000048e, 0x0000049b, 0x000004a2, 0x000004bf,
-	0x000004d4, 0x000004dc, 0x000004f3, 0x00000507,
-	0x0000050e, 0x00000516, 0x00000523, 0x00000534,
-	0x00000549, 0x00000559, 0x0000056c, 0x0000057e,
+	0x0000048e, 0x0000049b, 0x000004a6, 0x000004ad,
+	0x000004ca, 0x000004df, 0x000004e7, 0x000004fe,
+	0x00000512, 0x00000519, 0x00000521, 0x0000052e,
+	0x0000053f, 0x00000554, 0x00000564, 0x00000577,
 	// Entry 40 - 5F
-	0x00000596, 0x000005a7, 0x000005af, 0x000005c4,
-	0x000005ce, 0x000005d8, 0x000005df, 0x000005e8,
-	0x000005f9, 0x00000600, 0x0000060d, 0x00000618,
-	0x0000062c, 0x0000063a, 0x0000063f, 0x0000064f,
-	0x0000065a, 0x00000666, 0x0000066c, 0x0000068a,
-	0x00000690, 0x00000696, 0x000006a3, 0x000006a8,
-	0x000006b5, 0x000006c7, 0x000006d2, 0x000006e4,
-	0x000006f0, 0x00000700, 0x00000714, 0x00000719,
+	0x00000589, 0x000005a1, 0x000005b2, 0x000005ba,
+	0x000005cf, 0x000005d9, 0x000005e3, 0x000005ea,
+	0x000005f3, 0x00000604, 0x0000060b, 0x00000618,
+	0x00000623, 0x00000637, 0x00000645, 0x0000065d,
+	0x00000662, 0x00000672, 0x0000067d, 0x00000689,
+	0x0000068f, 0x000006ad, 0x000006b3, 0x000006b9,
+	0x000006c6, 0x000006cb, 0x000006d8, 0x000006ea,
+	0x000006f5, 0x00000707, 0x00000713, 0x00000723,
 	// Entry 60 - 7F
-	0x0000072e, 0x00000740, 0x00000750, 0x00000758,
-	0x00000767, 0x0000077b, 0x0000078a, 0x00000799,
-	0x000007a9, 0x000007b8, 0x000007c9, 0x000007d6,
-	0x000007e9, 0x000007f0, 0x00000807, 0x00000816,
-	0x00000825, 0x00000833, 0x0000083c, 0x00000848,
-	0x0000085d, 0x00000864, 0x0000086b, 0x00000871,
-	0x00000877, 0x00000885, 0x0000088d, 0x00000896,
-	0x000008aa, 0x000008bc, 0x000008c3, 0x000008cf,
+	0x00000737, 0x0000073c, 0x00000751, 0x00000763,
+	0x00000773, 0x0000077b, 0x0000078a, 0x0000079e,
+	0x000007ad, 0x000007bc, 0x000007cc, 0x000007db,
+	0x000007ec, 0x000007f9, 0x0000080c, 0x00000813,
+	0x0000082a, 0x00000839, 0x00000848, 0x00000856,
+	0x0000085f, 0x0000086b, 0x00000880, 0x00000887,
+	0x0000088e, 0x00000894, 0x0000089a, 0x000008a8,
+	0x000008b0, 0x000008b9, 0x000008cd, 0x000008df,
 	// Entry 80 - 9F
-	0x000008dc, 0x000008e9, 0x000008f4, 0x000008ff,
-	0x00000912, 0x00000917, 0x00000928, 0x0000092e,
-	0x00000941, 0x00000950, 0x0000095f, 0x0000096e,
-	0x00000985, 0x0000098b, 0x00000992, 0x000009a4,
-	0x000009b1, 0x000009b8, 0x000009cb, 0x000009d0,
-	0x000009db, 0x000009e8, 0x000009ee, 0x00000a07,
-	0x00000a12, 0x00000a17, 0x00000a24, 0x00000a31,
-	0x00000a51, 0x00000a64, 0x00000a6c, 0x00000a72,
+	0x000008e6, 0x000008f2, 0x000008ff, 0x0000090c,
+	0x00000917, 0x00000922, 0x00000935, 0x0000093a,
+	0x0000094b, 0x00000951, 0x00000964, 0x00000973,
+	0x00000982, 0x00000991, 0x000009a8, 0x000009ae,
+	0x000009b5, 0x000009c7, 0x000009d4, 0x000009db,
+	0x000009ee, 0x000009f3, 0x000009fe, 0x00000a0b,
+	0x00000a11, 0x00000a2a, 0x00000a35, 0x00000a3a,
+	0x00000a47, 0x00000a54, 0x00000a74, 0x00000a87,
 	// Entry A0 - BF
-	0x00000a7e, 0x00000a8c, 0x00000aa0, 0x00000aab,
-	0x00000aba, 0x00000ac4, 0x00000ac9, 0x00000adb,
-	0x00000af1, 0x00000b04, 0x00000b09, 0x00000b15,
-	0x00000b21, 0x00000b28, 0x00000b2e, 0x00000b3a,
-	0x00000b40, 0x00000b4a, 0x00000b51, 0x00000b5f,
-	0x00000b72, 0x00000b82, 0x00000b8d, 0x00000ba0,
-	0x00000ba9, 0x00000bc0, 0x00000bdd, 0x00000bef,
-	0x00000bff, 0x00000c11, 0x00000c24, 0x00000c36,
+	0x00000a8f, 0x00000a95, 0x00000aa1, 0x00000aaf,
+	0x00000ac3, 0x00000ace, 0x00000add, 0x00000ae7,
+	0x00000aec, 0x00000afe, 0x00000b14, 0x00000b27,
+	0x00000b2c, 0x00000b38, 0x00000b44, 0x00000b4b,
+	0x00000b51, 0x00000b5d, 0x00000b63, 0x00000b6d,
+	0x00000b74, 0x00000b82, 0x00000b95, 0x00000ba5,
+	0x00000bb0, 0x00000bc3, 0x00000bcc, 0x00000be3,
+	0x00000c00, 0x00000c12, 0x00000c22, 0x00000c34,
 	// Entry C0 - DF
-	0x00000c4c, 0x00000c51, 0x00000c5f, 0x00000c6b,
-	0x00000c77, 0x00000c81, 0x00000c87, 0x00000c93,
-	0x00000ca9, 0x00000cb9, 0x00000cc1, 0x00000ccb,
-	0x00000cdc, 0x00000ceb, 0x00000cfb, 0x00000d07,
-	0x00000d0c, 0x00000d1c, 0x00000d32, 0x00000d49,
-	0x00000d5a, 0x00000d6c, 0x00000d7f, 0x00000d8d,
-	0x00000d92, 0x00000dab, 0x00000dc0, 0x00000dce,
-	0x00000de1, 0x00000de8, 0x00000df9, 0x00000e06,
+	0x00000c47, 0x00000c59, 0x00000c6f, 0x00000c74,
+	0x00000c82, 0x00000c8e, 0x00000c9a, 0x00000ca4,
+	0x00000caa, 0x00000cb6, 0x00000ccc, 0x00000cdc,
+	0x00000ce4, 0x00000cee, 0x00000cff, 0x00000d0e,
+	0x00000d1e, 0x00000d2a, 0x00000d2f, 0x00000d3f,
+	0x00000d55, 0x00000d6c, 0x00000d7d, 0x00000d8f,
+	0x00000da2, 0x00000db0, 0x00000db5, 0x00000dce,
+	0x00000de3, 0x00000df1, 0x00000e04, 0x00000e0b,
 	// Entry E0 - FF
-	0x00000e1a, 0x00000e29, 0x00000e37, 0x00000e45,
-	0x00000e52, 0x00000e60, 0x00000e6e, 0x00000e78,
-	0x00000e8f, 0x00000e9b, 0x00000ead, 0x00000ec2,
-	0x00000ede, 0x00000eec, 0x00000f07, 0x00000f0f,
-	0x00000f1d, 0x00000f35, 0x00000f49, 0x00000f57,
-	0x00000f61, 0x00000f71, 0x00000f7a, 0x00000f8a,
-	0x00000f94, 0x00000fac, 0x00000fc2, 0x00000fcc,
-	0x00000fdb, 0x00000fe8, 0x00000ffd, 0x00001009,
+	0x00000e1c, 0x00000e29, 0x00000e3d, 0x00000e4c,
+	0x00000e5a, 0x00000e68, 0x00000e75, 0x00000e83,
+	0x00000e91, 0x00000e9b, 0x00000eb2, 0x00000ebe,
+	0x00000ed0, 0x00000ee5, 0x00000f01, 0x00000f0f,
+	0x00000f2a, 0x00000f32, 0x00000f40, 0x00000f58,
+	0x00000f6c, 0x00000f7a, 0x00000f84, 0x00000f94,
+	0x00000f9d, 0x00000fad, 0x00000fb7, 0x00000fcf,
+	0x00000fe5, 0x00000fef, 0x00000ffe, 0x0000100b,
 	// Entry 100 - 11F
-	0x0000100f, 0x00001031, 0x00001042, 0x0000104f,
-	0x00001058, 0x00001071, 0x00001082, 0x00001091,
-	0x000010a1, 0x000010b2, 0x000010bf, 0x000010ce,
-	0x000010e4, 0x000010fd, 0x0000110b, 0x0000112f,
-	0x0000113e, 0x00001144, 0x0000114c, 0x0000115e,
-	0x00001167, 0x0000117a, 0x0000118c, 0x0000119d,
-	0x000011b3, 0x000011c0, 0x000011cb, 0x000011d9,
-	0x000011e7, 0x000011f1, 0x00001202, 0x0000120e,
+	0x00001020, 0x0000102c, 0x00001032, 0x00001054,
+	0x00001065, 0x00001072, 0x0000107b, 0x00001094,
+	0x000010a5, 0x000010b4, 0x000010c4, 0x000010d5,
+	0x000010e2, 0x000010f1, 0x00001107, 0x00001120,
+	0x0000112e, 0x00001152, 0x00001161, 0x00001167,
+	0x0000116f, 0x00001181, 0x0000118a, 0x0000119d,
+	0x000011af, 0x000011c0, 0x000011d6, 0x000011e3,
+	0x000011ee, 0x000011fc, 0x0000120a, 0x00001214,
 	// Entry 120 - 13F
-	0x00001218, 0x00001220, 0x00001225, 0x0000122d,
-	0x00001234, 0x00001245, 0x0000124e, 0x00001255,
-	0x0000125c, 0x00001262, 0x0000126a, 0x00001272,
-	0x0000127a, 0x00001280, 0x00001289, 0x00001291,
-	0x0000129a, 0x0000129e,
-} // Size: 1248 bytes
+	0x00001225, 0x00001231, 0x0000123b, 0x00001243,
+	0x00001248, 0x00001250, 0x00001257, 0x00001268,
+	0x00001271, 0x00001278, 0x0000127f, 0x00001285,
+	0x0000128d, 0x00001295, 0x0000129d, 0x000012a3,
+	0x000012ac, 0x000012b4, 0x000012bd, 0x000012c1,
+} // Size: 1256 bytes
 
-const en_USData string = "" + // Size: 4766 bytes
+const en_USData string = "" + // Size: 4801 bytes
 	"\x02No such character\x02Cut to the chase\x02Not yet implemented, send c" +
 	"ommand %[1]s instead\x02Query game role failed\x02No game role found, pl" +
 	"ease send command /game_refresh_role to refresh\x02Please send me a priv" +
@@ -455,70 +457,70 @@ const en_USData string = "" + // Size: 4766 bytes
 	"\x02Anemo\x02Electro\x02Dendro\x02Cryo\x02Geo\x02A Thousand Floating Dre" +
 	"ams\x02Akuoumaru\x02Albedo\x02Alhaitham\x02Alley Hunter\x02Aloy\x02Amber" +
 	"\x02Amenoma Kageuchi\x02Amos Bow\x02Apprentices Notes\x02Aqua Simulacra" +
-	"\x02Aquila Favonia\x02Arataki Itto\x02Baizhu\x02Ballad Of The Boundless " +
-	"Blue\x02Ballad Of The Fjords\x02Barbara\x02Beacon of the Reed Sea\x02Beg" +
-	"inners Protector\x02Beidou\x02Bennett\x02Black Tassel\x02Blackcliff Agat" +
-	"e\x02Blackcliff Longsword\x02Blackcliff Pole\x02Blackcliff Slasher\x02Bl" +
-	"ackcliff Warbow\x02Bloodtainted Greatsword\x02Calamity Queller\x02Candac" +
-	"e\x02Cashflow Supervision\x02Charlotte\x02Chevreuse\x02Chiori\x02Chongyu" +
-	"n\x02Cinnabar Spindle\x02Collei\x02Compound Bow\x02Cool Steel\x02Cranes " +
-	"Echoing Call\x02Crescent Pike\x02Cyno\x02Dark Iron Sword\x02Deathmatch" +
-	"\x02Debate Club\x02Dehya\x02Dialogues Of The Desert Sages\x02Diluc\x02Di" +
-	"ona\x02Dodoco Tales\x02Dori\x02Dragons Bane\x02Dragonspine Spear\x02Dull" +
-	" Blade\x02Elegy for the End\x02Emerald Orb\x02End of the Line\x02Engulfi" +
-	"ng Lightning\x02Eula\x02Everlasting Moonglow\x02Eye of Perception\x02Fad" +
-	"ing Twilight\x02Faruzan\x02Favonius Codex\x02Favonius Greatsword\x02Favo" +
-	"nius Lance\x02Favonius Sword\x02Favonius Warbow\x02Ferrous Shadow\x02Fes" +
-	"tering Desire\x02Fillet Blade\x02Finale Of The Deep\x02Fischl\x02Fleuve " +
-	"Cendre Ferryman\x02Flowing Purity\x02Forest Regalia\x02Freedom-Sworn\x02" +
-	"Freminet\x02Frostbearer\x02Fruit of Fulfillment\x02Furina\x02Gaming\x02G" +
-	"anyu\x02Gorou\x02Hakushin Ring\x02Halberd\x02Hamayumi\x02Haran Geppaku F" +
-	"utsu\x02Harbinger of Dawn\x02Hu Tao\x02Hunters Bow\x02Hunters Path\x02Ib" +
-	"is Piercer\x02Iron Point\x02Iron Sting\x02Jadefalls Splendor\x02Jean\x02" +
-	"Kaedehara Kazuha\x02Kaeya\x02Kagotsurube Isshin\x02Kaguras Verity\x02Kam" +
-	"isato Ayaka\x02Kamisato Ayato\x02Katsuragikiri Nagamasa\x02Kaveh\x02Keqi" +
-	"ng\x02Key of Khaj Nisut\x02Kings Squire\x02Kirara\x02Kitain Cross Spear" +
-	"\x02Klee\x02Kujou Sara\x02Kuki Shinobu\x02Layla\x02Light of Foliar Incis" +
-	"ion\x02Lions Roar\x02Lisa\x02Lithic Blade\x02Lithic Spear\x02Lost Prayer" +
-	" to the Sacred Winds\x02Luxurious Sea Lord\x02Lynette\x02Lyney\x02Magic " +
-	"Guide\x02Mailed Flower\x02Makhaira Aquamarine\x02Mappa Mare\x02Memory of" +
-	" Dust\x02Messenger\x02Mika\x02Missive Windspear\x02Mistsplitter Reforged" +
-	"\x02Mitternachts Waltz\x02Mona\x02Moonpiercer\x02Mouuns Moon\x02Nahida" +
-	"\x02Navia\x02Neuvillette\x02Nilou\x02Ningguang\x02Noelle\x02Oathsworn Ey" +
-	"e\x02Otherworldly Story\x02Pocket Grimoire\x02Polar Star\x02Portable Pow" +
-	"er Saw\x02Predator\x02Primordial Jade Cutter\x02Primordial Jade Winged S" +
-	"pear\x02Prospectors Drill\x02Prototype Amber\x02Prototype Archaic\x02Pro" +
-	"totype Crescent\x02Prototype Rancour\x02Prototype Starglitter\x02Qiqi" +
-	"\x02Raiden Shogun\x02Rainslasher\x02Range Gauge\x02Raven Bow\x02Razor" +
-	"\x02Recurve Bow\x02Redhorn Stonethresher\x02Rightful Reward\x02Rosaria" +
-	"\x02Royal Bow\x02Royal Greatsword\x02Royal Grimoire\x02Royal Longsword" +
-	"\x02Royal Spear\x02Rust\x02Sacrificial Bow\x02Sacrificial Fragments\x02S" +
-	"acrificial Greatsword\x02Sacrificial Jade\x02Sacrificial Sword\x02Sangon" +
-	"omiya Kokomi\x02Sapwood Blade\x02Sayu\x02Scion Of The Blazing Sun\x02Sea" +
-	"soned Hunters Bow\x02Serpent Spine\x02Sharpshooters Oath\x02Shenhe\x02Sh" +
-	"ikanoin Heizou\x02Silver Sword\x02Skyrider Greatsword\x02Skyrider Sword" +
-	"\x02Skyward Atlas\x02Skyward Blade\x02Skyward Harp\x02Skyward Pride\x02S" +
-	"kyward Spine\x02Slingshot\x02Snow Tombed Starsilver\x02Solar Pearl\x02So" +
-	"ng Of Stillness\x02Song of Broken Pines\x02Splendor Of Tranquil Waters" +
-	"\x02Staff of Homa\x02Staff of the Scarlet Sands\x02Sucrose\x02Summit Sha" +
-	"per\x02Sword Of Narzissenkreuz\x02Sword of Descension\x02Talking Stick" +
-	"\x02Tartaglia\x02The Alley Flash\x02The Bell\x02The Black Sword\x02The C" +
-	"atch\x02The Dockhands Assistant\x02The First Great Magic\x02The Flute" +
-	"\x02The Stringless\x02The Unforged\x02The Viridescent Hunt\x02The Widsit" +
-	"h\x02Thoma\x02Thrilling Tales of Dragon Slayers\x02Thundering Pulse\x02T" +
-	"idal Shadow\x02Tighnari\x02Tome Of The Eternal Flow\x02Toukabou Shigure" +
-	"\x02Traveler Anemo\x02Traveler Dendro\x02Traveler Electro\x02Traveler Ge" +
-	"o\x02Traveler Hydro\x02Travelers Handy Sword\x02Tulaytullahs Remembrance" +
-	"\x02Twin Nephrite\x02Ultimate Overlords Mega Magic Sword\x02Uraku Misugi" +
-	"ri\x02Venti\x02Verdict\x02Vortex Vanquisher\x02Wanderer\x02Wandering Eve" +
-	"nstar\x02Waster Greatsword\x02Wavebreakers Fin\x02White Iron Greatsword" +
-	"\x02White Tassel\x02Whiteblind\x02Windblume Ode\x02Wine and Song\x02Wolf" +
-	" Fang\x02Wolfs Gravestone\x02Wriothesley\x02Xiangling\x02Xianyun\x02Xiao" +
-	"\x02Xingqiu\x02Xinyan\x02Xiphos Moonlight\x02Yae Miko\x02Yanfei\x02Yaoya" +
-	"o\x02Yelan\x02Yoimiya\x02Yun Jin\x02Zhongli\x02Sword\x02Claymore\x02Pole" +
-	"arm\x02Catalyst\x02Bow"
+	"\x02Aquila Favonia\x02Arataki Itto\x02Arlecchino\x02Baizhu\x02Ballad Of " +
+	"The Boundless Blue\x02Ballad Of The Fjords\x02Barbara\x02Beacon of the R" +
+	"eed Sea\x02Beginners Protector\x02Beidou\x02Bennett\x02Black Tassel\x02B" +
+	"lackcliff Agate\x02Blackcliff Longsword\x02Blackcliff Pole\x02Blackcliff" +
+	" Slasher\x02Blackcliff Warbow\x02Bloodtainted Greatsword\x02Calamity Que" +
+	"ller\x02Candace\x02Cashflow Supervision\x02Charlotte\x02Chevreuse\x02Chi" +
+	"ori\x02Chongyun\x02Cinnabar Spindle\x02Collei\x02Compound Bow\x02Cool St" +
+	"eel\x02Cranes Echoing Call\x02Crescent Pike\x02Crimson Moons Semblance" +
+	"\x02Cyno\x02Dark Iron Sword\x02Deathmatch\x02Debate Club\x02Dehya\x02Dia" +
+	"logues Of The Desert Sages\x02Diluc\x02Diona\x02Dodoco Tales\x02Dori\x02" +
+	"Dragons Bane\x02Dragonspine Spear\x02Dull Blade\x02Elegy for the End\x02" +
+	"Emerald Orb\x02End of the Line\x02Engulfing Lightning\x02Eula\x02Everlas" +
+	"ting Moonglow\x02Eye of Perception\x02Fading Twilight\x02Faruzan\x02Favo" +
+	"nius Codex\x02Favonius Greatsword\x02Favonius Lance\x02Favonius Sword" +
+	"\x02Favonius Warbow\x02Ferrous Shadow\x02Festering Desire\x02Fillet Blad" +
+	"e\x02Finale Of The Deep\x02Fischl\x02Fleuve Cendre Ferryman\x02Flowing P" +
+	"urity\x02Forest Regalia\x02Freedom-Sworn\x02Freminet\x02Frostbearer\x02F" +
+	"ruit of Fulfillment\x02Furina\x02Gaming\x02Ganyu\x02Gorou\x02Hakushin Ri" +
+	"ng\x02Halberd\x02Hamayumi\x02Haran Geppaku Futsu\x02Harbinger of Dawn" +
+	"\x02Hu Tao\x02Hunters Bow\x02Hunters Path\x02Ibis Piercer\x02Iron Point" +
+	"\x02Iron Sting\x02Jadefalls Splendor\x02Jean\x02Kaedehara Kazuha\x02Kaey" +
+	"a\x02Kagotsurube Isshin\x02Kaguras Verity\x02Kamisato Ayaka\x02Kamisato " +
+	"Ayato\x02Katsuragikiri Nagamasa\x02Kaveh\x02Keqing\x02Key of Khaj Nisut" +
+	"\x02Kings Squire\x02Kirara\x02Kitain Cross Spear\x02Klee\x02Kujou Sara" +
+	"\x02Kuki Shinobu\x02Layla\x02Light of Foliar Incision\x02Lions Roar\x02L" +
+	"isa\x02Lithic Blade\x02Lithic Spear\x02Lost Prayer to the Sacred Winds" +
+	"\x02Luxurious Sea Lord\x02Lynette\x02Lyney\x02Magic Guide\x02Mailed Flow" +
+	"er\x02Makhaira Aquamarine\x02Mappa Mare\x02Memory of Dust\x02Messenger" +
+	"\x02Mika\x02Missive Windspear\x02Mistsplitter Reforged\x02Mitternachts W" +
+	"altz\x02Mona\x02Moonpiercer\x02Mouuns Moon\x02Nahida\x02Navia\x02Neuvill" +
+	"ette\x02Nilou\x02Ningguang\x02Noelle\x02Oathsworn Eye\x02Otherworldly St" +
+	"ory\x02Pocket Grimoire\x02Polar Star\x02Portable Power Saw\x02Predator" +
+	"\x02Primordial Jade Cutter\x02Primordial Jade Winged Spear\x02Prospector" +
+	"s Drill\x02Prototype Amber\x02Prototype Archaic\x02Prototype Crescent" +
+	"\x02Prototype Rancour\x02Prototype Starglitter\x02Qiqi\x02Raiden Shogun" +
+	"\x02Rainslasher\x02Range Gauge\x02Raven Bow\x02Razor\x02Recurve Bow\x02R" +
+	"edhorn Stonethresher\x02Rightful Reward\x02Rosaria\x02Royal Bow\x02Royal" +
+	" Greatsword\x02Royal Grimoire\x02Royal Longsword\x02Royal Spear\x02Rust" +
+	"\x02Sacrificial Bow\x02Sacrificial Fragments\x02Sacrificial Greatsword" +
+	"\x02Sacrificial Jade\x02Sacrificial Sword\x02Sangonomiya Kokomi\x02Sapwo" +
+	"od Blade\x02Sayu\x02Scion Of The Blazing Sun\x02Seasoned Hunters Bow\x02" +
+	"Serpent Spine\x02Sharpshooters Oath\x02Shenhe\x02Shikanoin Heizou\x02Sil" +
+	"ver Sword\x02Skyrider Greatsword\x02Skyrider Sword\x02Skyward Atlas\x02S" +
+	"kyward Blade\x02Skyward Harp\x02Skyward Pride\x02Skyward Spine\x02Slings" +
+	"hot\x02Snow Tombed Starsilver\x02Solar Pearl\x02Song Of Stillness\x02Son" +
+	"g of Broken Pines\x02Splendor Of Tranquil Waters\x02Staff of Homa\x02Sta" +
+	"ff of the Scarlet Sands\x02Sucrose\x02Summit Shaper\x02Sword Of Narzisse" +
+	"nkreuz\x02Sword of Descension\x02Talking Stick\x02Tartaglia\x02The Alley" +
+	" Flash\x02The Bell\x02The Black Sword\x02The Catch\x02The Dockhands Assi" +
+	"stant\x02The First Great Magic\x02The Flute\x02The Stringless\x02The Unf" +
+	"orged\x02The Viridescent Hunt\x02The Widsith\x02Thoma\x02Thrilling Tales" +
+	" of Dragon Slayers\x02Thundering Pulse\x02Tidal Shadow\x02Tighnari\x02To" +
+	"me Of The Eternal Flow\x02Toukabou Shigure\x02Traveler Anemo\x02Traveler" +
+	" Dendro\x02Traveler Electro\x02Traveler Geo\x02Traveler Hydro\x02Travele" +
+	"rs Handy Sword\x02Tulaytullahs Remembrance\x02Twin Nephrite\x02Ultimate " +
+	"Overlords Mega Magic Sword\x02Uraku Misugiri\x02Venti\x02Verdict\x02Vort" +
+	"ex Vanquisher\x02Wanderer\x02Wandering Evenstar\x02Waster Greatsword\x02" +
+	"Wavebreakers Fin\x02White Iron Greatsword\x02White Tassel\x02Whiteblind" +
+	"\x02Windblume Ode\x02Wine and Song\x02Wolf Fang\x02Wolfs Gravestone\x02W" +
+	"riothesley\x02Xiangling\x02Xianyun\x02Xiao\x02Xingqiu\x02Xinyan\x02Xipho" +
+	"s Moonlight\x02Yae Miko\x02Yanfei\x02Yaoyao\x02Yelan\x02Yoimiya\x02Yun J" +
+	"in\x02Zhongli\x02Sword\x02Claymore\x02Polearm\x02Catalyst\x02Bow"
 
-var zh_HansIndex = []uint32{ // 306 elements
+var zh_HansIndex = []uint32{ // 308 elements
 	// Entry 0 - 1F
 	0x00000000, 0x0000000d, 0x0000001a, 0x00000043,
 	0x0000005c, 0x000000a4, 0x000000ba, 0x000000d9,
@@ -533,82 +535,82 @@ var zh_HansIndex = []uint32{ // 306 elements
 	0x00000337, 0x00000344, 0x0000034e, 0x00000358,
 	0x00000365, 0x00000372, 0x0000037c, 0x00000383,
 	0x00000393, 0x000003a3, 0x000003b0, 0x000003b7,
-	0x000003c1, 0x000003ce, 0x000003d5, 0x000003e8,
-	0x000003f5, 0x000003ff, 0x0000040c, 0x00000419,
-	0x00000420, 0x0000042a, 0x00000434, 0x00000441,
+	0x000003c1, 0x000003ce, 0x000003db, 0x000003e2,
+	0x000003f5, 0x00000402, 0x0000040c, 0x00000419,
+	0x00000426, 0x0000042d, 0x00000437, 0x00000441,
 	0x0000044e, 0x0000045b, 0x00000468, 0x00000475,
 	// Entry 40 - 5F
-	0x00000488, 0x0000048f, 0x00000499, 0x000004a6,
-	0x000004b0, 0x000004ba, 0x000004c1, 0x000004c8,
-	0x000004d8, 0x000004df, 0x000004e9, 0x000004f0,
-	0x000004fd, 0x00000507, 0x0000050e, 0x00000518,
-	0x00000525, 0x00000532, 0x0000053c, 0x00000552,
-	0x0000055c, 0x00000566, 0x00000579, 0x00000580,
-	0x0000058d, 0x0000059a, 0x000005a4, 0x000005b7,
-	0x000005c4, 0x000005cb, 0x000005db, 0x000005e2,
+	0x00000482, 0x00000495, 0x0000049c, 0x000004a6,
+	0x000004b3, 0x000004bd, 0x000004c7, 0x000004ce,
+	0x000004d5, 0x000004e5, 0x000004ec, 0x000004f6,
+	0x000004fd, 0x0000050a, 0x00000514, 0x00000521,
+	0x00000528, 0x00000532, 0x0000053f, 0x0000054c,
+	0x00000556, 0x0000056c, 0x00000576, 0x00000580,
+	0x00000593, 0x0000059a, 0x000005a7, 0x000005b4,
+	0x000005be, 0x000005d1, 0x000005de, 0x000005e5,
 	// Entry 60 - 7F
-	0x000005ef, 0x000005f6, 0x000005fd, 0x00000607,
-	0x00000614, 0x00000621, 0x0000062e, 0x00000638,
-	0x00000645, 0x00000652, 0x0000065f, 0x0000066c,
-	0x00000679, 0x00000683, 0x00000690, 0x0000069d,
-	0x000006aa, 0x000006bd, 0x000006c7, 0x000006d4,
-	0x000006e1, 0x000006eb, 0x000006f2, 0x000006f9,
-	0x00000700, 0x0000070d, 0x00000714, 0x00000721,
-	0x00000734, 0x00000741, 0x00000748, 0x0000074f,
+	0x000005f5, 0x000005fc, 0x00000609, 0x00000610,
+	0x00000617, 0x00000621, 0x0000062e, 0x0000063b,
+	0x00000648, 0x00000652, 0x0000065f, 0x0000066c,
+	0x00000679, 0x00000686, 0x00000693, 0x0000069d,
+	0x000006aa, 0x000006b7, 0x000006c4, 0x000006d7,
+	0x000006e1, 0x000006ee, 0x000006fb, 0x00000705,
+	0x0000070c, 0x00000713, 0x0000071a, 0x00000727,
+	0x0000072e, 0x0000073b, 0x0000074e, 0x0000075b,
 	// Entry 80 - 9F
-	0x0000075c, 0x00000769, 0x00000773, 0x0000077d,
-	0x0000078a, 0x0000078e, 0x0000079b, 0x000007a2,
-	0x000007b2, 0x000007c2, 0x000007cf, 0x000007dc,
-	0x000007ec, 0x000007f3, 0x000007fa, 0x00000807,
-	0x00000814, 0x0000081e, 0x00000831, 0x00000838,
-	0x00000845, 0x0000084f, 0x00000859, 0x00000866,
-	0x00000873, 0x0000087a, 0x00000887, 0x00000894,
-	0x000008a1, 0x000008ae, 0x000008b8, 0x000008bf,
+	0x00000762, 0x00000769, 0x00000776, 0x00000783,
+	0x0000078d, 0x00000797, 0x000007a4, 0x000007a8,
+	0x000007b5, 0x000007bc, 0x000007cc, 0x000007dc,
+	0x000007e9, 0x000007f6, 0x00000806, 0x0000080d,
+	0x00000814, 0x00000821, 0x0000082e, 0x00000838,
+	0x0000084b, 0x00000852, 0x0000085f, 0x00000869,
+	0x00000873, 0x00000880, 0x0000088d, 0x00000894,
+	0x000008a1, 0x000008ae, 0x000008bb, 0x000008c8,
 	// Entry A0 - BF
-	0x000008cc, 0x000008d9, 0x000008ec, 0x000008ff,
-	0x0000090c, 0x00000913, 0x0000091a, 0x00000927,
-	0x00000937, 0x00000947, 0x0000094e, 0x00000958,
-	0x00000965, 0x0000096f, 0x00000979, 0x00000986,
-	0x0000098d, 0x00000994, 0x0000099e, 0x000009ae,
-	0x000009be, 0x000009ce, 0x000009db, 0x000009eb,
-	0x000009f5, 0x00000a02, 0x00000a0c, 0x00000a19,
+	0x000008d2, 0x000008d9, 0x000008e6, 0x000008f3,
+	0x00000906, 0x00000919, 0x00000926, 0x0000092d,
+	0x00000934, 0x00000941, 0x00000951, 0x00000961,
+	0x00000968, 0x00000972, 0x0000097f, 0x00000989,
+	0x00000993, 0x000009a0, 0x000009a7, 0x000009ae,
+	0x000009b8, 0x000009c8, 0x000009d8, 0x000009e8,
+	0x000009f5, 0x00000a05, 0x00000a0f, 0x00000a1c,
 	0x00000a26, 0x00000a33, 0x00000a40, 0x00000a4d,
 	// Entry C0 - DF
-	0x00000a5a, 0x00000a61, 0x00000a6e, 0x00000a75,
-	0x00000a7f, 0x00000a89, 0x00000a90, 0x00000a9a,
-	0x00000aaa, 0x00000aba, 0x00000ac7, 0x00000ad4,
-	0x00000ae1, 0x00000af1, 0x00000afe, 0x00000b0b,
-	0x00000b12, 0x00000b1c, 0x00000b29, 0x00000b36,
-	0x00000b43, 0x00000b4d, 0x00000b5d, 0x00000b67,
-	0x00000b6e, 0x00000b7b, 0x00000b8b, 0x00000b95,
-	0x00000ba5, 0x00000bac, 0x00000bbc, 0x00000bc3,
+	0x00000a5a, 0x00000a67, 0x00000a74, 0x00000a7b,
+	0x00000a88, 0x00000a8f, 0x00000a99, 0x00000aa3,
+	0x00000aaa, 0x00000ab4, 0x00000ac4, 0x00000ad4,
+	0x00000ae1, 0x00000aee, 0x00000afb, 0x00000b0b,
+	0x00000b18, 0x00000b25, 0x00000b2c, 0x00000b36,
+	0x00000b43, 0x00000b50, 0x00000b5d, 0x00000b67,
+	0x00000b77, 0x00000b81, 0x00000b88, 0x00000b95,
+	0x00000ba5, 0x00000baf, 0x00000bbf, 0x00000bc6,
 	// Entry E0 - FF
-	0x00000bd3, 0x00000be0, 0x00000bed, 0x00000bfa,
-	0x00000c07, 0x00000c14, 0x00000c21, 0x00000c28,
-	0x00000c38, 0x00000c45, 0x00000c52, 0x00000c65,
-	0x00000c78, 0x00000c85, 0x00000c92, 0x00000c99,
-	0x00000ca6, 0x00000cb9, 0x00000cc6, 0x00000cd0,
-	0x00000cdd, 0x00000cea, 0x00000cf1, 0x00000cf8,
-	0x00000d05, 0x00000d12, 0x00000d25, 0x00000d2c,
-	0x00000d33, 0x00000d40, 0x00000d4d, 0x00000d5a,
+	0x00000bd6, 0x00000bdd, 0x00000bed, 0x00000bfa,
+	0x00000c07, 0x00000c14, 0x00000c21, 0x00000c2e,
+	0x00000c3b, 0x00000c42, 0x00000c52, 0x00000c5f,
+	0x00000c6c, 0x00000c7f, 0x00000c92, 0x00000c9f,
+	0x00000cac, 0x00000cb3, 0x00000cc0, 0x00000cd3,
+	0x00000ce0, 0x00000cea, 0x00000cf7, 0x00000d04,
+	0x00000d0b, 0x00000d12, 0x00000d1f, 0x00000d2c,
+	0x00000d3f, 0x00000d46, 0x00000d4d, 0x00000d5a,
 	// Entry 100 - 11F
-	0x00000d61, 0x00000d71, 0x00000d81, 0x00000d8e,
-	0x00000d98, 0x00000dab, 0x00000dbb, 0x00000dca,
-	0x00000dd9, 0x00000de8, 0x00000df7, 0x00000e10,
-	0x00000e1a, 0x00000e30, 0x00000e3d, 0x00000e56,
-	0x00000e66, 0x00000e6d, 0x00000e74, 0x00000e81,
-	0x00000e8b, 0x00000e9b, 0x00000ea8, 0x00000eb5,
-	0x00000ec2, 0x00000ecc, 0x00000ed6, 0x00000ee3,
-	0x00000ef6, 0x00000efd, 0x00000f0a, 0x00000f17,
+	0x00000d67, 0x00000d74, 0x00000d7b, 0x00000d8b,
+	0x00000d9b, 0x00000da8, 0x00000db2, 0x00000dc5,
+	0x00000dd5, 0x00000de4, 0x00000df3, 0x00000e02,
+	0x00000e11, 0x00000e2a, 0x00000e34, 0x00000e4a,
+	0x00000e57, 0x00000e70, 0x00000e80, 0x00000e87,
+	0x00000e8e, 0x00000e9b, 0x00000ea5, 0x00000eb5,
+	0x00000ec2, 0x00000ecf, 0x00000edc, 0x00000ee6,
+	0x00000ef0, 0x00000efd, 0x00000f10, 0x00000f17,
 	// Entry 120 - 13F
-	0x00000f1e, 0x00000f25, 0x00000f29, 0x00000f30,
-	0x00000f37, 0x00000f4a, 0x00000f57, 0x00000f5e,
-	0x00000f65, 0x00000f6c, 0x00000f73, 0x00000f7a,
-	0x00000f81, 0x00000f8b, 0x00000f95, 0x00000fa2,
-	0x00000fa9, 0x00000fad,
-} // Size: 1248 bytes
+	0x00000f24, 0x00000f31, 0x00000f38, 0x00000f3f,
+	0x00000f43, 0x00000f4a, 0x00000f51, 0x00000f64,
+	0x00000f71, 0x00000f78, 0x00000f7f, 0x00000f86,
+	0x00000f8d, 0x00000f94, 0x00000f9b, 0x00000fa5,
+	0x00000faf, 0x00000fbc, 0x00000fc3, 0x00000fc7,
+} // Size: 1256 bytes
 
-const zh_HansData string = "" + // Size: 4013 bytes
+const zh_HansData string = "" + // Size: 4039 bytes
 	"\x02查无此人\x02斩尽牛杂\x02尚未实现，发送命令 %[1]s 代替\x02查询游戏角色失败\x02没有找到游戏角色，请发送命令 /ga" +
 	"me_refresh_role 来刷新\x02请发送私聊信息\x02二维码登录正在检查中\x02保存用户失败\x02获取二维码失败\x02生成二" +
 	"维码失败\x02请用米游社 APP 扫描二维码\x02你找啥呢, 不存在的\x02周一\x02周四\x02周二\x02周五\x02周三" +
@@ -616,34 +618,34 @@ const zh_HansData string = "" + // Size: 4013 bytes
 	" 获取失败，请重试\x02保存游戏账户失败\x02获取游戏记录失败，请重试\x02该账号尚未绑定任何游戏，请确认扫码的账号无误\x02该账号尚未" +
 	"绑定原神，请确认扫码的账号无误\x02更新游戏角色失败\x02更新游戏角色属性失败\x02认证成功\x02火\x02水\x02风\x02雷" +
 	"\x02草\x02冰\x02岩\x02千夜浮梦\x02恶王丸\x02阿贝多\x02艾尔海森\x02暗巷猎手\x02埃洛伊\x02安柏\x02天目" +
-	"影打刀\x02阿莫斯之弓\x02学徒笔记\x02若水\x02风鹰剑\x02荒泷一斗\x02白术\x02无垠蔚蓝之歌\x02峡湾长歌\x02芭" +
-	"芭拉\x02苇海信标\x02新手长枪\x02北斗\x02班尼特\x02黑缨枪\x02黑岩绯玉\x02黑岩长剑\x02黑岩刺枪\x02黑岩斩刀" +
-	"\x02黑岩战弓\x02沐浴龙血的剑\x02息灾\x02坎蒂丝\x02金流监督\x02夏洛蒂\x02夏沃蕾\x02千织\x02重云\x02辰砂之" +
-	"纺锤\x02柯莱\x02钢轮弓\x02冷刃\x02鹤鸣余音\x02流月针\x02赛诺\x02暗铁剑\x02决斗之枪\x02以理服人\x02迪" +
-	"希雅\x02沙中伟贤的对答\x02迪卢克\x02迪奥娜\x02嘟嘟可故事集\x02多莉\x02匣里灭辰\x02龙脊长枪\x02无锋剑\x02" +
-	"终末嗟叹之诗\x02翡玉法球\x02竭泽\x02薙草之稻光\x02优菈\x02不灭月华\x02昭心\x02落霞\x02珐露珊\x02西风秘典" +
-	"\x02西风大剑\x02西风长枪\x02西风剑\x02西风猎弓\x02铁影阔剑\x02腐殖之剑\x02吃虎鱼刀\x02海渊终曲\x02菲谢尔" +
-	"\x02灰河渡手\x02纯水流华\x02森林王器\x02苍古自由之誓\x02菲米尼\x02忍冬之果\x02盈满之实\x02芙宁娜\x02嘉明" +
-	"\x02甘雨\x02五郎\x02白辰之环\x02钺矛\x02破魔之弓\x02波乱月白经津\x02黎明神剑\x02胡桃\x02猎弓\x02猎人之径" +
-	"\x02鹮穿之喙\x02铁尖枪\x02铁蜂刺\x02碧落之珑\x02琴\x02枫原万叶\x02凯亚\x02笼钓瓶一心\x02神乐之真意\x02神" +
-	"里绫华\x02神里绫人\x02桂木斩长正\x02卡维\x02刻晴\x02圣显之钥\x02王下近侍\x02绮良良\x02喜多院十文字\x02可" +
-	"莉\x02九条裟罗\x02久岐忍\x02莱依拉\x02裁叶萃光\x02匣里龙吟\x02丽莎\x02千岩古剑\x02千岩长枪\x02四风原典" +
-	"\x02衔珠海皇\x02琳妮特\x02林尼\x02魔导绪论\x02饰铁之花\x02玛海菈的水色\x02万国诸海图谱\x02尘世之锁\x02信使" +
-	"\x02米卡\x02风信之锋\x02雾切之回光\x02幽夜华尔兹\x02莫娜\x02贯月矢\x02曚云之月\x02纳西妲\x02娜维娅\x02那" +
-	"维莱特\x02妮露\x02凝光\x02诺艾尔\x02证誓之明瞳\x02异世界行记\x02口袋魔导书\x02冬极白星\x02便携动力锯\x02" +
-	"掠食者\x02磐岩结绿\x02和璞鸢\x02勘探钻机\x02试作金珀\x02试作古华\x02试作澹月\x02试作斩岩\x02试作星镰\x02" +
-	"七七\x02雷电将军\x02雨裁\x02测距规\x02鸦羽弓\x02雷泽\x02反曲弓\x02赤角石溃杵\x02公义的酬报\x02罗莎莉亚" +
-	"\x02宗室长弓\x02宗室大剑\x02宗室秘法录\x02宗室长剑\x02宗室猎枪\x02弓藏\x02祭礼弓\x02祭礼残章\x02祭礼大剑" +
-	"\x02遗祀玉珑\x02祭礼剑\x02珊瑚宫心海\x02原木刀\x02早柚\x02烈阳之嗣\x02历练的猎弓\x02螭骨剑\x02神射手之誓" +
-	"\x02申鹤\x02鹿野院平藏\x02银剑\x02飞天大御剑\x02飞天御剑\x02天空之卷\x02天空之刃\x02天空之翼\x02天空之傲" +
-	"\x02天空之脊\x02弹弓\x02雪葬的星银\x02匣里日月\x02静谧之曲\x02松籁响起之时\x02静水流涌之辉\x02护摩之杖\x02赤" +
-	"沙之杖\x02砂糖\x02斫峰之刃\x02水仙十字之剑\x02降临之剑\x02聊聊棒\x02达达利亚\x02暗巷闪光\x02钟剑\x02黑剑" +
-	"\x02「渔获」\x02船坞长剑\x02最初的大魔术\x02笛剑\x02绝弦\x02无工之剑\x02苍翠猎弓\x02流浪乐章\x02托马\x02" +
-	"讨龙英杰谭\x02飞雷之弦振\x02浪影阔剑\x02提纳里\x02万世流涌大典\x02东花坊时雨\x02旅行者(风)\x02旅行者(草)" +
-	"\x02旅行者(雷)\x02旅行者(岩)\x02旅行者(水git sttaus)\x02旅行剑\x02图莱杜拉的回忆\x02甲级宝珏\x02究极" +
-	"霸王超级魔剑\x02有乐御簾切\x02温迪\x02裁断\x02贯虹之槊\x02流浪者\x02流浪的晚星\x02训练大剑\x02断浪长鳍" +
-	"\x02白铁大剑\x02白缨枪\x02白影剑\x02风花之颂\x02暗巷的酒与诗\x02狼牙\x02狼的末路\x02莱欧斯利\x02香菱\x02" +
-	"闲云\x02魈\x02行秋\x02辛焱\x02西福斯的月光\x02八重神子\x02烟绯\x02瑶瑶\x02夜兰\x02宵宫\x02云堇" +
-	"\x02钟离\x02单手剑\x02双手剑\x02长柄武器\x02法器\x02弓"
+	"影打刀\x02阿莫斯之弓\x02学徒笔记\x02若水\x02风鹰剑\x02荒泷一斗\x02阿蕾奇诺\x02白术\x02无垠蔚蓝之歌\x02峡" +
+	"湾长歌\x02芭芭拉\x02苇海信标\x02新手长枪\x02北斗\x02班尼特\x02黑缨枪\x02黑岩绯玉\x02黑岩长剑\x02黑岩刺枪" +
+	"\x02黑岩斩刀\x02黑岩战弓\x02沐浴龙血的剑\x02息灾\x02坎蒂丝\x02金流监督\x02夏洛蒂\x02夏沃蕾\x02千织\x02重" +
+	"云\x02辰砂之纺锤\x02柯莱\x02钢轮弓\x02冷刃\x02鹤鸣余音\x02流月针\x02赤月之形\x02赛诺\x02暗铁剑\x02决" +
+	"斗之枪\x02以理服人\x02迪希雅\x02沙中伟贤的对答\x02迪卢克\x02迪奥娜\x02嘟嘟可故事集\x02多莉\x02匣里灭辰" +
+	"\x02龙脊长枪\x02无锋剑\x02终末嗟叹之诗\x02翡玉法球\x02竭泽\x02薙草之稻光\x02优菈\x02不灭月华\x02昭心\x02" +
+	"落霞\x02珐露珊\x02西风秘典\x02西风大剑\x02西风长枪\x02西风剑\x02西风猎弓\x02铁影阔剑\x02腐殖之剑\x02吃虎" +
+	"鱼刀\x02海渊终曲\x02菲谢尔\x02灰河渡手\x02纯水流华\x02森林王器\x02苍古自由之誓\x02菲米尼\x02忍冬之果\x02" +
+	"盈满之实\x02芙宁娜\x02嘉明\x02甘雨\x02五郎\x02白辰之环\x02钺矛\x02破魔之弓\x02波乱月白经津\x02黎明神剑" +
+	"\x02胡桃\x02猎弓\x02猎人之径\x02鹮穿之喙\x02铁尖枪\x02铁蜂刺\x02碧落之珑\x02琴\x02枫原万叶\x02凯亚" +
+	"\x02笼钓瓶一心\x02神乐之真意\x02神里绫华\x02神里绫人\x02桂木斩长正\x02卡维\x02刻晴\x02圣显之钥\x02王下近侍" +
+	"\x02绮良良\x02喜多院十文字\x02可莉\x02九条裟罗\x02久岐忍\x02莱依拉\x02裁叶萃光\x02匣里龙吟\x02丽莎\x02千" +
+	"岩古剑\x02千岩长枪\x02四风原典\x02衔珠海皇\x02琳妮特\x02林尼\x02魔导绪论\x02饰铁之花\x02玛海菈的水色\x02" +
+	"万国诸海图谱\x02尘世之锁\x02信使\x02米卡\x02风信之锋\x02雾切之回光\x02幽夜华尔兹\x02莫娜\x02贯月矢\x02曚" +
+	"云之月\x02纳西妲\x02娜维娅\x02那维莱特\x02妮露\x02凝光\x02诺艾尔\x02证誓之明瞳\x02异世界行记\x02口袋魔导" +
+	"书\x02冬极白星\x02便携动力锯\x02掠食者\x02磐岩结绿\x02和璞鸢\x02勘探钻机\x02试作金珀\x02试作古华\x02试作" +
+	"澹月\x02试作斩岩\x02试作星镰\x02七七\x02雷电将军\x02雨裁\x02测距规\x02鸦羽弓\x02雷泽\x02反曲弓\x02赤" +
+	"角石溃杵\x02公义的酬报\x02罗莎莉亚\x02宗室长弓\x02宗室大剑\x02宗室秘法录\x02宗室长剑\x02宗室猎枪\x02弓藏" +
+	"\x02祭礼弓\x02祭礼残章\x02祭礼大剑\x02遗祀玉珑\x02祭礼剑\x02珊瑚宫心海\x02原木刀\x02早柚\x02烈阳之嗣\x02" +
+	"历练的猎弓\x02螭骨剑\x02神射手之誓\x02申鹤\x02鹿野院平藏\x02银剑\x02飞天大御剑\x02飞天御剑\x02天空之卷" +
+	"\x02天空之刃\x02天空之翼\x02天空之傲\x02天空之脊\x02弹弓\x02雪葬的星银\x02匣里日月\x02静谧之曲\x02松籁响起之" +
+	"时\x02静水流涌之辉\x02护摩之杖\x02赤沙之杖\x02砂糖\x02斫峰之刃\x02水仙十字之剑\x02降临之剑\x02聊聊棒\x02" +
+	"达达利亚\x02暗巷闪光\x02钟剑\x02黑剑\x02「渔获」\x02船坞长剑\x02最初的大魔术\x02笛剑\x02绝弦\x02无工之剑" +
+	"\x02苍翠猎弓\x02流浪乐章\x02托马\x02讨龙英杰谭\x02飞雷之弦振\x02浪影阔剑\x02提纳里\x02万世流涌大典\x02东花坊" +
+	"时雨\x02旅行者(风)\x02旅行者(草)\x02旅行者(雷)\x02旅行者(岩)\x02旅行者(水git sttaus)\x02旅行剑" +
+	"\x02图莱杜拉的回忆\x02甲级宝珏\x02究极霸王超级魔剑\x02有乐御簾切\x02温迪\x02裁断\x02贯虹之槊\x02流浪者\x02流" +
+	"浪的晚星\x02训练大剑\x02断浪长鳍\x02白铁大剑\x02白缨枪\x02白影剑\x02风花之颂\x02暗巷的酒与诗\x02狼牙\x02" +
+	"狼的末路\x02莱欧斯利\x02香菱\x02闲云\x02魈\x02行秋\x02辛焱\x02西福斯的月光\x02八重神子\x02烟绯\x02瑶" +
+	"瑶\x02夜兰\x02宵宫\x02云堇\x02钟离\x02单手剑\x02双手剑\x02长柄武器\x02法器\x02弓"
 
-	// Total table size 11275 bytes (11KiB); checksum: 80905B6E
+	// Total table size 11352 bytes (11KiB); checksum: EE0098CC

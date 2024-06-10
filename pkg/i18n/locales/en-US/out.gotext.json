@@ -355,6 +355,13 @@
             "fuzzy": true
         },
         {
+            "id": "Arlecchino",
+            "message": "Arlecchino",
+            "translation": "Arlecchino",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "Baizhu",
             "message": "Baizhu",
             "translation": "Baizhu",
@@ -547,6 +554,13 @@
             "id": "Crescent Pike",
             "message": "Crescent Pike",
             "translation": "Crescent Pike",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Crimson Moons Semblance",
+            "message": "Crimson Moons Semblance",
+            "translation": "Crimson Moons Semblance",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },

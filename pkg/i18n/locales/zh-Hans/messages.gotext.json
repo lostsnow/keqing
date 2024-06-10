@@ -257,6 +257,11 @@
             "translation": "荒泷一斗"
         },
         {
+            "id": "Arlecchino",
+            "message": "Arlecchino",
+            "translation": "阿蕾奇诺"
+        },
+        {
             "id": "Baizhu",
             "message": "Baizhu",
             "translation": "白术"
@@ -395,6 +400,11 @@
             "id": "Crescent Pike",
             "message": "Crescent Pike",
             "translation": "流月针"
+        },
+        {
+            "id": "Crimson Moons Semblance",
+            "message": "Crimson Moons Semblance",
+            "translation": "赤月之形"
         },
         {
             "id": "Cyno",
