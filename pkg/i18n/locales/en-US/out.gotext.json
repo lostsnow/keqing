@@ -691,6 +691,13 @@
             "fuzzy": true
         },
         {
+            "id": "Emilie",
+            "message": "Emilie",
+            "translation": "Emilie",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
             "id": "End of the Line",
             "message": "End of the Line",
             "translation": "End of the Line",
@@ -1135,6 +1142,13 @@
             "id": "Lost Prayer to the Sacred Winds",
             "message": "Lost Prayer to the Sacred Winds",
             "translation": "Lost Prayer to the Sacred Winds",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Lumidouce Elegy",
+            "message": "Lumidouce Elegy",
+            "translation": "Lumidouce Elegy",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         },

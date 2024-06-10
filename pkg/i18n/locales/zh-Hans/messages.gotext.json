@@ -497,6 +497,11 @@
             "translation": "翡玉法球"
         },
         {
+            "id": "Emilie",
+            "message": "Emilie",
+            "translation": "艾梅莉埃"
+        },
+        {
             "id": "End of the Line",
             "message": "End of the Line",
             "translation": "竭泽"
@@ -815,6 +820,11 @@
             "id": "Lost Prayer to the Sacred Winds",
             "message": "Lost Prayer to the Sacred Winds",
             "translation": "四风原典"
+        },
+        {
+            "id": "Lumidouce Elegy",
+            "message": "Lumidouce Elegy",
+            "translation": "柔灯挽歌"
         },
         {
             "id": "Luxurious Sea Lord",
