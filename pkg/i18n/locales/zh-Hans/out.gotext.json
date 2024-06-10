@@ -357,6 +357,11 @@
             "translation": "夏沃蕾"
         },
         {
+            "id": "Chiori",
+            "message": "Chiori",
+            "translation": "千织"
+        },
+        {
             "id": "Chongyun",
             "message": "Chongyun",
             "translation": "重云"
@@ -415,6 +420,11 @@
             "id": "Dehya",
             "message": "Dehya",
             "translation": "迪希雅"
+        },
+        {
+            "id": "Dialogues Of The Desert Sages",
+            "message": "Dialogues Of The Desert Sages",
+            "translation": "沙中伟贤的对答"
         },
         {
             "id": "Diluc",
@@ -1355,6 +1365,11 @@
             "id": "Ultimate Overlords Mega Magic Sword",
             "message": "Ultimate Overlords Mega Magic Sword",
             "translation": "究极霸王超级魔剑"
+        },
+        {
+            "id": "Uraku Misugiri",
+            "message": "Uraku Misugiri",
+            "translation": "有乐御簾切"
         },
         {
             "id": "Venti",
