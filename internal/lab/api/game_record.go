@@ -7,6 +7,7 @@ import (
 	"github.com/lostsnow/keqing/internal/lab/api/endpoint"
 )
 
+//nolint:tagliatelle
 type GameRecordRequest struct {
 	Request
 	AccountID   string `json:"account_id"`

@@ -36,6 +36,7 @@ func (gad *GameAccountDelete) ExecX(ctx context.Context) int {
 	if err != nil {
 		panic(err)
 	}
+
 	return n
 }
 
@@ -48,11 +49,14 @@ func (gad *GameAccountDelete) sqlExec(ctx context.Context) (int, error) {
 			}
 		}
 	}
+
 	affected, err := sqlgraph.DeleteNodes(ctx, gad.driver, _spec)
 	if err != nil && sqlgraph.IsConstraintError(err) {
 		err = &ConstraintError{msg: err.Error(), wrap: err}
 	}
+
 	gad.mutation.done = true
+
 	return affected, err
 }
 
@@ -70,6 +74,7 @@ func (gado *GameAccountDeleteOne) Where(ps ...predicate.GameAccount) *GameAccoun
 // Exec executes the deletion query.
 func (gado *GameAccountDeleteOne) Exec(ctx context.Context) error {
 	n, err := gado.gad.Exec(ctx)
+
 	switch {
 	case err != nil:
 		return err

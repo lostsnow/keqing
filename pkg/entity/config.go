@@ -53,6 +53,7 @@ func (c *config) options(opts ...Option) {
 	for _, opt := range opts {
 		opt(c)
 	}
+
 	if c.debug {
 		c.driver = dialect.Debug(c.driver, c.log)
 	}
@@ -88,6 +89,7 @@ func (c *config) ExecContext(ctx context.Context, query string, args ...any) (st
 	if !ok {
 		return nil, fmt.Errorf("Driver.ExecContext is not supported")
 	}
+
 	return ex.ExecContext(ctx, query, args...)
 }
 
@@ -100,5 +102,6 @@ func (c *config) QueryContext(ctx context.Context, query string, args ...any) (*
 	if !ok {
 		return nil, fmt.Errorf("Driver.QueryContext is not supported")
 	}
+
 	return q.QueryContext(ctx, query, args...)
 }

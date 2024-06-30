@@ -30,7 +30,12 @@ func ReadConfig(cfgFile, configPath string) error {
 		viper.AddConfigPath(configPath)
 	}
 
-	return viper.ReadInConfig()
+	err := viper.ReadInConfig()
+	if err != nil {
+		return fmt.Errorf("config.ReadConfig: %w", err)
+	}
+
+	return nil
 }
 
 func InitLogger() {

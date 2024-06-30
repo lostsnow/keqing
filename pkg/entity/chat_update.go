@@ -33,6 +33,7 @@ func (cu *ChatUpdate) Where(ps ...predicate.Chat) *ChatUpdate {
 func (cu *ChatUpdate) SetChatID(i int64) *ChatUpdate {
 	cu.mutation.ResetChatID()
 	cu.mutation.SetChatID(i)
+
 	return cu
 }
 
@@ -53,6 +54,7 @@ func (cu *ChatUpdate) SetNillableType(s *string) *ChatUpdate {
 	if s != nil {
 		cu.SetType(*s)
 	}
+
 	return cu
 }
 
@@ -67,6 +69,7 @@ func (cu *ChatUpdate) SetNillableIsForum(b *bool) *ChatUpdate {
 	if b != nil {
 		cu.SetIsForum(*b)
 	}
+
 	return cu
 }
 
@@ -81,6 +84,7 @@ func (cu *ChatUpdate) SetNillableTitle(s *string) *ChatUpdate {
 	if s != nil {
 		cu.SetTitle(*s)
 	}
+
 	return cu
 }
 
@@ -95,6 +99,7 @@ func (cu *ChatUpdate) SetNillableUserName(s *string) *ChatUpdate {
 	if s != nil {
 		cu.SetUserName(*s)
 	}
+
 	return cu
 }
 
@@ -109,6 +114,7 @@ func (cu *ChatUpdate) SetNillableFirstName(s *string) *ChatUpdate {
 	if s != nil {
 		cu.SetFirstName(*s)
 	}
+
 	return cu
 }
 
@@ -123,6 +129,7 @@ func (cu *ChatUpdate) SetNillableLastName(s *string) *ChatUpdate {
 	if s != nil {
 		cu.SetLastName(*s)
 	}
+
 	return cu
 }
 
@@ -137,6 +144,7 @@ func (cu *ChatUpdate) SetNillableDescription(s *string) *ChatUpdate {
 	if s != nil {
 		cu.SetDescription(*s)
 	}
+
 	return cu
 }
 
@@ -163,6 +171,7 @@ func (cu *ChatUpdate) SaveX(ctx context.Context) int {
 	if err != nil {
 		panic(err)
 	}
+
 	return affected
 }
 
@@ -202,46 +211,61 @@ func (cu *ChatUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
+
 	if value, ok := cu.mutation.ChatID(); ok {
 		_spec.SetField(chat.FieldChatID, field.TypeInt64, value)
 	}
+
 	if value, ok := cu.mutation.AddedChatID(); ok {
 		_spec.AddField(chat.FieldChatID, field.TypeInt64, value)
 	}
+
 	if value, ok := cu.mutation.GetType(); ok {
 		_spec.SetField(chat.FieldType, field.TypeString, value)
 	}
+
 	if value, ok := cu.mutation.IsForum(); ok {
 		_spec.SetField(chat.FieldIsForum, field.TypeBool, value)
 	}
+
 	if value, ok := cu.mutation.Title(); ok {
 		_spec.SetField(chat.FieldTitle, field.TypeString, value)
 	}
+
 	if value, ok := cu.mutation.UserName(); ok {
 		_spec.SetField(chat.FieldUserName, field.TypeString, value)
 	}
+
 	if value, ok := cu.mutation.FirstName(); ok {
 		_spec.SetField(chat.FieldFirstName, field.TypeString, value)
 	}
+
 	if value, ok := cu.mutation.LastName(); ok {
 		_spec.SetField(chat.FieldLastName, field.TypeString, value)
 	}
+
 	if value, ok := cu.mutation.Description(); ok {
 		_spec.SetField(chat.FieldDescription, field.TypeString, value)
 	}
+
 	if value, ok := cu.mutation.UpdateAt(); ok {
 		_spec.SetField(chat.FieldUpdateAt, field.TypeTime, value)
 	}
+
 	_spec.AddModifiers(cu.modifiers...)
+
 	if n, err = sqlgraph.UpdateNodes(ctx, cu.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{chat.Label}
 		} else if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
+
 		return 0, err
 	}
+
 	cu.mutation.done = true
+
 	return n, nil
 }
 
@@ -258,6 +282,7 @@ type ChatUpdateOne struct {
 func (cuo *ChatUpdateOne) SetChatID(i int64) *ChatUpdateOne {
 	cuo.mutation.ResetChatID()
 	cuo.mutation.SetChatID(i)
+
 	return cuo
 }
 
@@ -278,6 +303,7 @@ func (cuo *ChatUpdateOne) SetNillableType(s *string) *ChatUpdateOne {
 	if s != nil {
 		cuo.SetType(*s)
 	}
+
 	return cuo
 }
 
@@ -292,6 +318,7 @@ func (cuo *ChatUpdateOne) SetNillableIsForum(b *bool) *ChatUpdateOne {
 	if b != nil {
 		cuo.SetIsForum(*b)
 	}
+
 	return cuo
 }
 
@@ -306,6 +333,7 @@ func (cuo *ChatUpdateOne) SetNillableTitle(s *string) *ChatUpdateOne {
 	if s != nil {
 		cuo.SetTitle(*s)
 	}
+
 	return cuo
 }
 
@@ -320,6 +348,7 @@ func (cuo *ChatUpdateOne) SetNillableUserName(s *string) *ChatUpdateOne {
 	if s != nil {
 		cuo.SetUserName(*s)
 	}
+
 	return cuo
 }
 
@@ -334,6 +363,7 @@ func (cuo *ChatUpdateOne) SetNillableFirstName(s *string) *ChatUpdateOne {
 	if s != nil {
 		cuo.SetFirstName(*s)
 	}
+
 	return cuo
 }
 
@@ -348,6 +378,7 @@ func (cuo *ChatUpdateOne) SetNillableLastName(s *string) *ChatUpdateOne {
 	if s != nil {
 		cuo.SetLastName(*s)
 	}
+
 	return cuo
 }
 
@@ -362,6 +393,7 @@ func (cuo *ChatUpdateOne) SetNillableDescription(s *string) *ChatUpdateOne {
 	if s != nil {
 		cuo.SetDescription(*s)
 	}
+
 	return cuo
 }
 
@@ -401,6 +433,7 @@ func (cuo *ChatUpdateOne) SaveX(ctx context.Context) *Chat {
 	if err != nil {
 		panic(err)
 	}
+
 	return node
 }
 
@@ -433,23 +466,28 @@ func (cuo *ChatUpdateOne) Modify(modifiers ...func(u *sql.UpdateBuilder)) *ChatU
 
 func (cuo *ChatUpdateOne) sqlSave(ctx context.Context) (_node *Chat, err error) {
 	_spec := sqlgraph.NewUpdateSpec(chat.Table, chat.Columns, sqlgraph.NewFieldSpec(chat.FieldID, field.TypeInt64))
+
 	id, ok := cuo.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`entity: missing "Chat.id" for update`)}
 	}
+
 	_spec.Node.ID.Value = id
 	if fields := cuo.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, chat.FieldID)
+
 		for _, f := range fields {
 			if !chat.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("entity: invalid field %q for query", f)}
 			}
+
 			if f != chat.FieldID {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
 	}
+
 	if ps := cuo.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -457,48 +495,63 @@ func (cuo *ChatUpdateOne) sqlSave(ctx context.Context) (_node *Chat, err error) 
 			}
 		}
 	}
+
 	if value, ok := cuo.mutation.ChatID(); ok {
 		_spec.SetField(chat.FieldChatID, field.TypeInt64, value)
 	}
+
 	if value, ok := cuo.mutation.AddedChatID(); ok {
 		_spec.AddField(chat.FieldChatID, field.TypeInt64, value)
 	}
+
 	if value, ok := cuo.mutation.GetType(); ok {
 		_spec.SetField(chat.FieldType, field.TypeString, value)
 	}
+
 	if value, ok := cuo.mutation.IsForum(); ok {
 		_spec.SetField(chat.FieldIsForum, field.TypeBool, value)
 	}
+
 	if value, ok := cuo.mutation.Title(); ok {
 		_spec.SetField(chat.FieldTitle, field.TypeString, value)
 	}
+
 	if value, ok := cuo.mutation.UserName(); ok {
 		_spec.SetField(chat.FieldUserName, field.TypeString, value)
 	}
+
 	if value, ok := cuo.mutation.FirstName(); ok {
 		_spec.SetField(chat.FieldFirstName, field.TypeString, value)
 	}
+
 	if value, ok := cuo.mutation.LastName(); ok {
 		_spec.SetField(chat.FieldLastName, field.TypeString, value)
 	}
+
 	if value, ok := cuo.mutation.Description(); ok {
 		_spec.SetField(chat.FieldDescription, field.TypeString, value)
 	}
+
 	if value, ok := cuo.mutation.UpdateAt(); ok {
 		_spec.SetField(chat.FieldUpdateAt, field.TypeTime, value)
 	}
+
 	_spec.AddModifiers(cuo.modifiers...)
 	_node = &Chat{config: cuo.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
+
 	if err = sqlgraph.UpdateNode(ctx, cuo.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{chat.Label}
 		} else if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
+
 		return nil, err
 	}
+
 	cuo.mutation.done = true
+
 	return _node, nil
 }

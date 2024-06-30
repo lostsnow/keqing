@@ -631,6 +631,7 @@ func And(predicates ...predicate.Chat) predicate.Chat {
 		for _, p := range predicates {
 			p(s1)
 		}
+
 		s.Where(s1.P())
 	})
 }
@@ -639,12 +640,15 @@ func And(predicates ...predicate.Chat) predicate.Chat {
 func Or(predicates ...predicate.Chat) predicate.Chat {
 	return predicate.Chat(func(s *sql.Selector) {
 		s1 := s.Clone().SetP(nil)
+
 		for i, p := range predicates {
 			if i > 0 {
 				s1.Or()
 			}
+
 			p(s1)
 		}
+
 		s.Where(s1.P())
 	})
 }

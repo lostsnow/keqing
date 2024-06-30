@@ -33,6 +33,7 @@ func (gru *GameRoleUpdate) Where(ps ...predicate.GameRole) *GameRoleUpdate {
 func (gru *GameRoleUpdate) SetUserID(i int64) *GameRoleUpdate {
 	gru.mutation.ResetUserID()
 	gru.mutation.SetUserID(i)
+
 	return gru
 }
 
@@ -58,6 +59,7 @@ func (gru *GameRoleUpdate) SetRoleID(s string) *GameRoleUpdate {
 func (gru *GameRoleUpdate) SetLevel(i int) *GameRoleUpdate {
 	gru.mutation.ResetLevel()
 	gru.mutation.SetLevel(i)
+
 	return gru
 }
 
@@ -66,6 +68,7 @@ func (gru *GameRoleUpdate) SetNillableLevel(i *int) *GameRoleUpdate {
 	if i != nil {
 		gru.SetLevel(*i)
 	}
+
 	return gru
 }
 
@@ -86,6 +89,7 @@ func (gru *GameRoleUpdate) SetNillableRegion(s *string) *GameRoleUpdate {
 	if s != nil {
 		gru.SetRegion(*s)
 	}
+
 	return gru
 }
 
@@ -100,6 +104,7 @@ func (gru *GameRoleUpdate) SetNillableRegionName(s *string) *GameRoleUpdate {
 	if s != nil {
 		gru.SetRegionName(*s)
 	}
+
 	return gru
 }
 
@@ -114,6 +119,7 @@ func (gru *GameRoleUpdate) SetNillableNickName(s *string) *GameRoleUpdate {
 	if s != nil {
 		gru.SetNickName(*s)
 	}
+
 	return gru
 }
 
@@ -140,6 +146,7 @@ func (gru *GameRoleUpdate) SaveX(ctx context.Context) int {
 	if err != nil {
 		panic(err)
 	}
+
 	return affected
 }
 
@@ -171,26 +178,31 @@ func (gru *GameRoleUpdate) check() error {
 			return &ValidationError{Name: "account_id", err: fmt.Errorf(`entity: validator failed for field "GameRole.account_id": %w`, err)}
 		}
 	}
+
 	if v, ok := gru.mutation.RoleID(); ok {
 		if err := gamerole.RoleIDValidator(v); err != nil {
 			return &ValidationError{Name: "role_id", err: fmt.Errorf(`entity: validator failed for field "GameRole.role_id": %w`, err)}
 		}
 	}
+
 	if v, ok := gru.mutation.Region(); ok {
 		if err := gamerole.RegionValidator(v); err != nil {
 			return &ValidationError{Name: "region", err: fmt.Errorf(`entity: validator failed for field "GameRole.region": %w`, err)}
 		}
 	}
+
 	if v, ok := gru.mutation.RegionName(); ok {
 		if err := gamerole.RegionNameValidator(v); err != nil {
 			return &ValidationError{Name: "region_name", err: fmt.Errorf(`entity: validator failed for field "GameRole.region_name": %w`, err)}
 		}
 	}
+
 	if v, ok := gru.mutation.NickName(); ok {
 		if err := gamerole.NickNameValidator(v); err != nil {
 			return &ValidationError{Name: "nick_name", err: fmt.Errorf(`entity: validator failed for field "GameRole.nick_name": %w`, err)}
 		}
 	}
+
 	return nil
 }
 
@@ -204,6 +216,7 @@ func (gru *GameRoleUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if err := gru.check(); err != nil {
 		return n, err
 	}
+
 	_spec := sqlgraph.NewUpdateSpec(gamerole.Table, gamerole.Columns, sqlgraph.NewFieldSpec(gamerole.FieldID, field.TypeInt64))
 	if ps := gru.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
@@ -212,46 +225,61 @@ func (gru *GameRoleUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
+
 	if value, ok := gru.mutation.UserID(); ok {
 		_spec.SetField(gamerole.FieldUserID, field.TypeInt64, value)
 	}
+
 	if value, ok := gru.mutation.AddedUserID(); ok {
 		_spec.AddField(gamerole.FieldUserID, field.TypeInt64, value)
 	}
+
 	if value, ok := gru.mutation.AccountID(); ok {
 		_spec.SetField(gamerole.FieldAccountID, field.TypeString, value)
 	}
+
 	if value, ok := gru.mutation.RoleID(); ok {
 		_spec.SetField(gamerole.FieldRoleID, field.TypeString, value)
 	}
+
 	if value, ok := gru.mutation.Level(); ok {
 		_spec.SetField(gamerole.FieldLevel, field.TypeInt, value)
 	}
+
 	if value, ok := gru.mutation.AddedLevel(); ok {
 		_spec.AddField(gamerole.FieldLevel, field.TypeInt, value)
 	}
+
 	if value, ok := gru.mutation.Region(); ok {
 		_spec.SetField(gamerole.FieldRegion, field.TypeString, value)
 	}
+
 	if value, ok := gru.mutation.RegionName(); ok {
 		_spec.SetField(gamerole.FieldRegionName, field.TypeString, value)
 	}
+
 	if value, ok := gru.mutation.NickName(); ok {
 		_spec.SetField(gamerole.FieldNickName, field.TypeString, value)
 	}
+
 	if value, ok := gru.mutation.UpdateAt(); ok {
 		_spec.SetField(gamerole.FieldUpdateAt, field.TypeTime, value)
 	}
+
 	_spec.AddModifiers(gru.modifiers...)
+
 	if n, err = sqlgraph.UpdateNodes(ctx, gru.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{gamerole.Label}
 		} else if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
+
 		return 0, err
 	}
+
 	gru.mutation.done = true
+
 	return n, nil
 }
 
@@ -268,6 +296,7 @@ type GameRoleUpdateOne struct {
 func (gruo *GameRoleUpdateOne) SetUserID(i int64) *GameRoleUpdateOne {
 	gruo.mutation.ResetUserID()
 	gruo.mutation.SetUserID(i)
+
 	return gruo
 }
 
@@ -293,6 +322,7 @@ func (gruo *GameRoleUpdateOne) SetRoleID(s string) *GameRoleUpdateOne {
 func (gruo *GameRoleUpdateOne) SetLevel(i int) *GameRoleUpdateOne {
 	gruo.mutation.ResetLevel()
 	gruo.mutation.SetLevel(i)
+
 	return gruo
 }
 
@@ -301,6 +331,7 @@ func (gruo *GameRoleUpdateOne) SetNillableLevel(i *int) *GameRoleUpdateOne {
 	if i != nil {
 		gruo.SetLevel(*i)
 	}
+
 	return gruo
 }
 
@@ -321,6 +352,7 @@ func (gruo *GameRoleUpdateOne) SetNillableRegion(s *string) *GameRoleUpdateOne {
 	if s != nil {
 		gruo.SetRegion(*s)
 	}
+
 	return gruo
 }
 
@@ -335,6 +367,7 @@ func (gruo *GameRoleUpdateOne) SetNillableRegionName(s *string) *GameRoleUpdateO
 	if s != nil {
 		gruo.SetRegionName(*s)
 	}
+
 	return gruo
 }
 
@@ -349,6 +382,7 @@ func (gruo *GameRoleUpdateOne) SetNillableNickName(s *string) *GameRoleUpdateOne
 	if s != nil {
 		gruo.SetNickName(*s)
 	}
+
 	return gruo
 }
 
@@ -388,6 +422,7 @@ func (gruo *GameRoleUpdateOne) SaveX(ctx context.Context) *GameRole {
 	if err != nil {
 		panic(err)
 	}
+
 	return node
 }
 
@@ -419,26 +454,31 @@ func (gruo *GameRoleUpdateOne) check() error {
 			return &ValidationError{Name: "account_id", err: fmt.Errorf(`entity: validator failed for field "GameRole.account_id": %w`, err)}
 		}
 	}
+
 	if v, ok := gruo.mutation.RoleID(); ok {
 		if err := gamerole.RoleIDValidator(v); err != nil {
 			return &ValidationError{Name: "role_id", err: fmt.Errorf(`entity: validator failed for field "GameRole.role_id": %w`, err)}
 		}
 	}
+
 	if v, ok := gruo.mutation.Region(); ok {
 		if err := gamerole.RegionValidator(v); err != nil {
 			return &ValidationError{Name: "region", err: fmt.Errorf(`entity: validator failed for field "GameRole.region": %w`, err)}
 		}
 	}
+
 	if v, ok := gruo.mutation.RegionName(); ok {
 		if err := gamerole.RegionNameValidator(v); err != nil {
 			return &ValidationError{Name: "region_name", err: fmt.Errorf(`entity: validator failed for field "GameRole.region_name": %w`, err)}
 		}
 	}
+
 	if v, ok := gruo.mutation.NickName(); ok {
 		if err := gamerole.NickNameValidator(v); err != nil {
 			return &ValidationError{Name: "nick_name", err: fmt.Errorf(`entity: validator failed for field "GameRole.nick_name": %w`, err)}
 		}
 	}
+
 	return nil
 }
 
@@ -452,24 +492,30 @@ func (gruo *GameRoleUpdateOne) sqlSave(ctx context.Context) (_node *GameRole, er
 	if err := gruo.check(); err != nil {
 		return _node, err
 	}
+
 	_spec := sqlgraph.NewUpdateSpec(gamerole.Table, gamerole.Columns, sqlgraph.NewFieldSpec(gamerole.FieldID, field.TypeInt64))
+
 	id, ok := gruo.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`entity: missing "GameRole.id" for update`)}
 	}
+
 	_spec.Node.ID.Value = id
 	if fields := gruo.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, gamerole.FieldID)
+
 		for _, f := range fields {
 			if !gamerole.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("entity: invalid field %q for query", f)}
 			}
+
 			if f != gamerole.FieldID {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
 	}
+
 	if ps := gruo.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -477,48 +523,63 @@ func (gruo *GameRoleUpdateOne) sqlSave(ctx context.Context) (_node *GameRole, er
 			}
 		}
 	}
+
 	if value, ok := gruo.mutation.UserID(); ok {
 		_spec.SetField(gamerole.FieldUserID, field.TypeInt64, value)
 	}
+
 	if value, ok := gruo.mutation.AddedUserID(); ok {
 		_spec.AddField(gamerole.FieldUserID, field.TypeInt64, value)
 	}
+
 	if value, ok := gruo.mutation.AccountID(); ok {
 		_spec.SetField(gamerole.FieldAccountID, field.TypeString, value)
 	}
+
 	if value, ok := gruo.mutation.RoleID(); ok {
 		_spec.SetField(gamerole.FieldRoleID, field.TypeString, value)
 	}
+
 	if value, ok := gruo.mutation.Level(); ok {
 		_spec.SetField(gamerole.FieldLevel, field.TypeInt, value)
 	}
+
 	if value, ok := gruo.mutation.AddedLevel(); ok {
 		_spec.AddField(gamerole.FieldLevel, field.TypeInt, value)
 	}
+
 	if value, ok := gruo.mutation.Region(); ok {
 		_spec.SetField(gamerole.FieldRegion, field.TypeString, value)
 	}
+
 	if value, ok := gruo.mutation.RegionName(); ok {
 		_spec.SetField(gamerole.FieldRegionName, field.TypeString, value)
 	}
+
 	if value, ok := gruo.mutation.NickName(); ok {
 		_spec.SetField(gamerole.FieldNickName, field.TypeString, value)
 	}
+
 	if value, ok := gruo.mutation.UpdateAt(); ok {
 		_spec.SetField(gamerole.FieldUpdateAt, field.TypeTime, value)
 	}
+
 	_spec.AddModifiers(gruo.modifiers...)
 	_node = &GameRole{config: gruo.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
+
 	if err = sqlgraph.UpdateNode(ctx, gruo.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{gamerole.Label}
 		} else if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
+
 		return nil, err
 	}
+
 	gruo.mutation.done = true
+
 	return _node, nil
 }

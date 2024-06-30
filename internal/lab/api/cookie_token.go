@@ -6,6 +6,7 @@ import (
 	"github.com/lostsnow/keqing/internal/lab/api/endpoint"
 )
 
+//nolint:tagliatelle
 type CookieTokenRequest struct {
 	Request
 	AccountID string `json:"account_id"`

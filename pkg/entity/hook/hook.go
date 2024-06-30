@@ -18,6 +18,7 @@ func (f ChatFunc) Mutate(ctx context.Context, m entity.Mutation) (entity.Value, 
 	if mv, ok := m.(*entity.ChatMutation); ok {
 		return f(ctx, mv)
 	}
+
 	return nil, fmt.Errorf("unexpected mutation type %T. expect *entity.ChatMutation", m)
 }
 
@@ -30,6 +31,7 @@ func (f ChatOptionFunc) Mutate(ctx context.Context, m entity.Mutation) (entity.V
 	if mv, ok := m.(*entity.ChatOptionMutation); ok {
 		return f(ctx, mv)
 	}
+
 	return nil, fmt.Errorf("unexpected mutation type %T. expect *entity.ChatOptionMutation", m)
 }
 
@@ -42,6 +44,7 @@ func (f GameAccountFunc) Mutate(ctx context.Context, m entity.Mutation) (entity.
 	if mv, ok := m.(*entity.GameAccountMutation); ok {
 		return f(ctx, mv)
 	}
+
 	return nil, fmt.Errorf("unexpected mutation type %T. expect *entity.GameAccountMutation", m)
 }
 
@@ -54,6 +57,7 @@ func (f GameRoleFunc) Mutate(ctx context.Context, m entity.Mutation) (entity.Val
 	if mv, ok := m.(*entity.GameRoleMutation); ok {
 		return f(ctx, mv)
 	}
+
 	return nil, fmt.Errorf("unexpected mutation type %T. expect *entity.GameRoleMutation", m)
 }
 
@@ -66,6 +70,7 @@ func (f GameRoleAttributeFunc) Mutate(ctx context.Context, m entity.Mutation) (e
 	if mv, ok := m.(*entity.GameRoleAttributeMutation); ok {
 		return f(ctx, mv)
 	}
+
 	return nil, fmt.Errorf("unexpected mutation type %T. expect *entity.GameRoleAttributeMutation", m)
 }
 
@@ -78,6 +83,7 @@ func (f UserFunc) Mutate(ctx context.Context, m entity.Mutation) (entity.Value, 
 	if mv, ok := m.(*entity.UserMutation); ok {
 		return f(ctx, mv)
 	}
+
 	return nil, fmt.Errorf("unexpected mutation type %T. expect *entity.UserMutation", m)
 }
 
@@ -90,11 +96,13 @@ func And(first, second Condition, rest ...Condition) Condition {
 		if !first(ctx, m) || !second(ctx, m) {
 			return false
 		}
+
 		for _, cond := range rest {
 			if !cond(ctx, m) {
 				return false
 			}
 		}
+
 		return true
 	}
 }
@@ -105,11 +113,13 @@ func Or(first, second Condition, rest ...Condition) Condition {
 		if first(ctx, m) || second(ctx, m) {
 			return true
 		}
+
 		for _, cond := range rest {
 			if cond(ctx, m) {
 				return true
 			}
 		}
+
 		return false
 	}
 }
@@ -134,11 +144,13 @@ func HasAddedFields(field string, fields ...string) Condition {
 		if _, exists := m.AddedField(field); !exists {
 			return false
 		}
+
 		for _, field := range fields {
 			if _, exists := m.AddedField(field); !exists {
 				return false
 			}
 		}
+
 		return true
 	}
 }
@@ -149,11 +161,13 @@ func HasClearedFields(field string, fields ...string) Condition {
 		if exists := m.FieldCleared(field); !exists {
 			return false
 		}
+
 		for _, field := range fields {
 			if exists := m.FieldCleared(field); !exists {
 				return false
 			}
 		}
+
 		return true
 	}
 }
@@ -164,11 +178,13 @@ func HasFields(field string, fields ...string) Condition {
 		if _, exists := m.Field(field); !exists {
 			return false
 		}
+
 		for _, field := range fields {
 			if _, exists := m.Field(field); !exists {
 				return false
 			}
 		}
+
 		return true
 	}
 }
@@ -182,6 +198,7 @@ func If(hk entity.Hook, cond Condition) entity.Hook {
 			if cond(ctx, m) {
 				return hk(next).Mutate(ctx, m)
 			}
+
 			return next.Mutate(ctx, m)
 		})
 	}
@@ -239,6 +256,7 @@ func (c Chain) Hook() entity.Hook {
 		for i := len(c.hooks) - 1; i >= 0; i-- {
 			mutator = c.hooks[i](mutator)
 		}
+
 		return mutator
 	}
 }
@@ -249,6 +267,7 @@ func (c Chain) Append(hooks ...entity.Hook) Chain {
 	newHooks := make([]entity.Hook, 0, len(c.hooks)+len(hooks))
 	newHooks = append(newHooks, c.hooks...)
 	newHooks = append(newHooks, hooks...)
+
 	return Chain{newHooks}
 }
 

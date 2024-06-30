@@ -39,6 +39,7 @@ func (cc *ChatCreate) SetNillableType(s *string) *ChatCreate {
 	if s != nil {
 		cc.SetType(*s)
 	}
+
 	return cc
 }
 
@@ -53,6 +54,7 @@ func (cc *ChatCreate) SetNillableIsForum(b *bool) *ChatCreate {
 	if b != nil {
 		cc.SetIsForum(*b)
 	}
+
 	return cc
 }
 
@@ -67,6 +69,7 @@ func (cc *ChatCreate) SetNillableTitle(s *string) *ChatCreate {
 	if s != nil {
 		cc.SetTitle(*s)
 	}
+
 	return cc
 }
 
@@ -81,6 +84,7 @@ func (cc *ChatCreate) SetNillableUserName(s *string) *ChatCreate {
 	if s != nil {
 		cc.SetUserName(*s)
 	}
+
 	return cc
 }
 
@@ -95,6 +99,7 @@ func (cc *ChatCreate) SetNillableFirstName(s *string) *ChatCreate {
 	if s != nil {
 		cc.SetFirstName(*s)
 	}
+
 	return cc
 }
 
@@ -109,6 +114,7 @@ func (cc *ChatCreate) SetNillableLastName(s *string) *ChatCreate {
 	if s != nil {
 		cc.SetLastName(*s)
 	}
+
 	return cc
 }
 
@@ -123,6 +129,7 @@ func (cc *ChatCreate) SetNillableDescription(s *string) *ChatCreate {
 	if s != nil {
 		cc.SetDescription(*s)
 	}
+
 	return cc
 }
 
@@ -137,6 +144,7 @@ func (cc *ChatCreate) SetNillableCreateAt(t *time.Time) *ChatCreate {
 	if t != nil {
 		cc.SetCreateAt(*t)
 	}
+
 	return cc
 }
 
@@ -151,6 +159,7 @@ func (cc *ChatCreate) SetNillableUpdateAt(t *time.Time) *ChatCreate {
 	if t != nil {
 		cc.SetUpdateAt(*t)
 	}
+
 	return cc
 }
 
@@ -177,6 +186,7 @@ func (cc *ChatCreate) SaveX(ctx context.Context) *Chat {
 	if err != nil {
 		panic(err)
 	}
+
 	return v
 }
 
@@ -199,34 +209,42 @@ func (cc *ChatCreate) defaults() {
 		v := chat.DefaultType
 		cc.mutation.SetType(v)
 	}
+
 	if _, ok := cc.mutation.IsForum(); !ok {
 		v := chat.DefaultIsForum
 		cc.mutation.SetIsForum(v)
 	}
+
 	if _, ok := cc.mutation.Title(); !ok {
 		v := chat.DefaultTitle
 		cc.mutation.SetTitle(v)
 	}
+
 	if _, ok := cc.mutation.UserName(); !ok {
 		v := chat.DefaultUserName
 		cc.mutation.SetUserName(v)
 	}
+
 	if _, ok := cc.mutation.FirstName(); !ok {
 		v := chat.DefaultFirstName
 		cc.mutation.SetFirstName(v)
 	}
+
 	if _, ok := cc.mutation.LastName(); !ok {
 		v := chat.DefaultLastName
 		cc.mutation.SetLastName(v)
 	}
+
 	if _, ok := cc.mutation.Description(); !ok {
 		v := chat.DefaultDescription
 		cc.mutation.SetDescription(v)
 	}
+
 	if _, ok := cc.mutation.CreateAt(); !ok {
 		v := chat.DefaultCreateAt()
 		cc.mutation.SetCreateAt(v)
 	}
+
 	if _, ok := cc.mutation.UpdateAt(); !ok {
 		v := chat.DefaultUpdateAt()
 		cc.mutation.SetUpdateAt(v)
@@ -238,33 +256,43 @@ func (cc *ChatCreate) check() error {
 	if _, ok := cc.mutation.ChatID(); !ok {
 		return &ValidationError{Name: "chat_id", err: errors.New(`entity: missing required field "Chat.chat_id"`)}
 	}
+
 	if _, ok := cc.mutation.GetType(); !ok {
 		return &ValidationError{Name: "type", err: errors.New(`entity: missing required field "Chat.type"`)}
 	}
+
 	if _, ok := cc.mutation.IsForum(); !ok {
 		return &ValidationError{Name: "is_forum", err: errors.New(`entity: missing required field "Chat.is_forum"`)}
 	}
+
 	if _, ok := cc.mutation.Title(); !ok {
 		return &ValidationError{Name: "title", err: errors.New(`entity: missing required field "Chat.title"`)}
 	}
+
 	if _, ok := cc.mutation.UserName(); !ok {
 		return &ValidationError{Name: "user_name", err: errors.New(`entity: missing required field "Chat.user_name"`)}
 	}
+
 	if _, ok := cc.mutation.FirstName(); !ok {
 		return &ValidationError{Name: "first_name", err: errors.New(`entity: missing required field "Chat.first_name"`)}
 	}
+
 	if _, ok := cc.mutation.LastName(); !ok {
 		return &ValidationError{Name: "last_name", err: errors.New(`entity: missing required field "Chat.last_name"`)}
 	}
+
 	if _, ok := cc.mutation.Description(); !ok {
 		return &ValidationError{Name: "description", err: errors.New(`entity: missing required field "Chat.description"`)}
 	}
+
 	if _, ok := cc.mutation.CreateAt(); !ok {
 		return &ValidationError{Name: "create_at", err: errors.New(`entity: missing required field "Chat.create_at"`)}
 	}
+
 	if _, ok := cc.mutation.UpdateAt(); !ok {
 		return &ValidationError{Name: "update_at", err: errors.New(`entity: missing required field "Chat.update_at"`)}
 	}
+
 	return nil
 }
 
@@ -272,19 +300,24 @@ func (cc *ChatCreate) sqlSave(ctx context.Context) (*Chat, error) {
 	if err := cc.check(); err != nil {
 		return nil, err
 	}
+
 	_node, _spec := cc.createSpec()
 	if err := sqlgraph.CreateNode(ctx, cc.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
+
 		return nil, err
 	}
+
 	if _spec.ID.Value != _node.ID {
 		id := _spec.ID.Value.(int64)
 		_node.ID = int64(id)
 	}
+
 	cc.mutation.id = &_node.ID
 	cc.mutation.done = true
+
 	return _node, nil
 }
 
@@ -293,51 +326,64 @@ func (cc *ChatCreate) createSpec() (*Chat, *sqlgraph.CreateSpec) {
 		_node = &Chat{config: cc.config}
 		_spec = sqlgraph.NewCreateSpec(chat.Table, sqlgraph.NewFieldSpec(chat.FieldID, field.TypeInt64))
 	)
+
 	_spec.OnConflict = cc.conflict
+
 	if id, ok := cc.mutation.ID(); ok {
 		_node.ID = id
 		_spec.ID.Value = id
 	}
+
 	if value, ok := cc.mutation.ChatID(); ok {
 		_spec.SetField(chat.FieldChatID, field.TypeInt64, value)
 		_node.ChatID = value
 	}
+
 	if value, ok := cc.mutation.GetType(); ok {
 		_spec.SetField(chat.FieldType, field.TypeString, value)
 		_node.Type = value
 	}
+
 	if value, ok := cc.mutation.IsForum(); ok {
 		_spec.SetField(chat.FieldIsForum, field.TypeBool, value)
 		_node.IsForum = value
 	}
+
 	if value, ok := cc.mutation.Title(); ok {
 		_spec.SetField(chat.FieldTitle, field.TypeString, value)
 		_node.Title = value
 	}
+
 	if value, ok := cc.mutation.UserName(); ok {
 		_spec.SetField(chat.FieldUserName, field.TypeString, value)
 		_node.UserName = value
 	}
+
 	if value, ok := cc.mutation.FirstName(); ok {
 		_spec.SetField(chat.FieldFirstName, field.TypeString, value)
 		_node.FirstName = value
 	}
+
 	if value, ok := cc.mutation.LastName(); ok {
 		_spec.SetField(chat.FieldLastName, field.TypeString, value)
 		_node.LastName = value
 	}
+
 	if value, ok := cc.mutation.Description(); ok {
 		_spec.SetField(chat.FieldDescription, field.TypeString, value)
 		_node.Description = value
 	}
+
 	if value, ok := cc.mutation.CreateAt(); ok {
 		_spec.SetField(chat.FieldCreateAt, field.TypeTime, value)
 		_node.CreateAt = value
 	}
+
 	if value, ok := cc.mutation.UpdateAt(); ok {
 		_spec.SetField(chat.FieldUpdateAt, field.TypeTime, value)
 		_node.UpdateAt = value
 	}
+
 	return _node, _spec
 }
 
@@ -359,6 +405,7 @@ func (cc *ChatCreate) createSpec() (*Chat, *sqlgraph.CreateSpec) {
 //		Exec(ctx)
 func (cc *ChatCreate) OnConflict(opts ...sql.ConflictOption) *ChatUpsertOne {
 	cc.conflict = opts
+
 	return &ChatUpsertOne{
 		create: cc,
 	}
@@ -372,6 +419,7 @@ func (cc *ChatCreate) OnConflict(opts ...sql.ConflictOption) *ChatUpsertOne {
 //		Exec(ctx)
 func (cc *ChatCreate) OnConflictColumns(columns ...string) *ChatUpsertOne {
 	cc.conflict = append(cc.conflict, sql.ConflictColumns(columns...))
+
 	return &ChatUpsertOne{
 		create: cc,
 	}
@@ -521,10 +569,12 @@ func (u *ChatUpsertOne) UpdateNewValues() *ChatUpsertOne {
 		if _, exists := u.create.mutation.ID(); exists {
 			s.SetIgnore(chat.FieldID)
 		}
+
 		if _, exists := u.create.mutation.CreateAt(); exists {
 			s.SetIgnore(chat.FieldCreateAt)
 		}
 	}))
+
 	return u
 }
 
@@ -552,6 +602,7 @@ func (u *ChatUpsertOne) Update(set func(*ChatUpsert)) *ChatUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(update *sql.UpdateSet) {
 		set(&ChatUpsert{UpdateSet: update})
 	}))
+
 	return u
 }
 
@@ -693,6 +744,7 @@ func (u *ChatUpsertOne) Exec(ctx context.Context) error {
 	if len(u.create.conflict) == 0 {
 		return errors.New("entity: missing options for ChatCreate.OnConflict")
 	}
+
 	return u.create.Exec(ctx)
 }
 
@@ -709,6 +761,7 @@ func (u *ChatUpsertOne) ID(ctx context.Context) (id int64, err error) {
 	if err != nil {
 		return id, err
 	}
+
 	return node.ID, nil
 }
 
@@ -718,6 +771,7 @@ func (u *ChatUpsertOne) IDX(ctx context.Context) int64 {
 	if err != nil {
 		panic(err)
 	}
+
 	return id
 }
 
@@ -733,10 +787,12 @@ func (ccb *ChatCreateBulk) Save(ctx context.Context) ([]*Chat, error) {
 	specs := make([]*sqlgraph.CreateSpec, len(ccb.builders))
 	nodes := make([]*Chat, len(ccb.builders))
 	mutators := make([]Mutator, len(ccb.builders))
+
 	for i := range ccb.builders {
 		func(i int, root context.Context) {
 			builder := ccb.builders[i]
 			builder.defaults()
+
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*ChatMutation)
 				if !ok {
@@ -771,17 +827,21 @@ func (ccb *ChatCreateBulk) Save(ctx context.Context) ([]*Chat, error) {
 				mutation.done = true
 				return nodes[i], nil
 			})
+
 			for i := len(builder.hooks) - 1; i >= 0; i-- {
 				mut = builder.hooks[i](mut)
 			}
+
 			mutators[i] = mut
 		}(i, ctx)
 	}
+
 	if len(mutators) > 0 {
 		if _, err := mutators[0].Mutate(ctx, ccb.builders[0].mutation); err != nil {
 			return nil, err
 		}
 	}
+
 	return nodes, nil
 }
 
@@ -791,6 +851,7 @@ func (ccb *ChatCreateBulk) SaveX(ctx context.Context) []*Chat {
 	if err != nil {
 		panic(err)
 	}
+
 	return v
 }
 
@@ -824,6 +885,7 @@ func (ccb *ChatCreateBulk) ExecX(ctx context.Context) {
 //		Exec(ctx)
 func (ccb *ChatCreateBulk) OnConflict(opts ...sql.ConflictOption) *ChatUpsertBulk {
 	ccb.conflict = opts
+
 	return &ChatUpsertBulk{
 		create: ccb,
 	}
@@ -837,6 +899,7 @@ func (ccb *ChatCreateBulk) OnConflict(opts ...sql.ConflictOption) *ChatUpsertBul
 //		Exec(ctx)
 func (ccb *ChatCreateBulk) OnConflictColumns(columns ...string) *ChatUpsertBulk {
 	ccb.conflict = append(ccb.conflict, sql.ConflictColumns(columns...))
+
 	return &ChatUpsertBulk{
 		create: ccb,
 	}
@@ -866,11 +929,13 @@ func (u *ChatUpsertBulk) UpdateNewValues() *ChatUpsertBulk {
 			if _, exists := b.mutation.ID(); exists {
 				s.SetIgnore(chat.FieldID)
 			}
+
 			if _, exists := b.mutation.CreateAt(); exists {
 				s.SetIgnore(chat.FieldCreateAt)
 			}
 		}
 	}))
+
 	return u
 }
 
@@ -898,6 +963,7 @@ func (u *ChatUpsertBulk) Update(set func(*ChatUpsert)) *ChatUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(update *sql.UpdateSet) {
 		set(&ChatUpsert{UpdateSet: update})
 	}))
+
 	return u
 }
 
@@ -1041,9 +1107,11 @@ func (u *ChatUpsertBulk) Exec(ctx context.Context) error {
 			return fmt.Errorf("entity: OnConflict was set for builder %d. Set it on the ChatCreateBulk instead", i)
 		}
 	}
+
 	if len(u.create.conflict) == 0 {
 		return errors.New("entity: missing options for ChatCreateBulk.OnConflict")
 	}
+
 	return u.create.Exec(ctx)
 }
 

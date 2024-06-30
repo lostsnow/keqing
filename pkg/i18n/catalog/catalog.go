@@ -18,10 +18,12 @@ func (d *dictionary) Lookup(key string) (data string, ok bool) {
 	if !ok {
 		return "", false
 	}
+
 	start, end := d.index[p], d.index[p+1]
 	if start == end {
 		return "", false
 	}
+
 	return d.data[start:end], true
 }
 
@@ -31,10 +33,12 @@ func init() {
 		"zh_Hans": &dictionary{index: zh_HansIndex, data: zh_HansData},
 	}
 	fallback := language.MustParse("en-US")
+
 	cat, err := catalog.NewFromMap(dict, catalog.Fallback(fallback))
 	if err != nil {
 		panic(err)
 	}
+
 	message.DefaultCatalog = cat
 }
 

@@ -41,6 +41,7 @@ type Chat struct {
 // scanValues returns the types for scanning values from sql.Rows.
 func (*Chat) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
+
 	for i := range columns {
 		switch columns[i] {
 		case chat.FieldIsForum:
@@ -55,6 +56,7 @@ func (*Chat) scanValues(columns []string) ([]any, error) {
 			return nil, fmt.Errorf("unexpected column %q for type Chat", columns[i])
 		}
 	}
+
 	return values, nil
 }
 
@@ -64,6 +66,7 @@ func (c *Chat) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
+
 	for i := range columns {
 		switch columns[i] {
 		case chat.FieldID:
@@ -71,6 +74,7 @@ func (c *Chat) assignValues(columns []string, values []any) error {
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
+
 			c.ID = int64(value.Int64)
 		case chat.FieldChatID:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
@@ -134,6 +138,7 @@ func (c *Chat) assignValues(columns []string, values []any) error {
 			}
 		}
 	}
+
 	return nil
 }
 
@@ -151,13 +156,16 @@ func (c *Chat) Unwrap() *Chat {
 	if !ok {
 		panic("entity: Chat is not a transactional entity")
 	}
+
 	c.config.driver = _tx.drv
+
 	return c
 }
 
 // String implements the fmt.Stringer.
 func (c *Chat) String() string {
 	var builder strings.Builder
+
 	builder.WriteString("Chat(")
 	builder.WriteString(fmt.Sprintf("id=%v, ", c.ID))
 	builder.WriteString("chat_id=")
@@ -190,6 +198,7 @@ func (c *Chat) String() string {
 	builder.WriteString("update_at=")
 	builder.WriteString(c.UpdateAt.Format(time.ANSIC))
 	builder.WriteByte(')')
+
 	return builder.String()
 }
 

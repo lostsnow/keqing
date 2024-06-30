@@ -51,6 +51,7 @@ func (grc *GameRoleCreate) SetNillableLevel(i *int) *GameRoleCreate {
 	if i != nil {
 		grc.SetLevel(*i)
 	}
+
 	return grc
 }
 
@@ -65,6 +66,7 @@ func (grc *GameRoleCreate) SetNillableRegion(s *string) *GameRoleCreate {
 	if s != nil {
 		grc.SetRegion(*s)
 	}
+
 	return grc
 }
 
@@ -79,6 +81,7 @@ func (grc *GameRoleCreate) SetNillableRegionName(s *string) *GameRoleCreate {
 	if s != nil {
 		grc.SetRegionName(*s)
 	}
+
 	return grc
 }
 
@@ -93,6 +96,7 @@ func (grc *GameRoleCreate) SetNillableNickName(s *string) *GameRoleCreate {
 	if s != nil {
 		grc.SetNickName(*s)
 	}
+
 	return grc
 }
 
@@ -107,6 +111,7 @@ func (grc *GameRoleCreate) SetNillableCreateAt(t *time.Time) *GameRoleCreate {
 	if t != nil {
 		grc.SetCreateAt(*t)
 	}
+
 	return grc
 }
 
@@ -121,6 +126,7 @@ func (grc *GameRoleCreate) SetNillableUpdateAt(t *time.Time) *GameRoleCreate {
 	if t != nil {
 		grc.SetUpdateAt(*t)
 	}
+
 	return grc
 }
 
@@ -147,6 +153,7 @@ func (grc *GameRoleCreate) SaveX(ctx context.Context) *GameRole {
 	if err != nil {
 		panic(err)
 	}
+
 	return v
 }
 
@@ -169,22 +176,27 @@ func (grc *GameRoleCreate) defaults() {
 		v := gamerole.DefaultLevel
 		grc.mutation.SetLevel(v)
 	}
+
 	if _, ok := grc.mutation.Region(); !ok {
 		v := gamerole.DefaultRegion
 		grc.mutation.SetRegion(v)
 	}
+
 	if _, ok := grc.mutation.RegionName(); !ok {
 		v := gamerole.DefaultRegionName
 		grc.mutation.SetRegionName(v)
 	}
+
 	if _, ok := grc.mutation.NickName(); !ok {
 		v := gamerole.DefaultNickName
 		grc.mutation.SetNickName(v)
 	}
+
 	if _, ok := grc.mutation.CreateAt(); !ok {
 		v := gamerole.DefaultCreateAt()
 		grc.mutation.SetCreateAt(v)
 	}
+
 	if _, ok := grc.mutation.UpdateAt(); !ok {
 		v := gamerole.DefaultUpdateAt()
 		grc.mutation.SetUpdateAt(v)
@@ -196,55 +208,69 @@ func (grc *GameRoleCreate) check() error {
 	if _, ok := grc.mutation.UserID(); !ok {
 		return &ValidationError{Name: "user_id", err: errors.New(`entity: missing required field "GameRole.user_id"`)}
 	}
+
 	if _, ok := grc.mutation.AccountID(); !ok {
 		return &ValidationError{Name: "account_id", err: errors.New(`entity: missing required field "GameRole.account_id"`)}
 	}
+
 	if v, ok := grc.mutation.AccountID(); ok {
 		if err := gamerole.AccountIDValidator(v); err != nil {
 			return &ValidationError{Name: "account_id", err: fmt.Errorf(`entity: validator failed for field "GameRole.account_id": %w`, err)}
 		}
 	}
+
 	if _, ok := grc.mutation.RoleID(); !ok {
 		return &ValidationError{Name: "role_id", err: errors.New(`entity: missing required field "GameRole.role_id"`)}
 	}
+
 	if v, ok := grc.mutation.RoleID(); ok {
 		if err := gamerole.RoleIDValidator(v); err != nil {
 			return &ValidationError{Name: "role_id", err: fmt.Errorf(`entity: validator failed for field "GameRole.role_id": %w`, err)}
 		}
 	}
+
 	if _, ok := grc.mutation.Level(); !ok {
 		return &ValidationError{Name: "level", err: errors.New(`entity: missing required field "GameRole.level"`)}
 	}
+
 	if _, ok := grc.mutation.Region(); !ok {
 		return &ValidationError{Name: "region", err: errors.New(`entity: missing required field "GameRole.region"`)}
 	}
+
 	if v, ok := grc.mutation.Region(); ok {
 		if err := gamerole.RegionValidator(v); err != nil {
 			return &ValidationError{Name: "region", err: fmt.Errorf(`entity: validator failed for field "GameRole.region": %w`, err)}
 		}
 	}
+
 	if _, ok := grc.mutation.RegionName(); !ok {
 		return &ValidationError{Name: "region_name", err: errors.New(`entity: missing required field "GameRole.region_name"`)}
 	}
+
 	if v, ok := grc.mutation.RegionName(); ok {
 		if err := gamerole.RegionNameValidator(v); err != nil {
 			return &ValidationError{Name: "region_name", err: fmt.Errorf(`entity: validator failed for field "GameRole.region_name": %w`, err)}
 		}
 	}
+
 	if _, ok := grc.mutation.NickName(); !ok {
 		return &ValidationError{Name: "nick_name", err: errors.New(`entity: missing required field "GameRole.nick_name"`)}
 	}
+
 	if v, ok := grc.mutation.NickName(); ok {
 		if err := gamerole.NickNameValidator(v); err != nil {
 			return &ValidationError{Name: "nick_name", err: fmt.Errorf(`entity: validator failed for field "GameRole.nick_name": %w`, err)}
 		}
 	}
+
 	if _, ok := grc.mutation.CreateAt(); !ok {
 		return &ValidationError{Name: "create_at", err: errors.New(`entity: missing required field "GameRole.create_at"`)}
 	}
+
 	if _, ok := grc.mutation.UpdateAt(); !ok {
 		return &ValidationError{Name: "update_at", err: errors.New(`entity: missing required field "GameRole.update_at"`)}
 	}
+
 	return nil
 }
 
@@ -252,19 +278,24 @@ func (grc *GameRoleCreate) sqlSave(ctx context.Context) (*GameRole, error) {
 	if err := grc.check(); err != nil {
 		return nil, err
 	}
+
 	_node, _spec := grc.createSpec()
 	if err := sqlgraph.CreateNode(ctx, grc.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
+
 		return nil, err
 	}
+
 	if _spec.ID.Value != _node.ID {
 		id := _spec.ID.Value.(int64)
 		_node.ID = int64(id)
 	}
+
 	grc.mutation.id = &_node.ID
 	grc.mutation.done = true
+
 	return _node, nil
 }
 
@@ -273,47 +304,59 @@ func (grc *GameRoleCreate) createSpec() (*GameRole, *sqlgraph.CreateSpec) {
 		_node = &GameRole{config: grc.config}
 		_spec = sqlgraph.NewCreateSpec(gamerole.Table, sqlgraph.NewFieldSpec(gamerole.FieldID, field.TypeInt64))
 	)
+
 	_spec.OnConflict = grc.conflict
+
 	if id, ok := grc.mutation.ID(); ok {
 		_node.ID = id
 		_spec.ID.Value = id
 	}
+
 	if value, ok := grc.mutation.UserID(); ok {
 		_spec.SetField(gamerole.FieldUserID, field.TypeInt64, value)
 		_node.UserID = value
 	}
+
 	if value, ok := grc.mutation.AccountID(); ok {
 		_spec.SetField(gamerole.FieldAccountID, field.TypeString, value)
 		_node.AccountID = value
 	}
+
 	if value, ok := grc.mutation.RoleID(); ok {
 		_spec.SetField(gamerole.FieldRoleID, field.TypeString, value)
 		_node.RoleID = value
 	}
+
 	if value, ok := grc.mutation.Level(); ok {
 		_spec.SetField(gamerole.FieldLevel, field.TypeInt, value)
 		_node.Level = value
 	}
+
 	if value, ok := grc.mutation.Region(); ok {
 		_spec.SetField(gamerole.FieldRegion, field.TypeString, value)
 		_node.Region = value
 	}
+
 	if value, ok := grc.mutation.RegionName(); ok {
 		_spec.SetField(gamerole.FieldRegionName, field.TypeString, value)
 		_node.RegionName = value
 	}
+
 	if value, ok := grc.mutation.NickName(); ok {
 		_spec.SetField(gamerole.FieldNickName, field.TypeString, value)
 		_node.NickName = value
 	}
+
 	if value, ok := grc.mutation.CreateAt(); ok {
 		_spec.SetField(gamerole.FieldCreateAt, field.TypeTime, value)
 		_node.CreateAt = value
 	}
+
 	if value, ok := grc.mutation.UpdateAt(); ok {
 		_spec.SetField(gamerole.FieldUpdateAt, field.TypeTime, value)
 		_node.UpdateAt = value
 	}
+
 	return _node, _spec
 }
 
@@ -335,6 +378,7 @@ func (grc *GameRoleCreate) createSpec() (*GameRole, *sqlgraph.CreateSpec) {
 //		Exec(ctx)
 func (grc *GameRoleCreate) OnConflict(opts ...sql.ConflictOption) *GameRoleUpsertOne {
 	grc.conflict = opts
+
 	return &GameRoleUpsertOne{
 		create: grc,
 	}
@@ -348,6 +392,7 @@ func (grc *GameRoleCreate) OnConflict(opts ...sql.ConflictOption) *GameRoleUpser
 //		Exec(ctx)
 func (grc *GameRoleCreate) OnConflictColumns(columns ...string) *GameRoleUpsertOne {
 	grc.conflict = append(grc.conflict, sql.ConflictColumns(columns...))
+
 	return &GameRoleUpsertOne{
 		create: grc,
 	}
@@ -491,10 +536,12 @@ func (u *GameRoleUpsertOne) UpdateNewValues() *GameRoleUpsertOne {
 		if _, exists := u.create.mutation.ID(); exists {
 			s.SetIgnore(gamerole.FieldID)
 		}
+
 		if _, exists := u.create.mutation.CreateAt(); exists {
 			s.SetIgnore(gamerole.FieldCreateAt)
 		}
 	}))
+
 	return u
 }
 
@@ -522,6 +569,7 @@ func (u *GameRoleUpsertOne) Update(set func(*GameRoleUpsert)) *GameRoleUpsertOne
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(update *sql.UpdateSet) {
 		set(&GameRoleUpsert{UpdateSet: update})
 	}))
+
 	return u
 }
 
@@ -656,6 +704,7 @@ func (u *GameRoleUpsertOne) Exec(ctx context.Context) error {
 	if len(u.create.conflict) == 0 {
 		return errors.New("entity: missing options for GameRoleCreate.OnConflict")
 	}
+
 	return u.create.Exec(ctx)
 }
 
@@ -672,6 +721,7 @@ func (u *GameRoleUpsertOne) ID(ctx context.Context) (id int64, err error) {
 	if err != nil {
 		return id, err
 	}
+
 	return node.ID, nil
 }
 
@@ -681,6 +731,7 @@ func (u *GameRoleUpsertOne) IDX(ctx context.Context) int64 {
 	if err != nil {
 		panic(err)
 	}
+
 	return id
 }
 
@@ -696,10 +747,12 @@ func (grcb *GameRoleCreateBulk) Save(ctx context.Context) ([]*GameRole, error) {
 	specs := make([]*sqlgraph.CreateSpec, len(grcb.builders))
 	nodes := make([]*GameRole, len(grcb.builders))
 	mutators := make([]Mutator, len(grcb.builders))
+
 	for i := range grcb.builders {
 		func(i int, root context.Context) {
 			builder := grcb.builders[i]
 			builder.defaults()
+
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*GameRoleMutation)
 				if !ok {
@@ -734,17 +787,21 @@ func (grcb *GameRoleCreateBulk) Save(ctx context.Context) ([]*GameRole, error) {
 				mutation.done = true
 				return nodes[i], nil
 			})
+
 			for i := len(builder.hooks) - 1; i >= 0; i-- {
 				mut = builder.hooks[i](mut)
 			}
+
 			mutators[i] = mut
 		}(i, ctx)
 	}
+
 	if len(mutators) > 0 {
 		if _, err := mutators[0].Mutate(ctx, grcb.builders[0].mutation); err != nil {
 			return nil, err
 		}
 	}
+
 	return nodes, nil
 }
 
@@ -754,6 +811,7 @@ func (grcb *GameRoleCreateBulk) SaveX(ctx context.Context) []*GameRole {
 	if err != nil {
 		panic(err)
 	}
+
 	return v
 }
 
@@ -787,6 +845,7 @@ func (grcb *GameRoleCreateBulk) ExecX(ctx context.Context) {
 //		Exec(ctx)
 func (grcb *GameRoleCreateBulk) OnConflict(opts ...sql.ConflictOption) *GameRoleUpsertBulk {
 	grcb.conflict = opts
+
 	return &GameRoleUpsertBulk{
 		create: grcb,
 	}
@@ -800,6 +859,7 @@ func (grcb *GameRoleCreateBulk) OnConflict(opts ...sql.ConflictOption) *GameRole
 //		Exec(ctx)
 func (grcb *GameRoleCreateBulk) OnConflictColumns(columns ...string) *GameRoleUpsertBulk {
 	grcb.conflict = append(grcb.conflict, sql.ConflictColumns(columns...))
+
 	return &GameRoleUpsertBulk{
 		create: grcb,
 	}
@@ -829,11 +889,13 @@ func (u *GameRoleUpsertBulk) UpdateNewValues() *GameRoleUpsertBulk {
 			if _, exists := b.mutation.ID(); exists {
 				s.SetIgnore(gamerole.FieldID)
 			}
+
 			if _, exists := b.mutation.CreateAt(); exists {
 				s.SetIgnore(gamerole.FieldCreateAt)
 			}
 		}
 	}))
+
 	return u
 }
 
@@ -861,6 +923,7 @@ func (u *GameRoleUpsertBulk) Update(set func(*GameRoleUpsert)) *GameRoleUpsertBu
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(update *sql.UpdateSet) {
 		set(&GameRoleUpsert{UpdateSet: update})
 	}))
+
 	return u
 }
 
@@ -997,9 +1060,11 @@ func (u *GameRoleUpsertBulk) Exec(ctx context.Context) error {
 			return fmt.Errorf("entity: OnConflict was set for builder %d. Set it on the GameRoleCreateBulk instead", i)
 		}
 	}
+
 	if len(u.create.conflict) == 0 {
 		return errors.New("entity: missing options for GameRoleCreateBulk.OnConflict")
 	}
+
 	return u.create.Exec(ctx)
 }
 

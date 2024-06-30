@@ -13,7 +13,6 @@ import (
 	"gopkg.in/telebot.v3"
 
 	"github.com/lostsnow/keqing/pkg/character"
-	_ "github.com/lostsnow/keqing/pkg/i18n/catalog"
 	"github.com/lostsnow/keqing/pkg/weapon"
 )
 
@@ -23,7 +22,7 @@ var ErrInvalidTelegramProxyURL = errors.New("invalid telegram proxy url")
 
 type Bot struct {
 	Bot        *telebot.Bot
-	AdminIds   []int64
+	AdminIDs   []int64
 	AdminUsers []telebot.User
 }
 
@@ -33,19 +32,19 @@ func NewBot() (*Bot, error) {
 	}
 
 	admins := viper.GetStringSlice("admins")
-	adminIds := make([]int64, 0, len(admins))
+	adminIDs := make([]int64, 0, len(admins))
 	adminUsers := make([]telebot.User, 0, len(admins))
 
 	for _, admin := range admins {
 		id, err := strconv.ParseInt(admin, 10, 64)
 		if err == nil {
-			adminIds = append(adminIds, id)
+			adminIDs = append(adminIDs, id)
 			adminUsers = append(adminUsers, telebot.User{ID: id})
 		}
 	}
 
 	b := &Bot{
-		AdminIds:   adminIds,
+		AdminIDs:   adminIDs,
 		AdminUsers: adminUsers,
 	}
 
@@ -54,7 +53,12 @@ func NewBot() (*Bot, error) {
 		Poller:  &telebot.LongPoller{Timeout: viper.GetDuration("telegram.poll-duration")},
 		Verbose: viper.GetBool("telegram.verbose"),
 		OnError: func(err error, ctx telebot.Context) {
-			msgBytes, _ := json.MarshalIndent(ctx.Update(), "", "  ")
+			msgBytes, e := json.MarshalIndent(ctx.Update(), "", "  ")
+			if e != nil {
+				ReportError(ctx, "*%s\n[ERROR] %s*\n```\n%v\n```", time.Now(), e, ctx.Update())
+
+				return
+			}
 			ReportError(ctx, "*%s\n[ERROR] %s*\n```\n%s\n```", time.Now(), err, msgBytes)
 		},
 	}

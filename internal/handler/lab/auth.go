@@ -9,6 +9,7 @@ import (
 	"gopkg.in/telebot.v3"
 
 	"github.com/lostsnow/keqing/internal/db"
+	"github.com/lostsnow/keqing/internal/handler"
 	"github.com/lostsnow/keqing/internal/lab/api"
 	"github.com/lostsnow/keqing/pkg/entity/user"
 	"github.com/lostsnow/keqing/pkg/i18n"
@@ -26,12 +27,18 @@ func RunQrcodeCheckWorker() {
 
 func AuthQrcode(ctx telebot.Context) error {
 	if ctx.Chat().Type != telebot.ChatPrivate {
-		return ctx.Reply(i18n.T(ctx, "Please send me a private chat message"))
+		err := handler.Reply(ctx, i18n.T(ctx, "Please send me a private chat message"))
+		if err != nil {
+			return fmt.Errorf("auth.AuthQrcode: %w", err)
+		}
 	}
 
 	userID := ctx.Sender().ID
 	if qrcodeCheckPool.IsRunning(userID) {
-		return ctx.Reply(i18n.T(ctx, "QR code login is being checked"))
+		err := handler.Reply(ctx, i18n.T(ctx, "QR code login is being checked"))
+		if err != nil {
+			return fmt.Errorf("auth.AuthQrcode: %w", err)
+		}
 	}
 
 	err := db.DB.Client.User.
@@ -45,7 +52,7 @@ func AuthQrcode(ctx telebot.Context) error {
 		UpdateNewValues().
 		Exec(context.Background())
 	if err != nil {
-		_ = ctx.Reply(i18n.T(ctx, "Upsert user failed"))
+		_ = handler.Reply(ctx, i18n.T(ctx, "Upsert user failed"))
 
 		return fmt.Errorf("upsert user %d failed: %w", userID, err)
 	}
@@ -54,22 +61,27 @@ func AuthQrcode(ctx telebot.Context) error {
 
 	resp, err := req.Do()
 	if err != nil {
-		_ = ctx.Reply(i18n.T(ctx, "Fetch QR code failed"))
+		_ = handler.Reply(ctx, i18n.T(ctx, "Fetch QR code failed"))
 
-		return err
+		return fmt.Errorf("lab.AuthQrcode: %w", err)
 	}
 
 	qr, err := req.ToImage(resp.URL)
 	if err != nil {
-		_ = ctx.Reply(i18n.T(ctx, "Generate QR code failed"))
+		_ = handler.Reply(ctx, i18n.T(ctx, "Generate QR code failed"))
 
-		return err
+		return fmt.Errorf("lab.AuthQrcode: %w", err)
 	}
 
 	qrcodeCheckPool.Add(ctx, userID, api.NewQrcodeQuery(resp.AppID, resp.Device, resp.Ticket))
 
-	return ctx.Reply(&telebot.Photo{
+	err = handler.ReplyPhoto(ctx, &telebot.Photo{
 		File:    telebot.FromReader(bytes.NewReader(qr)),
 		Caption: i18n.T(ctx, "Please scan the QR code with the miyoushe App"),
 	})
+	if err != nil {
+		return fmt.Errorf("auth.AuthQrcode: %w", err)
+	}
+
+	return nil
 }

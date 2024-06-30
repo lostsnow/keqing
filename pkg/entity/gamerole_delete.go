@@ -36,6 +36,7 @@ func (grd *GameRoleDelete) ExecX(ctx context.Context) int {
 	if err != nil {
 		panic(err)
 	}
+
 	return n
 }
 
@@ -48,11 +49,14 @@ func (grd *GameRoleDelete) sqlExec(ctx context.Context) (int, error) {
 			}
 		}
 	}
+
 	affected, err := sqlgraph.DeleteNodes(ctx, grd.driver, _spec)
 	if err != nil && sqlgraph.IsConstraintError(err) {
 		err = &ConstraintError{msg: err.Error(), wrap: err}
 	}
+
 	grd.mutation.done = true
+
 	return affected, err
 }
 
@@ -70,6 +74,7 @@ func (grdo *GameRoleDeleteOne) Where(ps ...predicate.GameRole) *GameRoleDeleteOn
 // Exec executes the deletion query.
 func (grdo *GameRoleDeleteOne) Exec(ctx context.Context) error {
 	n, err := grdo.grd.Exec(ctx)
+
 	switch {
 	case err != nil:
 		return err

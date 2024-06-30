@@ -33,6 +33,7 @@ func (gau *GameAccountUpdate) Where(ps ...predicate.GameAccount) *GameAccountUpd
 func (gau *GameAccountUpdate) SetUserID(i int64) *GameAccountUpdate {
 	gau.mutation.ResetUserID()
 	gau.mutation.SetUserID(i)
+
 	return gau
 }
 
@@ -59,6 +60,7 @@ func (gau *GameAccountUpdate) SetNillableGameToken(s *string) *GameAccountUpdate
 	if s != nil {
 		gau.SetGameToken(*s)
 	}
+
 	return gau
 }
 
@@ -73,6 +75,7 @@ func (gau *GameAccountUpdate) SetNillableCookieToken(s *string) *GameAccountUpda
 	if s != nil {
 		gau.SetCookieToken(*s)
 	}
+
 	return gau
 }
 
@@ -87,6 +90,7 @@ func (gau *GameAccountUpdate) SetNillableStoken(s *string) *GameAccountUpdate {
 	if s != nil {
 		gau.SetStoken(*s)
 	}
+
 	return gau
 }
 
@@ -101,6 +105,7 @@ func (gau *GameAccountUpdate) SetNillableMid(s *string) *GameAccountUpdate {
 	if s != nil {
 		gau.SetMid(*s)
 	}
+
 	return gau
 }
 
@@ -127,6 +132,7 @@ func (gau *GameAccountUpdate) SaveX(ctx context.Context) int {
 	if err != nil {
 		panic(err)
 	}
+
 	return affected
 }
 
@@ -158,21 +164,25 @@ func (gau *GameAccountUpdate) check() error {
 			return &ValidationError{Name: "account_id", err: fmt.Errorf(`entity: validator failed for field "GameAccount.account_id": %w`, err)}
 		}
 	}
+
 	if v, ok := gau.mutation.GameToken(); ok {
 		if err := gameaccount.GameTokenValidator(v); err != nil {
 			return &ValidationError{Name: "game_token", err: fmt.Errorf(`entity: validator failed for field "GameAccount.game_token": %w`, err)}
 		}
 	}
+
 	if v, ok := gau.mutation.CookieToken(); ok {
 		if err := gameaccount.CookieTokenValidator(v); err != nil {
 			return &ValidationError{Name: "cookie_token", err: fmt.Errorf(`entity: validator failed for field "GameAccount.cookie_token": %w`, err)}
 		}
 	}
+
 	if v, ok := gau.mutation.Mid(); ok {
 		if err := gameaccount.MidValidator(v); err != nil {
 			return &ValidationError{Name: "mid", err: fmt.Errorf(`entity: validator failed for field "GameAccount.mid": %w`, err)}
 		}
 	}
+
 	return nil
 }
 
@@ -186,6 +196,7 @@ func (gau *GameAccountUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if err := gau.check(); err != nil {
 		return n, err
 	}
+
 	_spec := sqlgraph.NewUpdateSpec(gameaccount.Table, gameaccount.Columns, sqlgraph.NewFieldSpec(gameaccount.FieldID, field.TypeInt64))
 	if ps := gau.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
@@ -194,40 +205,53 @@ func (gau *GameAccountUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
+
 	if value, ok := gau.mutation.UserID(); ok {
 		_spec.SetField(gameaccount.FieldUserID, field.TypeInt64, value)
 	}
+
 	if value, ok := gau.mutation.AddedUserID(); ok {
 		_spec.AddField(gameaccount.FieldUserID, field.TypeInt64, value)
 	}
+
 	if value, ok := gau.mutation.AccountID(); ok {
 		_spec.SetField(gameaccount.FieldAccountID, field.TypeString, value)
 	}
+
 	if value, ok := gau.mutation.GameToken(); ok {
 		_spec.SetField(gameaccount.FieldGameToken, field.TypeString, value)
 	}
+
 	if value, ok := gau.mutation.CookieToken(); ok {
 		_spec.SetField(gameaccount.FieldCookieToken, field.TypeString, value)
 	}
+
 	if value, ok := gau.mutation.Stoken(); ok {
 		_spec.SetField(gameaccount.FieldStoken, field.TypeString, value)
 	}
+
 	if value, ok := gau.mutation.Mid(); ok {
 		_spec.SetField(gameaccount.FieldMid, field.TypeString, value)
 	}
+
 	if value, ok := gau.mutation.UpdateAt(); ok {
 		_spec.SetField(gameaccount.FieldUpdateAt, field.TypeTime, value)
 	}
+
 	_spec.AddModifiers(gau.modifiers...)
+
 	if n, err = sqlgraph.UpdateNodes(ctx, gau.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{gameaccount.Label}
 		} else if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
+
 		return 0, err
 	}
+
 	gau.mutation.done = true
+
 	return n, nil
 }
 
@@ -244,6 +268,7 @@ type GameAccountUpdateOne struct {
 func (gauo *GameAccountUpdateOne) SetUserID(i int64) *GameAccountUpdateOne {
 	gauo.mutation.ResetUserID()
 	gauo.mutation.SetUserID(i)
+
 	return gauo
 }
 
@@ -270,6 +295,7 @@ func (gauo *GameAccountUpdateOne) SetNillableGameToken(s *string) *GameAccountUp
 	if s != nil {
 		gauo.SetGameToken(*s)
 	}
+
 	return gauo
 }
 
@@ -284,6 +310,7 @@ func (gauo *GameAccountUpdateOne) SetNillableCookieToken(s *string) *GameAccount
 	if s != nil {
 		gauo.SetCookieToken(*s)
 	}
+
 	return gauo
 }
 
@@ -298,6 +325,7 @@ func (gauo *GameAccountUpdateOne) SetNillableStoken(s *string) *GameAccountUpdat
 	if s != nil {
 		gauo.SetStoken(*s)
 	}
+
 	return gauo
 }
 
@@ -312,6 +340,7 @@ func (gauo *GameAccountUpdateOne) SetNillableMid(s *string) *GameAccountUpdateOn
 	if s != nil {
 		gauo.SetMid(*s)
 	}
+
 	return gauo
 }
 
@@ -351,6 +380,7 @@ func (gauo *GameAccountUpdateOne) SaveX(ctx context.Context) *GameAccount {
 	if err != nil {
 		panic(err)
 	}
+
 	return node
 }
 
@@ -382,21 +412,25 @@ func (gauo *GameAccountUpdateOne) check() error {
 			return &ValidationError{Name: "account_id", err: fmt.Errorf(`entity: validator failed for field "GameAccount.account_id": %w`, err)}
 		}
 	}
+
 	if v, ok := gauo.mutation.GameToken(); ok {
 		if err := gameaccount.GameTokenValidator(v); err != nil {
 			return &ValidationError{Name: "game_token", err: fmt.Errorf(`entity: validator failed for field "GameAccount.game_token": %w`, err)}
 		}
 	}
+
 	if v, ok := gauo.mutation.CookieToken(); ok {
 		if err := gameaccount.CookieTokenValidator(v); err != nil {
 			return &ValidationError{Name: "cookie_token", err: fmt.Errorf(`entity: validator failed for field "GameAccount.cookie_token": %w`, err)}
 		}
 	}
+
 	if v, ok := gauo.mutation.Mid(); ok {
 		if err := gameaccount.MidValidator(v); err != nil {
 			return &ValidationError{Name: "mid", err: fmt.Errorf(`entity: validator failed for field "GameAccount.mid": %w`, err)}
 		}
 	}
+
 	return nil
 }
 
@@ -410,24 +444,30 @@ func (gauo *GameAccountUpdateOne) sqlSave(ctx context.Context) (_node *GameAccou
 	if err := gauo.check(); err != nil {
 		return _node, err
 	}
+
 	_spec := sqlgraph.NewUpdateSpec(gameaccount.Table, gameaccount.Columns, sqlgraph.NewFieldSpec(gameaccount.FieldID, field.TypeInt64))
+
 	id, ok := gauo.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`entity: missing "GameAccount.id" for update`)}
 	}
+
 	_spec.Node.ID.Value = id
 	if fields := gauo.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, gameaccount.FieldID)
+
 		for _, f := range fields {
 			if !gameaccount.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("entity: invalid field %q for query", f)}
 			}
+
 			if f != gameaccount.FieldID {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
 	}
+
 	if ps := gauo.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -435,42 +475,55 @@ func (gauo *GameAccountUpdateOne) sqlSave(ctx context.Context) (_node *GameAccou
 			}
 		}
 	}
+
 	if value, ok := gauo.mutation.UserID(); ok {
 		_spec.SetField(gameaccount.FieldUserID, field.TypeInt64, value)
 	}
+
 	if value, ok := gauo.mutation.AddedUserID(); ok {
 		_spec.AddField(gameaccount.FieldUserID, field.TypeInt64, value)
 	}
+
 	if value, ok := gauo.mutation.AccountID(); ok {
 		_spec.SetField(gameaccount.FieldAccountID, field.TypeString, value)
 	}
+
 	if value, ok := gauo.mutation.GameToken(); ok {
 		_spec.SetField(gameaccount.FieldGameToken, field.TypeString, value)
 	}
+
 	if value, ok := gauo.mutation.CookieToken(); ok {
 		_spec.SetField(gameaccount.FieldCookieToken, field.TypeString, value)
 	}
+
 	if value, ok := gauo.mutation.Stoken(); ok {
 		_spec.SetField(gameaccount.FieldStoken, field.TypeString, value)
 	}
+
 	if value, ok := gauo.mutation.Mid(); ok {
 		_spec.SetField(gameaccount.FieldMid, field.TypeString, value)
 	}
+
 	if value, ok := gauo.mutation.UpdateAt(); ok {
 		_spec.SetField(gameaccount.FieldUpdateAt, field.TypeTime, value)
 	}
+
 	_spec.AddModifiers(gauo.modifiers...)
 	_node = &GameAccount{config: gauo.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
+
 	if err = sqlgraph.UpdateNode(ctx, gauo.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{gameaccount.Label}
 		} else if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
+
 		return nil, err
 	}
+
 	gauo.mutation.done = true
+
 	return _node, nil
 }

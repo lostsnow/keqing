@@ -9,7 +9,6 @@ import (
 	"github.com/lostsnow/keqing/internal/handler"
 	"github.com/lostsnow/keqing/pkg/character"
 	"github.com/lostsnow/keqing/pkg/i18n"
-	_ "github.com/lostsnow/keqing/pkg/i18n/catalog"
 )
 
 func Handler(ctx telebot.Context, typ string) error {
@@ -22,7 +21,10 @@ func Handler(ctx telebot.Context, typ string) error {
 
 	maxLen := len(chars)
 	if maxLen == 0 {
-		return ctx.Reply(handler.UnknownPhoto)
+		err := handler.ReplyPhoto(ctx, handler.UnknownPhoto)
+		if err != nil {
+			return fmt.Errorf("character.Handler: %w", err)
+		}
 	}
 
 	if maxLen > 9 {
@@ -39,7 +41,7 @@ func Handler(ctx telebot.Context, typ string) error {
 		buttons = append(buttons, handler.PhotoButton{
 			Title: i18n.T(ctx, char.ID),
 			Dir:   fmt.Sprintf("assets/character/%s/%s", typ, char.Elemental.ID),
-			Name:  fmt.Sprintf("%s.png", char.ID),
+			Name:  char.ID + ".png",
 		})
 	}
 
@@ -48,5 +50,10 @@ func Handler(ctx telebot.Context, typ string) error {
 		NoPhotoMessage: handler.NoPhoto,
 	}
 
-	return h.Handle(ctx)
+	err := h.Handle(ctx)
+	if err != nil {
+		return fmt.Errorf("character.Handler: %w", err)
+	}
+
+	return nil
 }

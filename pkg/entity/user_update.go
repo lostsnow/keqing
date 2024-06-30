@@ -33,6 +33,7 @@ func (uu *UserUpdate) Where(ps ...predicate.User) *UserUpdate {
 func (uu *UserUpdate) SetUserID(i int64) *UserUpdate {
 	uu.mutation.ResetUserID()
 	uu.mutation.SetUserID(i)
+
 	return uu
 }
 
@@ -53,6 +54,7 @@ func (uu *UserUpdate) SetNillableIsBot(b *bool) *UserUpdate {
 	if b != nil {
 		uu.SetIsBot(*b)
 	}
+
 	return uu
 }
 
@@ -67,6 +69,7 @@ func (uu *UserUpdate) SetNillableUserName(s *string) *UserUpdate {
 	if s != nil {
 		uu.SetUserName(*s)
 	}
+
 	return uu
 }
 
@@ -81,6 +84,7 @@ func (uu *UserUpdate) SetNillableFirstName(s *string) *UserUpdate {
 	if s != nil {
 		uu.SetFirstName(*s)
 	}
+
 	return uu
 }
 
@@ -95,6 +99,7 @@ func (uu *UserUpdate) SetNillableLastName(s *string) *UserUpdate {
 	if s != nil {
 		uu.SetLastName(*s)
 	}
+
 	return uu
 }
 
@@ -121,6 +126,7 @@ func (uu *UserUpdate) SaveX(ctx context.Context) int {
 	if err != nil {
 		panic(err)
 	}
+
 	return affected
 }
 
@@ -160,37 +166,49 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
+
 	if value, ok := uu.mutation.UserID(); ok {
 		_spec.SetField(user.FieldUserID, field.TypeInt64, value)
 	}
+
 	if value, ok := uu.mutation.AddedUserID(); ok {
 		_spec.AddField(user.FieldUserID, field.TypeInt64, value)
 	}
+
 	if value, ok := uu.mutation.IsBot(); ok {
 		_spec.SetField(user.FieldIsBot, field.TypeBool, value)
 	}
+
 	if value, ok := uu.mutation.UserName(); ok {
 		_spec.SetField(user.FieldUserName, field.TypeString, value)
 	}
+
 	if value, ok := uu.mutation.FirstName(); ok {
 		_spec.SetField(user.FieldFirstName, field.TypeString, value)
 	}
+
 	if value, ok := uu.mutation.LastName(); ok {
 		_spec.SetField(user.FieldLastName, field.TypeString, value)
 	}
+
 	if value, ok := uu.mutation.UpdateAt(); ok {
 		_spec.SetField(user.FieldUpdateAt, field.TypeTime, value)
 	}
+
 	_spec.AddModifiers(uu.modifiers...)
+
 	if n, err = sqlgraph.UpdateNodes(ctx, uu.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{user.Label}
 		} else if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
+
 		return 0, err
 	}
+
 	uu.mutation.done = true
+
 	return n, nil
 }
 
@@ -207,6 +225,7 @@ type UserUpdateOne struct {
 func (uuo *UserUpdateOne) SetUserID(i int64) *UserUpdateOne {
 	uuo.mutation.ResetUserID()
 	uuo.mutation.SetUserID(i)
+
 	return uuo
 }
 
@@ -227,6 +246,7 @@ func (uuo *UserUpdateOne) SetNillableIsBot(b *bool) *UserUpdateOne {
 	if b != nil {
 		uuo.SetIsBot(*b)
 	}
+
 	return uuo
 }
 
@@ -241,6 +261,7 @@ func (uuo *UserUpdateOne) SetNillableUserName(s *string) *UserUpdateOne {
 	if s != nil {
 		uuo.SetUserName(*s)
 	}
+
 	return uuo
 }
 
@@ -255,6 +276,7 @@ func (uuo *UserUpdateOne) SetNillableFirstName(s *string) *UserUpdateOne {
 	if s != nil {
 		uuo.SetFirstName(*s)
 	}
+
 	return uuo
 }
 
@@ -269,6 +291,7 @@ func (uuo *UserUpdateOne) SetNillableLastName(s *string) *UserUpdateOne {
 	if s != nil {
 		uuo.SetLastName(*s)
 	}
+
 	return uuo
 }
 
@@ -308,6 +331,7 @@ func (uuo *UserUpdateOne) SaveX(ctx context.Context) *User {
 	if err != nil {
 		panic(err)
 	}
+
 	return node
 }
 
@@ -340,23 +364,28 @@ func (uuo *UserUpdateOne) Modify(modifiers ...func(u *sql.UpdateBuilder)) *UserU
 
 func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) {
 	_spec := sqlgraph.NewUpdateSpec(user.Table, user.Columns, sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt64))
+
 	id, ok := uuo.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`entity: missing "User.id" for update`)}
 	}
+
 	_spec.Node.ID.Value = id
 	if fields := uuo.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, user.FieldID)
+
 		for _, f := range fields {
 			if !user.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("entity: invalid field %q for query", f)}
 			}
+
 			if f != user.FieldID {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
 	}
+
 	if ps := uuo.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -364,39 +393,51 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 			}
 		}
 	}
+
 	if value, ok := uuo.mutation.UserID(); ok {
 		_spec.SetField(user.FieldUserID, field.TypeInt64, value)
 	}
+
 	if value, ok := uuo.mutation.AddedUserID(); ok {
 		_spec.AddField(user.FieldUserID, field.TypeInt64, value)
 	}
+
 	if value, ok := uuo.mutation.IsBot(); ok {
 		_spec.SetField(user.FieldIsBot, field.TypeBool, value)
 	}
+
 	if value, ok := uuo.mutation.UserName(); ok {
 		_spec.SetField(user.FieldUserName, field.TypeString, value)
 	}
+
 	if value, ok := uuo.mutation.FirstName(); ok {
 		_spec.SetField(user.FieldFirstName, field.TypeString, value)
 	}
+
 	if value, ok := uuo.mutation.LastName(); ok {
 		_spec.SetField(user.FieldLastName, field.TypeString, value)
 	}
+
 	if value, ok := uuo.mutation.UpdateAt(); ok {
 		_spec.SetField(user.FieldUpdateAt, field.TypeTime, value)
 	}
+
 	_spec.AddModifiers(uuo.modifiers...)
 	_node = &User{config: uuo.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
+
 	if err = sqlgraph.UpdateNode(ctx, uuo.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{user.Label}
 		} else if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
+
 		return nil, err
 	}
+
 	uuo.mutation.done = true
+
 	return _node, nil
 }

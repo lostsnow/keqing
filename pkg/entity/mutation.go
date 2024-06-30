@@ -77,6 +77,7 @@ func newChatMutation(c config, op Op, opts ...chatOption) *ChatMutation {
 	for _, opt := range opts {
 		opt(m)
 	}
+
 	return m
 }
 
@@ -88,6 +89,7 @@ func withChatID(id int64) chatOption {
 			once  sync.Once
 			value *Chat
 		)
+
 		m.oldValue = func(ctx context.Context) (*Chat, error) {
 			once.Do(func() {
 				if m.done {
@@ -96,6 +98,7 @@ func withChatID(id int64) chatOption {
 					value, err = m.Client().Chat.Get(ctx, id)
 				}
 			})
+
 			return value, err
 		}
 		m.id = &id
@@ -117,6 +120,7 @@ func withChat(node *Chat) chatOption {
 func (m ChatMutation) Client() *Client {
 	client := &Client{config: m.config}
 	client.init()
+
 	return client
 }
 
@@ -126,8 +130,10 @@ func (m ChatMutation) Tx() (*Tx, error) {
 	if _, ok := m.driver.(*txDriver); !ok {
 		return nil, errors.New("entity: mutation is not running in a transaction")
 	}
+
 	tx := &Tx{config: m.config}
 	tx.init()
+
 	return tx, nil
 }
 
@@ -143,6 +149,7 @@ func (m *ChatMutation) ID() (id int64, exists bool) {
 	if m.id == nil {
 		return
 	}
+
 	return *m.id, true
 }
 
@@ -157,6 +164,7 @@ func (m *ChatMutation) IDs(ctx context.Context) ([]int64, error) {
 		if exists {
 			return []int64{id}, nil
 		}
+
 		fallthrough
 	case m.op.Is(OpUpdate | OpDelete):
 		return m.Client().Chat.Query().Where(m.predicates...).IDs(ctx)
@@ -177,6 +185,7 @@ func (m *ChatMutation) ChatID() (r int64, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -187,13 +196,16 @@ func (m *ChatMutation) OldChatID(ctx context.Context) (v int64, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldChatID is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldChatID requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldChatID: %w", err)
 	}
+
 	return oldValue.ChatID, nil
 }
 
@@ -212,6 +224,7 @@ func (m *ChatMutation) AddedChatID() (r int64, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -232,6 +245,7 @@ func (m *ChatMutation) GetType() (r string, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -242,13 +256,16 @@ func (m *ChatMutation) OldType(ctx context.Context) (v string, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldType is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldType requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldType: %w", err)
 	}
+
 	return oldValue.Type, nil
 }
 
@@ -268,6 +285,7 @@ func (m *ChatMutation) IsForum() (r bool, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -278,13 +296,16 @@ func (m *ChatMutation) OldIsForum(ctx context.Context) (v bool, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldIsForum is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldIsForum requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldIsForum: %w", err)
 	}
+
 	return oldValue.IsForum, nil
 }
 
@@ -304,6 +325,7 @@ func (m *ChatMutation) Title() (r string, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -314,13 +336,16 @@ func (m *ChatMutation) OldTitle(ctx context.Context) (v string, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldTitle is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldTitle requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldTitle: %w", err)
 	}
+
 	return oldValue.Title, nil
 }
 
@@ -340,6 +365,7 @@ func (m *ChatMutation) UserName() (r string, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -350,13 +376,16 @@ func (m *ChatMutation) OldUserName(ctx context.Context) (v string, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldUserName is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldUserName requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldUserName: %w", err)
 	}
+
 	return oldValue.UserName, nil
 }
 
@@ -376,6 +405,7 @@ func (m *ChatMutation) FirstName() (r string, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -386,13 +416,16 @@ func (m *ChatMutation) OldFirstName(ctx context.Context) (v string, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldFirstName is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldFirstName requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldFirstName: %w", err)
 	}
+
 	return oldValue.FirstName, nil
 }
 
@@ -412,6 +445,7 @@ func (m *ChatMutation) LastName() (r string, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -422,13 +456,16 @@ func (m *ChatMutation) OldLastName(ctx context.Context) (v string, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldLastName is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldLastName requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldLastName: %w", err)
 	}
+
 	return oldValue.LastName, nil
 }
 
@@ -448,6 +485,7 @@ func (m *ChatMutation) Description() (r string, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -458,13 +496,16 @@ func (m *ChatMutation) OldDescription(ctx context.Context) (v string, err error)
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldDescription is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldDescription requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldDescription: %w", err)
 	}
+
 	return oldValue.Description, nil
 }
 
@@ -484,6 +525,7 @@ func (m *ChatMutation) CreateAt() (r time.Time, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -494,13 +536,16 @@ func (m *ChatMutation) OldCreateAt(ctx context.Context) (v time.Time, err error)
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldCreateAt is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldCreateAt requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldCreateAt: %w", err)
 	}
+
 	return oldValue.CreateAt, nil
 }
 
@@ -520,6 +565,7 @@ func (m *ChatMutation) UpdateAt() (r time.Time, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -530,13 +576,16 @@ func (m *ChatMutation) OldUpdateAt(ctx context.Context) (v time.Time, err error)
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldUpdateAt is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldUpdateAt requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldUpdateAt: %w", err)
 	}
+
 	return oldValue.UpdateAt, nil
 }
 
@@ -557,6 +606,7 @@ func (m *ChatMutation) WhereP(ps ...func(*sql.Selector)) {
 	for i := range ps {
 		p[i] = ps[i]
 	}
+
 	m.Where(p...)
 }
 
@@ -583,33 +633,43 @@ func (m *ChatMutation) Fields() []string {
 	if m.chat_id != nil {
 		fields = append(fields, chat.FieldChatID)
 	}
+
 	if m._type != nil {
 		fields = append(fields, chat.FieldType)
 	}
+
 	if m.is_forum != nil {
 		fields = append(fields, chat.FieldIsForum)
 	}
+
 	if m.title != nil {
 		fields = append(fields, chat.FieldTitle)
 	}
+
 	if m.user_name != nil {
 		fields = append(fields, chat.FieldUserName)
 	}
+
 	if m.first_name != nil {
 		fields = append(fields, chat.FieldFirstName)
 	}
+
 	if m.last_name != nil {
 		fields = append(fields, chat.FieldLastName)
 	}
+
 	if m.description != nil {
 		fields = append(fields, chat.FieldDescription)
 	}
+
 	if m.create_at != nil {
 		fields = append(fields, chat.FieldCreateAt)
 	}
+
 	if m.update_at != nil {
 		fields = append(fields, chat.FieldUpdateAt)
 	}
+
 	return fields
 }
 
@@ -639,6 +699,7 @@ func (m *ChatMutation) Field(name string) (ent.Value, bool) {
 	case chat.FieldUpdateAt:
 		return m.UpdateAt()
 	}
+
 	return nil, false
 }
 
@@ -668,6 +729,7 @@ func (m *ChatMutation) OldField(ctx context.Context, name string) (ent.Value, er
 	case chat.FieldUpdateAt:
 		return m.OldUpdateAt(ctx)
 	}
+
 	return nil, fmt.Errorf("unknown Chat field %s", name)
 }
 
@@ -681,72 +743,93 @@ func (m *ChatMutation) SetField(name string, value ent.Value) error {
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetChatID(v)
+
 		return nil
 	case chat.FieldType:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetType(v)
+
 		return nil
 	case chat.FieldIsForum:
 		v, ok := value.(bool)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetIsForum(v)
+
 		return nil
 	case chat.FieldTitle:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetTitle(v)
+
 		return nil
 	case chat.FieldUserName:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetUserName(v)
+
 		return nil
 	case chat.FieldFirstName:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetFirstName(v)
+
 		return nil
 	case chat.FieldLastName:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetLastName(v)
+
 		return nil
 	case chat.FieldDescription:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetDescription(v)
+
 		return nil
 	case chat.FieldCreateAt:
 		v, ok := value.(time.Time)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetCreateAt(v)
+
 		return nil
 	case chat.FieldUpdateAt:
 		v, ok := value.(time.Time)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetUpdateAt(v)
+
 		return nil
 	}
+
 	return fmt.Errorf("unknown Chat field %s", name)
 }
 
@@ -757,6 +840,7 @@ func (m *ChatMutation) AddedFields() []string {
 	if m.addchat_id != nil {
 		fields = append(fields, chat.FieldChatID)
 	}
+
 	return fields
 }
 
@@ -768,6 +852,7 @@ func (m *ChatMutation) AddedField(name string) (ent.Value, bool) {
 	case chat.FieldChatID:
 		return m.AddedChatID()
 	}
+
 	return nil, false
 }
 
@@ -781,9 +866,12 @@ func (m *ChatMutation) AddField(name string, value ent.Value) error {
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.AddChatID(v)
+
 		return nil
 	}
+
 	return fmt.Errorf("unknown Chat numeric field %s", name)
 }
 
@@ -841,6 +929,7 @@ func (m *ChatMutation) ResetField(name string) error {
 		m.ResetUpdateAt()
 		return nil
 	}
+
 	return fmt.Errorf("unknown Chat field %s", name)
 }
 
@@ -926,6 +1015,7 @@ func newChatOptionMutation(c config, op Op, opts ...chatoptionOption) *ChatOptio
 	for _, opt := range opts {
 		opt(m)
 	}
+
 	return m
 }
 
@@ -937,6 +1027,7 @@ func withChatOptionID(id int64) chatoptionOption {
 			once  sync.Once
 			value *ChatOption
 		)
+
 		m.oldValue = func(ctx context.Context) (*ChatOption, error) {
 			once.Do(func() {
 				if m.done {
@@ -945,6 +1036,7 @@ func withChatOptionID(id int64) chatoptionOption {
 					value, err = m.Client().ChatOption.Get(ctx, id)
 				}
 			})
+
 			return value, err
 		}
 		m.id = &id
@@ -966,6 +1058,7 @@ func withChatOption(node *ChatOption) chatoptionOption {
 func (m ChatOptionMutation) Client() *Client {
 	client := &Client{config: m.config}
 	client.init()
+
 	return client
 }
 
@@ -975,8 +1068,10 @@ func (m ChatOptionMutation) Tx() (*Tx, error) {
 	if _, ok := m.driver.(*txDriver); !ok {
 		return nil, errors.New("entity: mutation is not running in a transaction")
 	}
+
 	tx := &Tx{config: m.config}
 	tx.init()
+
 	return tx, nil
 }
 
@@ -992,6 +1087,7 @@ func (m *ChatOptionMutation) ID() (id int64, exists bool) {
 	if m.id == nil {
 		return
 	}
+
 	return *m.id, true
 }
 
@@ -1006,6 +1102,7 @@ func (m *ChatOptionMutation) IDs(ctx context.Context) ([]int64, error) {
 		if exists {
 			return []int64{id}, nil
 		}
+
 		fallthrough
 	case m.op.Is(OpUpdate | OpDelete):
 		return m.Client().ChatOption.Query().Where(m.predicates...).IDs(ctx)
@@ -1026,6 +1123,7 @@ func (m *ChatOptionMutation) ChatID() (r int64, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -1036,13 +1134,16 @@ func (m *ChatOptionMutation) OldChatID(ctx context.Context) (v int64, err error)
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldChatID is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldChatID requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldChatID: %w", err)
 	}
+
 	return oldValue.ChatID, nil
 }
 
@@ -1061,6 +1162,7 @@ func (m *ChatOptionMutation) AddedChatID() (r int64, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -1081,6 +1183,7 @@ func (m *ChatOptionMutation) Key() (r string, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -1091,13 +1194,16 @@ func (m *ChatOptionMutation) OldKey(ctx context.Context) (v string, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldKey is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldKey requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldKey: %w", err)
 	}
+
 	return oldValue.Key, nil
 }
 
@@ -1117,6 +1223,7 @@ func (m *ChatOptionMutation) Value() (r string, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -1127,13 +1234,16 @@ func (m *ChatOptionMutation) OldValue(ctx context.Context) (v string, err error)
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldValue is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldValue requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldValue: %w", err)
 	}
+
 	return oldValue.Value, nil
 }
 
@@ -1153,6 +1263,7 @@ func (m *ChatOptionMutation) CreateAt() (r time.Time, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -1163,13 +1274,16 @@ func (m *ChatOptionMutation) OldCreateAt(ctx context.Context) (v time.Time, err 
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldCreateAt is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldCreateAt requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldCreateAt: %w", err)
 	}
+
 	return oldValue.CreateAt, nil
 }
 
@@ -1189,6 +1303,7 @@ func (m *ChatOptionMutation) UpdateAt() (r time.Time, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -1199,13 +1314,16 @@ func (m *ChatOptionMutation) OldUpdateAt(ctx context.Context) (v time.Time, err 
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldUpdateAt is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldUpdateAt requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldUpdateAt: %w", err)
 	}
+
 	return oldValue.UpdateAt, nil
 }
 
@@ -1226,6 +1344,7 @@ func (m *ChatOptionMutation) WhereP(ps ...func(*sql.Selector)) {
 	for i := range ps {
 		p[i] = ps[i]
 	}
+
 	m.Where(p...)
 }
 
@@ -1252,18 +1371,23 @@ func (m *ChatOptionMutation) Fields() []string {
 	if m.chat_id != nil {
 		fields = append(fields, chatoption.FieldChatID)
 	}
+
 	if m.key != nil {
 		fields = append(fields, chatoption.FieldKey)
 	}
+
 	if m.value != nil {
 		fields = append(fields, chatoption.FieldValue)
 	}
+
 	if m.create_at != nil {
 		fields = append(fields, chatoption.FieldCreateAt)
 	}
+
 	if m.update_at != nil {
 		fields = append(fields, chatoption.FieldUpdateAt)
 	}
+
 	return fields
 }
 
@@ -1283,6 +1407,7 @@ func (m *ChatOptionMutation) Field(name string) (ent.Value, bool) {
 	case chatoption.FieldUpdateAt:
 		return m.UpdateAt()
 	}
+
 	return nil, false
 }
 
@@ -1302,6 +1427,7 @@ func (m *ChatOptionMutation) OldField(ctx context.Context, name string) (ent.Val
 	case chatoption.FieldUpdateAt:
 		return m.OldUpdateAt(ctx)
 	}
+
 	return nil, fmt.Errorf("unknown ChatOption field %s", name)
 }
 
@@ -1315,37 +1441,48 @@ func (m *ChatOptionMutation) SetField(name string, value ent.Value) error {
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetChatID(v)
+
 		return nil
 	case chatoption.FieldKey:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetKey(v)
+
 		return nil
 	case chatoption.FieldValue:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetValue(v)
+
 		return nil
 	case chatoption.FieldCreateAt:
 		v, ok := value.(time.Time)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetCreateAt(v)
+
 		return nil
 	case chatoption.FieldUpdateAt:
 		v, ok := value.(time.Time)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetUpdateAt(v)
+
 		return nil
 	}
+
 	return fmt.Errorf("unknown ChatOption field %s", name)
 }
 
@@ -1356,6 +1493,7 @@ func (m *ChatOptionMutation) AddedFields() []string {
 	if m.addchat_id != nil {
 		fields = append(fields, chatoption.FieldChatID)
 	}
+
 	return fields
 }
 
@@ -1367,6 +1505,7 @@ func (m *ChatOptionMutation) AddedField(name string) (ent.Value, bool) {
 	case chatoption.FieldChatID:
 		return m.AddedChatID()
 	}
+
 	return nil, false
 }
 
@@ -1380,9 +1519,12 @@ func (m *ChatOptionMutation) AddField(name string, value ent.Value) error {
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.AddChatID(v)
+
 		return nil
 	}
+
 	return fmt.Errorf("unknown ChatOption numeric field %s", name)
 }
 
@@ -1425,6 +1567,7 @@ func (m *ChatOptionMutation) ResetField(name string) error {
 		m.ResetUpdateAt()
 		return nil
 	}
+
 	return fmt.Errorf("unknown ChatOption field %s", name)
 }
 
@@ -1513,6 +1656,7 @@ func newGameAccountMutation(c config, op Op, opts ...gameaccountOption) *GameAcc
 	for _, opt := range opts {
 		opt(m)
 	}
+
 	return m
 }
 
@@ -1524,6 +1668,7 @@ func withGameAccountID(id int64) gameaccountOption {
 			once  sync.Once
 			value *GameAccount
 		)
+
 		m.oldValue = func(ctx context.Context) (*GameAccount, error) {
 			once.Do(func() {
 				if m.done {
@@ -1532,6 +1677,7 @@ func withGameAccountID(id int64) gameaccountOption {
 					value, err = m.Client().GameAccount.Get(ctx, id)
 				}
 			})
+
 			return value, err
 		}
 		m.id = &id
@@ -1553,6 +1699,7 @@ func withGameAccount(node *GameAccount) gameaccountOption {
 func (m GameAccountMutation) Client() *Client {
 	client := &Client{config: m.config}
 	client.init()
+
 	return client
 }
 
@@ -1562,8 +1709,10 @@ func (m GameAccountMutation) Tx() (*Tx, error) {
 	if _, ok := m.driver.(*txDriver); !ok {
 		return nil, errors.New("entity: mutation is not running in a transaction")
 	}
+
 	tx := &Tx{config: m.config}
 	tx.init()
+
 	return tx, nil
 }
 
@@ -1579,6 +1728,7 @@ func (m *GameAccountMutation) ID() (id int64, exists bool) {
 	if m.id == nil {
 		return
 	}
+
 	return *m.id, true
 }
 
@@ -1593,6 +1743,7 @@ func (m *GameAccountMutation) IDs(ctx context.Context) ([]int64, error) {
 		if exists {
 			return []int64{id}, nil
 		}
+
 		fallthrough
 	case m.op.Is(OpUpdate | OpDelete):
 		return m.Client().GameAccount.Query().Where(m.predicates...).IDs(ctx)
@@ -1613,6 +1764,7 @@ func (m *GameAccountMutation) UserID() (r int64, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -1623,13 +1775,16 @@ func (m *GameAccountMutation) OldUserID(ctx context.Context) (v int64, err error
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldUserID is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldUserID requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldUserID: %w", err)
 	}
+
 	return oldValue.UserID, nil
 }
 
@@ -1648,6 +1803,7 @@ func (m *GameAccountMutation) AddedUserID() (r int64, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -1668,6 +1824,7 @@ func (m *GameAccountMutation) AccountID() (r string, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -1678,13 +1835,16 @@ func (m *GameAccountMutation) OldAccountID(ctx context.Context) (v string, err e
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldAccountID is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldAccountID requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldAccountID: %w", err)
 	}
+
 	return oldValue.AccountID, nil
 }
 
@@ -1704,6 +1864,7 @@ func (m *GameAccountMutation) GameToken() (r string, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -1714,13 +1875,16 @@ func (m *GameAccountMutation) OldGameToken(ctx context.Context) (v string, err e
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldGameToken is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldGameToken requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldGameToken: %w", err)
 	}
+
 	return oldValue.GameToken, nil
 }
 
@@ -1740,6 +1904,7 @@ func (m *GameAccountMutation) CookieToken() (r string, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -1750,13 +1915,16 @@ func (m *GameAccountMutation) OldCookieToken(ctx context.Context) (v string, err
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldCookieToken is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldCookieToken requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldCookieToken: %w", err)
 	}
+
 	return oldValue.CookieToken, nil
 }
 
@@ -1776,6 +1944,7 @@ func (m *GameAccountMutation) Stoken() (r string, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -1786,13 +1955,16 @@ func (m *GameAccountMutation) OldStoken(ctx context.Context) (v string, err erro
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldStoken is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldStoken requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldStoken: %w", err)
 	}
+
 	return oldValue.Stoken, nil
 }
 
@@ -1812,6 +1984,7 @@ func (m *GameAccountMutation) Mid() (r string, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -1822,13 +1995,16 @@ func (m *GameAccountMutation) OldMid(ctx context.Context) (v string, err error) 
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldMid is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldMid requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldMid: %w", err)
 	}
+
 	return oldValue.Mid, nil
 }
 
@@ -1848,6 +2024,7 @@ func (m *GameAccountMutation) CreateAt() (r time.Time, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -1858,13 +2035,16 @@ func (m *GameAccountMutation) OldCreateAt(ctx context.Context) (v time.Time, err
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldCreateAt is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldCreateAt requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldCreateAt: %w", err)
 	}
+
 	return oldValue.CreateAt, nil
 }
 
@@ -1884,6 +2064,7 @@ func (m *GameAccountMutation) UpdateAt() (r time.Time, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -1894,13 +2075,16 @@ func (m *GameAccountMutation) OldUpdateAt(ctx context.Context) (v time.Time, err
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldUpdateAt is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldUpdateAt requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldUpdateAt: %w", err)
 	}
+
 	return oldValue.UpdateAt, nil
 }
 
@@ -1921,6 +2105,7 @@ func (m *GameAccountMutation) WhereP(ps ...func(*sql.Selector)) {
 	for i := range ps {
 		p[i] = ps[i]
 	}
+
 	m.Where(p...)
 }
 
@@ -1947,27 +2132,35 @@ func (m *GameAccountMutation) Fields() []string {
 	if m.user_id != nil {
 		fields = append(fields, gameaccount.FieldUserID)
 	}
+
 	if m.account_id != nil {
 		fields = append(fields, gameaccount.FieldAccountID)
 	}
+
 	if m.game_token != nil {
 		fields = append(fields, gameaccount.FieldGameToken)
 	}
+
 	if m.cookie_token != nil {
 		fields = append(fields, gameaccount.FieldCookieToken)
 	}
+
 	if m.stoken != nil {
 		fields = append(fields, gameaccount.FieldStoken)
 	}
+
 	if m.mid != nil {
 		fields = append(fields, gameaccount.FieldMid)
 	}
+
 	if m.create_at != nil {
 		fields = append(fields, gameaccount.FieldCreateAt)
 	}
+
 	if m.update_at != nil {
 		fields = append(fields, gameaccount.FieldUpdateAt)
 	}
+
 	return fields
 }
 
@@ -1993,6 +2186,7 @@ func (m *GameAccountMutation) Field(name string) (ent.Value, bool) {
 	case gameaccount.FieldUpdateAt:
 		return m.UpdateAt()
 	}
+
 	return nil, false
 }
 
@@ -2018,6 +2212,7 @@ func (m *GameAccountMutation) OldField(ctx context.Context, name string) (ent.Va
 	case gameaccount.FieldUpdateAt:
 		return m.OldUpdateAt(ctx)
 	}
+
 	return nil, fmt.Errorf("unknown GameAccount field %s", name)
 }
 
@@ -2031,58 +2226,75 @@ func (m *GameAccountMutation) SetField(name string, value ent.Value) error {
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetUserID(v)
+
 		return nil
 	case gameaccount.FieldAccountID:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetAccountID(v)
+
 		return nil
 	case gameaccount.FieldGameToken:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetGameToken(v)
+
 		return nil
 	case gameaccount.FieldCookieToken:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetCookieToken(v)
+
 		return nil
 	case gameaccount.FieldStoken:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetStoken(v)
+
 		return nil
 	case gameaccount.FieldMid:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetMid(v)
+
 		return nil
 	case gameaccount.FieldCreateAt:
 		v, ok := value.(time.Time)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetCreateAt(v)
+
 		return nil
 	case gameaccount.FieldUpdateAt:
 		v, ok := value.(time.Time)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetUpdateAt(v)
+
 		return nil
 	}
+
 	return fmt.Errorf("unknown GameAccount field %s", name)
 }
 
@@ -2093,6 +2305,7 @@ func (m *GameAccountMutation) AddedFields() []string {
 	if m.adduser_id != nil {
 		fields = append(fields, gameaccount.FieldUserID)
 	}
+
 	return fields
 }
 
@@ -2104,6 +2317,7 @@ func (m *GameAccountMutation) AddedField(name string) (ent.Value, bool) {
 	case gameaccount.FieldUserID:
 		return m.AddedUserID()
 	}
+
 	return nil, false
 }
 
@@ -2117,9 +2331,12 @@ func (m *GameAccountMutation) AddField(name string, value ent.Value) error {
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.AddUserID(v)
+
 		return nil
 	}
+
 	return fmt.Errorf("unknown GameAccount numeric field %s", name)
 }
 
@@ -2171,6 +2388,7 @@ func (m *GameAccountMutation) ResetField(name string) error {
 		m.ResetUpdateAt()
 		return nil
 	}
+
 	return fmt.Errorf("unknown GameAccount field %s", name)
 }
 
@@ -2261,6 +2479,7 @@ func newGameRoleMutation(c config, op Op, opts ...gameroleOption) *GameRoleMutat
 	for _, opt := range opts {
 		opt(m)
 	}
+
 	return m
 }
 
@@ -2272,6 +2491,7 @@ func withGameRoleID(id int64) gameroleOption {
 			once  sync.Once
 			value *GameRole
 		)
+
 		m.oldValue = func(ctx context.Context) (*GameRole, error) {
 			once.Do(func() {
 				if m.done {
@@ -2280,6 +2500,7 @@ func withGameRoleID(id int64) gameroleOption {
 					value, err = m.Client().GameRole.Get(ctx, id)
 				}
 			})
+
 			return value, err
 		}
 		m.id = &id
@@ -2301,6 +2522,7 @@ func withGameRole(node *GameRole) gameroleOption {
 func (m GameRoleMutation) Client() *Client {
 	client := &Client{config: m.config}
 	client.init()
+
 	return client
 }
 
@@ -2310,8 +2532,10 @@ func (m GameRoleMutation) Tx() (*Tx, error) {
 	if _, ok := m.driver.(*txDriver); !ok {
 		return nil, errors.New("entity: mutation is not running in a transaction")
 	}
+
 	tx := &Tx{config: m.config}
 	tx.init()
+
 	return tx, nil
 }
 
@@ -2327,6 +2551,7 @@ func (m *GameRoleMutation) ID() (id int64, exists bool) {
 	if m.id == nil {
 		return
 	}
+
 	return *m.id, true
 }
 
@@ -2341,6 +2566,7 @@ func (m *GameRoleMutation) IDs(ctx context.Context) ([]int64, error) {
 		if exists {
 			return []int64{id}, nil
 		}
+
 		fallthrough
 	case m.op.Is(OpUpdate | OpDelete):
 		return m.Client().GameRole.Query().Where(m.predicates...).IDs(ctx)
@@ -2361,6 +2587,7 @@ func (m *GameRoleMutation) UserID() (r int64, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -2371,13 +2598,16 @@ func (m *GameRoleMutation) OldUserID(ctx context.Context) (v int64, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldUserID is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldUserID requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldUserID: %w", err)
 	}
+
 	return oldValue.UserID, nil
 }
 
@@ -2396,6 +2626,7 @@ func (m *GameRoleMutation) AddedUserID() (r int64, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -2416,6 +2647,7 @@ func (m *GameRoleMutation) AccountID() (r string, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -2426,13 +2658,16 @@ func (m *GameRoleMutation) OldAccountID(ctx context.Context) (v string, err erro
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldAccountID is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldAccountID requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldAccountID: %w", err)
 	}
+
 	return oldValue.AccountID, nil
 }
 
@@ -2452,6 +2687,7 @@ func (m *GameRoleMutation) RoleID() (r string, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -2462,13 +2698,16 @@ func (m *GameRoleMutation) OldRoleID(ctx context.Context) (v string, err error) 
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldRoleID is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldRoleID requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldRoleID: %w", err)
 	}
+
 	return oldValue.RoleID, nil
 }
 
@@ -2489,6 +2728,7 @@ func (m *GameRoleMutation) Level() (r int, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -2499,13 +2739,16 @@ func (m *GameRoleMutation) OldLevel(ctx context.Context) (v int, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldLevel is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldLevel requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldLevel: %w", err)
 	}
+
 	return oldValue.Level, nil
 }
 
@@ -2524,6 +2767,7 @@ func (m *GameRoleMutation) AddedLevel() (r int, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -2544,6 +2788,7 @@ func (m *GameRoleMutation) Region() (r string, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -2554,13 +2799,16 @@ func (m *GameRoleMutation) OldRegion(ctx context.Context) (v string, err error) 
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldRegion is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldRegion requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldRegion: %w", err)
 	}
+
 	return oldValue.Region, nil
 }
 
@@ -2580,6 +2828,7 @@ func (m *GameRoleMutation) RegionName() (r string, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -2590,13 +2839,16 @@ func (m *GameRoleMutation) OldRegionName(ctx context.Context) (v string, err err
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldRegionName is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldRegionName requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldRegionName: %w", err)
 	}
+
 	return oldValue.RegionName, nil
 }
 
@@ -2616,6 +2868,7 @@ func (m *GameRoleMutation) NickName() (r string, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -2626,13 +2879,16 @@ func (m *GameRoleMutation) OldNickName(ctx context.Context) (v string, err error
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldNickName is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldNickName requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldNickName: %w", err)
 	}
+
 	return oldValue.NickName, nil
 }
 
@@ -2652,6 +2908,7 @@ func (m *GameRoleMutation) CreateAt() (r time.Time, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -2662,13 +2919,16 @@ func (m *GameRoleMutation) OldCreateAt(ctx context.Context) (v time.Time, err er
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldCreateAt is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldCreateAt requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldCreateAt: %w", err)
 	}
+
 	return oldValue.CreateAt, nil
 }
 
@@ -2688,6 +2948,7 @@ func (m *GameRoleMutation) UpdateAt() (r time.Time, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -2698,13 +2959,16 @@ func (m *GameRoleMutation) OldUpdateAt(ctx context.Context) (v time.Time, err er
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldUpdateAt is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldUpdateAt requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldUpdateAt: %w", err)
 	}
+
 	return oldValue.UpdateAt, nil
 }
 
@@ -2725,6 +2989,7 @@ func (m *GameRoleMutation) WhereP(ps ...func(*sql.Selector)) {
 	for i := range ps {
 		p[i] = ps[i]
 	}
+
 	m.Where(p...)
 }
 
@@ -2751,30 +3016,39 @@ func (m *GameRoleMutation) Fields() []string {
 	if m.user_id != nil {
 		fields = append(fields, gamerole.FieldUserID)
 	}
+
 	if m.account_id != nil {
 		fields = append(fields, gamerole.FieldAccountID)
 	}
+
 	if m.role_id != nil {
 		fields = append(fields, gamerole.FieldRoleID)
 	}
+
 	if m.level != nil {
 		fields = append(fields, gamerole.FieldLevel)
 	}
+
 	if m.region != nil {
 		fields = append(fields, gamerole.FieldRegion)
 	}
+
 	if m.region_name != nil {
 		fields = append(fields, gamerole.FieldRegionName)
 	}
+
 	if m.nick_name != nil {
 		fields = append(fields, gamerole.FieldNickName)
 	}
+
 	if m.create_at != nil {
 		fields = append(fields, gamerole.FieldCreateAt)
 	}
+
 	if m.update_at != nil {
 		fields = append(fields, gamerole.FieldUpdateAt)
 	}
+
 	return fields
 }
 
@@ -2802,6 +3076,7 @@ func (m *GameRoleMutation) Field(name string) (ent.Value, bool) {
 	case gamerole.FieldUpdateAt:
 		return m.UpdateAt()
 	}
+
 	return nil, false
 }
 
@@ -2829,6 +3104,7 @@ func (m *GameRoleMutation) OldField(ctx context.Context, name string) (ent.Value
 	case gamerole.FieldUpdateAt:
 		return m.OldUpdateAt(ctx)
 	}
+
 	return nil, fmt.Errorf("unknown GameRole field %s", name)
 }
 
@@ -2842,65 +3118,84 @@ func (m *GameRoleMutation) SetField(name string, value ent.Value) error {
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetUserID(v)
+
 		return nil
 	case gamerole.FieldAccountID:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetAccountID(v)
+
 		return nil
 	case gamerole.FieldRoleID:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetRoleID(v)
+
 		return nil
 	case gamerole.FieldLevel:
 		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetLevel(v)
+
 		return nil
 	case gamerole.FieldRegion:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetRegion(v)
+
 		return nil
 	case gamerole.FieldRegionName:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetRegionName(v)
+
 		return nil
 	case gamerole.FieldNickName:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetNickName(v)
+
 		return nil
 	case gamerole.FieldCreateAt:
 		v, ok := value.(time.Time)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetCreateAt(v)
+
 		return nil
 	case gamerole.FieldUpdateAt:
 		v, ok := value.(time.Time)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetUpdateAt(v)
+
 		return nil
 	}
+
 	return fmt.Errorf("unknown GameRole field %s", name)
 }
 
@@ -2911,9 +3206,11 @@ func (m *GameRoleMutation) AddedFields() []string {
 	if m.adduser_id != nil {
 		fields = append(fields, gamerole.FieldUserID)
 	}
+
 	if m.addlevel != nil {
 		fields = append(fields, gamerole.FieldLevel)
 	}
+
 	return fields
 }
 
@@ -2927,6 +3224,7 @@ func (m *GameRoleMutation) AddedField(name string) (ent.Value, bool) {
 	case gamerole.FieldLevel:
 		return m.AddedLevel()
 	}
+
 	return nil, false
 }
 
@@ -2940,16 +3238,21 @@ func (m *GameRoleMutation) AddField(name string, value ent.Value) error {
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.AddUserID(v)
+
 		return nil
 	case gamerole.FieldLevel:
 		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.AddLevel(v)
+
 		return nil
 	}
+
 	return fmt.Errorf("unknown GameRole numeric field %s", name)
 }
 
@@ -3004,6 +3307,7 @@ func (m *GameRoleMutation) ResetField(name string) error {
 		m.ResetUpdateAt()
 		return nil
 	}
+
 	return fmt.Errorf("unknown GameRole field %s", name)
 }
 
@@ -3093,6 +3397,7 @@ func newGameRoleAttributeMutation(c config, op Op, opts ...gameroleattributeOpti
 	for _, opt := range opts {
 		opt(m)
 	}
+
 	return m
 }
 
@@ -3104,6 +3409,7 @@ func withGameRoleAttributeID(id int64) gameroleattributeOption {
 			once  sync.Once
 			value *GameRoleAttribute
 		)
+
 		m.oldValue = func(ctx context.Context) (*GameRoleAttribute, error) {
 			once.Do(func() {
 				if m.done {
@@ -3112,6 +3418,7 @@ func withGameRoleAttributeID(id int64) gameroleattributeOption {
 					value, err = m.Client().GameRoleAttribute.Get(ctx, id)
 				}
 			})
+
 			return value, err
 		}
 		m.id = &id
@@ -3133,6 +3440,7 @@ func withGameRoleAttribute(node *GameRoleAttribute) gameroleattributeOption {
 func (m GameRoleAttributeMutation) Client() *Client {
 	client := &Client{config: m.config}
 	client.init()
+
 	return client
 }
 
@@ -3142,8 +3450,10 @@ func (m GameRoleAttributeMutation) Tx() (*Tx, error) {
 	if _, ok := m.driver.(*txDriver); !ok {
 		return nil, errors.New("entity: mutation is not running in a transaction")
 	}
+
 	tx := &Tx{config: m.config}
 	tx.init()
+
 	return tx, nil
 }
 
@@ -3159,6 +3469,7 @@ func (m *GameRoleAttributeMutation) ID() (id int64, exists bool) {
 	if m.id == nil {
 		return
 	}
+
 	return *m.id, true
 }
 
@@ -3173,6 +3484,7 @@ func (m *GameRoleAttributeMutation) IDs(ctx context.Context) ([]int64, error) {
 		if exists {
 			return []int64{id}, nil
 		}
+
 		fallthrough
 	case m.op.Is(OpUpdate | OpDelete):
 		return m.Client().GameRoleAttribute.Query().Where(m.predicates...).IDs(ctx)
@@ -3193,6 +3505,7 @@ func (m *GameRoleAttributeMutation) UserID() (r int64, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -3203,13 +3516,16 @@ func (m *GameRoleAttributeMutation) OldUserID(ctx context.Context) (v int64, err
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldUserID is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldUserID requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldUserID: %w", err)
 	}
+
 	return oldValue.UserID, nil
 }
 
@@ -3228,6 +3544,7 @@ func (m *GameRoleAttributeMutation) AddedUserID() (r int64, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -3248,6 +3565,7 @@ func (m *GameRoleAttributeMutation) AccountID() (r string, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -3258,13 +3576,16 @@ func (m *GameRoleAttributeMutation) OldAccountID(ctx context.Context) (v string,
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldAccountID is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldAccountID requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldAccountID: %w", err)
 	}
+
 	return oldValue.AccountID, nil
 }
 
@@ -3284,6 +3605,7 @@ func (m *GameRoleAttributeMutation) RoleID() (r string, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -3294,13 +3616,16 @@ func (m *GameRoleAttributeMutation) OldRoleID(ctx context.Context) (v string, er
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldRoleID is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldRoleID requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldRoleID: %w", err)
 	}
+
 	return oldValue.RoleID, nil
 }
 
@@ -3320,6 +3645,7 @@ func (m *GameRoleAttributeMutation) Name() (r string, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -3330,13 +3656,16 @@ func (m *GameRoleAttributeMutation) OldName(ctx context.Context) (v string, err 
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldName is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldName requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldName: %w", err)
 	}
+
 	return oldValue.Name, nil
 }
 
@@ -3357,6 +3686,7 @@ func (m *GameRoleAttributeMutation) GetType() (r int, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -3367,13 +3697,16 @@ func (m *GameRoleAttributeMutation) OldType(ctx context.Context) (v int, err err
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldType is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldType requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldType: %w", err)
 	}
+
 	return oldValue.Type, nil
 }
 
@@ -3392,6 +3725,7 @@ func (m *GameRoleAttributeMutation) AddedType() (r int, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -3412,6 +3746,7 @@ func (m *GameRoleAttributeMutation) Value() (r string, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -3422,13 +3757,16 @@ func (m *GameRoleAttributeMutation) OldValue(ctx context.Context) (v string, err
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldValue is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldValue requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldValue: %w", err)
 	}
+
 	return oldValue.Value, nil
 }
 
@@ -3448,6 +3786,7 @@ func (m *GameRoleAttributeMutation) CreateAt() (r time.Time, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -3458,13 +3797,16 @@ func (m *GameRoleAttributeMutation) OldCreateAt(ctx context.Context) (v time.Tim
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldCreateAt is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldCreateAt requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldCreateAt: %w", err)
 	}
+
 	return oldValue.CreateAt, nil
 }
 
@@ -3484,6 +3826,7 @@ func (m *GameRoleAttributeMutation) UpdateAt() (r time.Time, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -3494,13 +3837,16 @@ func (m *GameRoleAttributeMutation) OldUpdateAt(ctx context.Context) (v time.Tim
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldUpdateAt is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldUpdateAt requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldUpdateAt: %w", err)
 	}
+
 	return oldValue.UpdateAt, nil
 }
 
@@ -3521,6 +3867,7 @@ func (m *GameRoleAttributeMutation) WhereP(ps ...func(*sql.Selector)) {
 	for i := range ps {
 		p[i] = ps[i]
 	}
+
 	m.Where(p...)
 }
 
@@ -3547,27 +3894,35 @@ func (m *GameRoleAttributeMutation) Fields() []string {
 	if m.user_id != nil {
 		fields = append(fields, gameroleattribute.FieldUserID)
 	}
+
 	if m.account_id != nil {
 		fields = append(fields, gameroleattribute.FieldAccountID)
 	}
+
 	if m.role_id != nil {
 		fields = append(fields, gameroleattribute.FieldRoleID)
 	}
+
 	if m.name != nil {
 		fields = append(fields, gameroleattribute.FieldName)
 	}
+
 	if m._type != nil {
 		fields = append(fields, gameroleattribute.FieldType)
 	}
+
 	if m.value != nil {
 		fields = append(fields, gameroleattribute.FieldValue)
 	}
+
 	if m.create_at != nil {
 		fields = append(fields, gameroleattribute.FieldCreateAt)
 	}
+
 	if m.update_at != nil {
 		fields = append(fields, gameroleattribute.FieldUpdateAt)
 	}
+
 	return fields
 }
 
@@ -3593,6 +3948,7 @@ func (m *GameRoleAttributeMutation) Field(name string) (ent.Value, bool) {
 	case gameroleattribute.FieldUpdateAt:
 		return m.UpdateAt()
 	}
+
 	return nil, false
 }
 
@@ -3618,6 +3974,7 @@ func (m *GameRoleAttributeMutation) OldField(ctx context.Context, name string) (
 	case gameroleattribute.FieldUpdateAt:
 		return m.OldUpdateAt(ctx)
 	}
+
 	return nil, fmt.Errorf("unknown GameRoleAttribute field %s", name)
 }
 
@@ -3631,58 +3988,75 @@ func (m *GameRoleAttributeMutation) SetField(name string, value ent.Value) error
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetUserID(v)
+
 		return nil
 	case gameroleattribute.FieldAccountID:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetAccountID(v)
+
 		return nil
 	case gameroleattribute.FieldRoleID:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetRoleID(v)
+
 		return nil
 	case gameroleattribute.FieldName:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetName(v)
+
 		return nil
 	case gameroleattribute.FieldType:
 		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetType(v)
+
 		return nil
 	case gameroleattribute.FieldValue:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetValue(v)
+
 		return nil
 	case gameroleattribute.FieldCreateAt:
 		v, ok := value.(time.Time)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetCreateAt(v)
+
 		return nil
 	case gameroleattribute.FieldUpdateAt:
 		v, ok := value.(time.Time)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetUpdateAt(v)
+
 		return nil
 	}
+
 	return fmt.Errorf("unknown GameRoleAttribute field %s", name)
 }
 
@@ -3693,9 +4067,11 @@ func (m *GameRoleAttributeMutation) AddedFields() []string {
 	if m.adduser_id != nil {
 		fields = append(fields, gameroleattribute.FieldUserID)
 	}
+
 	if m.add_type != nil {
 		fields = append(fields, gameroleattribute.FieldType)
 	}
+
 	return fields
 }
 
@@ -3709,6 +4085,7 @@ func (m *GameRoleAttributeMutation) AddedField(name string) (ent.Value, bool) {
 	case gameroleattribute.FieldType:
 		return m.AddedType()
 	}
+
 	return nil, false
 }
 
@@ -3722,16 +4099,21 @@ func (m *GameRoleAttributeMutation) AddField(name string, value ent.Value) error
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.AddUserID(v)
+
 		return nil
 	case gameroleattribute.FieldType:
 		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.AddType(v)
+
 		return nil
 	}
+
 	return fmt.Errorf("unknown GameRoleAttribute numeric field %s", name)
 }
 
@@ -3783,6 +4165,7 @@ func (m *GameRoleAttributeMutation) ResetField(name string) error {
 		m.ResetUpdateAt()
 		return nil
 	}
+
 	return fmt.Errorf("unknown GameRoleAttribute field %s", name)
 }
 
@@ -3870,6 +4253,7 @@ func newUserMutation(c config, op Op, opts ...userOption) *UserMutation {
 	for _, opt := range opts {
 		opt(m)
 	}
+
 	return m
 }
 
@@ -3881,6 +4265,7 @@ func withUserID(id int64) userOption {
 			once  sync.Once
 			value *User
 		)
+
 		m.oldValue = func(ctx context.Context) (*User, error) {
 			once.Do(func() {
 				if m.done {
@@ -3889,6 +4274,7 @@ func withUserID(id int64) userOption {
 					value, err = m.Client().User.Get(ctx, id)
 				}
 			})
+
 			return value, err
 		}
 		m.id = &id
@@ -3910,6 +4296,7 @@ func withUser(node *User) userOption {
 func (m UserMutation) Client() *Client {
 	client := &Client{config: m.config}
 	client.init()
+
 	return client
 }
 
@@ -3919,8 +4306,10 @@ func (m UserMutation) Tx() (*Tx, error) {
 	if _, ok := m.driver.(*txDriver); !ok {
 		return nil, errors.New("entity: mutation is not running in a transaction")
 	}
+
 	tx := &Tx{config: m.config}
 	tx.init()
+
 	return tx, nil
 }
 
@@ -3936,6 +4325,7 @@ func (m *UserMutation) ID() (id int64, exists bool) {
 	if m.id == nil {
 		return
 	}
+
 	return *m.id, true
 }
 
@@ -3950,6 +4340,7 @@ func (m *UserMutation) IDs(ctx context.Context) ([]int64, error) {
 		if exists {
 			return []int64{id}, nil
 		}
+
 		fallthrough
 	case m.op.Is(OpUpdate | OpDelete):
 		return m.Client().User.Query().Where(m.predicates...).IDs(ctx)
@@ -3970,6 +4361,7 @@ func (m *UserMutation) UserID() (r int64, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -3980,13 +4372,16 @@ func (m *UserMutation) OldUserID(ctx context.Context) (v int64, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldUserID is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldUserID requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldUserID: %w", err)
 	}
+
 	return oldValue.UserID, nil
 }
 
@@ -4005,6 +4400,7 @@ func (m *UserMutation) AddedUserID() (r int64, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -4025,6 +4421,7 @@ func (m *UserMutation) IsBot() (r bool, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -4035,13 +4432,16 @@ func (m *UserMutation) OldIsBot(ctx context.Context) (v bool, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldIsBot is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldIsBot requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldIsBot: %w", err)
 	}
+
 	return oldValue.IsBot, nil
 }
 
@@ -4061,6 +4461,7 @@ func (m *UserMutation) UserName() (r string, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -4071,13 +4472,16 @@ func (m *UserMutation) OldUserName(ctx context.Context) (v string, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldUserName is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldUserName requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldUserName: %w", err)
 	}
+
 	return oldValue.UserName, nil
 }
 
@@ -4097,6 +4501,7 @@ func (m *UserMutation) FirstName() (r string, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -4107,13 +4512,16 @@ func (m *UserMutation) OldFirstName(ctx context.Context) (v string, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldFirstName is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldFirstName requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldFirstName: %w", err)
 	}
+
 	return oldValue.FirstName, nil
 }
 
@@ -4133,6 +4541,7 @@ func (m *UserMutation) LastName() (r string, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -4143,13 +4552,16 @@ func (m *UserMutation) OldLastName(ctx context.Context) (v string, err error) {
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldLastName is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldLastName requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldLastName: %w", err)
 	}
+
 	return oldValue.LastName, nil
 }
 
@@ -4169,6 +4581,7 @@ func (m *UserMutation) CreateAt() (r time.Time, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -4179,13 +4592,16 @@ func (m *UserMutation) OldCreateAt(ctx context.Context) (v time.Time, err error)
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldCreateAt is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldCreateAt requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldCreateAt: %w", err)
 	}
+
 	return oldValue.CreateAt, nil
 }
 
@@ -4205,6 +4621,7 @@ func (m *UserMutation) UpdateAt() (r time.Time, exists bool) {
 	if v == nil {
 		return
 	}
+
 	return *v, true
 }
 
@@ -4215,13 +4632,16 @@ func (m *UserMutation) OldUpdateAt(ctx context.Context) (v time.Time, err error)
 	if !m.op.Is(OpUpdateOne) {
 		return v, errors.New("OldUpdateAt is only allowed on UpdateOne operations")
 	}
+
 	if m.id == nil || m.oldValue == nil {
 		return v, errors.New("OldUpdateAt requires an ID field in the mutation")
 	}
+
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
 		return v, fmt.Errorf("querying old value for OldUpdateAt: %w", err)
 	}
+
 	return oldValue.UpdateAt, nil
 }
 
@@ -4242,6 +4662,7 @@ func (m *UserMutation) WhereP(ps ...func(*sql.Selector)) {
 	for i := range ps {
 		p[i] = ps[i]
 	}
+
 	m.Where(p...)
 }
 
@@ -4268,24 +4689,31 @@ func (m *UserMutation) Fields() []string {
 	if m.user_id != nil {
 		fields = append(fields, user.FieldUserID)
 	}
+
 	if m.is_bot != nil {
 		fields = append(fields, user.FieldIsBot)
 	}
+
 	if m.user_name != nil {
 		fields = append(fields, user.FieldUserName)
 	}
+
 	if m.first_name != nil {
 		fields = append(fields, user.FieldFirstName)
 	}
+
 	if m.last_name != nil {
 		fields = append(fields, user.FieldLastName)
 	}
+
 	if m.create_at != nil {
 		fields = append(fields, user.FieldCreateAt)
 	}
+
 	if m.update_at != nil {
 		fields = append(fields, user.FieldUpdateAt)
 	}
+
 	return fields
 }
 
@@ -4309,6 +4737,7 @@ func (m *UserMutation) Field(name string) (ent.Value, bool) {
 	case user.FieldUpdateAt:
 		return m.UpdateAt()
 	}
+
 	return nil, false
 }
 
@@ -4332,6 +4761,7 @@ func (m *UserMutation) OldField(ctx context.Context, name string) (ent.Value, er
 	case user.FieldUpdateAt:
 		return m.OldUpdateAt(ctx)
 	}
+
 	return nil, fmt.Errorf("unknown User field %s", name)
 }
 
@@ -4345,51 +4775,66 @@ func (m *UserMutation) SetField(name string, value ent.Value) error {
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetUserID(v)
+
 		return nil
 	case user.FieldIsBot:
 		v, ok := value.(bool)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetIsBot(v)
+
 		return nil
 	case user.FieldUserName:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetUserName(v)
+
 		return nil
 	case user.FieldFirstName:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetFirstName(v)
+
 		return nil
 	case user.FieldLastName:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetLastName(v)
+
 		return nil
 	case user.FieldCreateAt:
 		v, ok := value.(time.Time)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetCreateAt(v)
+
 		return nil
 	case user.FieldUpdateAt:
 		v, ok := value.(time.Time)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.SetUpdateAt(v)
+
 		return nil
 	}
+
 	return fmt.Errorf("unknown User field %s", name)
 }
 
@@ -4400,6 +4845,7 @@ func (m *UserMutation) AddedFields() []string {
 	if m.adduser_id != nil {
 		fields = append(fields, user.FieldUserID)
 	}
+
 	return fields
 }
 
@@ -4411,6 +4857,7 @@ func (m *UserMutation) AddedField(name string) (ent.Value, bool) {
 	case user.FieldUserID:
 		return m.AddedUserID()
 	}
+
 	return nil, false
 }
 
@@ -4424,9 +4871,12 @@ func (m *UserMutation) AddField(name string, value ent.Value) error {
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
+
 		m.AddUserID(v)
+
 		return nil
 	}
+
 	return fmt.Errorf("unknown User numeric field %s", name)
 }
 
@@ -4475,6 +4925,7 @@ func (m *UserMutation) ResetField(name string) error {
 		m.ResetUpdateAt()
 		return nil
 	}
+
 	return fmt.Errorf("unknown User field %s", name)
 }
 

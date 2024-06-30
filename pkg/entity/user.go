@@ -35,6 +35,7 @@ type User struct {
 // scanValues returns the types for scanning values from sql.Rows.
 func (*User) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
+
 	for i := range columns {
 		switch columns[i] {
 		case user.FieldIsBot:
@@ -49,6 +50,7 @@ func (*User) scanValues(columns []string) ([]any, error) {
 			return nil, fmt.Errorf("unexpected column %q for type User", columns[i])
 		}
 	}
+
 	return values, nil
 }
 
@@ -58,6 +60,7 @@ func (u *User) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
+
 	for i := range columns {
 		switch columns[i] {
 		case user.FieldID:
@@ -65,6 +68,7 @@ func (u *User) assignValues(columns []string, values []any) error {
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
+
 			u.ID = int64(value.Int64)
 		case user.FieldUserID:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
@@ -110,6 +114,7 @@ func (u *User) assignValues(columns []string, values []any) error {
 			}
 		}
 	}
+
 	return nil
 }
 
@@ -127,13 +132,16 @@ func (u *User) Unwrap() *User {
 	if !ok {
 		panic("entity: User is not a transactional entity")
 	}
+
 	u.config.driver = _tx.drv
+
 	return u
 }
 
 // String implements the fmt.Stringer.
 func (u *User) String() string {
 	var builder strings.Builder
+
 	builder.WriteString("User(")
 	builder.WriteString(fmt.Sprintf("id=%v, ", u.ID))
 	builder.WriteString("user_id=")
@@ -157,6 +165,7 @@ func (u *User) String() string {
 	builder.WriteString("update_at=")
 	builder.WriteString(u.UpdateAt.Format(time.ANSIC))
 	builder.WriteByte(')')
+
 	return builder.String()
 }
 

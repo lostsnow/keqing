@@ -33,6 +33,7 @@ func (cou *ChatOptionUpdate) Where(ps ...predicate.ChatOption) *ChatOptionUpdate
 func (cou *ChatOptionUpdate) SetChatID(i int64) *ChatOptionUpdate {
 	cou.mutation.ResetChatID()
 	cou.mutation.SetChatID(i)
+
 	return cou
 }
 
@@ -59,6 +60,7 @@ func (cou *ChatOptionUpdate) SetNillableValue(s *string) *ChatOptionUpdate {
 	if s != nil {
 		cou.SetValue(*s)
 	}
+
 	return cou
 }
 
@@ -85,6 +87,7 @@ func (cou *ChatOptionUpdate) SaveX(ctx context.Context) int {
 	if err != nil {
 		panic(err)
 	}
+
 	return affected
 }
 
@@ -116,6 +119,7 @@ func (cou *ChatOptionUpdate) check() error {
 			return &ValidationError{Name: "key", err: fmt.Errorf(`entity: validator failed for field "ChatOption.key": %w`, err)}
 		}
 	}
+
 	return nil
 }
 
@@ -129,6 +133,7 @@ func (cou *ChatOptionUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if err := cou.check(); err != nil {
 		return n, err
 	}
+
 	_spec := sqlgraph.NewUpdateSpec(chatoption.Table, chatoption.Columns, sqlgraph.NewFieldSpec(chatoption.FieldID, field.TypeInt64))
 	if ps := cou.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
@@ -137,31 +142,41 @@ func (cou *ChatOptionUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
+
 	if value, ok := cou.mutation.ChatID(); ok {
 		_spec.SetField(chatoption.FieldChatID, field.TypeInt64, value)
 	}
+
 	if value, ok := cou.mutation.AddedChatID(); ok {
 		_spec.AddField(chatoption.FieldChatID, field.TypeInt64, value)
 	}
+
 	if value, ok := cou.mutation.Key(); ok {
 		_spec.SetField(chatoption.FieldKey, field.TypeString, value)
 	}
+
 	if value, ok := cou.mutation.Value(); ok {
 		_spec.SetField(chatoption.FieldValue, field.TypeString, value)
 	}
+
 	if value, ok := cou.mutation.UpdateAt(); ok {
 		_spec.SetField(chatoption.FieldUpdateAt, field.TypeTime, value)
 	}
+
 	_spec.AddModifiers(cou.modifiers...)
+
 	if n, err = sqlgraph.UpdateNodes(ctx, cou.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{chatoption.Label}
 		} else if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
+
 		return 0, err
 	}
+
 	cou.mutation.done = true
+
 	return n, nil
 }
 
@@ -178,6 +193,7 @@ type ChatOptionUpdateOne struct {
 func (couo *ChatOptionUpdateOne) SetChatID(i int64) *ChatOptionUpdateOne {
 	couo.mutation.ResetChatID()
 	couo.mutation.SetChatID(i)
+
 	return couo
 }
 
@@ -204,6 +220,7 @@ func (couo *ChatOptionUpdateOne) SetNillableValue(s *string) *ChatOptionUpdateOn
 	if s != nil {
 		couo.SetValue(*s)
 	}
+
 	return couo
 }
 
@@ -243,6 +260,7 @@ func (couo *ChatOptionUpdateOne) SaveX(ctx context.Context) *ChatOption {
 	if err != nil {
 		panic(err)
 	}
+
 	return node
 }
 
@@ -274,6 +292,7 @@ func (couo *ChatOptionUpdateOne) check() error {
 			return &ValidationError{Name: "key", err: fmt.Errorf(`entity: validator failed for field "ChatOption.key": %w`, err)}
 		}
 	}
+
 	return nil
 }
 
@@ -287,24 +306,30 @@ func (couo *ChatOptionUpdateOne) sqlSave(ctx context.Context) (_node *ChatOption
 	if err := couo.check(); err != nil {
 		return _node, err
 	}
+
 	_spec := sqlgraph.NewUpdateSpec(chatoption.Table, chatoption.Columns, sqlgraph.NewFieldSpec(chatoption.FieldID, field.TypeInt64))
+
 	id, ok := couo.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`entity: missing "ChatOption.id" for update`)}
 	}
+
 	_spec.Node.ID.Value = id
 	if fields := couo.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, chatoption.FieldID)
+
 		for _, f := range fields {
 			if !chatoption.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("entity: invalid field %q for query", f)}
 			}
+
 			if f != chatoption.FieldID {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
 	}
+
 	if ps := couo.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -312,33 +337,43 @@ func (couo *ChatOptionUpdateOne) sqlSave(ctx context.Context) (_node *ChatOption
 			}
 		}
 	}
+
 	if value, ok := couo.mutation.ChatID(); ok {
 		_spec.SetField(chatoption.FieldChatID, field.TypeInt64, value)
 	}
+
 	if value, ok := couo.mutation.AddedChatID(); ok {
 		_spec.AddField(chatoption.FieldChatID, field.TypeInt64, value)
 	}
+
 	if value, ok := couo.mutation.Key(); ok {
 		_spec.SetField(chatoption.FieldKey, field.TypeString, value)
 	}
+
 	if value, ok := couo.mutation.Value(); ok {
 		_spec.SetField(chatoption.FieldValue, field.TypeString, value)
 	}
+
 	if value, ok := couo.mutation.UpdateAt(); ok {
 		_spec.SetField(chatoption.FieldUpdateAt, field.TypeTime, value)
 	}
+
 	_spec.AddModifiers(couo.modifiers...)
 	_node = &ChatOption{config: couo.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
+
 	if err = sqlgraph.UpdateNode(ctx, couo.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{chatoption.Label}
 		} else if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
+
 		return nil, err
 	}
+
 	couo.mutation.done = true
+
 	return _node, nil
 }

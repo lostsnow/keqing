@@ -1,7 +1,6 @@
 package migrate
 
 import (
-	"fmt"
 	"os"
 	"os/exec"
 
@@ -14,10 +13,10 @@ import (
 var ApplyCmd = &cobra.Command{
 	Use:   "apply",
 	Short: "apply migrations",
-	Run: func(cmd *cobra.Command, args []string) {
+	Run: func(_ *cobra.Command, _ []string) {
 		cmdPath := checkAtlas()
 		c := exec.Command(cmdPath, "migrate", "apply",
-			"--dir", fmt.Sprintf("file://%s", migrationsDir),
+			"--dir", "file://"+migrationsDir,
 			"--url", db.GetMigrateDSN(),
 		)
 

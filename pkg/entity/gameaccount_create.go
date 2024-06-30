@@ -45,6 +45,7 @@ func (gac *GameAccountCreate) SetNillableGameToken(s *string) *GameAccountCreate
 	if s != nil {
 		gac.SetGameToken(*s)
 	}
+
 	return gac
 }
 
@@ -59,6 +60,7 @@ func (gac *GameAccountCreate) SetNillableCookieToken(s *string) *GameAccountCrea
 	if s != nil {
 		gac.SetCookieToken(*s)
 	}
+
 	return gac
 }
 
@@ -73,6 +75,7 @@ func (gac *GameAccountCreate) SetNillableStoken(s *string) *GameAccountCreate {
 	if s != nil {
 		gac.SetStoken(*s)
 	}
+
 	return gac
 }
 
@@ -87,6 +90,7 @@ func (gac *GameAccountCreate) SetNillableMid(s *string) *GameAccountCreate {
 	if s != nil {
 		gac.SetMid(*s)
 	}
+
 	return gac
 }
 
@@ -101,6 +105,7 @@ func (gac *GameAccountCreate) SetNillableCreateAt(t *time.Time) *GameAccountCrea
 	if t != nil {
 		gac.SetCreateAt(*t)
 	}
+
 	return gac
 }
 
@@ -115,6 +120,7 @@ func (gac *GameAccountCreate) SetNillableUpdateAt(t *time.Time) *GameAccountCrea
 	if t != nil {
 		gac.SetUpdateAt(*t)
 	}
+
 	return gac
 }
 
@@ -141,6 +147,7 @@ func (gac *GameAccountCreate) SaveX(ctx context.Context) *GameAccount {
 	if err != nil {
 		panic(err)
 	}
+
 	return v
 }
 
@@ -163,22 +170,27 @@ func (gac *GameAccountCreate) defaults() {
 		v := gameaccount.DefaultGameToken
 		gac.mutation.SetGameToken(v)
 	}
+
 	if _, ok := gac.mutation.CookieToken(); !ok {
 		v := gameaccount.DefaultCookieToken
 		gac.mutation.SetCookieToken(v)
 	}
+
 	if _, ok := gac.mutation.Stoken(); !ok {
 		v := gameaccount.DefaultStoken
 		gac.mutation.SetStoken(v)
 	}
+
 	if _, ok := gac.mutation.Mid(); !ok {
 		v := gameaccount.DefaultMid
 		gac.mutation.SetMid(v)
 	}
+
 	if _, ok := gac.mutation.CreateAt(); !ok {
 		v := gameaccount.DefaultCreateAt()
 		gac.mutation.SetCreateAt(v)
 	}
+
 	if _, ok := gac.mutation.UpdateAt(); !ok {
 		v := gameaccount.DefaultUpdateAt()
 		gac.mutation.SetUpdateAt(v)
@@ -190,47 +202,59 @@ func (gac *GameAccountCreate) check() error {
 	if _, ok := gac.mutation.UserID(); !ok {
 		return &ValidationError{Name: "user_id", err: errors.New(`entity: missing required field "GameAccount.user_id"`)}
 	}
+
 	if _, ok := gac.mutation.AccountID(); !ok {
 		return &ValidationError{Name: "account_id", err: errors.New(`entity: missing required field "GameAccount.account_id"`)}
 	}
+
 	if v, ok := gac.mutation.AccountID(); ok {
 		if err := gameaccount.AccountIDValidator(v); err != nil {
 			return &ValidationError{Name: "account_id", err: fmt.Errorf(`entity: validator failed for field "GameAccount.account_id": %w`, err)}
 		}
 	}
+
 	if _, ok := gac.mutation.GameToken(); !ok {
 		return &ValidationError{Name: "game_token", err: errors.New(`entity: missing required field "GameAccount.game_token"`)}
 	}
+
 	if v, ok := gac.mutation.GameToken(); ok {
 		if err := gameaccount.GameTokenValidator(v); err != nil {
 			return &ValidationError{Name: "game_token", err: fmt.Errorf(`entity: validator failed for field "GameAccount.game_token": %w`, err)}
 		}
 	}
+
 	if _, ok := gac.mutation.CookieToken(); !ok {
 		return &ValidationError{Name: "cookie_token", err: errors.New(`entity: missing required field "GameAccount.cookie_token"`)}
 	}
+
 	if v, ok := gac.mutation.CookieToken(); ok {
 		if err := gameaccount.CookieTokenValidator(v); err != nil {
 			return &ValidationError{Name: "cookie_token", err: fmt.Errorf(`entity: validator failed for field "GameAccount.cookie_token": %w`, err)}
 		}
 	}
+
 	if _, ok := gac.mutation.Stoken(); !ok {
 		return &ValidationError{Name: "stoken", err: errors.New(`entity: missing required field "GameAccount.stoken"`)}
 	}
+
 	if _, ok := gac.mutation.Mid(); !ok {
 		return &ValidationError{Name: "mid", err: errors.New(`entity: missing required field "GameAccount.mid"`)}
 	}
+
 	if v, ok := gac.mutation.Mid(); ok {
 		if err := gameaccount.MidValidator(v); err != nil {
 			return &ValidationError{Name: "mid", err: fmt.Errorf(`entity: validator failed for field "GameAccount.mid": %w`, err)}
 		}
 	}
+
 	if _, ok := gac.mutation.CreateAt(); !ok {
 		return &ValidationError{Name: "create_at", err: errors.New(`entity: missing required field "GameAccount.create_at"`)}
 	}
+
 	if _, ok := gac.mutation.UpdateAt(); !ok {
 		return &ValidationError{Name: "update_at", err: errors.New(`entity: missing required field "GameAccount.update_at"`)}
 	}
+
 	return nil
 }
 
@@ -238,19 +262,24 @@ func (gac *GameAccountCreate) sqlSave(ctx context.Context) (*GameAccount, error)
 	if err := gac.check(); err != nil {
 		return nil, err
 	}
+
 	_node, _spec := gac.createSpec()
 	if err := sqlgraph.CreateNode(ctx, gac.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
+
 		return nil, err
 	}
+
 	if _spec.ID.Value != _node.ID {
 		id := _spec.ID.Value.(int64)
 		_node.ID = int64(id)
 	}
+
 	gac.mutation.id = &_node.ID
 	gac.mutation.done = true
+
 	return _node, nil
 }
 
@@ -259,43 +288,54 @@ func (gac *GameAccountCreate) createSpec() (*GameAccount, *sqlgraph.CreateSpec) 
 		_node = &GameAccount{config: gac.config}
 		_spec = sqlgraph.NewCreateSpec(gameaccount.Table, sqlgraph.NewFieldSpec(gameaccount.FieldID, field.TypeInt64))
 	)
+
 	_spec.OnConflict = gac.conflict
+
 	if id, ok := gac.mutation.ID(); ok {
 		_node.ID = id
 		_spec.ID.Value = id
 	}
+
 	if value, ok := gac.mutation.UserID(); ok {
 		_spec.SetField(gameaccount.FieldUserID, field.TypeInt64, value)
 		_node.UserID = value
 	}
+
 	if value, ok := gac.mutation.AccountID(); ok {
 		_spec.SetField(gameaccount.FieldAccountID, field.TypeString, value)
 		_node.AccountID = value
 	}
+
 	if value, ok := gac.mutation.GameToken(); ok {
 		_spec.SetField(gameaccount.FieldGameToken, field.TypeString, value)
 		_node.GameToken = value
 	}
+
 	if value, ok := gac.mutation.CookieToken(); ok {
 		_spec.SetField(gameaccount.FieldCookieToken, field.TypeString, value)
 		_node.CookieToken = value
 	}
+
 	if value, ok := gac.mutation.Stoken(); ok {
 		_spec.SetField(gameaccount.FieldStoken, field.TypeString, value)
 		_node.Stoken = value
 	}
+
 	if value, ok := gac.mutation.Mid(); ok {
 		_spec.SetField(gameaccount.FieldMid, field.TypeString, value)
 		_node.Mid = value
 	}
+
 	if value, ok := gac.mutation.CreateAt(); ok {
 		_spec.SetField(gameaccount.FieldCreateAt, field.TypeTime, value)
 		_node.CreateAt = value
 	}
+
 	if value, ok := gac.mutation.UpdateAt(); ok {
 		_spec.SetField(gameaccount.FieldUpdateAt, field.TypeTime, value)
 		_node.UpdateAt = value
 	}
+
 	return _node, _spec
 }
 
@@ -317,6 +357,7 @@ func (gac *GameAccountCreate) createSpec() (*GameAccount, *sqlgraph.CreateSpec) 
 //		Exec(ctx)
 func (gac *GameAccountCreate) OnConflict(opts ...sql.ConflictOption) *GameAccountUpsertOne {
 	gac.conflict = opts
+
 	return &GameAccountUpsertOne{
 		create: gac,
 	}
@@ -330,6 +371,7 @@ func (gac *GameAccountCreate) OnConflict(opts ...sql.ConflictOption) *GameAccoun
 //		Exec(ctx)
 func (gac *GameAccountCreate) OnConflictColumns(columns ...string) *GameAccountUpsertOne {
 	gac.conflict = append(gac.conflict, sql.ConflictColumns(columns...))
+
 	return &GameAccountUpsertOne{
 		create: gac,
 	}
@@ -455,10 +497,12 @@ func (u *GameAccountUpsertOne) UpdateNewValues() *GameAccountUpsertOne {
 		if _, exists := u.create.mutation.ID(); exists {
 			s.SetIgnore(gameaccount.FieldID)
 		}
+
 		if _, exists := u.create.mutation.CreateAt(); exists {
 			s.SetIgnore(gameaccount.FieldCreateAt)
 		}
 	}))
+
 	return u
 }
 
@@ -486,6 +530,7 @@ func (u *GameAccountUpsertOne) Update(set func(*GameAccountUpsert)) *GameAccount
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(update *sql.UpdateSet) {
 		set(&GameAccountUpsert{UpdateSet: update})
 	}))
+
 	return u
 }
 
@@ -599,6 +644,7 @@ func (u *GameAccountUpsertOne) Exec(ctx context.Context) error {
 	if len(u.create.conflict) == 0 {
 		return errors.New("entity: missing options for GameAccountCreate.OnConflict")
 	}
+
 	return u.create.Exec(ctx)
 }
 
@@ -615,6 +661,7 @@ func (u *GameAccountUpsertOne) ID(ctx context.Context) (id int64, err error) {
 	if err != nil {
 		return id, err
 	}
+
 	return node.ID, nil
 }
 
@@ -624,6 +671,7 @@ func (u *GameAccountUpsertOne) IDX(ctx context.Context) int64 {
 	if err != nil {
 		panic(err)
 	}
+
 	return id
 }
 
@@ -639,10 +687,12 @@ func (gacb *GameAccountCreateBulk) Save(ctx context.Context) ([]*GameAccount, er
 	specs := make([]*sqlgraph.CreateSpec, len(gacb.builders))
 	nodes := make([]*GameAccount, len(gacb.builders))
 	mutators := make([]Mutator, len(gacb.builders))
+
 	for i := range gacb.builders {
 		func(i int, root context.Context) {
 			builder := gacb.builders[i]
 			builder.defaults()
+
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*GameAccountMutation)
 				if !ok {
@@ -677,17 +727,21 @@ func (gacb *GameAccountCreateBulk) Save(ctx context.Context) ([]*GameAccount, er
 				mutation.done = true
 				return nodes[i], nil
 			})
+
 			for i := len(builder.hooks) - 1; i >= 0; i-- {
 				mut = builder.hooks[i](mut)
 			}
+
 			mutators[i] = mut
 		}(i, ctx)
 	}
+
 	if len(mutators) > 0 {
 		if _, err := mutators[0].Mutate(ctx, gacb.builders[0].mutation); err != nil {
 			return nil, err
 		}
 	}
+
 	return nodes, nil
 }
 
@@ -697,6 +751,7 @@ func (gacb *GameAccountCreateBulk) SaveX(ctx context.Context) []*GameAccount {
 	if err != nil {
 		panic(err)
 	}
+
 	return v
 }
 
@@ -730,6 +785,7 @@ func (gacb *GameAccountCreateBulk) ExecX(ctx context.Context) {
 //		Exec(ctx)
 func (gacb *GameAccountCreateBulk) OnConflict(opts ...sql.ConflictOption) *GameAccountUpsertBulk {
 	gacb.conflict = opts
+
 	return &GameAccountUpsertBulk{
 		create: gacb,
 	}
@@ -743,6 +799,7 @@ func (gacb *GameAccountCreateBulk) OnConflict(opts ...sql.ConflictOption) *GameA
 //		Exec(ctx)
 func (gacb *GameAccountCreateBulk) OnConflictColumns(columns ...string) *GameAccountUpsertBulk {
 	gacb.conflict = append(gacb.conflict, sql.ConflictColumns(columns...))
+
 	return &GameAccountUpsertBulk{
 		create: gacb,
 	}
@@ -772,11 +829,13 @@ func (u *GameAccountUpsertBulk) UpdateNewValues() *GameAccountUpsertBulk {
 			if _, exists := b.mutation.ID(); exists {
 				s.SetIgnore(gameaccount.FieldID)
 			}
+
 			if _, exists := b.mutation.CreateAt(); exists {
 				s.SetIgnore(gameaccount.FieldCreateAt)
 			}
 		}
 	}))
+
 	return u
 }
 
@@ -804,6 +863,7 @@ func (u *GameAccountUpsertBulk) Update(set func(*GameAccountUpsert)) *GameAccoun
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(update *sql.UpdateSet) {
 		set(&GameAccountUpsert{UpdateSet: update})
 	}))
+
 	return u
 }
 
@@ -919,9 +979,11 @@ func (u *GameAccountUpsertBulk) Exec(ctx context.Context) error {
 			return fmt.Errorf("entity: OnConflict was set for builder %d. Set it on the GameAccountCreateBulk instead", i)
 		}
 	}
+
 	if len(u.create.conflict) == 0 {
 		return errors.New("entity: missing options for GameAccountCreateBulk.OnConflict")
 	}
+
 	return u.create.Exec(ctx)
 }
 

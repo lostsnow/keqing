@@ -7,6 +7,8 @@ import (
 )
 
 func TestRandomString(t *testing.T) {
+	t.Parallel()
+
 	type args struct {
 		n int
 	}
@@ -21,6 +23,8 @@ func TestRandomString(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
 			if got := util.RandomString(tt.args.n); tt.args.n != tt.want {
 				t.Errorf("RandomString() = %v, length want %v", got, tt.want)
 			}

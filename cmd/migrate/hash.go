@@ -1,7 +1,6 @@
 package migrate
 
 import (
-	"fmt"
 	"os"
 	"os/exec"
 
@@ -12,10 +11,10 @@ import (
 var HashCmd = &cobra.Command{
 	Use:   "hash",
 	Short: "update migrations hash",
-	Run: func(cmd *cobra.Command, args []string) {
+	Run: func(_ *cobra.Command, _ []string) {
 		cmdPath := checkAtlas()
 		c := exec.Command(cmdPath, "migrate", "hash",
-			"--dir", fmt.Sprintf("file://%s", migrationsDir),
+			"--dir", "file://"+migrationsDir,
 		)
 
 		out, err := c.CombinedOutput()

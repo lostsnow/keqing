@@ -51,6 +51,7 @@ func Create(ctx context.Context, s *Schema, tables []*schema.Table, opts ...sche
 	if err != nil {
 		return fmt.Errorf("ent/migrate: %w", err)
 	}
+
 	return migrate.Create(ctx, tables...)
 }
 
@@ -73,6 +74,7 @@ func (s *Schema) Diff(ctx context.Context, opts ...schema.MigrateOption) error {
 	if err != nil {
 		return fmt.Errorf("ent/migrate: %w", err)
 	}
+
 	return migrate.Diff(ctx, Tables...)
 }
 
@@ -83,6 +85,7 @@ func (s *Schema) NamedDiff(ctx context.Context, name string, opts ...schema.Migr
 	if err != nil {
 		return fmt.Errorf("ent/migrate: %w", err)
 	}
+
 	return migrate.NamedDiff(ctx, name, Tables...)
 }
 

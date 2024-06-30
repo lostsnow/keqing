@@ -31,6 +31,7 @@ type ChatOption struct {
 // scanValues returns the types for scanning values from sql.Rows.
 func (*ChatOption) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
+
 	for i := range columns {
 		switch columns[i] {
 		case chatoption.FieldID, chatoption.FieldChatID:
@@ -43,6 +44,7 @@ func (*ChatOption) scanValues(columns []string) ([]any, error) {
 			return nil, fmt.Errorf("unexpected column %q for type ChatOption", columns[i])
 		}
 	}
+
 	return values, nil
 }
 
@@ -52,6 +54,7 @@ func (co *ChatOption) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
+
 	for i := range columns {
 		switch columns[i] {
 		case chatoption.FieldID:
@@ -59,6 +62,7 @@ func (co *ChatOption) assignValues(columns []string, values []any) error {
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
+
 			co.ID = int64(value.Int64)
 		case chatoption.FieldChatID:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
@@ -92,6 +96,7 @@ func (co *ChatOption) assignValues(columns []string, values []any) error {
 			}
 		}
 	}
+
 	return nil
 }
 
@@ -109,13 +114,16 @@ func (co *ChatOption) Unwrap() *ChatOption {
 	if !ok {
 		panic("entity: ChatOption is not a transactional entity")
 	}
+
 	co.config.driver = _tx.drv
+
 	return co
 }
 
 // String implements the fmt.Stringer.
 func (co *ChatOption) String() string {
 	var builder strings.Builder
+
 	builder.WriteString("ChatOption(")
 	builder.WriteString(fmt.Sprintf("id=%v, ", co.ID))
 	builder.WriteString("chat_id=")
@@ -133,6 +141,7 @@ func (co *ChatOption) String() string {
 	builder.WriteString("update_at=")
 	builder.WriteString(co.UpdateAt.Format(time.ANSIC))
 	builder.WriteByte(')')
+
 	return builder.String()
 }
 

@@ -46,6 +46,7 @@ func NewClient(opts ...Option) *Client {
 	cfg.options(opts...)
 	client := &Client{config: cfg}
 	client.init()
+
 	return client
 }
 
@@ -69,6 +70,7 @@ func Open(driverName, dataSourceName string, options ...Option) (*Client, error)
 		if err != nil {
 			return nil, err
 		}
+
 		return NewClient(append(options, Driver(drv))...), nil
 	default:
 		return nil, fmt.Errorf("unsupported driver: %q", driverName)
@@ -81,12 +83,15 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 	if _, ok := c.driver.(*txDriver); ok {
 		return nil, errors.New("entity: cannot start a transaction within a transaction")
 	}
+
 	tx, err := newTx(ctx, c.driver)
 	if err != nil {
 		return nil, fmt.Errorf("entity: starting a transaction: %w", err)
 	}
+
 	cfg := c.config
 	cfg.driver = tx
+
 	return &Tx{
 		ctx:               ctx,
 		config:            cfg,
@@ -104,14 +109,17 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 	if _, ok := c.driver.(*txDriver); ok {
 		return nil, errors.New("ent: cannot start a transaction within a transaction")
 	}
+
 	tx, err := c.driver.(interface {
 		BeginTx(context.Context, *sql.TxOptions) (dialect.Tx, error)
 	}).BeginTx(ctx, opts)
 	if err != nil {
 		return nil, fmt.Errorf("ent: starting a transaction: %w", err)
 	}
+
 	cfg := c.config
 	cfg.driver = &txDriver{tx: tx, drv: c.driver}
+
 	return &Tx{
 		ctx:               ctx,
 		config:            cfg,
@@ -134,10 +142,12 @@ func (c *Client) Debug() *Client {
 	if c.debug {
 		return c
 	}
+
 	cfg := c.config
 	cfg.driver = dialect.Debug(c.driver, c.log)
 	client := &Client{config: cfg}
 	client.init()
+
 	return client
 }
 
@@ -255,6 +265,7 @@ func (c *ChatClient) DeleteOneID(id int64) *ChatDeleteOne {
 	builder := c.Delete().Where(chat.ID(id))
 	builder.mutation.id = &id
 	builder.mutation.op = OpDeleteOne
+
 	return &ChatDeleteOne{builder}
 }
 
@@ -278,6 +289,7 @@ func (c *ChatClient) GetX(ctx context.Context, id int64) *Chat {
 	if err != nil {
 		panic(err)
 	}
+
 	return obj
 }
 
@@ -373,6 +385,7 @@ func (c *ChatOptionClient) DeleteOneID(id int64) *ChatOptionDeleteOne {
 	builder := c.Delete().Where(chatoption.ID(id))
 	builder.mutation.id = &id
 	builder.mutation.op = OpDeleteOne
+
 	return &ChatOptionDeleteOne{builder}
 }
 
@@ -396,6 +409,7 @@ func (c *ChatOptionClient) GetX(ctx context.Context, id int64) *ChatOption {
 	if err != nil {
 		panic(err)
 	}
+
 	return obj
 }
 
@@ -491,6 +505,7 @@ func (c *GameAccountClient) DeleteOneID(id int64) *GameAccountDeleteOne {
 	builder := c.Delete().Where(gameaccount.ID(id))
 	builder.mutation.id = &id
 	builder.mutation.op = OpDeleteOne
+
 	return &GameAccountDeleteOne{builder}
 }
 
@@ -514,6 +529,7 @@ func (c *GameAccountClient) GetX(ctx context.Context, id int64) *GameAccount {
 	if err != nil {
 		panic(err)
 	}
+
 	return obj
 }
 
@@ -609,6 +625,7 @@ func (c *GameRoleClient) DeleteOneID(id int64) *GameRoleDeleteOne {
 	builder := c.Delete().Where(gamerole.ID(id))
 	builder.mutation.id = &id
 	builder.mutation.op = OpDeleteOne
+
 	return &GameRoleDeleteOne{builder}
 }
 
@@ -632,6 +649,7 @@ func (c *GameRoleClient) GetX(ctx context.Context, id int64) *GameRole {
 	if err != nil {
 		panic(err)
 	}
+
 	return obj
 }
 
@@ -727,6 +745,7 @@ func (c *GameRoleAttributeClient) DeleteOneID(id int64) *GameRoleAttributeDelete
 	builder := c.Delete().Where(gameroleattribute.ID(id))
 	builder.mutation.id = &id
 	builder.mutation.op = OpDeleteOne
+
 	return &GameRoleAttributeDeleteOne{builder}
 }
 
@@ -750,6 +769,7 @@ func (c *GameRoleAttributeClient) GetX(ctx context.Context, id int64) *GameRoleA
 	if err != nil {
 		panic(err)
 	}
+
 	return obj
 }
 
@@ -845,6 +865,7 @@ func (c *UserClient) DeleteOneID(id int64) *UserDeleteOne {
 	builder := c.Delete().Where(user.ID(id))
 	builder.mutation.id = &id
 	builder.mutation.op = OpDeleteOne
+
 	return &UserDeleteOne{builder}
 }
 
@@ -868,6 +889,7 @@ func (c *UserClient) GetX(ctx context.Context, id int64) *User {
 	if err != nil {
 		panic(err)
 	}
+
 	return obj
 }
 

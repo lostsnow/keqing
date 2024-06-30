@@ -7,8 +7,6 @@ import (
 	"golang.org/x/text/language"
 	"golang.org/x/text/message"
 	"gopkg.in/telebot.v3"
-
-	_ "github.com/lostsnow/keqing/pkg/i18n/catalog"
 )
 
 //go:generate go run -mod=mod github.com/lostsnow/keqing/cmd/i18n/generate

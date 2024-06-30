@@ -5,8 +5,6 @@ package {{ .Package }}
 import (
 	"golang.org/x/text/language"
 	"golang.org/x/text/message"
-
-	_ "github.com/lostsnow/keqing/pkg/i18n/catalog"
 )
 
 var p = message.NewPrinter(language.AmericanEnglish)

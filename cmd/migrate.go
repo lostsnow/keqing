@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	_ "github.com/go-sql-driver/mysql"
 	"github.com/spf13/cobra"
 
 	"github.com/lostsnow/keqing/cmd/migrate"
@@ -10,7 +9,7 @@ import (
 var migrateCmd = &cobra.Command{
 	Use:   "migrate",
 	Short: "migrations",
-	Run: func(cmd *cobra.Command, args []string) {
+	Run: func(cmd *cobra.Command, _ []string) {
 		_ = cmd.Help()
 	},
 }

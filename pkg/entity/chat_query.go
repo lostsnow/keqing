@@ -66,9 +66,11 @@ func (cq *ChatQuery) First(ctx context.Context) (*Chat, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	if len(nodes) == 0 {
 		return nil, &NotFoundError{chat.Label}
 	}
+
 	return nodes[0], nil
 }
 
@@ -78,6 +80,7 @@ func (cq *ChatQuery) FirstX(ctx context.Context) *Chat {
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
+
 	return node
 }
 
@@ -85,13 +88,16 @@ func (cq *ChatQuery) FirstX(ctx context.Context) *Chat {
 // Returns a *NotFoundError when no Chat ID was found.
 func (cq *ChatQuery) FirstID(ctx context.Context) (id int64, err error) {
 	var ids []int64
+
 	if ids, err = cq.Limit(1).IDs(setContextOp(ctx, cq.ctx, "FirstID")); err != nil {
 		return
 	}
+
 	if len(ids) == 0 {
 		err = &NotFoundError{chat.Label}
 		return
 	}
+
 	return ids[0], nil
 }
 
@@ -101,6 +107,7 @@ func (cq *ChatQuery) FirstIDX(ctx context.Context) int64 {
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
+
 	return id
 }
 
@@ -112,6 +119,7 @@ func (cq *ChatQuery) Only(ctx context.Context) (*Chat, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	switch len(nodes) {
 	case 1:
 		return nodes[0], nil
@@ -128,6 +136,7 @@ func (cq *ChatQuery) OnlyX(ctx context.Context) *Chat {
 	if err != nil {
 		panic(err)
 	}
+
 	return node
 }
 
@@ -136,9 +145,11 @@ func (cq *ChatQuery) OnlyX(ctx context.Context) *Chat {
 // Returns a *NotFoundError when no entities are found.
 func (cq *ChatQuery) OnlyID(ctx context.Context) (id int64, err error) {
 	var ids []int64
+
 	if ids, err = cq.Limit(2).IDs(setContextOp(ctx, cq.ctx, "OnlyID")); err != nil {
 		return
 	}
+
 	switch len(ids) {
 	case 1:
 		id = ids[0]
@@ -147,6 +158,7 @@ func (cq *ChatQuery) OnlyID(ctx context.Context) (id int64, err error) {
 	default:
 		err = &NotSingularError{chat.Label}
 	}
+
 	return
 }
 
@@ -156,6 +168,7 @@ func (cq *ChatQuery) OnlyIDX(ctx context.Context) int64 {
 	if err != nil {
 		panic(err)
 	}
+
 	return id
 }
 
@@ -165,7 +178,9 @@ func (cq *ChatQuery) All(ctx context.Context) ([]*Chat, error) {
 	if err := cq.prepareQuery(ctx); err != nil {
 		return nil, err
 	}
+
 	qr := querierAll[[]*Chat, *ChatQuery]()
+
 	return withInterceptors[[]*Chat](ctx, cq, qr, cq.inters)
 }
 
@@ -175,6 +190,7 @@ func (cq *ChatQuery) AllX(ctx context.Context) []*Chat {
 	if err != nil {
 		panic(err)
 	}
+
 	return nodes
 }
 
@@ -183,10 +199,12 @@ func (cq *ChatQuery) IDs(ctx context.Context) (ids []int64, err error) {
 	if cq.ctx.Unique == nil && cq.path != nil {
 		cq.Unique(true)
 	}
+
 	ctx = setContextOp(ctx, cq.ctx, "IDs")
 	if err = cq.Select(chat.FieldID).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
+
 	return ids, nil
 }
 
@@ -196,6 +214,7 @@ func (cq *ChatQuery) IDsX(ctx context.Context) []int64 {
 	if err != nil {
 		panic(err)
 	}
+
 	return ids
 }
 
@@ -205,6 +224,7 @@ func (cq *ChatQuery) Count(ctx context.Context) (int, error) {
 	if err := cq.prepareQuery(ctx); err != nil {
 		return 0, err
 	}
+
 	return withInterceptors[int](ctx, cq, querierCount[*ChatQuery](), cq.inters)
 }
 
@@ -214,12 +234,14 @@ func (cq *ChatQuery) CountX(ctx context.Context) int {
 	if err != nil {
 		panic(err)
 	}
+
 	return count
 }
 
 // Exist returns true if the query has elements in the graph.
 func (cq *ChatQuery) Exist(ctx context.Context) (bool, error) {
 	ctx = setContextOp(ctx, cq.ctx, "Exist")
+
 	switch _, err := cq.FirstID(ctx); {
 	case IsNotFound(err):
 		return false, nil
@@ -236,6 +258,7 @@ func (cq *ChatQuery) ExistX(ctx context.Context) bool {
 	if err != nil {
 		panic(err)
 	}
+
 	return exist
 }
 
@@ -245,6 +268,7 @@ func (cq *ChatQuery) Clone() *ChatQuery {
 	if cq == nil {
 		return nil
 	}
+
 	return &ChatQuery{
 		config:     cq.config,
 		ctx:        cq.ctx.Clone(),
@@ -277,6 +301,7 @@ func (cq *ChatQuery) GroupBy(field string, fields ...string) *ChatGroupBy {
 	grbuild.flds = &cq.ctx.Fields
 	grbuild.label = chat.Label
 	grbuild.scan = grbuild.Scan
+
 	return grbuild
 }
 
@@ -297,6 +322,7 @@ func (cq *ChatQuery) Select(fields ...string) *ChatSelect {
 	sbuild := &ChatSelect{ChatQuery: cq}
 	sbuild.label = chat.Label
 	sbuild.flds, sbuild.scan = &cq.ctx.Fields, sbuild.Scan
+
 	return sbuild
 }
 
@@ -310,24 +336,29 @@ func (cq *ChatQuery) prepareQuery(ctx context.Context) error {
 		if inter == nil {
 			return fmt.Errorf("entity: uninitialized interceptor (forgotten import entity/runtime?)")
 		}
+
 		if trv, ok := inter.(Traverser); ok {
 			if err := trv.Traverse(ctx, cq); err != nil {
 				return err
 			}
 		}
 	}
+
 	for _, f := range cq.ctx.Fields {
 		if !chat.ValidColumn(f) {
 			return &ValidationError{Name: f, err: fmt.Errorf("entity: invalid field %q for query", f)}
 		}
 	}
+
 	if cq.path != nil {
 		prev, err := cq.path(ctx)
 		if err != nil {
 			return err
 		}
+
 		cq.sql = prev
 	}
+
 	return nil
 }
 
@@ -336,26 +367,33 @@ func (cq *ChatQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Chat, e
 		nodes = []*Chat{}
 		_spec = cq.querySpec()
 	)
+
 	_spec.ScanValues = func(columns []string) ([]any, error) {
 		return (*Chat).scanValues(nil, columns)
 	}
 	_spec.Assign = func(columns []string, values []any) error {
 		node := &Chat{config: cq.config}
 		nodes = append(nodes, node)
+
 		return node.assignValues(columns, values)
 	}
+
 	if len(cq.modifiers) > 0 {
 		_spec.Modifiers = cq.modifiers
 	}
+
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
+
 	if err := sqlgraph.QueryNodes(ctx, cq.driver, _spec); err != nil {
 		return nil, err
 	}
+
 	if len(nodes) == 0 {
 		return nodes, nil
 	}
+
 	return nodes, nil
 }
 
@@ -364,30 +402,36 @@ func (cq *ChatQuery) sqlCount(ctx context.Context) (int, error) {
 	if len(cq.modifiers) > 0 {
 		_spec.Modifiers = cq.modifiers
 	}
+
 	_spec.Node.Columns = cq.ctx.Fields
 	if len(cq.ctx.Fields) > 0 {
 		_spec.Unique = cq.ctx.Unique != nil && *cq.ctx.Unique
 	}
+
 	return sqlgraph.CountNodes(ctx, cq.driver, _spec)
 }
 
 func (cq *ChatQuery) querySpec() *sqlgraph.QuerySpec {
 	_spec := sqlgraph.NewQuerySpec(chat.Table, chat.Columns, sqlgraph.NewFieldSpec(chat.FieldID, field.TypeInt64))
 	_spec.From = cq.sql
+
 	if unique := cq.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
 	} else if cq.path != nil {
 		_spec.Unique = true
 	}
+
 	if fields := cq.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, chat.FieldID)
+
 		for i := range fields {
 			if fields[i] != chat.FieldID {
 				_spec.Node.Columns = append(_spec.Node.Columns, fields[i])
 			}
 		}
 	}
+
 	if ps := cq.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -395,12 +439,15 @@ func (cq *ChatQuery) querySpec() *sqlgraph.QuerySpec {
 			}
 		}
 	}
+
 	if limit := cq.ctx.Limit; limit != nil {
 		_spec.Limit = *limit
 	}
+
 	if offset := cq.ctx.Offset; offset != nil {
 		_spec.Offset = *offset
 	}
+
 	if ps := cq.order; len(ps) > 0 {
 		_spec.Order = func(selector *sql.Selector) {
 			for i := range ps {
@@ -408,41 +455,51 @@ func (cq *ChatQuery) querySpec() *sqlgraph.QuerySpec {
 			}
 		}
 	}
+
 	return _spec
 }
 
 func (cq *ChatQuery) sqlQuery(ctx context.Context) *sql.Selector {
 	builder := sql.Dialect(cq.driver.Dialect())
 	t1 := builder.Table(chat.Table)
+
 	columns := cq.ctx.Fields
 	if len(columns) == 0 {
 		columns = chat.Columns
 	}
+
 	selector := builder.Select(t1.Columns(columns...)...).From(t1)
 	if cq.sql != nil {
 		selector = cq.sql
 		selector.Select(selector.Columns(columns...)...)
 	}
+
 	if cq.ctx.Unique != nil && *cq.ctx.Unique {
 		selector.Distinct()
 	}
+
 	for _, m := range cq.modifiers {
 		m(selector)
 	}
+
 	for _, p := range cq.predicates {
 		p(selector)
 	}
+
 	for _, p := range cq.order {
 		p(selector)
 	}
+
 	if offset := cq.ctx.Offset; offset != nil {
 		// limit is mandatory for offset clause. We start
 		// with default value, and override it below if needed.
 		selector.Offset(*offset).Limit(math.MaxInt32)
 	}
+
 	if limit := cq.ctx.Limit; limit != nil {
 		selector.Limit(*limit)
 	}
+
 	return selector
 }
 
@@ -453,9 +510,11 @@ func (cq *ChatQuery) ForUpdate(opts ...sql.LockOption) *ChatQuery {
 	if cq.driver.Dialect() == dialect.Postgres {
 		cq.Unique(false)
 	}
+
 	cq.modifiers = append(cq.modifiers, func(s *sql.Selector) {
 		s.ForUpdate(opts...)
 	})
+
 	return cq
 }
 
@@ -466,9 +525,11 @@ func (cq *ChatQuery) ForShare(opts ...sql.LockOption) *ChatQuery {
 	if cq.driver.Dialect() == dialect.Postgres {
 		cq.Unique(false)
 	}
+
 	cq.modifiers = append(cq.modifiers, func(s *sql.Selector) {
 		s.ForShare(opts...)
 	})
+
 	return cq
 }
 
@@ -496,33 +557,43 @@ func (cgb *ChatGroupBy) Scan(ctx context.Context, v any) error {
 	if err := cgb.build.prepareQuery(ctx); err != nil {
 		return err
 	}
+
 	return scanWithInterceptors[*ChatQuery, *ChatGroupBy](ctx, cgb.build, cgb, cgb.build.inters, v)
 }
 
 func (cgb *ChatGroupBy) sqlScan(ctx context.Context, root *ChatQuery, v any) error {
 	selector := root.sqlQuery(ctx).Select()
 	aggregation := make([]string, 0, len(cgb.fns))
+
 	for _, fn := range cgb.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
+
 	if len(selector.SelectedColumns()) == 0 {
 		columns := make([]string, 0, len(*cgb.flds)+len(cgb.fns))
 		for _, f := range *cgb.flds {
 			columns = append(columns, selector.C(f))
 		}
+
 		columns = append(columns, aggregation...)
 		selector.Select(columns...)
 	}
+
 	selector.GroupBy(selector.Columns(*cgb.flds...)...)
+
 	if err := selector.Err(); err != nil {
 		return err
 	}
+
 	rows := &sql.Rows{}
 	query, args := selector.Query()
+
 	if err := cgb.build.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
+
 	defer rows.Close()
+
 	return sql.ScanSlice(rows, v)
 }
 
@@ -544,27 +615,34 @@ func (cs *ChatSelect) Scan(ctx context.Context, v any) error {
 	if err := cs.prepareQuery(ctx); err != nil {
 		return err
 	}
+
 	return scanWithInterceptors[*ChatQuery, *ChatSelect](ctx, cs.ChatQuery, cs, cs.inters, v)
 }
 
 func (cs *ChatSelect) sqlScan(ctx context.Context, root *ChatQuery, v any) error {
 	selector := root.sqlQuery(ctx)
 	aggregation := make([]string, 0, len(cs.fns))
+
 	for _, fn := range cs.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
+
 	switch n := len(*cs.selector.flds); {
 	case n == 0 && len(aggregation) > 0:
 		selector.Select(aggregation...)
 	case n != 0 && len(aggregation) > 0:
 		selector.AppendSelect(aggregation...)
 	}
+
 	rows := &sql.Rows{}
 	query, args := selector.Query()
+
 	if err := cs.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
+
 	defer rows.Close()
+
 	return sql.ScanSlice(rows, v)
 }
 

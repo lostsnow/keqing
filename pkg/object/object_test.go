@@ -9,6 +9,8 @@ import (
 )
 
 func TestSearch(t *testing.T) {
+	t.Parallel()
+
 	type TestObject struct {
 		ID string
 	}

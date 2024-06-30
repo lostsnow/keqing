@@ -39,6 +39,7 @@ func (uc *UserCreate) SetNillableIsBot(b *bool) *UserCreate {
 	if b != nil {
 		uc.SetIsBot(*b)
 	}
+
 	return uc
 }
 
@@ -53,6 +54,7 @@ func (uc *UserCreate) SetNillableUserName(s *string) *UserCreate {
 	if s != nil {
 		uc.SetUserName(*s)
 	}
+
 	return uc
 }
 
@@ -67,6 +69,7 @@ func (uc *UserCreate) SetNillableFirstName(s *string) *UserCreate {
 	if s != nil {
 		uc.SetFirstName(*s)
 	}
+
 	return uc
 }
 
@@ -81,6 +84,7 @@ func (uc *UserCreate) SetNillableLastName(s *string) *UserCreate {
 	if s != nil {
 		uc.SetLastName(*s)
 	}
+
 	return uc
 }
 
@@ -95,6 +99,7 @@ func (uc *UserCreate) SetNillableCreateAt(t *time.Time) *UserCreate {
 	if t != nil {
 		uc.SetCreateAt(*t)
 	}
+
 	return uc
 }
 
@@ -109,6 +114,7 @@ func (uc *UserCreate) SetNillableUpdateAt(t *time.Time) *UserCreate {
 	if t != nil {
 		uc.SetUpdateAt(*t)
 	}
+
 	return uc
 }
 
@@ -135,6 +141,7 @@ func (uc *UserCreate) SaveX(ctx context.Context) *User {
 	if err != nil {
 		panic(err)
 	}
+
 	return v
 }
 
@@ -157,22 +164,27 @@ func (uc *UserCreate) defaults() {
 		v := user.DefaultIsBot
 		uc.mutation.SetIsBot(v)
 	}
+
 	if _, ok := uc.mutation.UserName(); !ok {
 		v := user.DefaultUserName
 		uc.mutation.SetUserName(v)
 	}
+
 	if _, ok := uc.mutation.FirstName(); !ok {
 		v := user.DefaultFirstName
 		uc.mutation.SetFirstName(v)
 	}
+
 	if _, ok := uc.mutation.LastName(); !ok {
 		v := user.DefaultLastName
 		uc.mutation.SetLastName(v)
 	}
+
 	if _, ok := uc.mutation.CreateAt(); !ok {
 		v := user.DefaultCreateAt()
 		uc.mutation.SetCreateAt(v)
 	}
+
 	if _, ok := uc.mutation.UpdateAt(); !ok {
 		v := user.DefaultUpdateAt()
 		uc.mutation.SetUpdateAt(v)
@@ -184,24 +196,31 @@ func (uc *UserCreate) check() error {
 	if _, ok := uc.mutation.UserID(); !ok {
 		return &ValidationError{Name: "user_id", err: errors.New(`entity: missing required field "User.user_id"`)}
 	}
+
 	if _, ok := uc.mutation.IsBot(); !ok {
 		return &ValidationError{Name: "is_bot", err: errors.New(`entity: missing required field "User.is_bot"`)}
 	}
+
 	if _, ok := uc.mutation.UserName(); !ok {
 		return &ValidationError{Name: "user_name", err: errors.New(`entity: missing required field "User.user_name"`)}
 	}
+
 	if _, ok := uc.mutation.FirstName(); !ok {
 		return &ValidationError{Name: "first_name", err: errors.New(`entity: missing required field "User.first_name"`)}
 	}
+
 	if _, ok := uc.mutation.LastName(); !ok {
 		return &ValidationError{Name: "last_name", err: errors.New(`entity: missing required field "User.last_name"`)}
 	}
+
 	if _, ok := uc.mutation.CreateAt(); !ok {
 		return &ValidationError{Name: "create_at", err: errors.New(`entity: missing required field "User.create_at"`)}
 	}
+
 	if _, ok := uc.mutation.UpdateAt(); !ok {
 		return &ValidationError{Name: "update_at", err: errors.New(`entity: missing required field "User.update_at"`)}
 	}
+
 	return nil
 }
 
@@ -209,19 +228,24 @@ func (uc *UserCreate) sqlSave(ctx context.Context) (*User, error) {
 	if err := uc.check(); err != nil {
 		return nil, err
 	}
+
 	_node, _spec := uc.createSpec()
 	if err := sqlgraph.CreateNode(ctx, uc.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
+
 		return nil, err
 	}
+
 	if _spec.ID.Value != _node.ID {
 		id := _spec.ID.Value.(int64)
 		_node.ID = int64(id)
 	}
+
 	uc.mutation.id = &_node.ID
 	uc.mutation.done = true
+
 	return _node, nil
 }
 
@@ -230,39 +254,49 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 		_node = &User{config: uc.config}
 		_spec = sqlgraph.NewCreateSpec(user.Table, sqlgraph.NewFieldSpec(user.FieldID, field.TypeInt64))
 	)
+
 	_spec.OnConflict = uc.conflict
+
 	if id, ok := uc.mutation.ID(); ok {
 		_node.ID = id
 		_spec.ID.Value = id
 	}
+
 	if value, ok := uc.mutation.UserID(); ok {
 		_spec.SetField(user.FieldUserID, field.TypeInt64, value)
 		_node.UserID = value
 	}
+
 	if value, ok := uc.mutation.IsBot(); ok {
 		_spec.SetField(user.FieldIsBot, field.TypeBool, value)
 		_node.IsBot = value
 	}
+
 	if value, ok := uc.mutation.UserName(); ok {
 		_spec.SetField(user.FieldUserName, field.TypeString, value)
 		_node.UserName = value
 	}
+
 	if value, ok := uc.mutation.FirstName(); ok {
 		_spec.SetField(user.FieldFirstName, field.TypeString, value)
 		_node.FirstName = value
 	}
+
 	if value, ok := uc.mutation.LastName(); ok {
 		_spec.SetField(user.FieldLastName, field.TypeString, value)
 		_node.LastName = value
 	}
+
 	if value, ok := uc.mutation.CreateAt(); ok {
 		_spec.SetField(user.FieldCreateAt, field.TypeTime, value)
 		_node.CreateAt = value
 	}
+
 	if value, ok := uc.mutation.UpdateAt(); ok {
 		_spec.SetField(user.FieldUpdateAt, field.TypeTime, value)
 		_node.UpdateAt = value
 	}
+
 	return _node, _spec
 }
 
@@ -284,6 +318,7 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 //		Exec(ctx)
 func (uc *UserCreate) OnConflict(opts ...sql.ConflictOption) *UserUpsertOne {
 	uc.conflict = opts
+
 	return &UserUpsertOne{
 		create: uc,
 	}
@@ -297,6 +332,7 @@ func (uc *UserCreate) OnConflict(opts ...sql.ConflictOption) *UserUpsertOne {
 //		Exec(ctx)
 func (uc *UserCreate) OnConflictColumns(columns ...string) *UserUpsertOne {
 	uc.conflict = append(uc.conflict, sql.ConflictColumns(columns...))
+
 	return &UserUpsertOne{
 		create: uc,
 	}
@@ -410,10 +446,12 @@ func (u *UserUpsertOne) UpdateNewValues() *UserUpsertOne {
 		if _, exists := u.create.mutation.ID(); exists {
 			s.SetIgnore(user.FieldID)
 		}
+
 		if _, exists := u.create.mutation.CreateAt(); exists {
 			s.SetIgnore(user.FieldCreateAt)
 		}
 	}))
+
 	return u
 }
 
@@ -441,6 +479,7 @@ func (u *UserUpsertOne) Update(set func(*UserUpsert)) *UserUpsertOne {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(update *sql.UpdateSet) {
 		set(&UserUpsert{UpdateSet: update})
 	}))
+
 	return u
 }
 
@@ -540,6 +579,7 @@ func (u *UserUpsertOne) Exec(ctx context.Context) error {
 	if len(u.create.conflict) == 0 {
 		return errors.New("entity: missing options for UserCreate.OnConflict")
 	}
+
 	return u.create.Exec(ctx)
 }
 
@@ -556,6 +596,7 @@ func (u *UserUpsertOne) ID(ctx context.Context) (id int64, err error) {
 	if err != nil {
 		return id, err
 	}
+
 	return node.ID, nil
 }
 
@@ -565,6 +606,7 @@ func (u *UserUpsertOne) IDX(ctx context.Context) int64 {
 	if err != nil {
 		panic(err)
 	}
+
 	return id
 }
 
@@ -580,10 +622,12 @@ func (ucb *UserCreateBulk) Save(ctx context.Context) ([]*User, error) {
 	specs := make([]*sqlgraph.CreateSpec, len(ucb.builders))
 	nodes := make([]*User, len(ucb.builders))
 	mutators := make([]Mutator, len(ucb.builders))
+
 	for i := range ucb.builders {
 		func(i int, root context.Context) {
 			builder := ucb.builders[i]
 			builder.defaults()
+
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*UserMutation)
 				if !ok {
@@ -618,17 +662,21 @@ func (ucb *UserCreateBulk) Save(ctx context.Context) ([]*User, error) {
 				mutation.done = true
 				return nodes[i], nil
 			})
+
 			for i := len(builder.hooks) - 1; i >= 0; i-- {
 				mut = builder.hooks[i](mut)
 			}
+
 			mutators[i] = mut
 		}(i, ctx)
 	}
+
 	if len(mutators) > 0 {
 		if _, err := mutators[0].Mutate(ctx, ucb.builders[0].mutation); err != nil {
 			return nil, err
 		}
 	}
+
 	return nodes, nil
 }
 
@@ -638,6 +686,7 @@ func (ucb *UserCreateBulk) SaveX(ctx context.Context) []*User {
 	if err != nil {
 		panic(err)
 	}
+
 	return v
 }
 
@@ -671,6 +720,7 @@ func (ucb *UserCreateBulk) ExecX(ctx context.Context) {
 //		Exec(ctx)
 func (ucb *UserCreateBulk) OnConflict(opts ...sql.ConflictOption) *UserUpsertBulk {
 	ucb.conflict = opts
+
 	return &UserUpsertBulk{
 		create: ucb,
 	}
@@ -684,6 +734,7 @@ func (ucb *UserCreateBulk) OnConflict(opts ...sql.ConflictOption) *UserUpsertBul
 //		Exec(ctx)
 func (ucb *UserCreateBulk) OnConflictColumns(columns ...string) *UserUpsertBulk {
 	ucb.conflict = append(ucb.conflict, sql.ConflictColumns(columns...))
+
 	return &UserUpsertBulk{
 		create: ucb,
 	}
@@ -713,11 +764,13 @@ func (u *UserUpsertBulk) UpdateNewValues() *UserUpsertBulk {
 			if _, exists := b.mutation.ID(); exists {
 				s.SetIgnore(user.FieldID)
 			}
+
 			if _, exists := b.mutation.CreateAt(); exists {
 				s.SetIgnore(user.FieldCreateAt)
 			}
 		}
 	}))
+
 	return u
 }
 
@@ -745,6 +798,7 @@ func (u *UserUpsertBulk) Update(set func(*UserUpsert)) *UserUpsertBulk {
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(update *sql.UpdateSet) {
 		set(&UserUpsert{UpdateSet: update})
 	}))
+
 	return u
 }
 
@@ -846,9 +900,11 @@ func (u *UserUpsertBulk) Exec(ctx context.Context) error {
 			return fmt.Errorf("entity: OnConflict was set for builder %d. Set it on the UserCreateBulk instead", i)
 		}
 	}
+
 	if len(u.create.conflict) == 0 {
 		return errors.New("entity: missing options for UserCreateBulk.OnConflict")
 	}
+
 	return u.create.Exec(ctx)
 }
 

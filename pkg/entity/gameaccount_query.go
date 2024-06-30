@@ -66,9 +66,11 @@ func (gaq *GameAccountQuery) First(ctx context.Context) (*GameAccount, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	if len(nodes) == 0 {
 		return nil, &NotFoundError{gameaccount.Label}
 	}
+
 	return nodes[0], nil
 }
 
@@ -78,6 +80,7 @@ func (gaq *GameAccountQuery) FirstX(ctx context.Context) *GameAccount {
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
+
 	return node
 }
 
@@ -85,13 +88,16 @@ func (gaq *GameAccountQuery) FirstX(ctx context.Context) *GameAccount {
 // Returns a *NotFoundError when no GameAccount ID was found.
 func (gaq *GameAccountQuery) FirstID(ctx context.Context) (id int64, err error) {
 	var ids []int64
+
 	if ids, err = gaq.Limit(1).IDs(setContextOp(ctx, gaq.ctx, "FirstID")); err != nil {
 		return
 	}
+
 	if len(ids) == 0 {
 		err = &NotFoundError{gameaccount.Label}
 		return
 	}
+
 	return ids[0], nil
 }
 
@@ -101,6 +107,7 @@ func (gaq *GameAccountQuery) FirstIDX(ctx context.Context) int64 {
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
+
 	return id
 }
 
@@ -112,6 +119,7 @@ func (gaq *GameAccountQuery) Only(ctx context.Context) (*GameAccount, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	switch len(nodes) {
 	case 1:
 		return nodes[0], nil
@@ -128,6 +136,7 @@ func (gaq *GameAccountQuery) OnlyX(ctx context.Context) *GameAccount {
 	if err != nil {
 		panic(err)
 	}
+
 	return node
 }
 
@@ -136,9 +145,11 @@ func (gaq *GameAccountQuery) OnlyX(ctx context.Context) *GameAccount {
 // Returns a *NotFoundError when no entities are found.
 func (gaq *GameAccountQuery) OnlyID(ctx context.Context) (id int64, err error) {
 	var ids []int64
+
 	if ids, err = gaq.Limit(2).IDs(setContextOp(ctx, gaq.ctx, "OnlyID")); err != nil {
 		return
 	}
+
 	switch len(ids) {
 	case 1:
 		id = ids[0]
@@ -147,6 +158,7 @@ func (gaq *GameAccountQuery) OnlyID(ctx context.Context) (id int64, err error) {
 	default:
 		err = &NotSingularError{gameaccount.Label}
 	}
+
 	return
 }
 
@@ -156,6 +168,7 @@ func (gaq *GameAccountQuery) OnlyIDX(ctx context.Context) int64 {
 	if err != nil {
 		panic(err)
 	}
+
 	return id
 }
 
@@ -165,7 +178,9 @@ func (gaq *GameAccountQuery) All(ctx context.Context) ([]*GameAccount, error) {
 	if err := gaq.prepareQuery(ctx); err != nil {
 		return nil, err
 	}
+
 	qr := querierAll[[]*GameAccount, *GameAccountQuery]()
+
 	return withInterceptors[[]*GameAccount](ctx, gaq, qr, gaq.inters)
 }
 
@@ -175,6 +190,7 @@ func (gaq *GameAccountQuery) AllX(ctx context.Context) []*GameAccount {
 	if err != nil {
 		panic(err)
 	}
+
 	return nodes
 }
 
@@ -183,10 +199,12 @@ func (gaq *GameAccountQuery) IDs(ctx context.Context) (ids []int64, err error) {
 	if gaq.ctx.Unique == nil && gaq.path != nil {
 		gaq.Unique(true)
 	}
+
 	ctx = setContextOp(ctx, gaq.ctx, "IDs")
 	if err = gaq.Select(gameaccount.FieldID).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
+
 	return ids, nil
 }
 
@@ -196,6 +214,7 @@ func (gaq *GameAccountQuery) IDsX(ctx context.Context) []int64 {
 	if err != nil {
 		panic(err)
 	}
+
 	return ids
 }
 
@@ -205,6 +224,7 @@ func (gaq *GameAccountQuery) Count(ctx context.Context) (int, error) {
 	if err := gaq.prepareQuery(ctx); err != nil {
 		return 0, err
 	}
+
 	return withInterceptors[int](ctx, gaq, querierCount[*GameAccountQuery](), gaq.inters)
 }
 
@@ -214,12 +234,14 @@ func (gaq *GameAccountQuery) CountX(ctx context.Context) int {
 	if err != nil {
 		panic(err)
 	}
+
 	return count
 }
 
 // Exist returns true if the query has elements in the graph.
 func (gaq *GameAccountQuery) Exist(ctx context.Context) (bool, error) {
 	ctx = setContextOp(ctx, gaq.ctx, "Exist")
+
 	switch _, err := gaq.FirstID(ctx); {
 	case IsNotFound(err):
 		return false, nil
@@ -236,6 +258,7 @@ func (gaq *GameAccountQuery) ExistX(ctx context.Context) bool {
 	if err != nil {
 		panic(err)
 	}
+
 	return exist
 }
 
@@ -245,6 +268,7 @@ func (gaq *GameAccountQuery) Clone() *GameAccountQuery {
 	if gaq == nil {
 		return nil
 	}
+
 	return &GameAccountQuery{
 		config:     gaq.config,
 		ctx:        gaq.ctx.Clone(),
@@ -277,6 +301,7 @@ func (gaq *GameAccountQuery) GroupBy(field string, fields ...string) *GameAccoun
 	grbuild.flds = &gaq.ctx.Fields
 	grbuild.label = gameaccount.Label
 	grbuild.scan = grbuild.Scan
+
 	return grbuild
 }
 
@@ -297,6 +322,7 @@ func (gaq *GameAccountQuery) Select(fields ...string) *GameAccountSelect {
 	sbuild := &GameAccountSelect{GameAccountQuery: gaq}
 	sbuild.label = gameaccount.Label
 	sbuild.flds, sbuild.scan = &gaq.ctx.Fields, sbuild.Scan
+
 	return sbuild
 }
 
@@ -310,24 +336,29 @@ func (gaq *GameAccountQuery) prepareQuery(ctx context.Context) error {
 		if inter == nil {
 			return fmt.Errorf("entity: uninitialized interceptor (forgotten import entity/runtime?)")
 		}
+
 		if trv, ok := inter.(Traverser); ok {
 			if err := trv.Traverse(ctx, gaq); err != nil {
 				return err
 			}
 		}
 	}
+
 	for _, f := range gaq.ctx.Fields {
 		if !gameaccount.ValidColumn(f) {
 			return &ValidationError{Name: f, err: fmt.Errorf("entity: invalid field %q for query", f)}
 		}
 	}
+
 	if gaq.path != nil {
 		prev, err := gaq.path(ctx)
 		if err != nil {
 			return err
 		}
+
 		gaq.sql = prev
 	}
+
 	return nil
 }
 
@@ -336,26 +367,33 @@ func (gaq *GameAccountQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]
 		nodes = []*GameAccount{}
 		_spec = gaq.querySpec()
 	)
+
 	_spec.ScanValues = func(columns []string) ([]any, error) {
 		return (*GameAccount).scanValues(nil, columns)
 	}
 	_spec.Assign = func(columns []string, values []any) error {
 		node := &GameAccount{config: gaq.config}
 		nodes = append(nodes, node)
+
 		return node.assignValues(columns, values)
 	}
+
 	if len(gaq.modifiers) > 0 {
 		_spec.Modifiers = gaq.modifiers
 	}
+
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
+
 	if err := sqlgraph.QueryNodes(ctx, gaq.driver, _spec); err != nil {
 		return nil, err
 	}
+
 	if len(nodes) == 0 {
 		return nodes, nil
 	}
+
 	return nodes, nil
 }
 
@@ -364,30 +402,36 @@ func (gaq *GameAccountQuery) sqlCount(ctx context.Context) (int, error) {
 	if len(gaq.modifiers) > 0 {
 		_spec.Modifiers = gaq.modifiers
 	}
+
 	_spec.Node.Columns = gaq.ctx.Fields
 	if len(gaq.ctx.Fields) > 0 {
 		_spec.Unique = gaq.ctx.Unique != nil && *gaq.ctx.Unique
 	}
+
 	return sqlgraph.CountNodes(ctx, gaq.driver, _spec)
 }
 
 func (gaq *GameAccountQuery) querySpec() *sqlgraph.QuerySpec {
 	_spec := sqlgraph.NewQuerySpec(gameaccount.Table, gameaccount.Columns, sqlgraph.NewFieldSpec(gameaccount.FieldID, field.TypeInt64))
 	_spec.From = gaq.sql
+
 	if unique := gaq.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
 	} else if gaq.path != nil {
 		_spec.Unique = true
 	}
+
 	if fields := gaq.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, gameaccount.FieldID)
+
 		for i := range fields {
 			if fields[i] != gameaccount.FieldID {
 				_spec.Node.Columns = append(_spec.Node.Columns, fields[i])
 			}
 		}
 	}
+
 	if ps := gaq.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -395,12 +439,15 @@ func (gaq *GameAccountQuery) querySpec() *sqlgraph.QuerySpec {
 			}
 		}
 	}
+
 	if limit := gaq.ctx.Limit; limit != nil {
 		_spec.Limit = *limit
 	}
+
 	if offset := gaq.ctx.Offset; offset != nil {
 		_spec.Offset = *offset
 	}
+
 	if ps := gaq.order; len(ps) > 0 {
 		_spec.Order = func(selector *sql.Selector) {
 			for i := range ps {
@@ -408,41 +455,51 @@ func (gaq *GameAccountQuery) querySpec() *sqlgraph.QuerySpec {
 			}
 		}
 	}
+
 	return _spec
 }
 
 func (gaq *GameAccountQuery) sqlQuery(ctx context.Context) *sql.Selector {
 	builder := sql.Dialect(gaq.driver.Dialect())
 	t1 := builder.Table(gameaccount.Table)
+
 	columns := gaq.ctx.Fields
 	if len(columns) == 0 {
 		columns = gameaccount.Columns
 	}
+
 	selector := builder.Select(t1.Columns(columns...)...).From(t1)
 	if gaq.sql != nil {
 		selector = gaq.sql
 		selector.Select(selector.Columns(columns...)...)
 	}
+
 	if gaq.ctx.Unique != nil && *gaq.ctx.Unique {
 		selector.Distinct()
 	}
+
 	for _, m := range gaq.modifiers {
 		m(selector)
 	}
+
 	for _, p := range gaq.predicates {
 		p(selector)
 	}
+
 	for _, p := range gaq.order {
 		p(selector)
 	}
+
 	if offset := gaq.ctx.Offset; offset != nil {
 		// limit is mandatory for offset clause. We start
 		// with default value, and override it below if needed.
 		selector.Offset(*offset).Limit(math.MaxInt32)
 	}
+
 	if limit := gaq.ctx.Limit; limit != nil {
 		selector.Limit(*limit)
 	}
+
 	return selector
 }
 
@@ -453,9 +510,11 @@ func (gaq *GameAccountQuery) ForUpdate(opts ...sql.LockOption) *GameAccountQuery
 	if gaq.driver.Dialect() == dialect.Postgres {
 		gaq.Unique(false)
 	}
+
 	gaq.modifiers = append(gaq.modifiers, func(s *sql.Selector) {
 		s.ForUpdate(opts...)
 	})
+
 	return gaq
 }
 
@@ -466,9 +525,11 @@ func (gaq *GameAccountQuery) ForShare(opts ...sql.LockOption) *GameAccountQuery 
 	if gaq.driver.Dialect() == dialect.Postgres {
 		gaq.Unique(false)
 	}
+
 	gaq.modifiers = append(gaq.modifiers, func(s *sql.Selector) {
 		s.ForShare(opts...)
 	})
+
 	return gaq
 }
 
@@ -496,33 +557,43 @@ func (gagb *GameAccountGroupBy) Scan(ctx context.Context, v any) error {
 	if err := gagb.build.prepareQuery(ctx); err != nil {
 		return err
 	}
+
 	return scanWithInterceptors[*GameAccountQuery, *GameAccountGroupBy](ctx, gagb.build, gagb, gagb.build.inters, v)
 }
 
 func (gagb *GameAccountGroupBy) sqlScan(ctx context.Context, root *GameAccountQuery, v any) error {
 	selector := root.sqlQuery(ctx).Select()
 	aggregation := make([]string, 0, len(gagb.fns))
+
 	for _, fn := range gagb.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
+
 	if len(selector.SelectedColumns()) == 0 {
 		columns := make([]string, 0, len(*gagb.flds)+len(gagb.fns))
 		for _, f := range *gagb.flds {
 			columns = append(columns, selector.C(f))
 		}
+
 		columns = append(columns, aggregation...)
 		selector.Select(columns...)
 	}
+
 	selector.GroupBy(selector.Columns(*gagb.flds...)...)
+
 	if err := selector.Err(); err != nil {
 		return err
 	}
+
 	rows := &sql.Rows{}
 	query, args := selector.Query()
+
 	if err := gagb.build.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
+
 	defer rows.Close()
+
 	return sql.ScanSlice(rows, v)
 }
 
@@ -544,27 +615,34 @@ func (gas *GameAccountSelect) Scan(ctx context.Context, v any) error {
 	if err := gas.prepareQuery(ctx); err != nil {
 		return err
 	}
+
 	return scanWithInterceptors[*GameAccountQuery, *GameAccountSelect](ctx, gas.GameAccountQuery, gas, gas.inters, v)
 }
 
 func (gas *GameAccountSelect) sqlScan(ctx context.Context, root *GameAccountQuery, v any) error {
 	selector := root.sqlQuery(ctx)
 	aggregation := make([]string, 0, len(gas.fns))
+
 	for _, fn := range gas.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
+
 	switch n := len(*gas.selector.flds); {
 	case n == 0 && len(aggregation) > 0:
 		selector.Select(aggregation...)
 	case n != 0 && len(aggregation) > 0:
 		selector.AppendSelect(aggregation...)
 	}
+
 	rows := &sql.Rows{}
 	query, args := selector.Query()
+
 	if err := gas.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
+
 	defer rows.Close()
+
 	return sql.ScanSlice(rows, v)
 }
 

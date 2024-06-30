@@ -5,8 +5,6 @@ package i18n
 import (
 	"golang.org/x/text/language"
 	"golang.org/x/text/message"
-
-	_ "github.com/lostsnow/keqing/pkg/i18n/catalog"
 )
 
 var p = message.NewPrinter(language.AmericanEnglish)
@@ -287,5 +285,4 @@ var (
 	_ = p.Sprintf("Yoimiya")
 	_ = p.Sprintf("Yun Jin")
 	_ = p.Sprintf("Zhongli")
-	
 )

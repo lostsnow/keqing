@@ -51,16 +51,19 @@ func columnChecker(table string) func(string) error {
 		gameroleattribute.Table: gameroleattribute.ValidColumn,
 		user.Table:              user.ValidColumn,
 	}
+
 	check, ok := checks[table]
 	if !ok {
 		return func(string) error {
 			return fmt.Errorf("unknown table %q", table)
 		}
 	}
+
 	return func(column string) error {
 		if !check(column) {
 			return fmt.Errorf("unknown column %q for table %q", column, table)
 		}
+
 		return nil
 	}
 }
@@ -73,6 +76,7 @@ func Asc(fields ...string) OrderFunc {
 			if err := check(f); err != nil {
 				s.AddError(&ValidationError{Name: f, err: fmt.Errorf("entity: %w", err)})
 			}
+
 			s.OrderBy(sql.Asc(s.C(f)))
 		}
 	}
@@ -86,6 +90,7 @@ func Desc(fields ...string) OrderFunc {
 			if err := check(f); err != nil {
 				s.AddError(&ValidationError{Name: f, err: fmt.Errorf("entity: %w", err)})
 			}
+
 			s.OrderBy(sql.Desc(s.C(f)))
 		}
 	}
@@ -120,6 +125,7 @@ func Max(field string) AggregateFunc {
 			s.AddError(&ValidationError{Name: field, err: fmt.Errorf("entity: %w", err)})
 			return ""
 		}
+
 		return sql.Max(s.C(field))
 	}
 }
@@ -132,6 +138,7 @@ func Mean(field string) AggregateFunc {
 			s.AddError(&ValidationError{Name: field, err: fmt.Errorf("entity: %w", err)})
 			return ""
 		}
+
 		return sql.Avg(s.C(field))
 	}
 }
@@ -144,6 +151,7 @@ func Min(field string) AggregateFunc {
 			s.AddError(&ValidationError{Name: field, err: fmt.Errorf("entity: %w", err)})
 			return ""
 		}
+
 		return sql.Min(s.C(field))
 	}
 }
@@ -156,6 +164,7 @@ func Sum(field string) AggregateFunc {
 			s.AddError(&ValidationError{Name: field, err: fmt.Errorf("entity: %w", err)})
 			return ""
 		}
+
 		return sql.Sum(s.C(field))
 	}
 }
@@ -181,7 +190,9 @@ func IsValidationError(err error) bool {
 	if err == nil {
 		return false
 	}
+
 	var e *ValidationError
+
 	return errors.As(err, &e)
 }
 
@@ -200,7 +211,9 @@ func IsNotFound(err error) bool {
 	if err == nil {
 		return false
 	}
+
 	var e *NotFoundError
+
 	return errors.As(err, &e)
 }
 
@@ -209,6 +222,7 @@ func MaskNotFound(err error) error {
 	if IsNotFound(err) {
 		return nil
 	}
+
 	return err
 }
 
@@ -227,7 +241,9 @@ func IsNotSingular(err error) bool {
 	if err == nil {
 		return false
 	}
+
 	var e *NotSingularError
+
 	return errors.As(err, &e)
 }
 
@@ -246,7 +262,9 @@ func IsNotLoaded(err error) bool {
 	if err == nil {
 		return false
 	}
+
 	var e *NotLoadedError
+
 	return errors.As(err, &e)
 }
 
@@ -273,7 +291,9 @@ func IsConstraintError(err error) bool {
 	if err == nil {
 		return false
 	}
+
 	var e *ConstraintError
+
 	return errors.As(err, &e)
 }
 
@@ -297,10 +317,12 @@ func (s *selector) Strings(ctx context.Context) ([]string, error) {
 	if len(*s.flds) > 1 {
 		return nil, errors.New("entity: Strings is not achievable when selecting more than 1 field")
 	}
+
 	var v []string
 	if err := s.scan(ctx, &v); err != nil {
 		return nil, err
 	}
+
 	return v, nil
 }
 
@@ -310,15 +332,18 @@ func (s *selector) StringsX(ctx context.Context) []string {
 	if err != nil {
 		panic(err)
 	}
+
 	return v
 }
 
 // String returns a single string from a selector. It is only allowed when selecting one field.
 func (s *selector) String(ctx context.Context) (_ string, err error) {
 	var v []string
+
 	if v, err = s.Strings(ctx); err != nil {
 		return
 	}
+
 	switch len(v) {
 	case 1:
 		return v[0], nil
@@ -327,6 +352,7 @@ func (s *selector) String(ctx context.Context) (_ string, err error) {
 	default:
 		err = fmt.Errorf("entity: Strings returned %d results when one was expected", len(v))
 	}
+
 	return
 }
 
@@ -336,6 +362,7 @@ func (s *selector) StringX(ctx context.Context) string {
 	if err != nil {
 		panic(err)
 	}
+
 	return v
 }
 
@@ -344,10 +371,12 @@ func (s *selector) Ints(ctx context.Context) ([]int, error) {
 	if len(*s.flds) > 1 {
 		return nil, errors.New("entity: Ints is not achievable when selecting more than 1 field")
 	}
+
 	var v []int
 	if err := s.scan(ctx, &v); err != nil {
 		return nil, err
 	}
+
 	return v, nil
 }
 
@@ -357,15 +386,18 @@ func (s *selector) IntsX(ctx context.Context) []int {
 	if err != nil {
 		panic(err)
 	}
+
 	return v
 }
 
 // Int returns a single int from a selector. It is only allowed when selecting one field.
 func (s *selector) Int(ctx context.Context) (_ int, err error) {
 	var v []int
+
 	if v, err = s.Ints(ctx); err != nil {
 		return
 	}
+
 	switch len(v) {
 	case 1:
 		return v[0], nil
@@ -374,6 +406,7 @@ func (s *selector) Int(ctx context.Context) (_ int, err error) {
 	default:
 		err = fmt.Errorf("entity: Ints returned %d results when one was expected", len(v))
 	}
+
 	return
 }
 
@@ -383,6 +416,7 @@ func (s *selector) IntX(ctx context.Context) int {
 	if err != nil {
 		panic(err)
 	}
+
 	return v
 }
 
@@ -391,10 +425,12 @@ func (s *selector) Float64s(ctx context.Context) ([]float64, error) {
 	if len(*s.flds) > 1 {
 		return nil, errors.New("entity: Float64s is not achievable when selecting more than 1 field")
 	}
+
 	var v []float64
 	if err := s.scan(ctx, &v); err != nil {
 		return nil, err
 	}
+
 	return v, nil
 }
 
@@ -404,15 +440,18 @@ func (s *selector) Float64sX(ctx context.Context) []float64 {
 	if err != nil {
 		panic(err)
 	}
+
 	return v
 }
 
 // Float64 returns a single float64 from a selector. It is only allowed when selecting one field.
 func (s *selector) Float64(ctx context.Context) (_ float64, err error) {
 	var v []float64
+
 	if v, err = s.Float64s(ctx); err != nil {
 		return
 	}
+
 	switch len(v) {
 	case 1:
 		return v[0], nil
@@ -421,6 +460,7 @@ func (s *selector) Float64(ctx context.Context) (_ float64, err error) {
 	default:
 		err = fmt.Errorf("entity: Float64s returned %d results when one was expected", len(v))
 	}
+
 	return
 }
 
@@ -430,6 +470,7 @@ func (s *selector) Float64X(ctx context.Context) float64 {
 	if err != nil {
 		panic(err)
 	}
+
 	return v
 }
 
@@ -438,10 +479,12 @@ func (s *selector) Bools(ctx context.Context) ([]bool, error) {
 	if len(*s.flds) > 1 {
 		return nil, errors.New("entity: Bools is not achievable when selecting more than 1 field")
 	}
+
 	var v []bool
 	if err := s.scan(ctx, &v); err != nil {
 		return nil, err
 	}
+
 	return v, nil
 }
 
@@ -451,15 +494,18 @@ func (s *selector) BoolsX(ctx context.Context) []bool {
 	if err != nil {
 		panic(err)
 	}
+
 	return v
 }
 
 // Bool returns a single bool from a selector. It is only allowed when selecting one field.
 func (s *selector) Bool(ctx context.Context) (_ bool, err error) {
 	var v []bool
+
 	if v, err = s.Bools(ctx); err != nil {
 		return
 	}
+
 	switch len(v) {
 	case 1:
 		return v[0], nil
@@ -468,6 +514,7 @@ func (s *selector) Bool(ctx context.Context) (_ bool, err error) {
 	default:
 		err = fmt.Errorf("entity: Bools returned %d results when one was expected", len(v))
 	}
+
 	return
 }
 
@@ -477,6 +524,7 @@ func (s *selector) BoolX(ctx context.Context) bool {
 	if err != nil {
 		panic(err)
 	}
+
 	return v
 }
 
@@ -488,6 +536,7 @@ func withHooks[V Value, M any, PM interface {
 	if len(hooks) == 0 {
 		return exec(ctx)
 	}
+
 	var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 		mutationT, ok := m.(PM)
 		if !ok {
@@ -497,20 +546,25 @@ func withHooks[V Value, M any, PM interface {
 		*mutation = *mutationT
 		return exec(ctx)
 	})
+
 	for i := len(hooks) - 1; i >= 0; i-- {
 		if hooks[i] == nil {
 			return value, fmt.Errorf("ent: uninitialized hook (forgotten import ent/runtime?)")
 		}
+
 		mut = hooks[i](mut)
 	}
+
 	v, err := mut.Mutate(ctx, mutation)
 	if err != nil {
 		return value, err
 	}
+
 	nv, ok := v.(V)
 	if !ok {
 		return value, fmt.Errorf("unexpected node type %T returned from %T", v, mutation)
 	}
+
 	return nv, nil
 }
 
@@ -520,6 +574,7 @@ func setContextOp(ctx context.Context, qc *QueryContext, op string) context.Cont
 		qc.Op = op
 		ctx = ent.NewQueryContext(ctx, qc)
 	}
+
 	return ctx
 }
 
@@ -531,6 +586,7 @@ func querierAll[V Value, Q interface {
 		if !ok {
 			return nil, fmt.Errorf("unexpected query type %T", q)
 		}
+
 		return query.sqlAll(ctx)
 	})
 }
@@ -543,6 +599,7 @@ func querierCount[Q interface {
 		if !ok {
 			return nil, fmt.Errorf("unexpected query type %T", q)
 		}
+
 		return query.sqlCount(ctx)
 	})
 }
@@ -551,14 +608,17 @@ func withInterceptors[V Value](ctx context.Context, q Query, qr Querier, inters 
 	for i := len(inters) - 1; i >= 0; i-- {
 		qr = inters[i].Intercept(qr)
 	}
+
 	rv, err := qr.Query(ctx, q)
 	if err != nil {
 		return v, err
 	}
+
 	vt, ok := rv.(V)
 	if !ok {
 		return v, fmt.Errorf("unexpected type %T returned from %T. expected type: %T", vt, q, v)
 	}
+
 	return vt, nil
 }
 
@@ -566,6 +626,7 @@ func scanWithInterceptors[Q1 ent.Query, Q2 interface {
 	sqlScan(context.Context, Q1, any) error
 }](ctx context.Context, rootQuery Q1, selectOrGroup Q2, inters []Interceptor, v any) error {
 	rv := reflect.ValueOf(v)
+
 	var qr Querier = QuerierFunc(func(ctx context.Context, q Query) (Value, error) {
 		query, ok := q.(Q1)
 		if !ok {
@@ -579,13 +640,16 @@ func scanWithInterceptors[Q1 ent.Query, Q2 interface {
 		}
 		return v, nil
 	})
+
 	for i := len(inters) - 1; i >= 0; i-- {
 		qr = inters[i].Intercept(qr)
 	}
+
 	vv, err := qr.Query(ctx, rootQuery)
 	if err != nil {
 		return err
 	}
+
 	switch rv2 := reflect.ValueOf(vv); {
 	case rv.IsNil(), rv2.IsNil(), rv.Kind() != reflect.Pointer:
 	case rv.Type() == rv2.Type():
@@ -593,6 +657,7 @@ func scanWithInterceptors[Q1 ent.Query, Q2 interface {
 	case rv.Elem().Type() == rv2.Type():
 		rv.Elem().Set(rv2)
 	}
+
 	return nil
 }
 

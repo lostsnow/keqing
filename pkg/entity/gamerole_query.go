@@ -66,9 +66,11 @@ func (grq *GameRoleQuery) First(ctx context.Context) (*GameRole, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	if len(nodes) == 0 {
 		return nil, &NotFoundError{gamerole.Label}
 	}
+
 	return nodes[0], nil
 }
 
@@ -78,6 +80,7 @@ func (grq *GameRoleQuery) FirstX(ctx context.Context) *GameRole {
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
+
 	return node
 }
 
@@ -85,13 +88,16 @@ func (grq *GameRoleQuery) FirstX(ctx context.Context) *GameRole {
 // Returns a *NotFoundError when no GameRole ID was found.
 func (grq *GameRoleQuery) FirstID(ctx context.Context) (id int64, err error) {
 	var ids []int64
+
 	if ids, err = grq.Limit(1).IDs(setContextOp(ctx, grq.ctx, "FirstID")); err != nil {
 		return
 	}
+
 	if len(ids) == 0 {
 		err = &NotFoundError{gamerole.Label}
 		return
 	}
+
 	return ids[0], nil
 }
 
@@ -101,6 +107,7 @@ func (grq *GameRoleQuery) FirstIDX(ctx context.Context) int64 {
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
+
 	return id
 }
 
@@ -112,6 +119,7 @@ func (grq *GameRoleQuery) Only(ctx context.Context) (*GameRole, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	switch len(nodes) {
 	case 1:
 		return nodes[0], nil
@@ -128,6 +136,7 @@ func (grq *GameRoleQuery) OnlyX(ctx context.Context) *GameRole {
 	if err != nil {
 		panic(err)
 	}
+
 	return node
 }
 
@@ -136,9 +145,11 @@ func (grq *GameRoleQuery) OnlyX(ctx context.Context) *GameRole {
 // Returns a *NotFoundError when no entities are found.
 func (grq *GameRoleQuery) OnlyID(ctx context.Context) (id int64, err error) {
 	var ids []int64
+
 	if ids, err = grq.Limit(2).IDs(setContextOp(ctx, grq.ctx, "OnlyID")); err != nil {
 		return
 	}
+
 	switch len(ids) {
 	case 1:
 		id = ids[0]
@@ -147,6 +158,7 @@ func (grq *GameRoleQuery) OnlyID(ctx context.Context) (id int64, err error) {
 	default:
 		err = &NotSingularError{gamerole.Label}
 	}
+
 	return
 }
 
@@ -156,6 +168,7 @@ func (grq *GameRoleQuery) OnlyIDX(ctx context.Context) int64 {
 	if err != nil {
 		panic(err)
 	}
+
 	return id
 }
 
@@ -165,7 +178,9 @@ func (grq *GameRoleQuery) All(ctx context.Context) ([]*GameRole, error) {
 	if err := grq.prepareQuery(ctx); err != nil {
 		return nil, err
 	}
+
 	qr := querierAll[[]*GameRole, *GameRoleQuery]()
+
 	return withInterceptors[[]*GameRole](ctx, grq, qr, grq.inters)
 }
 
@@ -175,6 +190,7 @@ func (grq *GameRoleQuery) AllX(ctx context.Context) []*GameRole {
 	if err != nil {
 		panic(err)
 	}
+
 	return nodes
 }
 
@@ -183,10 +199,12 @@ func (grq *GameRoleQuery) IDs(ctx context.Context) (ids []int64, err error) {
 	if grq.ctx.Unique == nil && grq.path != nil {
 		grq.Unique(true)
 	}
+
 	ctx = setContextOp(ctx, grq.ctx, "IDs")
 	if err = grq.Select(gamerole.FieldID).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
+
 	return ids, nil
 }
 
@@ -196,6 +214,7 @@ func (grq *GameRoleQuery) IDsX(ctx context.Context) []int64 {
 	if err != nil {
 		panic(err)
 	}
+
 	return ids
 }
 
@@ -205,6 +224,7 @@ func (grq *GameRoleQuery) Count(ctx context.Context) (int, error) {
 	if err := grq.prepareQuery(ctx); err != nil {
 		return 0, err
 	}
+
 	return withInterceptors[int](ctx, grq, querierCount[*GameRoleQuery](), grq.inters)
 }
 
@@ -214,12 +234,14 @@ func (grq *GameRoleQuery) CountX(ctx context.Context) int {
 	if err != nil {
 		panic(err)
 	}
+
 	return count
 }
 
 // Exist returns true if the query has elements in the graph.
 func (grq *GameRoleQuery) Exist(ctx context.Context) (bool, error) {
 	ctx = setContextOp(ctx, grq.ctx, "Exist")
+
 	switch _, err := grq.FirstID(ctx); {
 	case IsNotFound(err):
 		return false, nil
@@ -236,6 +258,7 @@ func (grq *GameRoleQuery) ExistX(ctx context.Context) bool {
 	if err != nil {
 		panic(err)
 	}
+
 	return exist
 }
 
@@ -245,6 +268,7 @@ func (grq *GameRoleQuery) Clone() *GameRoleQuery {
 	if grq == nil {
 		return nil
 	}
+
 	return &GameRoleQuery{
 		config:     grq.config,
 		ctx:        grq.ctx.Clone(),
@@ -277,6 +301,7 @@ func (grq *GameRoleQuery) GroupBy(field string, fields ...string) *GameRoleGroup
 	grbuild.flds = &grq.ctx.Fields
 	grbuild.label = gamerole.Label
 	grbuild.scan = grbuild.Scan
+
 	return grbuild
 }
 
@@ -297,6 +322,7 @@ func (grq *GameRoleQuery) Select(fields ...string) *GameRoleSelect {
 	sbuild := &GameRoleSelect{GameRoleQuery: grq}
 	sbuild.label = gamerole.Label
 	sbuild.flds, sbuild.scan = &grq.ctx.Fields, sbuild.Scan
+
 	return sbuild
 }
 
@@ -310,24 +336,29 @@ func (grq *GameRoleQuery) prepareQuery(ctx context.Context) error {
 		if inter == nil {
 			return fmt.Errorf("entity: uninitialized interceptor (forgotten import entity/runtime?)")
 		}
+
 		if trv, ok := inter.(Traverser); ok {
 			if err := trv.Traverse(ctx, grq); err != nil {
 				return err
 			}
 		}
 	}
+
 	for _, f := range grq.ctx.Fields {
 		if !gamerole.ValidColumn(f) {
 			return &ValidationError{Name: f, err: fmt.Errorf("entity: invalid field %q for query", f)}
 		}
 	}
+
 	if grq.path != nil {
 		prev, err := grq.path(ctx)
 		if err != nil {
 			return err
 		}
+
 		grq.sql = prev
 	}
+
 	return nil
 }
 
@@ -336,26 +367,33 @@ func (grq *GameRoleQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*Ga
 		nodes = []*GameRole{}
 		_spec = grq.querySpec()
 	)
+
 	_spec.ScanValues = func(columns []string) ([]any, error) {
 		return (*GameRole).scanValues(nil, columns)
 	}
 	_spec.Assign = func(columns []string, values []any) error {
 		node := &GameRole{config: grq.config}
 		nodes = append(nodes, node)
+
 		return node.assignValues(columns, values)
 	}
+
 	if len(grq.modifiers) > 0 {
 		_spec.Modifiers = grq.modifiers
 	}
+
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
+
 	if err := sqlgraph.QueryNodes(ctx, grq.driver, _spec); err != nil {
 		return nil, err
 	}
+
 	if len(nodes) == 0 {
 		return nodes, nil
 	}
+
 	return nodes, nil
 }
 
@@ -364,30 +402,36 @@ func (grq *GameRoleQuery) sqlCount(ctx context.Context) (int, error) {
 	if len(grq.modifiers) > 0 {
 		_spec.Modifiers = grq.modifiers
 	}
+
 	_spec.Node.Columns = grq.ctx.Fields
 	if len(grq.ctx.Fields) > 0 {
 		_spec.Unique = grq.ctx.Unique != nil && *grq.ctx.Unique
 	}
+
 	return sqlgraph.CountNodes(ctx, grq.driver, _spec)
 }
 
 func (grq *GameRoleQuery) querySpec() *sqlgraph.QuerySpec {
 	_spec := sqlgraph.NewQuerySpec(gamerole.Table, gamerole.Columns, sqlgraph.NewFieldSpec(gamerole.FieldID, field.TypeInt64))
 	_spec.From = grq.sql
+
 	if unique := grq.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
 	} else if grq.path != nil {
 		_spec.Unique = true
 	}
+
 	if fields := grq.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, gamerole.FieldID)
+
 		for i := range fields {
 			if fields[i] != gamerole.FieldID {
 				_spec.Node.Columns = append(_spec.Node.Columns, fields[i])
 			}
 		}
 	}
+
 	if ps := grq.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -395,12 +439,15 @@ func (grq *GameRoleQuery) querySpec() *sqlgraph.QuerySpec {
 			}
 		}
 	}
+
 	if limit := grq.ctx.Limit; limit != nil {
 		_spec.Limit = *limit
 	}
+
 	if offset := grq.ctx.Offset; offset != nil {
 		_spec.Offset = *offset
 	}
+
 	if ps := grq.order; len(ps) > 0 {
 		_spec.Order = func(selector *sql.Selector) {
 			for i := range ps {
@@ -408,41 +455,51 @@ func (grq *GameRoleQuery) querySpec() *sqlgraph.QuerySpec {
 			}
 		}
 	}
+
 	return _spec
 }
 
 func (grq *GameRoleQuery) sqlQuery(ctx context.Context) *sql.Selector {
 	builder := sql.Dialect(grq.driver.Dialect())
 	t1 := builder.Table(gamerole.Table)
+
 	columns := grq.ctx.Fields
 	if len(columns) == 0 {
 		columns = gamerole.Columns
 	}
+
 	selector := builder.Select(t1.Columns(columns...)...).From(t1)
 	if grq.sql != nil {
 		selector = grq.sql
 		selector.Select(selector.Columns(columns...)...)
 	}
+
 	if grq.ctx.Unique != nil && *grq.ctx.Unique {
 		selector.Distinct()
 	}
+
 	for _, m := range grq.modifiers {
 		m(selector)
 	}
+
 	for _, p := range grq.predicates {
 		p(selector)
 	}
+
 	for _, p := range grq.order {
 		p(selector)
 	}
+
 	if offset := grq.ctx.Offset; offset != nil {
 		// limit is mandatory for offset clause. We start
 		// with default value, and override it below if needed.
 		selector.Offset(*offset).Limit(math.MaxInt32)
 	}
+
 	if limit := grq.ctx.Limit; limit != nil {
 		selector.Limit(*limit)
 	}
+
 	return selector
 }
 
@@ -453,9 +510,11 @@ func (grq *GameRoleQuery) ForUpdate(opts ...sql.LockOption) *GameRoleQuery {
 	if grq.driver.Dialect() == dialect.Postgres {
 		grq.Unique(false)
 	}
+
 	grq.modifiers = append(grq.modifiers, func(s *sql.Selector) {
 		s.ForUpdate(opts...)
 	})
+
 	return grq
 }
 
@@ -466,9 +525,11 @@ func (grq *GameRoleQuery) ForShare(opts ...sql.LockOption) *GameRoleQuery {
 	if grq.driver.Dialect() == dialect.Postgres {
 		grq.Unique(false)
 	}
+
 	grq.modifiers = append(grq.modifiers, func(s *sql.Selector) {
 		s.ForShare(opts...)
 	})
+
 	return grq
 }
 
@@ -496,33 +557,43 @@ func (grgb *GameRoleGroupBy) Scan(ctx context.Context, v any) error {
 	if err := grgb.build.prepareQuery(ctx); err != nil {
 		return err
 	}
+
 	return scanWithInterceptors[*GameRoleQuery, *GameRoleGroupBy](ctx, grgb.build, grgb, grgb.build.inters, v)
 }
 
 func (grgb *GameRoleGroupBy) sqlScan(ctx context.Context, root *GameRoleQuery, v any) error {
 	selector := root.sqlQuery(ctx).Select()
 	aggregation := make([]string, 0, len(grgb.fns))
+
 	for _, fn := range grgb.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
+
 	if len(selector.SelectedColumns()) == 0 {
 		columns := make([]string, 0, len(*grgb.flds)+len(grgb.fns))
 		for _, f := range *grgb.flds {
 			columns = append(columns, selector.C(f))
 		}
+
 		columns = append(columns, aggregation...)
 		selector.Select(columns...)
 	}
+
 	selector.GroupBy(selector.Columns(*grgb.flds...)...)
+
 	if err := selector.Err(); err != nil {
 		return err
 	}
+
 	rows := &sql.Rows{}
 	query, args := selector.Query()
+
 	if err := grgb.build.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
+
 	defer rows.Close()
+
 	return sql.ScanSlice(rows, v)
 }
 
@@ -544,27 +615,34 @@ func (grs *GameRoleSelect) Scan(ctx context.Context, v any) error {
 	if err := grs.prepareQuery(ctx); err != nil {
 		return err
 	}
+
 	return scanWithInterceptors[*GameRoleQuery, *GameRoleSelect](ctx, grs.GameRoleQuery, grs, grs.inters, v)
 }
 
 func (grs *GameRoleSelect) sqlScan(ctx context.Context, root *GameRoleQuery, v any) error {
 	selector := root.sqlQuery(ctx)
 	aggregation := make([]string, 0, len(grs.fns))
+
 	for _, fn := range grs.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
+
 	switch n := len(*grs.selector.flds); {
 	case n == 0 && len(aggregation) > 0:
 		selector.Select(aggregation...)
 	case n != 0 && len(aggregation) > 0:
 		selector.AppendSelect(aggregation...)
 	}
+
 	rows := &sql.Rows{}
 	query, args := selector.Query()
+
 	if err := grs.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
+
 	defer rows.Close()
+
 	return sql.ScanSlice(rows, v)
 }
 

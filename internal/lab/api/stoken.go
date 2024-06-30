@@ -11,6 +11,7 @@ import (
 	"github.com/lostsnow/keqing/pkg/util"
 )
 
+//nolint:tagliatelle
 type STokenPayload struct {
 	AccountID int64  `json:"account_id"`
 	GameToken string `json:"game_token"`
@@ -26,6 +27,7 @@ type STokenResponse struct {
 	Data STokenResponseData `json:"data"`
 }
 
+//nolint:tagliatelle
 type STokenResponseData struct {
 	Token    SToken   `json:"token"`
 	UserInfo UserInfo `json:"user_info"`

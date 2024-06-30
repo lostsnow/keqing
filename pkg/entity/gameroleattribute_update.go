@@ -33,6 +33,7 @@ func (grau *GameRoleAttributeUpdate) Where(ps ...predicate.GameRoleAttribute) *G
 func (grau *GameRoleAttributeUpdate) SetUserID(i int64) *GameRoleAttributeUpdate {
 	grau.mutation.ResetUserID()
 	grau.mutation.SetUserID(i)
+
 	return grau
 }
 
@@ -64,6 +65,7 @@ func (grau *GameRoleAttributeUpdate) SetName(s string) *GameRoleAttributeUpdate 
 func (grau *GameRoleAttributeUpdate) SetType(i int) *GameRoleAttributeUpdate {
 	grau.mutation.ResetType()
 	grau.mutation.SetType(i)
+
 	return grau
 }
 
@@ -72,6 +74,7 @@ func (grau *GameRoleAttributeUpdate) SetNillableType(i *int) *GameRoleAttributeU
 	if i != nil {
 		grau.SetType(*i)
 	}
+
 	return grau
 }
 
@@ -92,6 +95,7 @@ func (grau *GameRoleAttributeUpdate) SetNillableValue(s *string) *GameRoleAttrib
 	if s != nil {
 		grau.SetValue(*s)
 	}
+
 	return grau
 }
 
@@ -118,6 +122,7 @@ func (grau *GameRoleAttributeUpdate) SaveX(ctx context.Context) int {
 	if err != nil {
 		panic(err)
 	}
+
 	return affected
 }
 
@@ -149,16 +154,19 @@ func (grau *GameRoleAttributeUpdate) check() error {
 			return &ValidationError{Name: "account_id", err: fmt.Errorf(`entity: validator failed for field "GameRoleAttribute.account_id": %w`, err)}
 		}
 	}
+
 	if v, ok := grau.mutation.RoleID(); ok {
 		if err := gameroleattribute.RoleIDValidator(v); err != nil {
 			return &ValidationError{Name: "role_id", err: fmt.Errorf(`entity: validator failed for field "GameRoleAttribute.role_id": %w`, err)}
 		}
 	}
+
 	if v, ok := grau.mutation.Name(); ok {
 		if err := gameroleattribute.NameValidator(v); err != nil {
 			return &ValidationError{Name: "name", err: fmt.Errorf(`entity: validator failed for field "GameRoleAttribute.name": %w`, err)}
 		}
 	}
+
 	return nil
 }
 
@@ -172,6 +180,7 @@ func (grau *GameRoleAttributeUpdate) sqlSave(ctx context.Context) (n int, err er
 	if err := grau.check(); err != nil {
 		return n, err
 	}
+
 	_spec := sqlgraph.NewUpdateSpec(gameroleattribute.Table, gameroleattribute.Columns, sqlgraph.NewFieldSpec(gameroleattribute.FieldID, field.TypeInt64))
 	if ps := grau.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
@@ -180,43 +189,57 @@ func (grau *GameRoleAttributeUpdate) sqlSave(ctx context.Context) (n int, err er
 			}
 		}
 	}
+
 	if value, ok := grau.mutation.UserID(); ok {
 		_spec.SetField(gameroleattribute.FieldUserID, field.TypeInt64, value)
 	}
+
 	if value, ok := grau.mutation.AddedUserID(); ok {
 		_spec.AddField(gameroleattribute.FieldUserID, field.TypeInt64, value)
 	}
+
 	if value, ok := grau.mutation.AccountID(); ok {
 		_spec.SetField(gameroleattribute.FieldAccountID, field.TypeString, value)
 	}
+
 	if value, ok := grau.mutation.RoleID(); ok {
 		_spec.SetField(gameroleattribute.FieldRoleID, field.TypeString, value)
 	}
+
 	if value, ok := grau.mutation.Name(); ok {
 		_spec.SetField(gameroleattribute.FieldName, field.TypeString, value)
 	}
+
 	if value, ok := grau.mutation.GetType(); ok {
 		_spec.SetField(gameroleattribute.FieldType, field.TypeInt, value)
 	}
+
 	if value, ok := grau.mutation.AddedType(); ok {
 		_spec.AddField(gameroleattribute.FieldType, field.TypeInt, value)
 	}
+
 	if value, ok := grau.mutation.Value(); ok {
 		_spec.SetField(gameroleattribute.FieldValue, field.TypeString, value)
 	}
+
 	if value, ok := grau.mutation.UpdateAt(); ok {
 		_spec.SetField(gameroleattribute.FieldUpdateAt, field.TypeTime, value)
 	}
+
 	_spec.AddModifiers(grau.modifiers...)
+
 	if n, err = sqlgraph.UpdateNodes(ctx, grau.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{gameroleattribute.Label}
 		} else if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
+
 		return 0, err
 	}
+
 	grau.mutation.done = true
+
 	return n, nil
 }
 
@@ -233,6 +256,7 @@ type GameRoleAttributeUpdateOne struct {
 func (grauo *GameRoleAttributeUpdateOne) SetUserID(i int64) *GameRoleAttributeUpdateOne {
 	grauo.mutation.ResetUserID()
 	grauo.mutation.SetUserID(i)
+
 	return grauo
 }
 
@@ -264,6 +288,7 @@ func (grauo *GameRoleAttributeUpdateOne) SetName(s string) *GameRoleAttributeUpd
 func (grauo *GameRoleAttributeUpdateOne) SetType(i int) *GameRoleAttributeUpdateOne {
 	grauo.mutation.ResetType()
 	grauo.mutation.SetType(i)
+
 	return grauo
 }
 
@@ -272,6 +297,7 @@ func (grauo *GameRoleAttributeUpdateOne) SetNillableType(i *int) *GameRoleAttrib
 	if i != nil {
 		grauo.SetType(*i)
 	}
+
 	return grauo
 }
 
@@ -292,6 +318,7 @@ func (grauo *GameRoleAttributeUpdateOne) SetNillableValue(s *string) *GameRoleAt
 	if s != nil {
 		grauo.SetValue(*s)
 	}
+
 	return grauo
 }
 
@@ -331,6 +358,7 @@ func (grauo *GameRoleAttributeUpdateOne) SaveX(ctx context.Context) *GameRoleAtt
 	if err != nil {
 		panic(err)
 	}
+
 	return node
 }
 
@@ -362,16 +390,19 @@ func (grauo *GameRoleAttributeUpdateOne) check() error {
 			return &ValidationError{Name: "account_id", err: fmt.Errorf(`entity: validator failed for field "GameRoleAttribute.account_id": %w`, err)}
 		}
 	}
+
 	if v, ok := grauo.mutation.RoleID(); ok {
 		if err := gameroleattribute.RoleIDValidator(v); err != nil {
 			return &ValidationError{Name: "role_id", err: fmt.Errorf(`entity: validator failed for field "GameRoleAttribute.role_id": %w`, err)}
 		}
 	}
+
 	if v, ok := grauo.mutation.Name(); ok {
 		if err := gameroleattribute.NameValidator(v); err != nil {
 			return &ValidationError{Name: "name", err: fmt.Errorf(`entity: validator failed for field "GameRoleAttribute.name": %w`, err)}
 		}
 	}
+
 	return nil
 }
 
@@ -385,24 +416,30 @@ func (grauo *GameRoleAttributeUpdateOne) sqlSave(ctx context.Context) (_node *Ga
 	if err := grauo.check(); err != nil {
 		return _node, err
 	}
+
 	_spec := sqlgraph.NewUpdateSpec(gameroleattribute.Table, gameroleattribute.Columns, sqlgraph.NewFieldSpec(gameroleattribute.FieldID, field.TypeInt64))
+
 	id, ok := grauo.mutation.ID()
 	if !ok {
 		return nil, &ValidationError{Name: "id", err: errors.New(`entity: missing "GameRoleAttribute.id" for update`)}
 	}
+
 	_spec.Node.ID.Value = id
 	if fields := grauo.fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, gameroleattribute.FieldID)
+
 		for _, f := range fields {
 			if !gameroleattribute.ValidColumn(f) {
 				return nil, &ValidationError{Name: f, err: fmt.Errorf("entity: invalid field %q for query", f)}
 			}
+
 			if f != gameroleattribute.FieldID {
 				_spec.Node.Columns = append(_spec.Node.Columns, f)
 			}
 		}
 	}
+
 	if ps := grauo.mutation.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -410,45 +447,59 @@ func (grauo *GameRoleAttributeUpdateOne) sqlSave(ctx context.Context) (_node *Ga
 			}
 		}
 	}
+
 	if value, ok := grauo.mutation.UserID(); ok {
 		_spec.SetField(gameroleattribute.FieldUserID, field.TypeInt64, value)
 	}
+
 	if value, ok := grauo.mutation.AddedUserID(); ok {
 		_spec.AddField(gameroleattribute.FieldUserID, field.TypeInt64, value)
 	}
+
 	if value, ok := grauo.mutation.AccountID(); ok {
 		_spec.SetField(gameroleattribute.FieldAccountID, field.TypeString, value)
 	}
+
 	if value, ok := grauo.mutation.RoleID(); ok {
 		_spec.SetField(gameroleattribute.FieldRoleID, field.TypeString, value)
 	}
+
 	if value, ok := grauo.mutation.Name(); ok {
 		_spec.SetField(gameroleattribute.FieldName, field.TypeString, value)
 	}
+
 	if value, ok := grauo.mutation.GetType(); ok {
 		_spec.SetField(gameroleattribute.FieldType, field.TypeInt, value)
 	}
+
 	if value, ok := grauo.mutation.AddedType(); ok {
 		_spec.AddField(gameroleattribute.FieldType, field.TypeInt, value)
 	}
+
 	if value, ok := grauo.mutation.Value(); ok {
 		_spec.SetField(gameroleattribute.FieldValue, field.TypeString, value)
 	}
+
 	if value, ok := grauo.mutation.UpdateAt(); ok {
 		_spec.SetField(gameroleattribute.FieldUpdateAt, field.TypeTime, value)
 	}
+
 	_spec.AddModifiers(grauo.modifiers...)
 	_node = &GameRoleAttribute{config: grauo.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues
+
 	if err = sqlgraph.UpdateNode(ctx, grauo.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{gameroleattribute.Label}
 		} else if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
+
 		return nil, err
 	}
+
 	grauo.mutation.done = true
+
 	return _node, nil
 }

@@ -1,32 +1,36 @@
 run:
   timeout: 5m
 
+# https://golangci-lint.run/usage/linters/
 linters:
   enable-all: true
   disable:
-    - exhaustruct
-    - exhaustivestruct # deprecated
-    - deadcode # deprecated
     - depguard
-    - errchkjson
+    - dupl
+    - execinquery # deprecated
+    - exhaustruct
     - forbidigo
     - funlen
-    - gci
     - gochecknoglobals
     - gochecknoinits
-    - golint # deprecated
-    - gomnd
-    - gosmopolitan
-    - ifshort # deprecated
-    - interfacer # deprecated
-    - maligned # deprecated
-    - musttag
-    - nosnakecase # deprecated
-    - paralleltest
-    - revive
-    - scopelint # deprecated
-    - structcheck # deprecated
-    - tagliatelle
-    - varcheck # deprecated
+    - godox
+    - gomnd # deprecated
+    - interfacebloat
+    - ireturn
+    - mnd
     - varnamelen
-    - wrapcheck
+
+linters-settings:
+  cyclop:
+    max-complexity: 15
+  gci:
+    sections:
+      - standard
+      - default
+      - prefix(github.com/lostsnow/keqing)
+  gofumpt:
+    module-path: github.com/lostsnow/keqing
+  goimports:
+    local-prefixes: github.com/lostsnow/keqing
+  nestif:
+    min-complexity: 10

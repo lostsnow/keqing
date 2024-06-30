@@ -24,6 +24,7 @@ import (
 
 var ErrQrcodeLoginNotConfirmed = errors.New("QR code login not confirmed")
 
+//nolint:tagliatelle
 type QrcodeQueryPayload struct {
 	AppID  int    `json:"app_id"`
 	Device string `json:"device"`
@@ -165,7 +166,6 @@ func (p *QrcodeCheckPool) Worker() {
 	}
 }
 
-//nolint:cyclop
 func (t *QrcodeCheckTask) ProcessingToken(raw string) {
 	senderID := t.Context.Sender().ID
 

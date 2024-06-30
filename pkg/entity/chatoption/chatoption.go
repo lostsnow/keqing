@@ -42,6 +42,7 @@ func ValidColumn(column string) bool {
 			return true
 		}
 	}
+
 	return false
 }
 

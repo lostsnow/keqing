@@ -12,7 +12,6 @@ import (
 	"github.com/lostsnow/keqing/data"
 	"github.com/lostsnow/keqing/pkg/elemental"
 	"github.com/lostsnow/keqing/pkg/i18n"
-	_ "github.com/lostsnow/keqing/pkg/i18n/catalog"
 	"github.com/lostsnow/keqing/pkg/object"
 	"github.com/lostsnow/keqing/pkg/star"
 )
@@ -37,7 +36,7 @@ func (c *Character) UnmarshalYAML(n *yaml.Node) error {
 
 	obj := &T{C: (*C)(c)}
 	if err := n.Decode(obj); err != nil {
-		return err
+		return fmt.Errorf("character.UnmarshalYAML: %w, %w", ErrInvalidElemental, err)
 	}
 
 	elem := elemental.Get(obj.Elemental)
@@ -57,18 +56,22 @@ var (
 )
 
 func Init() error {
-	return fs.WalkDir(data.Model, "model/character", func(path string, d fs.DirEntry, err error) error {
+	err := fs.WalkDir(data.Model, "model/character", func(path string, d fs.DirEntry, err error) error {
 		if err != nil {
 			return nil //nolint:nilerr
 		}
+
 		if d.IsDir() || !strings.HasSuffix(path, ".yml") {
 			return nil
 		}
+
 		yamlFile, err := data.Model.ReadFile(path)
 		if err != nil {
 			return nil //nolint:nilerr
 		}
+
 		var v Character
+
 		err = yaml.Unmarshal(yamlFile, &v)
 		if err != nil {
 			return fmt.Errorf("unmarshal model file %s failed: %w", path, err)
@@ -77,12 +80,18 @@ func Init() error {
 		objectMap[v.ID] = &v
 		nameAliases := i18n.TS(v.ID)
 		nameAliases = append(nameAliases, v.NameAliases...)
+
 		for _, nameAlias := range nameAliases {
 			nameAliasMap[nameAlias] = v.ID
 		}
 
 		return nil
 	})
+	if err != nil {
+		return fmt.Errorf("character.Init: %w", err)
+	}
+
+	return nil
 }
 
 func (c *Character) Name(ctx telebot.Context) string {

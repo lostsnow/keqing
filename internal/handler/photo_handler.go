@@ -16,7 +16,6 @@ import (
 	"gopkg.in/telebot.v3"
 
 	"github.com/lostsnow/keqing/data"
-	_ "github.com/lostsnow/keqing/pkg/i18n/catalog"
 	"github.com/lostsnow/keqing/pkg/object"
 )
 
@@ -40,7 +39,6 @@ func init() {
 	NoPhoto = &telebot.Photo{File: telebot.File{FileReader: f}}
 }
 
-//nolint:cyclop
 func (h PhotoResponseHandler) Handle(ctx telebot.Context) error {
 	if len(h.Buttons) == 0 {
 		return nil
@@ -73,6 +71,7 @@ func (h PhotoResponseHandler) Handle(ctx telebot.Context) error {
 		for idx := range botBtns {
 			ctx.Bot().Handle(&botBtns[idx], func(c telebot.Context) error {
 				rFilePath := fromPhotoUniqueID(c.Callback().Unique)
+
 				mt, m := h.Get(c, rFilePath)
 				if _, ok := m.(telebot.Inputtable); !ok {
 					return c.Respond()
@@ -113,7 +112,6 @@ func (h PhotoResponseHandler) GetByButton(ctx telebot.Context, fb PhotoButton) (
 	return h.Get(ctx, fmt.Sprintf("%s/%s", fb.Dir, fb.Name))
 }
 
-//nolint:cyclop
 func (h PhotoResponseHandler) Get(ctx telebot.Context, relFilePath string) (MessageType, any) {
 	cacheFilePath := getCacheFilePath(relFilePath)
 	cacheFileIDPath := getCacheFileIDPath(relFilePath)
@@ -209,7 +207,7 @@ func getCacheFilePath(relFilePath string) string {
 func getCacheFileIDPath(relFilePath string) string {
 	cacheFilePath := getCacheFilePath(relFilePath)
 
-	return fmt.Sprintf("%s.id", cacheFilePath)
+	return cacheFilePath + ".id"
 }
 
 func getFileURL(relFilePath string) string {

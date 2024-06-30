@@ -13,13 +13,12 @@ import (
 	"github.com/lostsnow/keqing/internal/handler/material"
 	"github.com/lostsnow/keqing/internal/handler/weapon"
 	"github.com/lostsnow/keqing/pkg/i18n"
-	_ "github.com/lostsnow/keqing/pkg/i18n/catalog"
 )
 
 var botCmd = &cobra.Command{
 	Use:   "bot",
 	Short: "serve bot",
-	Run: func(cmd *cobra.Command, args []string) {
+	Run: func(_ *cobra.Command, _ []string) {
 		b, err := handler.NewBot()
 		if err != nil {
 			logger.Error(err)
@@ -60,7 +59,7 @@ func setBotHandler(b *handler.Bot) {
 	b.Bot.Handle("/game_refresh_role", game.RefreshRole)
 
 	ag := b.Bot.Group()
-	ag.Use(middleware.Whitelist(b.AdminIds...))
+	ag.Use(middleware.Whitelist(b.AdminIDs...))
 
 	ag.Handle("/clear_assets_cache", handler.CacheAssetsClear)
 	ag.Handle("/trace", handler.Trace)

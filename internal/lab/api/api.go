@@ -73,7 +73,6 @@ func (r *Response) GetRetCode() int {
 	return r.RetCode
 }
 
-//nolint:cyclop
 func SendRequest(r RequestInterface, payload any, v ResponseInterface) error {
 	pl, err := json.Marshal(payload)
 	if err != nil {
@@ -90,6 +89,7 @@ func SendRequest(r RequestInterface, payload any, v ResponseInterface) error {
 		req, err = http.NewRequest(r.GetMethod(), r.GetURL(), bytes.NewBuffer(pl))
 	} else {
 		u, _ := url.Parse(r.GetURL())
+
 		if payload != nil {
 			params, ok := payload.(map[string]string)
 			if ok {
@@ -100,6 +100,7 @@ func SendRequest(r RequestInterface, payload any, v ResponseInterface) error {
 				}
 			}
 		}
+
 		req, err = http.NewRequest(r.GetMethod(), u.String(), nil)
 	}
 
@@ -181,7 +182,7 @@ func GenerateDS(s string, payload any, query string) string {
 
 	var b []byte
 	if payload != nil {
-		b, _ = json.Marshal(payload)
+		b, _ = json.Marshal(payload) //nolint:errchkjson
 	}
 
 	h := md5.New() //nolint:gosec

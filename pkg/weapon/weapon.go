@@ -11,7 +11,6 @@ import (
 
 	"github.com/lostsnow/keqing/data"
 	"github.com/lostsnow/keqing/pkg/i18n"
-	_ "github.com/lostsnow/keqing/pkg/i18n/catalog"
 	"github.com/lostsnow/keqing/pkg/object"
 	"github.com/lostsnow/keqing/pkg/star"
 	"github.com/lostsnow/keqing/pkg/weapon/types"
@@ -37,7 +36,7 @@ func (w *Weapon) UnmarshalYAML(n *yaml.Node) error {
 
 	obj := &T{W: (*W)(w)}
 	if err := n.Decode(obj); err != nil {
-		return err
+		return fmt.Errorf("weapon.UnmarshalYAML: %w", err)
 	}
 
 	elem := types.Get(obj.Type)
@@ -51,18 +50,22 @@ func (w *Weapon) UnmarshalYAML(n *yaml.Node) error {
 }
 
 func Init() error {
-	return fs.WalkDir(data.Model, "model/weapon", func(path string, d fs.DirEntry, err error) error {
+	err := fs.WalkDir(data.Model, "model/weapon", func(path string, d fs.DirEntry, err error) error {
 		if err != nil {
 			return nil //nolint:nilerr
 		}
+
 		if d.IsDir() || !strings.HasSuffix(path, ".yml") {
 			return nil
 		}
+
 		yamlFile, err := data.Model.ReadFile(path)
 		if err != nil {
 			return nil //nolint:nilerr
 		}
+
 		var v Weapon
+
 		err = yaml.Unmarshal(yamlFile, &v)
 		if err != nil {
 			return fmt.Errorf("unmarshal model file %s failed: %w", path, err)
@@ -71,12 +74,18 @@ func Init() error {
 		objectMap[v.ID] = &v
 		nameAliases := i18n.TS(v.ID)
 		nameAliases = append(nameAliases, v.NameAliases...)
+
 		for _, nameAlias := range nameAliases {
 			nameAliasMap[nameAlias] = v.ID
 		}
 
 		return nil
 	})
+	if err != nil {
+		return fmt.Errorf("weapon.Init: %w", err)
+	}
+
+	return nil
 }
 
 var (

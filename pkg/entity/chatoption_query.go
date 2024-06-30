@@ -66,9 +66,11 @@ func (coq *ChatOptionQuery) First(ctx context.Context) (*ChatOption, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	if len(nodes) == 0 {
 		return nil, &NotFoundError{chatoption.Label}
 	}
+
 	return nodes[0], nil
 }
 
@@ -78,6 +80,7 @@ func (coq *ChatOptionQuery) FirstX(ctx context.Context) *ChatOption {
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
+
 	return node
 }
 
@@ -85,13 +88,16 @@ func (coq *ChatOptionQuery) FirstX(ctx context.Context) *ChatOption {
 // Returns a *NotFoundError when no ChatOption ID was found.
 func (coq *ChatOptionQuery) FirstID(ctx context.Context) (id int64, err error) {
 	var ids []int64
+
 	if ids, err = coq.Limit(1).IDs(setContextOp(ctx, coq.ctx, "FirstID")); err != nil {
 		return
 	}
+
 	if len(ids) == 0 {
 		err = &NotFoundError{chatoption.Label}
 		return
 	}
+
 	return ids[0], nil
 }
 
@@ -101,6 +107,7 @@ func (coq *ChatOptionQuery) FirstIDX(ctx context.Context) int64 {
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
+
 	return id
 }
 
@@ -112,6 +119,7 @@ func (coq *ChatOptionQuery) Only(ctx context.Context) (*ChatOption, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	switch len(nodes) {
 	case 1:
 		return nodes[0], nil
@@ -128,6 +136,7 @@ func (coq *ChatOptionQuery) OnlyX(ctx context.Context) *ChatOption {
 	if err != nil {
 		panic(err)
 	}
+
 	return node
 }
 
@@ -136,9 +145,11 @@ func (coq *ChatOptionQuery) OnlyX(ctx context.Context) *ChatOption {
 // Returns a *NotFoundError when no entities are found.
 func (coq *ChatOptionQuery) OnlyID(ctx context.Context) (id int64, err error) {
 	var ids []int64
+
 	if ids, err = coq.Limit(2).IDs(setContextOp(ctx, coq.ctx, "OnlyID")); err != nil {
 		return
 	}
+
 	switch len(ids) {
 	case 1:
 		id = ids[0]
@@ -147,6 +158,7 @@ func (coq *ChatOptionQuery) OnlyID(ctx context.Context) (id int64, err error) {
 	default:
 		err = &NotSingularError{chatoption.Label}
 	}
+
 	return
 }
 
@@ -156,6 +168,7 @@ func (coq *ChatOptionQuery) OnlyIDX(ctx context.Context) int64 {
 	if err != nil {
 		panic(err)
 	}
+
 	return id
 }
 
@@ -165,7 +178,9 @@ func (coq *ChatOptionQuery) All(ctx context.Context) ([]*ChatOption, error) {
 	if err := coq.prepareQuery(ctx); err != nil {
 		return nil, err
 	}
+
 	qr := querierAll[[]*ChatOption, *ChatOptionQuery]()
+
 	return withInterceptors[[]*ChatOption](ctx, coq, qr, coq.inters)
 }
 
@@ -175,6 +190,7 @@ func (coq *ChatOptionQuery) AllX(ctx context.Context) []*ChatOption {
 	if err != nil {
 		panic(err)
 	}
+
 	return nodes
 }
 
@@ -183,10 +199,12 @@ func (coq *ChatOptionQuery) IDs(ctx context.Context) (ids []int64, err error) {
 	if coq.ctx.Unique == nil && coq.path != nil {
 		coq.Unique(true)
 	}
+
 	ctx = setContextOp(ctx, coq.ctx, "IDs")
 	if err = coq.Select(chatoption.FieldID).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
+
 	return ids, nil
 }
 
@@ -196,6 +214,7 @@ func (coq *ChatOptionQuery) IDsX(ctx context.Context) []int64 {
 	if err != nil {
 		panic(err)
 	}
+
 	return ids
 }
 
@@ -205,6 +224,7 @@ func (coq *ChatOptionQuery) Count(ctx context.Context) (int, error) {
 	if err := coq.prepareQuery(ctx); err != nil {
 		return 0, err
 	}
+
 	return withInterceptors[int](ctx, coq, querierCount[*ChatOptionQuery](), coq.inters)
 }
 
@@ -214,12 +234,14 @@ func (coq *ChatOptionQuery) CountX(ctx context.Context) int {
 	if err != nil {
 		panic(err)
 	}
+
 	return count
 }
 
 // Exist returns true if the query has elements in the graph.
 func (coq *ChatOptionQuery) Exist(ctx context.Context) (bool, error) {
 	ctx = setContextOp(ctx, coq.ctx, "Exist")
+
 	switch _, err := coq.FirstID(ctx); {
 	case IsNotFound(err):
 		return false, nil
@@ -236,6 +258,7 @@ func (coq *ChatOptionQuery) ExistX(ctx context.Context) bool {
 	if err != nil {
 		panic(err)
 	}
+
 	return exist
 }
 
@@ -245,6 +268,7 @@ func (coq *ChatOptionQuery) Clone() *ChatOptionQuery {
 	if coq == nil {
 		return nil
 	}
+
 	return &ChatOptionQuery{
 		config:     coq.config,
 		ctx:        coq.ctx.Clone(),
@@ -277,6 +301,7 @@ func (coq *ChatOptionQuery) GroupBy(field string, fields ...string) *ChatOptionG
 	grbuild.flds = &coq.ctx.Fields
 	grbuild.label = chatoption.Label
 	grbuild.scan = grbuild.Scan
+
 	return grbuild
 }
 
@@ -297,6 +322,7 @@ func (coq *ChatOptionQuery) Select(fields ...string) *ChatOptionSelect {
 	sbuild := &ChatOptionSelect{ChatOptionQuery: coq}
 	sbuild.label = chatoption.Label
 	sbuild.flds, sbuild.scan = &coq.ctx.Fields, sbuild.Scan
+
 	return sbuild
 }
 
@@ -310,24 +336,29 @@ func (coq *ChatOptionQuery) prepareQuery(ctx context.Context) error {
 		if inter == nil {
 			return fmt.Errorf("entity: uninitialized interceptor (forgotten import entity/runtime?)")
 		}
+
 		if trv, ok := inter.(Traverser); ok {
 			if err := trv.Traverse(ctx, coq); err != nil {
 				return err
 			}
 		}
 	}
+
 	for _, f := range coq.ctx.Fields {
 		if !chatoption.ValidColumn(f) {
 			return &ValidationError{Name: f, err: fmt.Errorf("entity: invalid field %q for query", f)}
 		}
 	}
+
 	if coq.path != nil {
 		prev, err := coq.path(ctx)
 		if err != nil {
 			return err
 		}
+
 		coq.sql = prev
 	}
+
 	return nil
 }
 
@@ -336,26 +367,33 @@ func (coq *ChatOptionQuery) sqlAll(ctx context.Context, hooks ...queryHook) ([]*
 		nodes = []*ChatOption{}
 		_spec = coq.querySpec()
 	)
+
 	_spec.ScanValues = func(columns []string) ([]any, error) {
 		return (*ChatOption).scanValues(nil, columns)
 	}
 	_spec.Assign = func(columns []string, values []any) error {
 		node := &ChatOption{config: coq.config}
 		nodes = append(nodes, node)
+
 		return node.assignValues(columns, values)
 	}
+
 	if len(coq.modifiers) > 0 {
 		_spec.Modifiers = coq.modifiers
 	}
+
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
+
 	if err := sqlgraph.QueryNodes(ctx, coq.driver, _spec); err != nil {
 		return nil, err
 	}
+
 	if len(nodes) == 0 {
 		return nodes, nil
 	}
+
 	return nodes, nil
 }
 
@@ -364,30 +402,36 @@ func (coq *ChatOptionQuery) sqlCount(ctx context.Context) (int, error) {
 	if len(coq.modifiers) > 0 {
 		_spec.Modifiers = coq.modifiers
 	}
+
 	_spec.Node.Columns = coq.ctx.Fields
 	if len(coq.ctx.Fields) > 0 {
 		_spec.Unique = coq.ctx.Unique != nil && *coq.ctx.Unique
 	}
+
 	return sqlgraph.CountNodes(ctx, coq.driver, _spec)
 }
 
 func (coq *ChatOptionQuery) querySpec() *sqlgraph.QuerySpec {
 	_spec := sqlgraph.NewQuerySpec(chatoption.Table, chatoption.Columns, sqlgraph.NewFieldSpec(chatoption.FieldID, field.TypeInt64))
 	_spec.From = coq.sql
+
 	if unique := coq.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
 	} else if coq.path != nil {
 		_spec.Unique = true
 	}
+
 	if fields := coq.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, chatoption.FieldID)
+
 		for i := range fields {
 			if fields[i] != chatoption.FieldID {
 				_spec.Node.Columns = append(_spec.Node.Columns, fields[i])
 			}
 		}
 	}
+
 	if ps := coq.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -395,12 +439,15 @@ func (coq *ChatOptionQuery) querySpec() *sqlgraph.QuerySpec {
 			}
 		}
 	}
+
 	if limit := coq.ctx.Limit; limit != nil {
 		_spec.Limit = *limit
 	}
+
 	if offset := coq.ctx.Offset; offset != nil {
 		_spec.Offset = *offset
 	}
+
 	if ps := coq.order; len(ps) > 0 {
 		_spec.Order = func(selector *sql.Selector) {
 			for i := range ps {
@@ -408,41 +455,51 @@ func (coq *ChatOptionQuery) querySpec() *sqlgraph.QuerySpec {
 			}
 		}
 	}
+
 	return _spec
 }
 
 func (coq *ChatOptionQuery) sqlQuery(ctx context.Context) *sql.Selector {
 	builder := sql.Dialect(coq.driver.Dialect())
 	t1 := builder.Table(chatoption.Table)
+
 	columns := coq.ctx.Fields
 	if len(columns) == 0 {
 		columns = chatoption.Columns
 	}
+
 	selector := builder.Select(t1.Columns(columns...)...).From(t1)
 	if coq.sql != nil {
 		selector = coq.sql
 		selector.Select(selector.Columns(columns...)...)
 	}
+
 	if coq.ctx.Unique != nil && *coq.ctx.Unique {
 		selector.Distinct()
 	}
+
 	for _, m := range coq.modifiers {
 		m(selector)
 	}
+
 	for _, p := range coq.predicates {
 		p(selector)
 	}
+
 	for _, p := range coq.order {
 		p(selector)
 	}
+
 	if offset := coq.ctx.Offset; offset != nil {
 		// limit is mandatory for offset clause. We start
 		// with default value, and override it below if needed.
 		selector.Offset(*offset).Limit(math.MaxInt32)
 	}
+
 	if limit := coq.ctx.Limit; limit != nil {
 		selector.Limit(*limit)
 	}
+
 	return selector
 }
 
@@ -453,9 +510,11 @@ func (coq *ChatOptionQuery) ForUpdate(opts ...sql.LockOption) *ChatOptionQuery {
 	if coq.driver.Dialect() == dialect.Postgres {
 		coq.Unique(false)
 	}
+
 	coq.modifiers = append(coq.modifiers, func(s *sql.Selector) {
 		s.ForUpdate(opts...)
 	})
+
 	return coq
 }
 
@@ -466,9 +525,11 @@ func (coq *ChatOptionQuery) ForShare(opts ...sql.LockOption) *ChatOptionQuery {
 	if coq.driver.Dialect() == dialect.Postgres {
 		coq.Unique(false)
 	}
+
 	coq.modifiers = append(coq.modifiers, func(s *sql.Selector) {
 		s.ForShare(opts...)
 	})
+
 	return coq
 }
 
@@ -496,33 +557,43 @@ func (cogb *ChatOptionGroupBy) Scan(ctx context.Context, v any) error {
 	if err := cogb.build.prepareQuery(ctx); err != nil {
 		return err
 	}
+
 	return scanWithInterceptors[*ChatOptionQuery, *ChatOptionGroupBy](ctx, cogb.build, cogb, cogb.build.inters, v)
 }
 
 func (cogb *ChatOptionGroupBy) sqlScan(ctx context.Context, root *ChatOptionQuery, v any) error {
 	selector := root.sqlQuery(ctx).Select()
 	aggregation := make([]string, 0, len(cogb.fns))
+
 	for _, fn := range cogb.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
+
 	if len(selector.SelectedColumns()) == 0 {
 		columns := make([]string, 0, len(*cogb.flds)+len(cogb.fns))
 		for _, f := range *cogb.flds {
 			columns = append(columns, selector.C(f))
 		}
+
 		columns = append(columns, aggregation...)
 		selector.Select(columns...)
 	}
+
 	selector.GroupBy(selector.Columns(*cogb.flds...)...)
+
 	if err := selector.Err(); err != nil {
 		return err
 	}
+
 	rows := &sql.Rows{}
 	query, args := selector.Query()
+
 	if err := cogb.build.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
+
 	defer rows.Close()
+
 	return sql.ScanSlice(rows, v)
 }
 
@@ -544,27 +615,34 @@ func (cos *ChatOptionSelect) Scan(ctx context.Context, v any) error {
 	if err := cos.prepareQuery(ctx); err != nil {
 		return err
 	}
+
 	return scanWithInterceptors[*ChatOptionQuery, *ChatOptionSelect](ctx, cos.ChatOptionQuery, cos, cos.inters, v)
 }
 
 func (cos *ChatOptionSelect) sqlScan(ctx context.Context, root *ChatOptionQuery, v any) error {
 	selector := root.sqlQuery(ctx)
 	aggregation := make([]string, 0, len(cos.fns))
+
 	for _, fn := range cos.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
+
 	switch n := len(*cos.selector.flds); {
 	case n == 0 && len(aggregation) > 0:
 		selector.Select(aggregation...)
 	case n != 0 && len(aggregation) > 0:
 		selector.AppendSelect(aggregation...)
 	}
+
 	rows := &sql.Rows{}
 	query, args := selector.Query()
+
 	if err := cos.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
+
 	defer rows.Close()
+
 	return sql.ScanSlice(rows, v)
 }
 

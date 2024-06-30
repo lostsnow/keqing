@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"entgo.io/ent/dialect/sql"
-	_ "github.com/go-sql-driver/mysql"
+	_ "github.com/go-sql-driver/mysql" // mysql driver
 	"github.com/spf13/viper"
 
 	"github.com/lostsnow/keqing/pkg/entity"

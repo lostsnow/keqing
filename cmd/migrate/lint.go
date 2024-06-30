@@ -1,7 +1,6 @@
 package migrate
 
 import (
-	"fmt"
 	"os"
 	"os/exec"
 	"strconv"
@@ -15,14 +14,14 @@ var lintLatest int
 var LintCmd = &cobra.Command{
 	Use:   "lint",
 	Short: "lint migrations",
-	Run: func(cmd *cobra.Command, args []string) {
+	Run: func(_ *cobra.Command, _ []string) {
 		cmdPath := checkAtlas()
 		if lintLatest < 1 {
 			lintLatest = 1
 		}
 		c := exec.Command(cmdPath, "migrate", "lint",
 			"--dev-url", "docker://mysql/8/test",
-			"--dir", fmt.Sprintf("file://%s", migrationsDir),
+			"--dir", "file://"+migrationsDir,
 			"--latest", strconv.Itoa(lintLatest),
 		)
 

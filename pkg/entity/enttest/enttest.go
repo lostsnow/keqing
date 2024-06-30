@@ -49,18 +49,22 @@ func newOptions(opts []Option) *options {
 	for _, opt := range opts {
 		opt(o)
 	}
+
 	return o
 }
 
 // Open calls entity.Open and auto-run migration.
 func Open(t TestingT, driverName, dataSourceName string, opts ...Option) *entity.Client {
 	o := newOptions(opts)
+
 	c, err := entity.Open(driverName, dataSourceName, o.opts...)
 	if err != nil {
 		t.Error(err)
 		t.FailNow()
 	}
+
 	migrateSchema(t, c, o)
+
 	return c
 }
 
@@ -69,6 +73,7 @@ func NewClient(t TestingT, opts ...Option) *entity.Client {
 	o := newOptions(opts)
 	c := entity.NewClient(o.opts...)
 	migrateSchema(t, c, o)
+
 	return c
 }
 func migrateSchema(t TestingT, c *entity.Client, o *options) {
@@ -77,6 +82,7 @@ func migrateSchema(t TestingT, c *entity.Client, o *options) {
 		t.Error(err)
 		t.FailNow()
 	}
+
 	if err := migrate.Create(context.Background(), c.Schema, tables, o.migrateOpts...); err != nil {
 		t.Error(err)
 		t.FailNow()

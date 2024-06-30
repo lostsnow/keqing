@@ -45,6 +45,7 @@ func (coc *ChatOptionCreate) SetNillableValue(s *string) *ChatOptionCreate {
 	if s != nil {
 		coc.SetValue(*s)
 	}
+
 	return coc
 }
 
@@ -59,6 +60,7 @@ func (coc *ChatOptionCreate) SetNillableCreateAt(t *time.Time) *ChatOptionCreate
 	if t != nil {
 		coc.SetCreateAt(*t)
 	}
+
 	return coc
 }
 
@@ -73,6 +75,7 @@ func (coc *ChatOptionCreate) SetNillableUpdateAt(t *time.Time) *ChatOptionCreate
 	if t != nil {
 		coc.SetUpdateAt(*t)
 	}
+
 	return coc
 }
 
@@ -99,6 +102,7 @@ func (coc *ChatOptionCreate) SaveX(ctx context.Context) *ChatOption {
 	if err != nil {
 		panic(err)
 	}
+
 	return v
 }
 
@@ -121,10 +125,12 @@ func (coc *ChatOptionCreate) defaults() {
 		v := chatoption.DefaultValue
 		coc.mutation.SetValue(v)
 	}
+
 	if _, ok := coc.mutation.CreateAt(); !ok {
 		v := chatoption.DefaultCreateAt()
 		coc.mutation.SetCreateAt(v)
 	}
+
 	if _, ok := coc.mutation.UpdateAt(); !ok {
 		v := chatoption.DefaultUpdateAt()
 		coc.mutation.SetUpdateAt(v)
@@ -136,23 +142,29 @@ func (coc *ChatOptionCreate) check() error {
 	if _, ok := coc.mutation.ChatID(); !ok {
 		return &ValidationError{Name: "chat_id", err: errors.New(`entity: missing required field "ChatOption.chat_id"`)}
 	}
+
 	if _, ok := coc.mutation.Key(); !ok {
 		return &ValidationError{Name: "key", err: errors.New(`entity: missing required field "ChatOption.key"`)}
 	}
+
 	if v, ok := coc.mutation.Key(); ok {
 		if err := chatoption.KeyValidator(v); err != nil {
 			return &ValidationError{Name: "key", err: fmt.Errorf(`entity: validator failed for field "ChatOption.key": %w`, err)}
 		}
 	}
+
 	if _, ok := coc.mutation.Value(); !ok {
 		return &ValidationError{Name: "value", err: errors.New(`entity: missing required field "ChatOption.value"`)}
 	}
+
 	if _, ok := coc.mutation.CreateAt(); !ok {
 		return &ValidationError{Name: "create_at", err: errors.New(`entity: missing required field "ChatOption.create_at"`)}
 	}
+
 	if _, ok := coc.mutation.UpdateAt(); !ok {
 		return &ValidationError{Name: "update_at", err: errors.New(`entity: missing required field "ChatOption.update_at"`)}
 	}
+
 	return nil
 }
 
@@ -160,19 +172,24 @@ func (coc *ChatOptionCreate) sqlSave(ctx context.Context) (*ChatOption, error) {
 	if err := coc.check(); err != nil {
 		return nil, err
 	}
+
 	_node, _spec := coc.createSpec()
 	if err := sqlgraph.CreateNode(ctx, coc.driver, _spec); err != nil {
 		if sqlgraph.IsConstraintError(err) {
 			err = &ConstraintError{msg: err.Error(), wrap: err}
 		}
+
 		return nil, err
 	}
+
 	if _spec.ID.Value != _node.ID {
 		id := _spec.ID.Value.(int64)
 		_node.ID = int64(id)
 	}
+
 	coc.mutation.id = &_node.ID
 	coc.mutation.done = true
+
 	return _node, nil
 }
 
@@ -181,31 +198,39 @@ func (coc *ChatOptionCreate) createSpec() (*ChatOption, *sqlgraph.CreateSpec) {
 		_node = &ChatOption{config: coc.config}
 		_spec = sqlgraph.NewCreateSpec(chatoption.Table, sqlgraph.NewFieldSpec(chatoption.FieldID, field.TypeInt64))
 	)
+
 	_spec.OnConflict = coc.conflict
+
 	if id, ok := coc.mutation.ID(); ok {
 		_node.ID = id
 		_spec.ID.Value = id
 	}
+
 	if value, ok := coc.mutation.ChatID(); ok {
 		_spec.SetField(chatoption.FieldChatID, field.TypeInt64, value)
 		_node.ChatID = value
 	}
+
 	if value, ok := coc.mutation.Key(); ok {
 		_spec.SetField(chatoption.FieldKey, field.TypeString, value)
 		_node.Key = value
 	}
+
 	if value, ok := coc.mutation.Value(); ok {
 		_spec.SetField(chatoption.FieldValue, field.TypeString, value)
 		_node.Value = value
 	}
+
 	if value, ok := coc.mutation.CreateAt(); ok {
 		_spec.SetField(chatoption.FieldCreateAt, field.TypeTime, value)
 		_node.CreateAt = value
 	}
+
 	if value, ok := coc.mutation.UpdateAt(); ok {
 		_spec.SetField(chatoption.FieldUpdateAt, field.TypeTime, value)
 		_node.UpdateAt = value
 	}
+
 	return _node, _spec
 }
 
@@ -227,6 +252,7 @@ func (coc *ChatOptionCreate) createSpec() (*ChatOption, *sqlgraph.CreateSpec) {
 //		Exec(ctx)
 func (coc *ChatOptionCreate) OnConflict(opts ...sql.ConflictOption) *ChatOptionUpsertOne {
 	coc.conflict = opts
+
 	return &ChatOptionUpsertOne{
 		create: coc,
 	}
@@ -240,6 +266,7 @@ func (coc *ChatOptionCreate) OnConflict(opts ...sql.ConflictOption) *ChatOptionU
 //		Exec(ctx)
 func (coc *ChatOptionCreate) OnConflictColumns(columns ...string) *ChatOptionUpsertOne {
 	coc.conflict = append(coc.conflict, sql.ConflictColumns(columns...))
+
 	return &ChatOptionUpsertOne{
 		create: coc,
 	}
@@ -329,10 +356,12 @@ func (u *ChatOptionUpsertOne) UpdateNewValues() *ChatOptionUpsertOne {
 		if _, exists := u.create.mutation.ID(); exists {
 			s.SetIgnore(chatoption.FieldID)
 		}
+
 		if _, exists := u.create.mutation.CreateAt(); exists {
 			s.SetIgnore(chatoption.FieldCreateAt)
 		}
 	}))
+
 	return u
 }
 
@@ -360,6 +389,7 @@ func (u *ChatOptionUpsertOne) Update(set func(*ChatOptionUpsert)) *ChatOptionUps
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(update *sql.UpdateSet) {
 		set(&ChatOptionUpsert{UpdateSet: update})
 	}))
+
 	return u
 }
 
@@ -431,6 +461,7 @@ func (u *ChatOptionUpsertOne) Exec(ctx context.Context) error {
 	if len(u.create.conflict) == 0 {
 		return errors.New("entity: missing options for ChatOptionCreate.OnConflict")
 	}
+
 	return u.create.Exec(ctx)
 }
 
@@ -447,6 +478,7 @@ func (u *ChatOptionUpsertOne) ID(ctx context.Context) (id int64, err error) {
 	if err != nil {
 		return id, err
 	}
+
 	return node.ID, nil
 }
 
@@ -456,6 +488,7 @@ func (u *ChatOptionUpsertOne) IDX(ctx context.Context) int64 {
 	if err != nil {
 		panic(err)
 	}
+
 	return id
 }
 
@@ -471,10 +504,12 @@ func (cocb *ChatOptionCreateBulk) Save(ctx context.Context) ([]*ChatOption, erro
 	specs := make([]*sqlgraph.CreateSpec, len(cocb.builders))
 	nodes := make([]*ChatOption, len(cocb.builders))
 	mutators := make([]Mutator, len(cocb.builders))
+
 	for i := range cocb.builders {
 		func(i int, root context.Context) {
 			builder := cocb.builders[i]
 			builder.defaults()
+
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*ChatOptionMutation)
 				if !ok {
@@ -509,17 +544,21 @@ func (cocb *ChatOptionCreateBulk) Save(ctx context.Context) ([]*ChatOption, erro
 				mutation.done = true
 				return nodes[i], nil
 			})
+
 			for i := len(builder.hooks) - 1; i >= 0; i-- {
 				mut = builder.hooks[i](mut)
 			}
+
 			mutators[i] = mut
 		}(i, ctx)
 	}
+
 	if len(mutators) > 0 {
 		if _, err := mutators[0].Mutate(ctx, cocb.builders[0].mutation); err != nil {
 			return nil, err
 		}
 	}
+
 	return nodes, nil
 }
 
@@ -529,6 +568,7 @@ func (cocb *ChatOptionCreateBulk) SaveX(ctx context.Context) []*ChatOption {
 	if err != nil {
 		panic(err)
 	}
+
 	return v
 }
 
@@ -562,6 +602,7 @@ func (cocb *ChatOptionCreateBulk) ExecX(ctx context.Context) {
 //		Exec(ctx)
 func (cocb *ChatOptionCreateBulk) OnConflict(opts ...sql.ConflictOption) *ChatOptionUpsertBulk {
 	cocb.conflict = opts
+
 	return &ChatOptionUpsertBulk{
 		create: cocb,
 	}
@@ -575,6 +616,7 @@ func (cocb *ChatOptionCreateBulk) OnConflict(opts ...sql.ConflictOption) *ChatOp
 //		Exec(ctx)
 func (cocb *ChatOptionCreateBulk) OnConflictColumns(columns ...string) *ChatOptionUpsertBulk {
 	cocb.conflict = append(cocb.conflict, sql.ConflictColumns(columns...))
+
 	return &ChatOptionUpsertBulk{
 		create: cocb,
 	}
@@ -604,11 +646,13 @@ func (u *ChatOptionUpsertBulk) UpdateNewValues() *ChatOptionUpsertBulk {
 			if _, exists := b.mutation.ID(); exists {
 				s.SetIgnore(chatoption.FieldID)
 			}
+
 			if _, exists := b.mutation.CreateAt(); exists {
 				s.SetIgnore(chatoption.FieldCreateAt)
 			}
 		}
 	}))
+
 	return u
 }
 
@@ -636,6 +680,7 @@ func (u *ChatOptionUpsertBulk) Update(set func(*ChatOptionUpsert)) *ChatOptionUp
 	u.create.conflict = append(u.create.conflict, sql.ResolveWith(func(update *sql.UpdateSet) {
 		set(&ChatOptionUpsert{UpdateSet: update})
 	}))
+
 	return u
 }
 
@@ -709,9 +754,11 @@ func (u *ChatOptionUpsertBulk) Exec(ctx context.Context) error {
 			return fmt.Errorf("entity: OnConflict was set for builder %d. Set it on the ChatOptionCreateBulk instead", i)
 		}
 	}
+
 	if len(u.create.conflict) == 0 {
 		return errors.New("entity: missing options for ChatOptionCreateBulk.OnConflict")
 	}
+
 	return u.create.Exec(ctx)
 }
 

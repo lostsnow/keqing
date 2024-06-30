@@ -4,7 +4,6 @@ import (
 	"gopkg.in/telebot.v3"
 
 	"github.com/lostsnow/keqing/pkg/i18n"
-	_ "github.com/lostsnow/keqing/pkg/i18n/catalog"
 	"github.com/lostsnow/keqing/pkg/object"
 )
 

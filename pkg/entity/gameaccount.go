@@ -37,6 +37,7 @@ type GameAccount struct {
 // scanValues returns the types for scanning values from sql.Rows.
 func (*GameAccount) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
+
 	for i := range columns {
 		switch columns[i] {
 		case gameaccount.FieldID, gameaccount.FieldUserID:
@@ -49,6 +50,7 @@ func (*GameAccount) scanValues(columns []string) ([]any, error) {
 			return nil, fmt.Errorf("unexpected column %q for type GameAccount", columns[i])
 		}
 	}
+
 	return values, nil
 }
 
@@ -58,6 +60,7 @@ func (ga *GameAccount) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
+
 	for i := range columns {
 		switch columns[i] {
 		case gameaccount.FieldID:
@@ -65,6 +68,7 @@ func (ga *GameAccount) assignValues(columns []string, values []any) error {
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
+
 			ga.ID = int64(value.Int64)
 		case gameaccount.FieldUserID:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
@@ -116,6 +120,7 @@ func (ga *GameAccount) assignValues(columns []string, values []any) error {
 			}
 		}
 	}
+
 	return nil
 }
 
@@ -133,13 +138,16 @@ func (ga *GameAccount) Unwrap() *GameAccount {
 	if !ok {
 		panic("entity: GameAccount is not a transactional entity")
 	}
+
 	ga.config.driver = _tx.drv
+
 	return ga
 }
 
 // String implements the fmt.Stringer.
 func (ga *GameAccount) String() string {
 	var builder strings.Builder
+
 	builder.WriteString("GameAccount(")
 	builder.WriteString(fmt.Sprintf("id=%v, ", ga.ID))
 	builder.WriteString("user_id=")
@@ -166,6 +174,7 @@ func (ga *GameAccount) String() string {
 	builder.WriteString("update_at=")
 	builder.WriteString(ga.UpdateAt.Format(time.ANSIC))
 	builder.WriteByte(')')
+
 	return builder.String()
 }
 

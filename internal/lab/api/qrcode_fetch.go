@@ -11,6 +11,7 @@ import (
 	"github.com/lostsnow/keqing/pkg/util"
 )
 
+//nolint:tagliatelle
 type QrcodeFetchPayload struct {
 	AppID  int    `json:"app_id"`
 	Device string `json:"device"`
@@ -25,6 +26,7 @@ type QrcodeFetchResponse struct {
 	Data QrcodeFetchResponseData `json:"data"`
 }
 
+//nolint:tagliatelle
 type QrcodeFetchResponseData struct {
 	URL    string `json:"url"`
 	AppID  int    `json:"app_id"`

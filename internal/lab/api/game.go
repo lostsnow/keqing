@@ -1,5 +1,6 @@
 package api
 
+//nolint:tagliatelle
 type GameRecord struct {
 	GameID     int              `json:"game_id"`
 	Level      int              `json:"level"`

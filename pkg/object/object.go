@@ -34,8 +34,8 @@ func Search[T any](name string, nameAliasMap map[string]string, objectMap map[st
 
 			if lowerK == name {
 				objs = append(objs, nil)
-				copy(objs[1:], objs)   //nolint:gosec
-				objs[0] = objectMap[v] //nolint:gosec
+				copy(objs[1:], objs)
+				objs[0] = objectMap[v]
 			} else {
 				objs = append(objs, objectMap[v])
 			}

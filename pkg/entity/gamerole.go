@@ -39,6 +39,7 @@ type GameRole struct {
 // scanValues returns the types for scanning values from sql.Rows.
 func (*GameRole) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
+
 	for i := range columns {
 		switch columns[i] {
 		case gamerole.FieldID, gamerole.FieldUserID, gamerole.FieldLevel:
@@ -51,6 +52,7 @@ func (*GameRole) scanValues(columns []string) ([]any, error) {
 			return nil, fmt.Errorf("unexpected column %q for type GameRole", columns[i])
 		}
 	}
+
 	return values, nil
 }
 
@@ -60,6 +62,7 @@ func (gr *GameRole) assignValues(columns []string, values []any) error {
 	if m, n := len(values), len(columns); m < n {
 		return fmt.Errorf("mismatch number of scan values: %d != %d", m, n)
 	}
+
 	for i := range columns {
 		switch columns[i] {
 		case gamerole.FieldID:
@@ -67,6 +70,7 @@ func (gr *GameRole) assignValues(columns []string, values []any) error {
 			if !ok {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
+
 			gr.ID = int64(value.Int64)
 		case gamerole.FieldUserID:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
@@ -124,6 +128,7 @@ func (gr *GameRole) assignValues(columns []string, values []any) error {
 			}
 		}
 	}
+
 	return nil
 }
 
@@ -141,13 +146,16 @@ func (gr *GameRole) Unwrap() *GameRole {
 	if !ok {
 		panic("entity: GameRole is not a transactional entity")
 	}
+
 	gr.config.driver = _tx.drv
+
 	return gr
 }
 
 // String implements the fmt.Stringer.
 func (gr *GameRole) String() string {
 	var builder strings.Builder
+
 	builder.WriteString("GameRole(")
 	builder.WriteString(fmt.Sprintf("id=%v, ", gr.ID))
 	builder.WriteString("user_id=")
@@ -177,6 +185,7 @@ func (gr *GameRole) String() string {
 	builder.WriteString("update_at=")
 	builder.WriteString(gr.UpdateAt.Format(time.ANSIC))
 	builder.WriteByte(')')
+
 	return builder.String()
 }
 

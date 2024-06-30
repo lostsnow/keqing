@@ -28,6 +28,7 @@ func RandomString(n int) string {
 
 		if idx := int(cache & letterIdxMask); idx < len(letterBytes) {
 			sb.WriteByte(letterBytes[idx])
+
 			i--
 		}
 

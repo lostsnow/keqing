@@ -71,15 +71,19 @@ func (f CommitFunc) Commit(ctx context.Context, tx *Tx) error {
 // Commit commits the transaction.
 func (tx *Tx) Commit() error {
 	txDriver := tx.config.driver.(*txDriver)
+
 	var fn Committer = CommitFunc(func(context.Context, *Tx) error {
 		return txDriver.tx.Commit()
 	})
+
 	txDriver.mu.Lock()
 	hooks := append([]CommitHook(nil), txDriver.onCommit...)
 	txDriver.mu.Unlock()
+
 	for i := len(hooks) - 1; i >= 0; i-- {
 		fn = hooks[i](fn)
 	}
+
 	return fn.Commit(tx.ctx, tx)
 }
 
@@ -127,15 +131,19 @@ func (f RollbackFunc) Rollback(ctx context.Context, tx *Tx) error {
 // Rollback rollbacks the transaction.
 func (tx *Tx) Rollback() error {
 	txDriver := tx.config.driver.(*txDriver)
+
 	var fn Rollbacker = RollbackFunc(func(context.Context, *Tx) error {
 		return txDriver.tx.Rollback()
 	})
+
 	txDriver.mu.Lock()
 	hooks := append([]RollbackHook(nil), txDriver.onRollback...)
 	txDriver.mu.Unlock()
+
 	for i := len(hooks) - 1; i >= 0; i-- {
 		fn = hooks[i](fn)
 	}
+
 	return fn.Rollback(tx.ctx, tx)
 }
 
@@ -153,6 +161,7 @@ func (tx *Tx) Client() *Client {
 		tx.client = &Client{config: tx.config}
 		tx.client.init()
 	})
+
 	return tx.client
 }
 
@@ -193,6 +202,7 @@ func newTx(ctx context.Context, drv dialect.Driver) (*txDriver, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	return &txDriver{tx: tx, drv: drv}, nil
 }
 
@@ -235,6 +245,7 @@ func (tx *txDriver) ExecContext(ctx context.Context, query string, args ...any) 
 	if !ok {
 		return nil, fmt.Errorf("Tx.ExecContext is not supported")
 	}
+
 	return ex.ExecContext(ctx, query, args...)
 }
 
@@ -247,5 +258,6 @@ func (tx *txDriver) QueryContext(ctx context.Context, query string, args ...any)
 	if !ok {
 		return nil, fmt.Errorf("Tx.QueryContext is not supported")
 	}
+
 	return q.QueryContext(ctx, query, args...)
 }

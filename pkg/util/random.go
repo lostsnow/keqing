@@ -2,6 +2,7 @@ package util
 
 import (
 	"crypto/rand"
+	"fmt"
 	"math/big"
 )
 
@@ -13,7 +14,7 @@ func RandInt64(min, max int64) (int64, error) {
 	// in this case 0 to 20
 	n, err := rand.Int(rand.Reader, bg)
 	if err != nil {
-		return 0, err
+		return 0, fmt.Errorf("util.RandInt64: %w", err)
 	}
 
 	// add n to min to support the passed in range

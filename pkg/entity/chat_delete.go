@@ -36,6 +36,7 @@ func (cd *ChatDelete) ExecX(ctx context.Context) int {
 	if err != nil {
 		panic(err)
 	}
+
 	return n
 }
 
@@ -48,11 +49,14 @@ func (cd *ChatDelete) sqlExec(ctx context.Context) (int, error) {
 			}
 		}
 	}
+
 	affected, err := sqlgraph.DeleteNodes(ctx, cd.driver, _spec)
 	if err != nil && sqlgraph.IsConstraintError(err) {
 		err = &ConstraintError{msg: err.Error(), wrap: err}
 	}
+
 	cd.mutation.done = true
+
 	return affected, err
 }
 
@@ -70,6 +74,7 @@ func (cdo *ChatDeleteOne) Where(ps ...predicate.Chat) *ChatDeleteOne {
 // Exec executes the deletion query.
 func (cdo *ChatDeleteOne) Exec(ctx context.Context) error {
 	n, err := cdo.cd.Exec(ctx)
+
 	switch {
 	case err != nil:
 		return err

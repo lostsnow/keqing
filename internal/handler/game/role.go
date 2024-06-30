@@ -19,7 +19,6 @@ import (
 
 type RoleCMD struct{}
 
-//nolint:cyclop
 func Role(ctx telebot.Context) error {
 	userID := ctx.Sender().ID
 
@@ -34,7 +33,10 @@ func Role(ctx telebot.Context) error {
 	}
 
 	if len(vs) == 0 {
-		return ctx.Reply(i18n.T(ctx, "No game role found, please send command /game_refresh_role to refresh"))
+		err = handler.Reply(ctx, i18n.T(ctx, "No game role found, please send command /game_refresh_role to refresh"))
+		if err != nil {
+			return fmt.Errorf("game.Role: %w", err)
+		}
 	}
 
 	cmd := RoleCMD{}
@@ -85,9 +87,10 @@ func Role(ctx telebot.Context) error {
 				}
 
 				m := cmd.generateMessage(c, cbV)
+
 				err = handler.UpdateCurrentInlineKeyboard(sel, c.Callback().Unique)
 				if err != nil {
-					return c.Respond()
+					return handler.Respond(c)
 				}
 
 				return c.Edit(m, &telebot.SendOptions{ParseMode: telebot.ModeMarkdown, ReplyMarkup: sel})
@@ -97,7 +100,12 @@ func Role(ctx telebot.Context) error {
 
 	m := cmd.generateMessage(ctx, vs[0])
 
-	return ctx.Reply(m, &telebot.SendOptions{ParseMode: telebot.ModeMarkdown, ReplyMarkup: sel})
+	err = ctx.Reply(m, &telebot.SendOptions{ParseMode: telebot.ModeMarkdown, ReplyMarkup: sel})
+	if err != nil {
+		return fmt.Errorf("game.Role: %w", err)
+	}
+
+	return nil
 }
 
 func (RoleCMD) generateMessage(ctx telebot.Context, role *entity.GameRole) any {

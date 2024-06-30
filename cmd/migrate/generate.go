@@ -6,7 +6,7 @@ import (
 
 	atlas "ariga.io/atlas/sql/migrate"
 	"entgo.io/ent/dialect/sql/schema"
-	_ "github.com/go-sql-driver/mysql"
+	_ "github.com/go-sql-driver/mysql" // mysql driver
 	"github.com/litsea/logger"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -20,7 +20,7 @@ var migrationName string
 var GenerateCmd = &cobra.Command{
 	Use:   "generate",
 	Short: "generate migrations",
-	Run: func(cmd *cobra.Command, args []string) {
+	Run: func(_ *cobra.Command, _ []string) {
 		ctx := context.Background()
 		// Create a local migration directory able to understand Atlas migration file format for replay.
 		dir, err := atlas.NewLocalDir(migrationsDir)

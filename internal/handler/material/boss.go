@@ -1,11 +1,12 @@
 package material
 
 import (
+	"fmt"
+
 	"gopkg.in/telebot.v3"
 
 	"github.com/lostsnow/keqing/internal/handler"
 	"github.com/lostsnow/keqing/pkg/i18n"
-	_ "github.com/lostsnow/keqing/pkg/i18n/catalog"
 )
 
 func Boss(ctx telebot.Context) error {
@@ -19,5 +20,10 @@ func Boss(ctx telebot.Context) error {
 		NoPhotoMessage: i18n.T(ctx, "What are you looking for, it does not exist"),
 	}
 
-	return h.Handle(ctx)
+	err := h.Handle(ctx)
+	if err != nil {
+		return fmt.Errorf("boss: %w", err)
+	}
+
+	return nil
 }

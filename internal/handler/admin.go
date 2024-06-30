@@ -13,14 +13,19 @@ import (
 )
 
 func Trace(ctx telebot.Context) error {
-	return ctx.Send(fmt.Sprintf("*Bot*: `%d`\n*Chat*: `%d` <%s>\n*From*: `%d`\n*Message*: `%s`",
+	err := ctx.Send(fmt.Sprintf("*Bot*: `%d`\n*Chat*: `%d` <%s>\n*From*: `%d`\n*Message*: `%s`",
 		ctx.Bot().Me.ID, ctx.Chat().ID, ctx.Chat().Type, ctx.Sender().ID, ctx.Text()),
 		&telebot.SendOptions{ParseMode: telebot.ModeMarkdown})
+	if err != nil {
+		return fmt.Errorf("handler.Trace: %w", err)
+	}
+
+	return nil
 }
 
 func CacheAssetsClear(ctx telebot.Context) error {
 	if len(ctx.Args()) < 2 {
-		return ctx.Respond()
+		return Respond(ctx)
 	}
 
 	dir := ctx.Args()[0]
@@ -39,19 +44,19 @@ func CacheAssetsClear(ctx telebot.Context) error {
 
 		ok := errors.As(err, &e)
 		if ok && !errors.Is(e.Err, syscall.ENOENT) {
-			return ctx.Reply(fmt.Sprintf("clear %s cache failed: %s", cacheFilePath, err))
+			return Reply(ctx, fmt.Sprintf("clear %s cache failed: %s", cacheFilePath, err))
 		}
 
-		cacheFileIDPath := fmt.Sprintf("%s.id", cacheFilePath)
+		cacheFileIDPath := cacheFilePath + ".id"
 		err = os.Remove(cacheFileIDPath)
 		ok = errors.As(err, &e)
 
 		if ok && !errors.Is(e.Err, syscall.ENOENT) {
-			return ctx.Reply(fmt.Sprintf("clear %s cache failed: %s", cacheFileIDPath, err))
+			return Reply(ctx, fmt.Sprintf("clear %s cache failed: %s", cacheFileIDPath, err))
 		}
 
-		return ctx.Send(fmt.Sprintf("cache clear successfully: %s(.id)", cacheFilePath))
+		return Send(ctx, fmt.Sprintf("cache clear successfully: %s(.id)", cacheFilePath))
 	}
 
-	return ctx.Respond()
+	return Respond(ctx)
 }

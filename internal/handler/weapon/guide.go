@@ -19,26 +19,29 @@ func Guide(ctx telebot.Context) error {
 	name := strings.Join(ctx.Args(), " ")
 	weapons := weapon.Search(name)
 
-	max := len(weapons)
-	if max == 0 {
-		return ctx.Reply(handler.UnknownPhoto)
+	mx := len(weapons)
+	if mx == 0 {
+		err := handler.ReplyPhoto(ctx, handler.UnknownPhoto)
+		if err != nil {
+			return fmt.Errorf("weapon.Guide: %w", err)
+		}
 	}
 
-	if max > 9 {
-		max = 9
+	if mx > 9 {
+		mx = 9
 	}
 
-	buttons := make([]handler.PhotoButton, 0, max)
+	buttons := make([]handler.PhotoButton, 0, mx)
 
 	for idx, w := range weapons {
-		if idx == max {
+		if idx == mx {
 			break
 		}
 
 		buttons = append(buttons, handler.PhotoButton{
 			Title: i18n.T(ctx, w.ID),
-			Dir:   fmt.Sprintf("assets/weapon/guide/%s", w.Type.ID),
-			Name:  fmt.Sprintf("%s.png", w.ID),
+			Dir:   "assets/weapon/guide/" + w.Type.ID,
+			Name:  w.ID + ".png",
 		})
 	}
 
@@ -47,5 +50,10 @@ func Guide(ctx telebot.Context) error {
 		NoPhotoMessage: handler.NoPhoto,
 	}
 
-	return h.Handle(ctx)
+	err := h.Handle(ctx)
+	if err != nil {
+		return fmt.Errorf("weapon.Guide: %w", err)
+	}
+
+	return nil
 }

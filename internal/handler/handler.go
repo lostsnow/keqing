@@ -9,7 +9,6 @@ import (
 	"gopkg.in/telebot.v3"
 
 	"github.com/lostsnow/keqing/pkg/i18n"
-	_ "github.com/lostsnow/keqing/pkg/i18n/catalog"
 )
 
 type MessageType int
@@ -42,11 +41,48 @@ func Help(ctx telebot.Context) error {
 }
 
 func Send(ctx telebot.Context, message string) error {
-	return ctx.Send(i18n.T(ctx, message))
+	err := ctx.Send(i18n.T(ctx, message))
+	if err != nil {
+		return fmt.Errorf("handler.Send: %w", err)
+	}
+
+	return nil
 }
 
 func Reply(ctx telebot.Context, message string) error {
-	return ctx.Reply(i18n.T(ctx, message))
+	err := ctx.Reply(i18n.T(ctx, message))
+	if err != nil {
+		return fmt.Errorf("handler.Reply: %w", err)
+	}
+
+	return nil
+}
+
+func SendPhoto(ctx telebot.Context, message *telebot.Photo) error {
+	err := ctx.Send(ctx, message)
+	if err != nil {
+		return fmt.Errorf("handler.SendPhoto: %w", err)
+	}
+
+	return nil
+}
+
+func ReplyPhoto(ctx telebot.Context, message *telebot.Photo) error {
+	err := ctx.Reply(ctx, message)
+	if err != nil {
+		return fmt.Errorf("handler.ReplyPhoto: %w", err)
+	}
+
+	return nil
+}
+
+func Respond(ctx telebot.Context, resp ...*telebot.CallbackResponse) error {
+	err := ctx.Respond(resp...)
+	if err != nil {
+		return fmt.Errorf("handler.Respond: %w", err)
+	}
+
+	return nil
 }
 
 func ReportError(ctx telebot.Context, format string, a ...any) {

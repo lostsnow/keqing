@@ -36,6 +36,7 @@ func (ud *UserDelete) ExecX(ctx context.Context) int {
 	if err != nil {
 		panic(err)
 	}
+
 	return n
 }
 
@@ -48,11 +49,14 @@ func (ud *UserDelete) sqlExec(ctx context.Context) (int, error) {
 			}
 		}
 	}
+
 	affected, err := sqlgraph.DeleteNodes(ctx, ud.driver, _spec)
 	if err != nil && sqlgraph.IsConstraintError(err) {
 		err = &ConstraintError{msg: err.Error(), wrap: err}
 	}
+
 	ud.mutation.done = true
+
 	return affected, err
 }
 
@@ -70,6 +74,7 @@ func (udo *UserDeleteOne) Where(ps ...predicate.User) *UserDeleteOne {
 // Exec executes the deletion query.
 func (udo *UserDeleteOne) Exec(ctx context.Context) error {
 	n, err := udo.ud.Exec(ctx)
+
 	switch {
 	case err != nil:
 		return err

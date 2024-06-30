@@ -546,6 +546,7 @@ func And(predicates ...predicate.GameAccount) predicate.GameAccount {
 		for _, p := range predicates {
 			p(s1)
 		}
+
 		s.Where(s1.P())
 	})
 }
@@ -554,12 +555,15 @@ func And(predicates ...predicate.GameAccount) predicate.GameAccount {
 func Or(predicates ...predicate.GameAccount) predicate.GameAccount {
 	return predicate.GameAccount(func(s *sql.Selector) {
 		s1 := s.Clone().SetP(nil)
+
 		for i, p := range predicates {
 			if i > 0 {
 				s1.Or()
 			}
+
 			p(s1)
 		}
+
 		s.Where(s1.P())
 	})
 }

@@ -9,7 +9,6 @@ import (
 
 	"github.com/lostsnow/keqing/internal/handler"
 	"github.com/lostsnow/keqing/pkg/i18n"
-	_ "github.com/lostsnow/keqing/pkg/i18n/catalog"
 )
 
 func Daily(ctx telebot.Context) error {
@@ -47,10 +46,15 @@ func Daily(ctx telebot.Context) error {
 		NoPhotoMessage: handler.NoPhoto,
 	}
 
-	return h.Handle(ctx)
+	err := h.Handle(ctx)
+	if err != nil {
+		return fmt.Errorf("material.Daily: %w", err)
+	}
+
+	return nil
 }
 
-//nolint:cyclop
+//nolint:gosmopolitan
 func parseWeekDay(s string) []int {
 	s = strings.ToLower(strings.TrimSpace(s))
 

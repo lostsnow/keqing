@@ -66,9 +66,11 @@ func (graq *GameRoleAttributeQuery) First(ctx context.Context) (*GameRoleAttribu
 	if err != nil {
 		return nil, err
 	}
+
 	if len(nodes) == 0 {
 		return nil, &NotFoundError{gameroleattribute.Label}
 	}
+
 	return nodes[0], nil
 }
 
@@ -78,6 +80,7 @@ func (graq *GameRoleAttributeQuery) FirstX(ctx context.Context) *GameRoleAttribu
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
+
 	return node
 }
 
@@ -85,13 +88,16 @@ func (graq *GameRoleAttributeQuery) FirstX(ctx context.Context) *GameRoleAttribu
 // Returns a *NotFoundError when no GameRoleAttribute ID was found.
 func (graq *GameRoleAttributeQuery) FirstID(ctx context.Context) (id int64, err error) {
 	var ids []int64
+
 	if ids, err = graq.Limit(1).IDs(setContextOp(ctx, graq.ctx, "FirstID")); err != nil {
 		return
 	}
+
 	if len(ids) == 0 {
 		err = &NotFoundError{gameroleattribute.Label}
 		return
 	}
+
 	return ids[0], nil
 }
 
@@ -101,6 +107,7 @@ func (graq *GameRoleAttributeQuery) FirstIDX(ctx context.Context) int64 {
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
+
 	return id
 }
 
@@ -112,6 +119,7 @@ func (graq *GameRoleAttributeQuery) Only(ctx context.Context) (*GameRoleAttribut
 	if err != nil {
 		return nil, err
 	}
+
 	switch len(nodes) {
 	case 1:
 		return nodes[0], nil
@@ -128,6 +136,7 @@ func (graq *GameRoleAttributeQuery) OnlyX(ctx context.Context) *GameRoleAttribut
 	if err != nil {
 		panic(err)
 	}
+
 	return node
 }
 
@@ -136,9 +145,11 @@ func (graq *GameRoleAttributeQuery) OnlyX(ctx context.Context) *GameRoleAttribut
 // Returns a *NotFoundError when no entities are found.
 func (graq *GameRoleAttributeQuery) OnlyID(ctx context.Context) (id int64, err error) {
 	var ids []int64
+
 	if ids, err = graq.Limit(2).IDs(setContextOp(ctx, graq.ctx, "OnlyID")); err != nil {
 		return
 	}
+
 	switch len(ids) {
 	case 1:
 		id = ids[0]
@@ -147,6 +158,7 @@ func (graq *GameRoleAttributeQuery) OnlyID(ctx context.Context) (id int64, err e
 	default:
 		err = &NotSingularError{gameroleattribute.Label}
 	}
+
 	return
 }
 
@@ -156,6 +168,7 @@ func (graq *GameRoleAttributeQuery) OnlyIDX(ctx context.Context) int64 {
 	if err != nil {
 		panic(err)
 	}
+
 	return id
 }
 
@@ -165,7 +178,9 @@ func (graq *GameRoleAttributeQuery) All(ctx context.Context) ([]*GameRoleAttribu
 	if err := graq.prepareQuery(ctx); err != nil {
 		return nil, err
 	}
+
 	qr := querierAll[[]*GameRoleAttribute, *GameRoleAttributeQuery]()
+
 	return withInterceptors[[]*GameRoleAttribute](ctx, graq, qr, graq.inters)
 }
 
@@ -175,6 +190,7 @@ func (graq *GameRoleAttributeQuery) AllX(ctx context.Context) []*GameRoleAttribu
 	if err != nil {
 		panic(err)
 	}
+
 	return nodes
 }
 
@@ -183,10 +199,12 @@ func (graq *GameRoleAttributeQuery) IDs(ctx context.Context) (ids []int64, err e
 	if graq.ctx.Unique == nil && graq.path != nil {
 		graq.Unique(true)
 	}
+
 	ctx = setContextOp(ctx, graq.ctx, "IDs")
 	if err = graq.Select(gameroleattribute.FieldID).Scan(ctx, &ids); err != nil {
 		return nil, err
 	}
+
 	return ids, nil
 }
 
@@ -196,6 +214,7 @@ func (graq *GameRoleAttributeQuery) IDsX(ctx context.Context) []int64 {
 	if err != nil {
 		panic(err)
 	}
+
 	return ids
 }
 
@@ -205,6 +224,7 @@ func (graq *GameRoleAttributeQuery) Count(ctx context.Context) (int, error) {
 	if err := graq.prepareQuery(ctx); err != nil {
 		return 0, err
 	}
+
 	return withInterceptors[int](ctx, graq, querierCount[*GameRoleAttributeQuery](), graq.inters)
 }
 
@@ -214,12 +234,14 @@ func (graq *GameRoleAttributeQuery) CountX(ctx context.Context) int {
 	if err != nil {
 		panic(err)
 	}
+
 	return count
 }
 
 // Exist returns true if the query has elements in the graph.
 func (graq *GameRoleAttributeQuery) Exist(ctx context.Context) (bool, error) {
 	ctx = setContextOp(ctx, graq.ctx, "Exist")
+
 	switch _, err := graq.FirstID(ctx); {
 	case IsNotFound(err):
 		return false, nil
@@ -236,6 +258,7 @@ func (graq *GameRoleAttributeQuery) ExistX(ctx context.Context) bool {
 	if err != nil {
 		panic(err)
 	}
+
 	return exist
 }
 
@@ -245,6 +268,7 @@ func (graq *GameRoleAttributeQuery) Clone() *GameRoleAttributeQuery {
 	if graq == nil {
 		return nil
 	}
+
 	return &GameRoleAttributeQuery{
 		config:     graq.config,
 		ctx:        graq.ctx.Clone(),
@@ -277,6 +301,7 @@ func (graq *GameRoleAttributeQuery) GroupBy(field string, fields ...string) *Gam
 	grbuild.flds = &graq.ctx.Fields
 	grbuild.label = gameroleattribute.Label
 	grbuild.scan = grbuild.Scan
+
 	return grbuild
 }
 
@@ -297,6 +322,7 @@ func (graq *GameRoleAttributeQuery) Select(fields ...string) *GameRoleAttributeS
 	sbuild := &GameRoleAttributeSelect{GameRoleAttributeQuery: graq}
 	sbuild.label = gameroleattribute.Label
 	sbuild.flds, sbuild.scan = &graq.ctx.Fields, sbuild.Scan
+
 	return sbuild
 }
 
@@ -310,24 +336,29 @@ func (graq *GameRoleAttributeQuery) prepareQuery(ctx context.Context) error {
 		if inter == nil {
 			return fmt.Errorf("entity: uninitialized interceptor (forgotten import entity/runtime?)")
 		}
+
 		if trv, ok := inter.(Traverser); ok {
 			if err := trv.Traverse(ctx, graq); err != nil {
 				return err
 			}
 		}
 	}
+
 	for _, f := range graq.ctx.Fields {
 		if !gameroleattribute.ValidColumn(f) {
 			return &ValidationError{Name: f, err: fmt.Errorf("entity: invalid field %q for query", f)}
 		}
 	}
+
 	if graq.path != nil {
 		prev, err := graq.path(ctx)
 		if err != nil {
 			return err
 		}
+
 		graq.sql = prev
 	}
+
 	return nil
 }
 
@@ -336,26 +367,33 @@ func (graq *GameRoleAttributeQuery) sqlAll(ctx context.Context, hooks ...queryHo
 		nodes = []*GameRoleAttribute{}
 		_spec = graq.querySpec()
 	)
+
 	_spec.ScanValues = func(columns []string) ([]any, error) {
 		return (*GameRoleAttribute).scanValues(nil, columns)
 	}
 	_spec.Assign = func(columns []string, values []any) error {
 		node := &GameRoleAttribute{config: graq.config}
 		nodes = append(nodes, node)
+
 		return node.assignValues(columns, values)
 	}
+
 	if len(graq.modifiers) > 0 {
 		_spec.Modifiers = graq.modifiers
 	}
+
 	for i := range hooks {
 		hooks[i](ctx, _spec)
 	}
+
 	if err := sqlgraph.QueryNodes(ctx, graq.driver, _spec); err != nil {
 		return nil, err
 	}
+
 	if len(nodes) == 0 {
 		return nodes, nil
 	}
+
 	return nodes, nil
 }
 
@@ -364,30 +402,36 @@ func (graq *GameRoleAttributeQuery) sqlCount(ctx context.Context) (int, error) {
 	if len(graq.modifiers) > 0 {
 		_spec.Modifiers = graq.modifiers
 	}
+
 	_spec.Node.Columns = graq.ctx.Fields
 	if len(graq.ctx.Fields) > 0 {
 		_spec.Unique = graq.ctx.Unique != nil && *graq.ctx.Unique
 	}
+
 	return sqlgraph.CountNodes(ctx, graq.driver, _spec)
 }
 
 func (graq *GameRoleAttributeQuery) querySpec() *sqlgraph.QuerySpec {
 	_spec := sqlgraph.NewQuerySpec(gameroleattribute.Table, gameroleattribute.Columns, sqlgraph.NewFieldSpec(gameroleattribute.FieldID, field.TypeInt64))
 	_spec.From = graq.sql
+
 	if unique := graq.ctx.Unique; unique != nil {
 		_spec.Unique = *unique
 	} else if graq.path != nil {
 		_spec.Unique = true
 	}
+
 	if fields := graq.ctx.Fields; len(fields) > 0 {
 		_spec.Node.Columns = make([]string, 0, len(fields))
 		_spec.Node.Columns = append(_spec.Node.Columns, gameroleattribute.FieldID)
+
 		for i := range fields {
 			if fields[i] != gameroleattribute.FieldID {
 				_spec.Node.Columns = append(_spec.Node.Columns, fields[i])
 			}
 		}
 	}
+
 	if ps := graq.predicates; len(ps) > 0 {
 		_spec.Predicate = func(selector *sql.Selector) {
 			for i := range ps {
@@ -395,12 +439,15 @@ func (graq *GameRoleAttributeQuery) querySpec() *sqlgraph.QuerySpec {
 			}
 		}
 	}
+
 	if limit := graq.ctx.Limit; limit != nil {
 		_spec.Limit = *limit
 	}
+
 	if offset := graq.ctx.Offset; offset != nil {
 		_spec.Offset = *offset
 	}
+
 	if ps := graq.order; len(ps) > 0 {
 		_spec.Order = func(selector *sql.Selector) {
 			for i := range ps {
@@ -408,41 +455,51 @@ func (graq *GameRoleAttributeQuery) querySpec() *sqlgraph.QuerySpec {
 			}
 		}
 	}
+
 	return _spec
 }
 
 func (graq *GameRoleAttributeQuery) sqlQuery(ctx context.Context) *sql.Selector {
 	builder := sql.Dialect(graq.driver.Dialect())
 	t1 := builder.Table(gameroleattribute.Table)
+
 	columns := graq.ctx.Fields
 	if len(columns) == 0 {
 		columns = gameroleattribute.Columns
 	}
+
 	selector := builder.Select(t1.Columns(columns...)...).From(t1)
 	if graq.sql != nil {
 		selector = graq.sql
 		selector.Select(selector.Columns(columns...)...)
 	}
+
 	if graq.ctx.Unique != nil && *graq.ctx.Unique {
 		selector.Distinct()
 	}
+
 	for _, m := range graq.modifiers {
 		m(selector)
 	}
+
 	for _, p := range graq.predicates {
 		p(selector)
 	}
+
 	for _, p := range graq.order {
 		p(selector)
 	}
+
 	if offset := graq.ctx.Offset; offset != nil {
 		// limit is mandatory for offset clause. We start
 		// with default value, and override it below if needed.
 		selector.Offset(*offset).Limit(math.MaxInt32)
 	}
+
 	if limit := graq.ctx.Limit; limit != nil {
 		selector.Limit(*limit)
 	}
+
 	return selector
 }
 
@@ -453,9 +510,11 @@ func (graq *GameRoleAttributeQuery) ForUpdate(opts ...sql.LockOption) *GameRoleA
 	if graq.driver.Dialect() == dialect.Postgres {
 		graq.Unique(false)
 	}
+
 	graq.modifiers = append(graq.modifiers, func(s *sql.Selector) {
 		s.ForUpdate(opts...)
 	})
+
 	return graq
 }
 
@@ -466,9 +525,11 @@ func (graq *GameRoleAttributeQuery) ForShare(opts ...sql.LockOption) *GameRoleAt
 	if graq.driver.Dialect() == dialect.Postgres {
 		graq.Unique(false)
 	}
+
 	graq.modifiers = append(graq.modifiers, func(s *sql.Selector) {
 		s.ForShare(opts...)
 	})
+
 	return graq
 }
 
@@ -496,33 +557,43 @@ func (gragb *GameRoleAttributeGroupBy) Scan(ctx context.Context, v any) error {
 	if err := gragb.build.prepareQuery(ctx); err != nil {
 		return err
 	}
+
 	return scanWithInterceptors[*GameRoleAttributeQuery, *GameRoleAttributeGroupBy](ctx, gragb.build, gragb, gragb.build.inters, v)
 }
 
 func (gragb *GameRoleAttributeGroupBy) sqlScan(ctx context.Context, root *GameRoleAttributeQuery, v any) error {
 	selector := root.sqlQuery(ctx).Select()
 	aggregation := make([]string, 0, len(gragb.fns))
+
 	for _, fn := range gragb.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
+
 	if len(selector.SelectedColumns()) == 0 {
 		columns := make([]string, 0, len(*gragb.flds)+len(gragb.fns))
 		for _, f := range *gragb.flds {
 			columns = append(columns, selector.C(f))
 		}
+
 		columns = append(columns, aggregation...)
 		selector.Select(columns...)
 	}
+
 	selector.GroupBy(selector.Columns(*gragb.flds...)...)
+
 	if err := selector.Err(); err != nil {
 		return err
 	}
+
 	rows := &sql.Rows{}
 	query, args := selector.Query()
+
 	if err := gragb.build.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
+
 	defer rows.Close()
+
 	return sql.ScanSlice(rows, v)
 }
 
@@ -544,27 +615,34 @@ func (gras *GameRoleAttributeSelect) Scan(ctx context.Context, v any) error {
 	if err := gras.prepareQuery(ctx); err != nil {
 		return err
 	}
+
 	return scanWithInterceptors[*GameRoleAttributeQuery, *GameRoleAttributeSelect](ctx, gras.GameRoleAttributeQuery, gras, gras.inters, v)
 }
 
 func (gras *GameRoleAttributeSelect) sqlScan(ctx context.Context, root *GameRoleAttributeQuery, v any) error {
 	selector := root.sqlQuery(ctx)
 	aggregation := make([]string, 0, len(gras.fns))
+
 	for _, fn := range gras.fns {
 		aggregation = append(aggregation, fn(selector))
 	}
+
 	switch n := len(*gras.selector.flds); {
 	case n == 0 && len(aggregation) > 0:
 		selector.Select(aggregation...)
 	case n != 0 && len(aggregation) > 0:
 		selector.AppendSelect(aggregation...)
 	}
+
 	rows := &sql.Rows{}
 	query, args := selector.Query()
+
 	if err := gras.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
+
 	defer rows.Close()
+
 	return sql.ScanSlice(rows, v)
 }
 
