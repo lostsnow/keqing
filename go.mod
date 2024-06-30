@@ -2,6 +2,8 @@ module github.com/lostsnow/keqing
 
 go 1.22.3
 
+toolchain go1.22.4
+
 require (
 	ariga.io/atlas v0.24.0
 	entgo.io/ent v0.13.1
