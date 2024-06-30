@@ -1,10 +1,10 @@
 module github.com/lostsnow/keqing
 
-go 1.20
+go 1.22.3
 
 require (
-	ariga.io/atlas v0.15.0
-	entgo.io/ent v0.12.5
+	ariga.io/atlas v0.24.0
+	entgo.io/ent v0.13.1
 	github.com/go-sql-driver/mysql v1.8.1
 	github.com/google/uuid v1.6.0
 	github.com/litsea/logger v1.0.1
@@ -41,7 +41,7 @@ require (
 	github.com/spf13/cast v1.6.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/subosito/gotenv v1.6.0 // indirect
-	github.com/zclconf/go-cty v1.14.1 // indirect
+	github.com/zclconf/go-cty v1.14.4 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.26.0 // indirect
 	golang.org/x/exp v0.0.0-20231110203233-9a3e6036ecaa // indirect
